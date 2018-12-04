@@ -1,5 +1,5 @@
 ---
-typora-copy-images-to: 1.Web性能权威指南
+typora-copy-images-to: 1.Web性能权威指南/imgs
 ---
 
 # 概述

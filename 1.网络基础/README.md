@@ -5,7 +5,13 @@ typora-copy-images-to: 1.Web性能权威指南\imgs
 
 # 概述
 
+## 书目
+
 1. 20181204《Web性能权威指南》
+
+## 涵盖内容
+
+1. TCP、UDP、LTS、HTTP等协议概述
 
 # 第一章  延迟与带宽
 

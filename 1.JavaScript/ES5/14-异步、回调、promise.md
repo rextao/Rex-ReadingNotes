@@ -1,4 +1,5 @@
 # 异步
+
 ## 现在与将来（异步铺垫）
 ### 概述
 1. 程序中现在运行的部分和将来运行的部分之间的关系就是异步编程的核心
@@ -10,39 +11,7 @@
     - 浏览器可能会对控制台IO进行延迟，至于什么时候延迟是不确定的，故如console结果找不到头绪，可能是由IO的异步化造成的
     - 最好的调试办法是打断点，而不是console
 
-### 事件循环
-
-#### 概述
-
-1. js引擎不是独立运行的，他运行在宿主环境中（web，nodejs等）
-1. 所有环境都有一个共同“点”（线程），即都提供了一种机制来处理程序中多个块的执行，且执行每块时调用 JavaScript 引擎，这种机制被称为事件循环（Event Loop）。这里面的“事件”调度由环境决定
-1. Js引擎本身并没有时间的概念，只是一个按需执行 Js任意代码片段的环境
-    - 如写一个setTimeout并不是将回调函数挂载事件循环中，而是告诉环境，我需要1分钟后运行这个函数，当时间到了，才会将回调函数挂上事件循环中，但可能事件循环还有其他未运行函数，这也解释了为何setTimeout不准
-    - 故可简单理解异步机制：如ajax，写一个回调函数，告诉宿主环境拿到数据后就调用，当监听到数据后，会将回调函数放到事件循环中准备调用
-1. ES6从本质上改变了在哪里管理事件循环，将事件循环的管理纳入js引擎，主要原因是ES6中Promise的引入
-
-#### task
-
-1. 是严格按照时间顺序压栈和执行的
-2. 可以理解为事件循环中的每个正常事件（task）
-
-#### microtask
-
-1. microtask：通常来说就是需要在当前 task 执行结束后立即执行的任务
-2. microtask 任务队列是一个与 task 任务队列相互独立的队列，microtask 任务将会在每一个 task 任务执行结束之后执行。
-3. 每一个 task 中产生的 microtask 都将会添加到 microtask 队列中，microtask 中产生的 microtask 将会添加至当前队列的尾部，并且 microtask 会按序的处理完队列中的所有任务。
-4. microtask 类型的任务目前包括了 MutationObserver (DOM3 Events，会在指定的DOM发生变化时被调用 )以及 Promise 的回调函数。
-
-####  如何判断 task 和 microtask
-
-1. 直接测试输出是个很好的办法，看看输出的顺序是更像 Promise 还是更像 setTimeout，趋向于 Promise 的则是 microtask，趋向于 setTimeout 的则是 task。
-2. 为啥要用 microtask？根据HTML Standard（https://link.zhihu.com/?target=https%3A//html.spec.whatwg.org/multipage/webappapis.html%23event-loop-processing-model），在每个 task 运行完以后，UI 都会重渲染，那么在 microtask 中就完成数据更新，当前 task 结束就可以得到最新的 UI 了。反之如果新建一个 task 来做数据更新，那么渲染就会进行两次。
-
-#### setInterval 的问题
-
-1. 如setInterval(func,100)，即100ms往队列添加一个事件，100ms后的某个事件，101ms，func调用；
-2. ![1542960198163](14-异步、回调、promise.assets/1542960198163.png)
-3. 根据事件循环，100ms添加一个定时器事件；在过了300ms后，应该t3创建，但此时t2创建的func还未执行完，故跳过t3创建
+1. 
 
 
 ### 并行线程

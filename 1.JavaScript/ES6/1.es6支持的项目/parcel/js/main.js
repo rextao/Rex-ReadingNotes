@@ -1,8 +1,6 @@
 "use strict";
-
-const snabbdom = require('snabbdom');
-const h = snabbdom.h;
-
+import {h,init} from 'snabbdom';
+const snabbdom = { init };
 const patch = snabbdom.init([
   require('snabbdom/modules/class'),          // makes it easy to toggle classes
   require('snabbdom/modules/props'),          // for setting properties on DOM elements

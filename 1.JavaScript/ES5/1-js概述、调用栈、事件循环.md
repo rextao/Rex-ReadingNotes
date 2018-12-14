@@ -49,11 +49,46 @@
    - 全局执行上下文（Global Execution Context）
    - 创建保存变量和函数声明的全局内存（Global Memory）（也称为全局作用域、全局变量）
    - 调用栈（ Call Stack）
-3. 当你调用一个函数时，引擎会创建一个局部上下文和局部内存![1544718387484](1-js概述、调用栈、事件循环.assets/1544718387484.png)
+
+## 运行时
+
+1. 浏览器简单的可以视为：![1544755518500](1-js概述、调用栈、事件循环.assets/1544755518500.png)
+2. memory Heap：负责内存分配
+3. call stack：调用栈，负责执行代码
+4. web apis：是由浏览器提供，而不是由js引擎提供
 
 ## 执行上下文
 
-1. 
+### 概述
+
+1. 任何代码在JavaScript中运行时，都在执行上下文中运行
+
+### 执行上下文的类型
+
+1. 全局执行上下文（Global Execution Context）
+	- 代码不是在某个函数而是在全局执行上下文中运行
+	- 创建全局执行上下文一般执行两件事：1、创建全局对象（浏览器中为window对象），2、设置this值为全局对象
+2. 函数执行上下文（Functional Execution Context）：
+	- 函数被调用时，会创建函数的执行上下文和局部内存![1544718387484](1-js概述、调用栈、事件循环.assets/1544718387484.png)
+	- 注意：此函数执行上下文在函数调用时才被创建！！！！
+
+### 执行上下文是如何创建的
+
+1. 执行上下文创建分为两个阶段
+	- 创建阶段
+	- 执行阶段
+
+#### 创建阶段
+
+1. 在执行任何JavaScript代码之前，执行上下文将经历创建阶段。在创建阶段有三件事情发生
+	- 进行this绑定
+	- 词法环境（LexicalEnvironment）组件创建
+	- 变量环境（VariableEnvironment ）组件创建
+	- 名词定义在https://tc39.github.io/ecma262/#sec-executable-code-and-execution-contexts
+	- 作者对协议进行了介绍https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0
+2. this绑定（具体可以看4-this全面解析）
+	- 在全局执行上下的this绑定到全局对象上（浏览器为window）
+	- 函数执行上下文的this，根据函数调用绑定
 
 ## 调用栈
 
@@ -79,10 +114,75 @@
 
 1. 调用栈内容，main>console.log(bar(6))>bar(6)>foo(18)，然后再依次弹出返回值
 
-## 注意
+### 栈阻塞
 
-1. 堆栈被阻塞，则网页会崩溃的，如一直递归会往堆栈一直push
-2. 异步的回调并没有立即push到堆栈中，因此不会阻塞js其他函数调用
+1. 如递归出现问题时，会一直往栈中push值，导致报错Maximum call stack size exceeded
+2. 如一个非常大计算的函数在栈中，会阻塞浏览器干其他事情，一旦堆栈中处理如此多的任务，页面就可能会长时间停止响应。大多浏览器会提示如下信息：![1544756007907](1-js概述、调用栈、事件循环.assets/1544756007907.png)
+3. 基于这个原因，需要异步处理一些事情，即利用事件循环
+
+## v8引擎介绍
+
+### 概述
+
+1. v8引擎开始的设计目标是提高js在web浏览器的性能
+2. 为了提高速度，v8引擎不是使用js解释器，而是直接利用JIT(Just-In-Time)编译器将js代码直接编译为机器码
+3. SpiderMonkey or Rhino (Mozilla)也是这样做的，v8与他们主要区别是v8不会产生字节码或任何中间代码
+
+### v8使用2个编译器
+
+1. full-codegen编译器
+	- 简单、非常迅速的编译器，产生简单但相对比较慢的机器码
+	- 主要用于代码第一次执行时，此编译器将js代码转换为机器码，不进行任何优化
+2. Crankshaft 编译器
+	- 更复杂的（Just-In-Time）优化编译器
+	- 代码运行多次后，Crankshaft 会启用一个线程将js抽象逻辑树转换为名为Hydrogen的高级static single-assignment (SSA)  ，然后优化Hydrogen
+
+### Crankshaft优化举例
+
+#### 提前内联函数
+
+1. 提前内联尽可能多的代码，即提前找到每个函数对应的位置。 ![1544757505464](1-js概述、调用栈、事件循环.assets/1544757505464.png)
+
+#### 隐藏class
+
+1. js是基于原型的语言，没有class，对象的创建是通过克隆，并且js是动态语言，因此对象实例化后可以添加或删除属性
+
+2. 大多解释器使用hash结构在内存定位obj，如java这样固定类型，可以通过key（类型确定），预测value在内存的最大偏移量，但js的类型可以在运行期改变，这就造成这种方式存储会比java存储花费更大的计算成本
+
+3. v8使用hidden class这样的方式，如代码
+
+	```javascript
+	function Point(x, y) {
+	    this.x = x;
+	    this.y = y;
+	}
+	var p1 = new Point(1, 2);
+	```
+
+4. 当new Point(1, 2) 调用，v8会创建一个C0的hidden class ，由于Point没有属性，故C0为空![1544758161096](1-js概述、调用栈、事件循环.assets/1544758161096.png)
+
+5. 如运行到this.x = x为Point添加x属性，v8会构建一个hidden Class C1，将状态转为C1，this.y= y 时，会构建个C2![1544758478199](1-js概述、调用栈、事件循环.assets/1544758478199.png)
+
+6. 最终，相当于构建了一个从c0到c2的路径
+
+7. 结论
+
+	- 虽然不知道这个如何起到高效的作用！！
+
+	- 但由于v8会构建路径，因此，对于如下不同顺序的赋值操作，v8会构建两条不一样的path
+
+		```javascript
+		function Point(x, y) {
+		    this.x = x;
+		    this.y = y;
+		}
+		var p1 = new Point(1, 2);
+		p1.a = 5;
+		p1.b = 6;
+		var p2 = new Point(3, 4);
+		p2.b = 7;
+		p2.a = 8;
+		```
 
 # 事件循环
 

@@ -235,89 +235,7 @@ div.my_index // undefined
        - 所有浏览器都支持contentWindow属性
        - 访问框架或内联框架的文档对象要受到跨域安全策略的限制
 
-##　3、样式
-1. 概述
-    - ~~通过document.implementation.hasFeature("css","2.0")可以判断浏览器是否支持DOM2级样式~~，此方法已经废弃，标准已经让强制返回true
-
-1. 访问元素样式
-   - 任何sytle特性的HTML元素在js中都对应的sytle属性，style对象包含style特性的所有样式信息，但不包括外部和嵌入样式表的样式
-   - 需要用驼峰法对css属性进行转换，float不可以，因为float在js是保留字，规范样式对象上相应的属性名为cssFloat，但ie是styleFloat
-   - 在标准模式下，度量值必须指定单位，混杂模式，不设置默认为px，实践中最好设置
-   - 没有设置style特性的元素，style对象可能包含一些默认的值，但不能准确反映样式信息
-
-1. DOM样式属性和方法
-   - cssText属性
-        - 读模式：访问style特性中css代码的内部表示
-        - 写模式：重写整个style特性值
-        - 可以一次性应用所有变化
-   - length属性
-        - 与item()方法配套使用，遍历CSS属性
-        - 在使用length时，sytle对象相当于一个集合，可以使用[ i ]
-        - 取得的是CSS属性名background-color
-   - getPropertyValue()方法
-        - 获得属性名对应的属性值
-        - 获得的始终是字符串
-   - removeProperty()方法
-        - 移出属性
-1. 计算的样式
-   - DOM2级增强了document.defaultView()，提供了getComputedStyle()方法
-   - getComputedStyle()方法
-        - 得到当前元素所有计算的样式
-        - 对于综合属性（如border，有多个值），返回结果可能与样式表实际不同，因为不同浏览器解析综合属性的方式不同
-        - 即使浏览器支持这个方法，返回的值表示形式可能也不同
-        - IE不支持这个方法，但有个currentStyle属性，表示计算后的样式
-   - 注意
-        - 计算样式是只读的，不能修改计算后样式对象中的CSS属性
-        - 不要指望某个CSS属性的默认值在不同浏览器是相同的
-1. 操作样式表
-   - 概述
-        - CSSStyleSheet类型表示是样式表，无论是link还是在style中定义的
-        - 这个对象是一套只读接口
-   - document.styleSheets集合
-        - 文档的所有样式表
-        - 可以通过item()访问每一个
-   - 取得CSSStyleSheet对象
-        - 除IE支持sheet属性，IE支持styleSheet属性
-   - CSS规则
-        - CSSRule对象
-            表示样式表中的每一条规则
-            是一个供其他多种类型继承的基类型，常见的就是CSSStyleRule类型（表示样式信息，其他规则有@import，@font-face）
-        - 大多数情况下，style属性就能满足需求
-        - 修改规则会影响页面中适用于这个规则的全部元素，如两个box类的div，那么两个div都会被修改
-   - 创建CSS规则
-        - insertRule()
-            向现有样式表中添加新规则
-            插入规则的次序在确定层叠之后应用到文档的规则时至关重要
-        - ie8之前支持的是addRule()
-        - 虽然这样来添加规则，但随着添加规则的增多，会很繁琐，可以用之前的动态样式的方式
-   - 删除规则
-        - deleteRule()
-        - removeRule()
-            IE支持的方法
-        - 删除规则和创建规则都不是web开发常见做法，考虑到删除规则会影响层叠效果，慎用
-
-1. 元素大小
-    - 概述
-        - 不属于DOM2规范，所有浏览器都支持
-        - 主要用于确定页面元素大小，DOM没有定义
-    - 偏移量
-        - 元素在屏幕中占用的所有可见的空间
-        - 所有偏移量属性都是只读的，每次访问都要重新计算
-    - 客户区大小
-        - 元素内容和内边距所占据的空间大小
-        - 滚动条占用的空间不计算在内
-    - 滚动大小
-        - 包含滚动内容的元素的大小
-        - scrollLeft和scrollTop属性
-             - 可以确定当前元素的滚动位置，也可以设置元素滚动位置
-             - 当值为0时，元素未滚动；大于0时，表示滚动，大于0的部分为滚动后不可见部分的宽度或高度
-             - 把值设为0，则元素滚动到开始位置
-    - 确定元素大小
-        - getBoundingClientRect()方法
-            - 返回一个包含top，left，right，bottom的矩形对象
-            - ie8以前认为文档左上角是（2,2）其他的认为是（0,0）
-
-## 4、遍历
+## 3、遍历
 1. 概述
     - DOM2级，定义了两个辅助完成顺序遍历DOM结构的类型
     - 能够基于给定起点对DOM结构执行深度优先的遍历操作
@@ -342,7 +260,7 @@ div.my_index // undefined
     - 真正强大的地方是能够在DOM结构中沿任意方向移动
 1. 因为遍历方法IE不支持，故跨浏览器解决方案中很少用
 
-## 5、范围
+## 4、范围
 1. 概述
     - 通过范围可以选择文档的一个区域，而不用考虑节点界限
     - 选择后台完成，用户不可见
@@ -390,4 +308,162 @@ div.my_index // undefined
             - 将范围从文档中分离出，一旦分离，则不能恢复
         - 分离范围后，就可以放心的解除对范围的引用，range = null
 
+# 样式（CSSOM ）
 
+## 概述
+
+1. 最初在DOM Level 2 style定义，后这些接口统一为一个规范CSS Object Model（CSSOM）
+2. CSS对象模型是一组用JavaScript操作CSS的API，允许用户动态地读取和修改CSS样式。 
+
+## 访问元素样式(style对象)
+
+1. `document.body.style.background = 'lightblue';`
+   - style对象可以设置并读取样式，但只对内联样式有作用
+   - **不包括外部和嵌入样式表的样式**
+2. 需要用驼峰法对css属性进行转换，float在js是保留字，使用cssFloat，如需要兼容ie8是styleFloat
+3. 在标准模式下，度量值必须指定单位，混杂模式，不设置默认为px，**一定要设置单位（之前有忘记设的坑）**
+4. 没有设置style特性的元素，style对象可能包含一些默认的值，但不能准确反映样式信息
+5. 因此，通常很容易使用`document.body.style`添加属性
+
+## 计算样式getComputedStyle()
+
+### 使用方法
+
+1. `window.getComputedStyle(document.body).background; `
+2. `window.getComputedStyle(el)['background-color'];`（不推荐使用，代码编辑器可以会提示）
+3. `window.getComputedStyle(el).getPropertyValue('background-color') `
+4. 通过3中方式可以获取body计算样式值
+
+### 主要问题
+
+1. 方法会返回过多的值，可能很多值并不是需要的
+   - 比如`window.getComputedStyle(document.body).background`返回结果是：`"rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"`
+   - 对于综合属性（如border，background等），因为不同浏览器解析方式不同，返回结果可能实际不同
+2. 可能返回并不是样式定义的值
+   - 比如`height`和`width`，如果样式中没有定义，也会返回实际的尺寸
+3. 计算样式是只读的，不能修改计算后样式对象中的CSS属性
+
+### 获取伪元素样式
+
+1. `window.getComputedStyle(box, '::before').width; `，getComputedStyle第二个参数可以传入伪元素
+
+
+
+## CSSStyleDeclaration API
+
+### 概述
+
+1. 用style对象`document.body.style`或`window.getComputedStyle(document.body)`返回的是CSSStyleDeclaration的对象![1545146448610](9-DOM.assets/1545146448610.png)
+
+### 主要属性
+
+#### cssText属性
+
+1. 读模式：访问style特性中css代码的内部表示
+2. 写模式：重写整个style特性值
+3. 可以一次性应用所有变化
+
+#### length属性
+
+1. 与item()方法配套使用，遍历CSS属性
+2. 在使用length时，sytle对象相当于一个集合，可以使用[ i ]
+3. 取得的是CSS属性名background-color
+
+### 主要方法
+
+#### setProperty ()
+
+1. `box.style.setProperty('color', 'orange'); `
+
+#### getPropertyValue()
+
+1. `box.style.getPropertyValue('color') `
+2. 获得属性名对应的属性值
+3. 获得的始终是字符串
+
+#### item()
+
+1. `box.style.item(index)`
+2. 返回第index个元素的属性名
+
+#### removeProperty()
+
+1. 移除属性
+
+#### getPropertyPriority() 
+
+1. 获取内联属性是否有`! important`
+2. 如`<div class="box" style="border: solid 1px red !important;"> `则border-right、border-left、border等，这个属性都会返回Important
+
+## CSSStyleSheet API
+
+### 概述
+
+1. style对象只能访问内联属性，getComputedStyle获取的样式信息过多（默认信息也会返回）
+
+
+
+
+
+
+
+1. 操作样式表
+
+   - 概述
+     - CSSStyleSheet类型表示是样式表，无论是link还是在style中定义的
+     - 这个对象是一套只读接口
+   - document.styleSheets集合
+     - 文档的所有样式表
+     - 可以通过item()访问每一个
+   - 取得CSSStyleSheet对象
+     - 除IE支持sheet属性，IE支持styleSheet属性
+   - CSS规则
+     - CSSRule对象
+       表示样式表中的每一条规则
+       是一个供其他多种类型继承的基类型，常见的就是CSSStyleRule类型（表示样式信息，其他规则有@import，@font-face）
+     - 大多数情况下，style属性就能满足需求
+     - 修改规则会影响页面中适用于这个规则的全部元素，如两个box类的div，那么两个div都会被修改
+   - 创建CSS规则
+     - insertRule()
+       向现有样式表中添加新规则
+       插入规则的次序在确定层叠之后应用到文档的规则时至关重要
+     - ie8之前支持的是addRule()
+     - 虽然这样来添加规则，但随着添加规则的增多，会很繁琐，可以用之前的动态样式的方式
+   - 删除规则
+     - deleteRule()
+     - removeRule()
+       IE支持的方法
+     - 删除规则和创建规则都不是web开发常见做法，考虑到删除规则会影响层叠效果，慎用
+
+2. 元素大小
+
+   - 概述
+
+     - 不属于DOM2规范，所有浏览器都支持
+     - 主要用于确定页面元素大小，DOM没有定义
+
+   - 偏移量
+
+     - 元素在屏幕中占用的所有可见的空间
+     - 所有偏移量属性都是只读的，每次访问都要重新计算
+
+   - 客户区大小
+
+     - 元素内容和内边距所占据的空间大小
+     - 滚动条占用的空间不计算在内
+
+   - 滚动大小
+
+     - 包含滚动内容的元素的大小
+     - scrollLeft和scrollTop属性
+       - 可以确定当前元素的滚动位置，也可以设置元素滚动位置
+       - 当值为0时，元素未滚动；大于0时，表示滚动，大于0的部分为滚动后不可见部分的宽度或高度
+       - 把值设为0，则元素滚动到开始位置
+
+   - 确定元素大小
+
+     - getBoundingClientRect()方法
+
+       - 返回一个包含top，left，right，bottom的矩形对象
+
+       - # ie8以前认为文档左上角是（2,2）其他的认为是（0,0）

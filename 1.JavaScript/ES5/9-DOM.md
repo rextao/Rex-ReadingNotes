@@ -400,6 +400,98 @@ div.my_index // undefined
 ### 概述
 
 1. style对象只能访问内联属性，getComputedStyle获取的样式信息过多（默认信息也会返回）
+2. CSSStyleSheet API，它允许检索具有可读和可写值的样式表，而不仅仅是用于内联样式。 
+3. 获取文档包含的样式表数量
+   - document.styleSheets.length；
+4. 获取某个样式表的引用
+   - document.styleSheets[0]; 
+
+### CSSRule
+
+#### 概述
+
+1. cssRule接口表示样式表中的每一条规则，` document.styleSheets[0].cssRules `获取某个样式的表的规则，返回值是一个包含有序CSSRule对象的CSSRuleList 数组，每个数据项是一个CSSRule
+
+2. 可以通过循环获取样式表的全部样式信息
+
+   ```javascript
+   let myRules = document.styleSheets[0].cssRules,
+       p = document.querySelector('p');
+   for (i of myRules) {
+     if (i.type === 1) {// 1表示Css常量
+       p.innerHTML += `<code>${i.selectorText}</code><br>`;
+     }
+   }
+   ```
+
+#### CSSRule常量
+
+1. CSSRule.type：只读，表示CSSRule常量定义的css规则
+2. cssRule常量，常用的有
+   - CSSRule.STYLE_RULE = 1：普通样式，大多数情况下，style属性就能满足需求
+   - CSSRule.MEDIA_RULE = 4 ：media的样式
+3. 注意：不同的常量，返回的值实现了不同接口
+   - CSSRule.MEDIA_RULE，返回的是CSSMediaRule（实现了CSSConditionRule接口）；
+   - CSSRule.STYLE_RULE 返回的是CSSStyleRule（实现 CSSRule接口）
+4. 可以通过不同的类型，操作@frame，@media等，但有的方法浏览器可能支持并不好
+
+#### CSSRule.cssText
+
+1. 获取样式规则，对于上面循环例子，使用cssText的结果如下：
+
+   ```css
+   * { box-sizing: border-box; }
+   body { font-family: Helvetica, Arial, sans-serif; font-size: 1.5em; line-height: 1.4; padding: 0px 20px; }
+   main { width: 1024px; margin: 0px auto !important; }
+   .component { float: right; border-left: 1px solid rgb(68, 68, 68); margin-left: 20px; }
+   ```
+
+#### CSSStyleRule.selectorText
+
+1. 获取样式规则的选择器，使用selectorText的结果
+
+   ```
+   *
+   body
+   main
+   .component
+   a:hover
+   code
+   ```
+
+1. 此属性可以设置样式，比如
+
+   ```javascript
+   if (i.selectorText === 'a:hover') {
+     i.selectorText = 'a:hover, a:active';
+   }
+   ```
+
+   
+
+### insertRule('string',index)
+
+1. index默认为0，即插入到样式表最前面
+
+2. string：要插入的完整样式，需要完整
+
+   ```javascript
+   let myStylesheet = document.styleSheets[0];
+   console.log(myStylesheet.cssRules.length); // 8
+   document.styleSheets[0].insertRule('article { line-height: 1.5; font-size: 1.5em; }', myStylesheet.cssRules.length);
+   console.log(document.styleSheets[0].cssRules.length); // 9
+   ```
+
+3. 向现有样式表中添加新规则
+
+4. 插入规则的次序在确定层叠之后应用到文档的规则时至关重要
+
+   
+
+### deleteRule(index)
+
+1. 
+2. 删除规则和创建规则都不是web开发常见做法，考虑到删除规则会影响层叠效果，慎用
 
 
 
@@ -407,35 +499,7 @@ div.my_index // undefined
 
 
 
-1. 操作样式表
-
-   - 概述
-     - CSSStyleSheet类型表示是样式表，无论是link还是在style中定义的
-     - 这个对象是一套只读接口
-   - document.styleSheets集合
-     - 文档的所有样式表
-     - 可以通过item()访问每一个
-   - 取得CSSStyleSheet对象
-     - 除IE支持sheet属性，IE支持styleSheet属性
-   - CSS规则
-     - CSSRule对象
-       表示样式表中的每一条规则
-       是一个供其他多种类型继承的基类型，常见的就是CSSStyleRule类型（表示样式信息，其他规则有@import，@font-face）
-     - 大多数情况下，style属性就能满足需求
-     - 修改规则会影响页面中适用于这个规则的全部元素，如两个box类的div，那么两个div都会被修改
-   - 创建CSS规则
-     - insertRule()
-       向现有样式表中添加新规则
-       插入规则的次序在确定层叠之后应用到文档的规则时至关重要
-     - ie8之前支持的是addRule()
-     - 虽然这样来添加规则，但随着添加规则的增多，会很繁琐，可以用之前的动态样式的方式
-   - 删除规则
-     - deleteRule()
-     - removeRule()
-       IE支持的方法
-     - 删除规则和创建规则都不是web开发常见做法，考虑到删除规则会影响层叠效果，慎用
-
-2. 元素大小
+1. 元素大小
 
    - 概述
 

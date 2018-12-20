@@ -203,7 +203,7 @@ div.my_index // undefined
    - 概述
        - DOM2级核心，没有引入新类型，只是在DOM1基础上增加新方法和属性以增加既有类型
        - DOM3级核心，增强了既有类型，也引入了新类型
-    - 针对命名空间的变化
+        - 针对命名空间的变化
        - 技术上HTML不支持命名空间，XHTML支持XML命名空间
        - 基本是在各个类型节点上，增加了命名空间的支持
        - DOM其他部分在DOM2核心也发生了变化，这些变化与命名空间无关，如下：
@@ -490,44 +490,63 @@ div.my_index // undefined
 
 ### deleteRule(index)
 
-1. 
+1. 删除某条规则
 2. 删除规则和创建规则都不是web开发常见做法，考虑到删除规则会影响层叠效果，慎用
 
+### 与CSSStyleDeclaration API关系
+
+1. 通过`document.styleSheets[0].cssRules[0].style`可以返回CSSStyleDeclaration
+
+2. ```htm
+	<div style="color: lightblue; width: 100px; font-size: 1.3em !important;"></div>
+	```
+
+3. ```css
+	.box {
+	    color: red;
+	    width: 100px;
+	    font-size: 1.3em !important;
+	}
+	```
+
+4. ```javascript
+	console.log(document.styleSheets[0].cssRules[0].style.color);
+	console.log(document.querySelector('div').style.color)
+	```
 
 
 
 
 
 
-1. 元素大小
 
-   - 概述
+# 元素大小
 
-     - 不属于DOM2规范，所有浏览器都支持
-     - 主要用于确定页面元素大小，DOM没有定义
+- 概述
 
-   - 偏移量
+  - 不属于DOM2规范，所有浏览器都支持
+  - 主要用于确定页面元素大小，DOM没有定义
 
-     - 元素在屏幕中占用的所有可见的空间
-     - 所有偏移量属性都是只读的，每次访问都要重新计算
+- 偏移量
 
-   - 客户区大小
+  - 元素在屏幕中占用的所有可见的空间
+  - 所有偏移量属性都是只读的，每次访问都要重新计算
 
-     - 元素内容和内边距所占据的空间大小
-     - 滚动条占用的空间不计算在内
+- 客户区大小
 
-   - 滚动大小
+  - 元素内容和内边距所占据的空间大小
+  - 滚动条占用的空间不计算在内
 
-     - 包含滚动内容的元素的大小
-     - scrollLeft和scrollTop属性
-       - 可以确定当前元素的滚动位置，也可以设置元素滚动位置
-       - 当值为0时，元素未滚动；大于0时，表示滚动，大于0的部分为滚动后不可见部分的宽度或高度
-       - 把值设为0，则元素滚动到开始位置
+- 滚动大小
 
-   - 确定元素大小
+  - 包含滚动内容的元素的大小
+  - scrollLeft和scrollTop属性
+    - 可以确定当前元素的滚动位置，也可以设置元素滚动位置
+    - 当值为0时，元素未滚动；大于0时，表示滚动，大于0的部分为滚动后不可见部分的宽度或高度
+    - 把值设为0，则元素滚动到开始位置
 
-     - getBoundingClientRect()方法
+- 确定元素大小
 
-       - 返回一个包含top，left，right，bottom的矩形对象
+  - getBoundingClientRect()方法
 
-       - # ie8以前认为文档左上角是（2,2）其他的认为是（0,0）
+    - 返回一个包含top，left，right，bottom的矩形对象

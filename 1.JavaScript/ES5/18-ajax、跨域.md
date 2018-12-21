@@ -418,9 +418,88 @@
 ### WS与WSS
 
 1. WebSocket 资源 URL 采用了自定义模式： 
-	- ws 表示纯文本通信（如 ws://example. com/socket）
-	- wss 表示使用加密信道通信（ TCP+TLS）  
+  - ws 表示纯文本通信（如 ws://example. com/socket）
+  - wss 表示使用加密信道通信（ TCP+TLS）  
 2. 使用自定义模式主要目的是在浏览器中的应用与服务器之间提供优化的、双向通信机制，让WebSocket可以通过非HTTP协商机制交换数据
+
+### 接收文本和二进制数据
+
+1. WebSocket 协议不作格式假设，对应用的净荷也没有限制：文本或者二进制数据都没问题
+
+2. 浏览器接收到新消息后，如果是文本数据，会自动将其转换成DOMString 对象，如果是二进制数据或 Blob 对象，会直接将其转交给应用
+
+3.   可以通过如下设置，如接收的是二进制数据，则将数据转换为arraybuffer类型
+
+	```javascript
+	var ws = new WebSocket('wss://example.com/socket');
+	ws.binaryType = "arraybuffer"; 
+	```
+
+4. arraybuffer在内存处理会更有效，对于需要再处理的二进制数据，这个格式很合适
+
+5. 如接收的数据不需要修改或不需要切分为小块，直接存储在硬盘上，使用一个完整的Blob对象更合适
+
+### 发送文本和二进制数据
+
+1. 建立WebSocket连接后，客户端可以随时发送或接收数据
+
+2. ```javascript
+	var ws = new WebSocket('wss://example.com/socket');
+	ws.onopen = function () {
+	socket.send("Hello server!"); // ➊ 发送 UTF-8 编码的文本消息
+	socket.send(JSON.stringify({'msg': 'payload'})); // ➋ 发送 UTF-8 编码的 JSON 净荷
+	var buffer = new ArrayBuffer(128);
+	socket.send(buffer); // ➌ 发送二进制 ArrayBuffer
+	var intview = new Uint32Array(buffer);
+	socket.send(intview); // ➍ 发送二进制 ArrayBufferView,ArrayBufferView是通过不同格式展示ArrayBuffer内容
+	var blob = new Blob([buffer]);
+	socket.send(blob); 
+	}
+	```
+
+3. 注意：send方法是异步的，提供的数据会在客户端排队；websocket消息会在客户端排队逐个发送，大量排队消息会导致队首阻塞
+
+4. 为避免队首阻塞，可以使用bufferedAmount监控浏览器缓存数据量
+
+	```javascript
+	var ws = new WebSocket('wss://example.com/socket');
+	ws.onopen = function () {
+		// ➊ 预订应用更新
+	    subscribeToApplicationUpdates(function(evt) {
+	        // ➋ 检查客户端缓冲的数据量
+	        if (ws.bufferedAmount == 0) 
+	            // ➌ 如果缓冲是空的，发送下一次更新
+	        	ws.send(evt.data); 
+	    });
+	};
+	```
+
+5. 要实现最优化传输，应用必须关心任意时刻在套接字上排队的是什么消息！  
+
+### 子协议协商  
+
+1. WebSocket 协议对每条消息的格式事先不作任何假设，只用一位标志是文本还是二进制信息，除此之外的消息内容是未知的
+
+2. http或xhr请求会通过HTTP首部沟通元数据，但WebSocket并没有这样的机制，因此两端必须达成沟通这一数据的子协议
+
+3. 子协议名由应用自己定义，如自协议协商成功，则会触发客户端的onopen回调，否则会触发onerrror回调
+
+	```javascript
+	// ➊ 握手期间发送自定义的两个协议
+	var ws = new WebSocket('wss://example.com/socket',
+	['appProtocol', 'appProtocol-v2']);
+	ws.onopen = function () {
+	// ➋ 判断服务器使用了哪个协议
+	if (ws.protocol == 'appProtocol-v2') { 
+	...
+	} else {
+	...
+	}
+	```
+
+## WebSocket协议
+
+1. 
 
 # 其他跨域技术
 ### 图像ping

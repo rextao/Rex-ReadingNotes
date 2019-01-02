@@ -38,6 +38,8 @@
    - `git log `：显示提交历史
 5. status
    - `git status `：查看哪些文件修改了
+6. 清除缓冲区内容
+	- git rm -r --cached .
 
 ## 分支
 

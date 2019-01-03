@@ -3,6 +3,12 @@
 1. 是Asynchronous JavaScript+XML简写
 1. 核心是XMLHTTPRequest对象（简称XHR）
 
+## 解决缓存问题
+
+1. 设置请求头If-Modified-Since为0；Cache-Control为no-cache
+2. URL后面加上一个随机数： "fresh=" + Math.random()。
+3. URL后面加上时间戳："nowtime=" + new Date().getTime()。
+
 # XMLHTTPRequest
 
 ## 概述
@@ -102,11 +108,16 @@
 1. GET与POST是HTTP协议的两种发送请求的方法
 2. HTTP的底层是TCP/IP。所以GET和POST的底层也是TCP/IP。GET和POST能做的事情是一样一样的。你要给GET加上request body，给POST带上url参数，技术上是完全行的通的。 
 3. 但由于浏览器与服务器的限制，导致他们在应用过程中体现了不同
-	- 如get请求即使加上request body，服务器可能也会忽略
+  - 如get请求即使加上request body，服务器可能也会忽略
 4. **重大区别**：GET产生一个TCP数据包；POST产生两个TCP数据包。
-	- 对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
-	- 对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
-	- 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。
+  - 对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
+  - 对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+  - 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。
+5. 其他区别
+	- post发送的数据更大（get有url长度限制） 
+	- post比get慢 （post两次TCP）
+	- post用于修改和写入数据，get一般用于搜索排序和筛选之类的操作
+	- post更安全（不会作为url的一部分，不会被缓存、保存在服务器日志、以及浏览器浏览记录中） 
 
 ## XMLHttpRequest2级
 

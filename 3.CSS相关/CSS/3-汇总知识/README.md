@@ -1,4 +1,8 @@
-### 三栏自适应布局（两边宽度固定，中间自适应）
+### 三栏自适应布局
+
+#### 概述
+
+1. 两边宽度固定，中间自适应
 
 #### 普通玩法
 
@@ -70,54 +74,143 @@
 
 1. 即html结构需要是，main在最前面，实现三列布局
 
-	```html
-	<div id="box">
-	    <div id = "center">我是中间</div>
-	    <div id = "left">我是左边</div>    
-	    <div id = "right">我是右边</div>
-	</div>
-	```
+  ```html
+  <div id="box">
+      <div id = "center">我是中间</div>
+      <div id = "left">我是左边</div>    
+      <div id = "right">我是右边</div>
+  </div>
+  ```
 
 2. 绝对定位，可以随意安排div顺序
 
 3. flex布局
 
-	```css
-	#left{
-	    order:-1;
-	}
-	```
+  ```css
+  #left{
+      order:-1;
+  }
+  ```
 
-	- 利用flex的order将调整显示顺序
+  - 利用flex的order将调整显示顺序
 
 4. 浮动大法（圣杯布局）
 
-	```css
-	#box{
-	    padding: 0 200px;
-	}
-	#left,#right,#center{
-	    position: relative;
-	    float: left;
-	}
-	#left,#right{
-	    width: 200px;
-	    height: 200px;
-	    background-color: #ffe6b8;
-	}
-	#right{
-	    margin-right: -100%;
-	}
-	#left{
-	    left:-200px;
-	    margin-left: -100%;
-	}
-	#center{
-	    width: 100%;
-	    background-color: lightgreen;}
-	```
+  ```css
+  #box{
+      padding: 0 200px;
+  }
+  #left,#right,#center{
+      position: relative;
+      float: left;
+  }
+  #left,#right{
+      width: 200px;
+      height: 200px;
+      background-color: #ffe6b8;
+  }
+  #right{
+      margin-right: -100%;
+  }
+  #left{
+      left:-200px;
+      margin-left: -100%;
+  }
+  #center{
+      width: 100%;
+      background-color: lightgreen;}
+  ```
 
-	- 外围container利用padding，将center两边空出left与right大小
-	- left与right利用负100%margin换行到第一行
-	- 利用relative定位，将left左移200px，避免挡住center内容
-	- 当缩小到一定程度，会导致3个元素混乱
+  - 外围container利用padding，将center两边空出left与right大小
+  - left与right利用负100%margin换行到第一行
+  - 利用relative定位，将left左移200px，避免挡住center内容
+  - 当缩小到一定程度，会导致3个元素混乱
+
+
+
+### 垂直居中的方法
+
+#### margin:auto法
+
+1. 利用absolute与`margin:auto`
+
+   ```html
+   <style>
+       .outer{
+           width: 400px;
+           height: 400px;
+           position: relative;
+           border: 1px solid #000;
+       }
+       .inner{
+           position: absolute;
+           left: 0;
+           top: 0;
+           right: 0;
+           bottom: 0;
+           margin: auto;
+           background-color: #000;
+           width: 30px;
+           height: 30px;
+       }
+   </style>
+   <div class="outer">
+       <div class="inner"></div>
+   </div>
+   ```
+
+#### 负margin
+
+```html
+<style>
+    .outer{
+        width: 400px;
+        height: 400px;
+        position: relative;
+        border: 1px solid #000;
+    }
+    .inner{
+        position: absolute;        
+        background-color: #000;
+        width: 30px;
+        height: 30px;
+        left: 50%;
+        top: 50%;
+        margin-left: -15px;
+        margin-top: -15px;
+    }
+</style>
+```
+
+#### transform方法
+
+1. 利用`transform：translateX(-50%)和transform：translateY(-50%) `
+
+#### table-cell（未脱离文档流的）
+
+1. 设置父元素的display:table-cell,并且vertical-align:middle，这样子元素可以实现垂直居中。 
+
+#### flex
+
+1. 将父元素设置为display:flex，并且设置`align-items:center;justify-content:center;`
+
+### 元素隐藏
+
+#### display:none
+
+1. 浏览器不会生成属性为display: none;的元素
+2. 不占据空间，动态改变此属性时会引起重排（改变页面布局），可以理解成在页面中把该元素删除掉一样 
+3. 不会被子孙继承，但是其子孙是不会显示的，毕竟都一起被隐藏了。  
+
+#### visibility:hidden
+
+1. 占据空间
+2. 会被子孙继承，子孙也可以通过显示的设置visibility: visible;来反隐藏。  
+3. 动态修改此属性会引起重绘。  
+4. 不会触发该元素已经绑定的事件。 
+
+#### opacity=0
+
+1. 透明度为100%，占据空间
+2. 会被子孙继承，子元素并 不能通过opacity=1，进行反隐藏。
+3. 依然能触发已经绑定的事件 

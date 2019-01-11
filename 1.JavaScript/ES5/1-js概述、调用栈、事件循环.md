@@ -324,11 +324,55 @@
 1. 直接测试输出是个很好的办法，看看输出的顺序是更像 Promise 还是更像 setTimeout，趋向于 Promise 的则是 microtask，趋向于 setTimeout 的则是 task。
 2. 为啥要用 microtask？根据HTML Standard（https://link.zhihu.com/?target=https%3A//html.spec.whatwg.org/multipage/webappapis.html%23event-loop-processing-model），在每个 task 运行完以后，UI 都会重渲染，那么在 microtask 中就完成数据更新，当前 task 结束就可以得到最新的 UI 了。反之如果新建一个 task 来做数据更新，那么渲染就会进行两次。
 
-## setInterval 的问题
 
-1. 如setInterval(func,100)，即100ms往队列添加一个事件，100ms后的某个事件，101ms，func调用；
-2. ![1542960198163](1-js概述、调用栈、事件循环.assets/1542960198163.png)
-3. 根据事件循环，100ms添加一个定时器事件；在过了300ms后，应该t3创建，但此时t2创建的func还未执行完，故跳过t3创建
+
+## 时钟
+
+### setInterval 的问题
+
+1. 问题1：某些func未执行
+
+	- 如setInterval(func,100)，即100ms往队列添加一个事件，100ms后的某个事件，101ms，func调用；![1542960198163](1-js概述、调用栈、事件循环.assets/1542960198163.png)
+		- 根据事件循环，100ms添加一个定时器事件；在过了300ms后，应该t3创建，但此时t2创建的func还未执行完，故跳过t3创建
+
+2. 问题2：使用 setInterval 时，func 函数的实际调用间隔要比代码给出的间隔时间要短
+
+	![1547198210894](1-js概述、调用栈、事件循环.assets/1547198210894.png)
+
+	- setInterval，比如设置100ms运行func一次，但如果func执行时间就是100ms，则实际调用时，则无函数间隔（不考虑事件循环）
+
+3. 在Chrome/Opera/Safari中，弹窗会使周期时钟暂停
+
+### 递归setTimeout
+
+1. 比setInterval更灵活，如服务器过载，可以降低请求频率
+
+	```javascript
+	let delay = 5000;
+	
+	let timerId = setTimeout(function request() {
+	  // ...send request...
+	  if (request failed due to server overload) { 
+	    delay *= 2;
+	  }
+	  timerId = setTimeout(request, delay);
+	}, delay);
+	```
+
+### 时间间隔问题
+
+1. 利用递归形式的setTimeout，则可以保证函数间隔为100ms
+
+	![1547198366288](1-js概述、调用栈、事件循环.assets/1547198366288.png)
+
+### 嵌套定时器的最小间隔
+
+1. 在浏览器环境下，嵌套定时器的运行频率是受限制的。
+2. 根据 [HTML5 标准](https://www.w3.org/TR/html5/webappapis.html#timers) 所言：“经过 5 重嵌套之后，定时器运行间隔强制要求至少达到 4 毫秒”。
+
+## requestAnimationFrame
+
+1. 见《Rex-ReadingNotes\2.HTML\2-HTML5\window.requestAnimationFrame.md》
 
 
 

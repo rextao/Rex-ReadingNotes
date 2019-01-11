@@ -368,7 +368,15 @@
 ### 嵌套定时器的最小间隔
 
 1. 在浏览器环境下，嵌套定时器的运行频率是受限制的。
-2. 根据 [HTML5 标准](https://www.w3.org/TR/html5/webappapis.html#timers) 所言：“经过 5 重嵌套之后，定时器运行间隔强制要求至少达到 4 毫秒”。
+2. 根据 [HTML5 标准](https://www.w3.org/TR/html5/webappapis.html#timers) 所言：“经过 5 重嵌套之后，定时器运行间隔强制要求至少达到 4 毫秒”。（原话是：Timers can be nested; after five such nested timers, however, the interval is forced to be at least four milliseconds. ）
+
+### setTimeout(func,0)的用例
+
+1. 将耗费 CPU 的任务分割成多块，这样脚本运行不会进入“挂起”状态。
+2. 进程繁忙时也能让浏览器抽身做其它事情（例如绘制进度条）。
+   - 因为浏览器在所有脚本执行完后，才会开始“重绘（repainting）”过程。
+   - 所以，如果运行一个非常耗时的函数，即便在这个函数中改变了文档内容，除非这个函数执行完，那么变化是不会立刻反映到页面上的。
+3. 以上两种情况都可以利用setTimeout对任务进行分割
 
 ## requestAnimationFrame
 

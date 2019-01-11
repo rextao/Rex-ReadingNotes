@@ -41,3 +41,72 @@
 	}); 
 	cancelAnimationFrame(timer);
 	```
+
+## 简易动画
+
+### html
+
+```html
+<body>
+    <div id="mydiv"></div>
+    <button id="btn">btn</button>
+</body>
+```
+
+### CSS
+
+```css
+#mydiv {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top:300px;
+            background-color: #000000;
+        }
+```
+
+### 简单调用
+
+```javascript
+var adiv = document.getElementById('mydiv')
+var leftpos = 0
+function movediv(timestamp){
+    leftpos += 5
+    adiv.style.left = leftpos + 'px'
+    requestAnimationFrame(movediv) // call requestAnimationFrame again to animate next frame
+}
+document.getElementById('btn').addEventListener('click', function () {
+    requestAnimationFrame(function (timestamp) {
+        requestAnimationFrame(movediv);
+    })
+})
+
+```
+
+### 为动画设定结束时间
+
+```javascript
+var adiv = document.getElementById('mydiv')
+var starttime
+function moveit(timestamp, el, dist, duration) {
+    //if browser doesn't support requestAnimationFrame, generate our own timestamp using Date:
+    var timestamp = timestamp || new Date().getTime()
+    var runtime = timestamp - starttime
+    var progress = runtime / duration
+    progress = Math.min(progress, 1)
+    el.style.left = (dist * progress).toFixed(2) + 'px'
+    if (runtime < duration) { 
+        requestAnimationFrame(function (timestamp) {
+            console.log(timestamp)
+            moveit(timestamp, el, dist, duration)
+        })
+    }
+}
+document.getElementById('btn').addEventListener('click', function () {
+    requestAnimationFrame(function (timestamp) {
+        starttime = timestamp || new Date().getTime()
+        moveit(timestamp, adiv, 400, 2000)
+    })
+})
+```
+

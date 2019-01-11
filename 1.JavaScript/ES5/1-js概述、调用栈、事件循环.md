@@ -212,6 +212,18 @@
 	- objA与objB相互引用，会被标记为2，当两个对象离开作用域后，计数不为0
 	- 垃圾回收器并不能回收这样的对象，故会造成内存泄露
 
+# 引擎介绍
+
+## 常见引擎
+
+1. V8：开源，Google开发，C++
+2. [Rhino](https://en.wikipedia.org/wiki/Rhino_%28JavaScript_engine%29)：开源，Mozilla ，java开发
+3. [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey_%28JavaScript_engine%29)：第一个js引擎，原来服务于网景公司，现在Firfox
+4. [JavaScriptCore](https://en.wikipedia.org/wiki/JavaScriptCore) ：开源，Apple为Safari开发
+5. [JerryScript](https://en.wikipedia.org/wiki/JerryScript)：为互联网开发的轻量级引擎
+6. [Chakra (JScript9)](https://en.wikipedia.org/wiki/Chakra_%28JScript_engine%29)：IE引擎
+7. [Chakra (JavaScript)](https://en.wikipedia.org/wiki/Chakra_%28JavaScript_engine%29) ：Edge引擎
+
 ## v8引擎介绍
 
 ### 概述
@@ -285,11 +297,11 @@
 3. Js引擎本身并没有时间的概念，只是一个按需执行 Js任意代码片段的环境
    - 如写一个setTimeout并不是将回调函数挂载事件循环中，而是告诉环境，我需要1分钟后运行这个函数，当时间到了，才会将回调函数挂上事件循环中，但可能事件循环还有其他未运行函数，这也解释了为何setTimeout不准
    - 故可简单理解异步机制：如ajax，写一个回调函数，告诉宿主环境拿到数据后就调用，当监听到数据后，会将回调函数放到事件循环中准备调用
-4. ES6从本质上改变了在哪里管理事件循环，将事件循环的管理纳入js引擎，主要原因是ES6中Promise的引入
+4. ES6标准指定了事件循环应该如何工作，故将事件循环的管理纳入js引擎，这样做主要原因是ES6中Promise（promise需要对事件循环进行直接、细粒度的控制）的引入
 
 ## 与调用栈的关系
 
-1. 事件循环（event loop）会检查调用栈（call stack）是否为空，如空，则去查询事件队列（event queue）
+1. 事件循环（event loop）会检查调用栈（call stack）是否为空，如空，则去查询事件队列（ Event Loop queue）
 2. 如事件队列有内容，则将内容加入调用栈并执行
 3. 事件循环会不断的运行，直到浏览器内容loaded完或关闭浏览器
 4. 事件表（ event table ）跟踪已触发的所有事件，并将它们发送到要执行的事件队列。 
@@ -299,12 +311,13 @@
 1. 是严格按照时间顺序压栈和执行的
 2. 可以理解为事件循环中的每个正常事件（task）
 
-## microtask
+## microtask（jobs）
 
-1. microtask：通常来说就是需要在当前 task 执行结束后立即执行的任务
-2. microtask 任务队列是一个与 task 任务队列相互独立的队列，microtask 任务将会在每一个 task 任务执行结束之后执行。
-3. 每一个 task 中产生的 microtask 都将会添加到 microtask 队列中，microtask 中产生的 microtask 将会添加至当前队列的尾部，并且 microtask 会按序的处理完队列中的所有任务。
-4. microtask 类型的任务目前包括了 MutationObserver (DOM3 Events，会在指定的DOM发生变化时被调用 )以及 Promise 的回调函数。
+1. ES6引入新的“Job 队列”，主要是为了处理promise
+2. microtask：通常来说就是需要在当前 task 执行结束后立即执行的任务
+3. microtask 任务队列是一个与 task 任务队列相互独立的队列，microtask 任务将会在每一个 task 任务执行结束之后执行。
+4. 每一个 task 中产生的 microtask 都将会添加到 microtask 队列中，microtask 中产生的 microtask 将会添加至当前队列的尾部，并且 microtask 会按序的处理完队列中的所有任务。
+5. microtask 类型的任务目前包括了 MutationObserver (DOM3 Events，会在指定的DOM发生变化时被调用 )以及 Promise 的回调函数。
 
 ## 如何判断 task 和 microtask
 

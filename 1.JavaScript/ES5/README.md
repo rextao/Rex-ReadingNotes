@@ -25,8 +25,9 @@
    - 17章，WebSocket
 2. 20181214，新增[面试图谱](https://github.com/InterviewMap/CS-Interview-Knowledge-Map)
    - 复习js准备面试，补充一些
+
 3. 20181216，新增[33-js-concepts](https://github.com/leonardomso/33-js-concepts)
-  - 复习js准备面试，深入理解某些关键概念
-  - 主要是英文blog，从不同角度深入理解js中关键概念
-  - 年代比较久远、阅读量小的文章并没有看或略看
+      - 复习js准备面试，深入理解某些关键概念
+      - 主要是英文blog，从不同角度深入理解js中关键概念
+      - 年代比较久远、阅读量小的文章并没有看或略看
 

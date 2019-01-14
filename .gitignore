@@ -3,3 +3,4 @@
 *.pdf
 node_modules
 test.html
+test*.js

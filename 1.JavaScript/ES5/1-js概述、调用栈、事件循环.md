@@ -231,62 +231,227 @@
 1. v8引擎开始的设计目标是提高js在web浏览器的性能
 2. 为了提高速度，v8引擎不是使用js解释器，而是直接利用JIT(Just-In-Time)编译器将js代码直接编译为机器码
 3. SpiderMonkey or Rhino (Mozilla)也是这样做的，v8与他们主要区别是v8不会产生字节码或任何中间代码
+4. v8引擎相关blog(https://v8.dev/)
 
-### v8使用2个编译器
+### 字节码
 
-1. full-codegen编译器
-	- 简单、非常迅速的编译器，产生简单但相对比较慢的机器码
-	- 主要用于代码第一次执行时，此编译器将js代码转换为机器码，不进行任何优化
-2. Crankshaft 编译器
-	- 更复杂的（Just-In-Time）优化编译器
-	- 代码运行多次后，Crankshaft 会启用一个线程将js抽象逻辑树转换为名为Hydrogen的高级static single-assignment (SSA)  ，然后优化Hydrogen
+1. 字节码是机器代码的抽象。如果字节码采用和物理 CPU 相同的计算模型进行设计，则将字节码编译为机器代码更容易。
 
-### Crankshaft优化举例
+	![preview](1-js概述、调用栈、事件循环.assets/v2-83f0b6c3ca31d1257e5e785c18244d36_r.jpg)
 
-#### 提前内联函数
+2.  V8 的字节码看作是小型的构建块（bytecodes as small building blocks），这些构建块组合在一起构成任何 JavaScript 功能。
 
-1. 提前内联尽可能多的代码，即提前找到每个函数对应的位置。 ![1544757505464](1-js概述、调用栈、事件循环.assets/1544757505464.png)
+3. V8 有数以百计的字节码。比如 Add 或 TypeOf 这样的操作符，或者像 LdaNamedProperty 这样的属性加载符，还有很多类似的字节码。头文件  [bytecodes.h](http://link.zhihu.com/?target=https%3A//github.com/v8/v8/blob/master/src/interpreter/bytecodes.h) 定义了 V8 字节码的完整列表。
 
-#### 隐藏class
+### 优化流程
+
+1. ![1547432859536](1-js概述、调用栈、事件循环.assets/1547432859536.png)
+
+2. ![1547445775954](1-js概述、调用栈、事件循环.assets/1547445775954.png)
+
+	- 解释器 Ignition 根据语法树生成并执行字节码，在执行字节码时会收集数据（profiling data）,这些数据可以被TurboFan优化器使用以加快之后的执行，但只有hot 函数（经常执行的，是否为hot由引擎决定）才会被传入TurboFan
+	- TurboFan 是 V8 的优化编译器，TurboFan 根据其所拥有的分析数据进行某些假设，然后将字节码生成高度优化的机器代码。
+	- 不同js引擎，大多采用解释器与优化器，只是不同js引擎可能优化器数量以及工作流不同（参见：https://mathiasbynens.be/notes/shapes-ics）
+
+3. 为什么有些引擎会拥有更多的优化编译器呢？这完全是一些折衷的取舍。解释器可以快速生成字节码，但字节码通常不够高效。另一方面，优化编译器处理需要更长的时间，但最终会生成更高效的机器码。到底是快速获取可执行的代码（解释器），还是花费更多时间但最终以最佳性能运行代码（优化编译器），这其中包含一个平衡点
+
+4. 虽然不同js引擎有不同的解释器和优化器，但从更高层次来看，所有js引擎都属于同一种架构
+
+### 属性访问优化
+
+#### shapes
+
+1. 在js程序中，将多个对象具有相同键值属性的称为`shape`访问具有相同`shape`的相同属性也很常见
+
+	```javascript
+	const object1 = { x: 1, y: 2 };
+	const object2 = { x: 3, y: 4 };
+	// object1与object2有相同的shape
+	// 访问shape相同属性
+	function logX(object) {
+		console.log(object.x);
+	}
+	const object1 = { x: 1, y: 2 };
+	const object2 = { x: 3, y: 4 };
+	logX(object1);
+	logX(object2);
+	```
+
+2. 普通存储方式是即存储属性名又存储属性值，但对于相同的shape，可以进行优化，即存一份属性名：每个具有相同形状的 `JSObject` 都指向这个 `Shape` 实例
+
+	![1547446901854](1-js概述、调用栈、事件循环.assets/1547446901854.png)
+
+3. 所有浏览器都对类似的shape进行了优化，只是叫法不同，学术论文称之为*Hidden Classes*，SpiderMonkey称之为Shape，V8称之为Maps
+
+#### Transition 链与树
+
+1. 在 JavaScript 引擎中，shapes 的表现形式被称作 *transition 链*
+
+2. 如向对象添加新属性，js引擎会如何处理呢？
+
+	![1547447362865](1-js概述、调用栈、事件循环.assets/1547447362865.png)
+
+	```:1st_place_medal:
+	const object = {};
+	object.x = 5;
+	object.y = 6;
+	```
+
+	- 开始创建一个空的shape，当添加x属性时，则创建新的Shape(x)，每次创建的shape表示新增的属性
+
+3. 如果你有两个空对象，并且你为每个对象都添加了一个不同的属性？
+
+	![1547447509061](1-js概述、调用栈、事件循环.assets/1547447509061.png)
+
+	```javascript
+	const object1 = {};
+	object1.x = 5;
+	const object2 = {};
+	object2.y = 6;
+	```
+
+	- 进行分支操作，构建一个 *transition 树* 而不是 transition 链
+
+4. 如并不是从空对象开始添加属性？
+
+	![1547447588398](1-js概述、调用栈、事件循环.assets/1547447588398.png)
+
+	```javascript
+	const object1 = {};
+	object1.x = 5;
+	const object2 = { x: 6 };
+	```
+
+	- 包含属性 `'x'` 的对象字面量从包含 `'x'` 的 shape 开始，可以有效地跳过空的 shape。
+
+#### Inline Caches(ICs)
 
 1. js是基于原型的语言，没有class，对象的创建是通过克隆，并且js是动态语言，因此对象实例化后可以添加或删除属性
 
 2. 大多解释器使用hash结构在内存定位obj，如java这样固定类型，可以通过key（类型确定），预测value在内存的最大偏移量，但js的类型可以在运行期改变，这就造成这种方式存储会比java存储花费更大的计算成本
 
-3. v8使用hidden class这样的方式，如代码
+3. JavaScript 引擎利用 ICs 来记忆去哪里寻找对象属性的信息，以减少昂贵的查找次数。
+
+4. 如进行如下操作
 
 	```javascript
-	function Point(x, y) {
-	    this.x = x;
-	    this.y = y;
+	function getX(o) {
+		return o.x;
 	}
-	var p1 = new Point(1, 2);
+	getX({x:'1'})//1
+	getX({x:'1'})//2
+	getX({x:'1',y:'2'})//3
 	```
 
-4. 当new Point(1, 2) 调用，v8会创建一个C0的hidden class ，由于Point没有属性，故C0为空![1544758161096](1-js概述、调用栈、事件循环.assets/1544758161096.png)
+	- getX是获取对象属性x的值，需要进行shape遍历，当第1遍历后，js引擎会记录遍历位置；故`{x:'1',y:'2'}`与`{y:'2',x:'1'}`实际会生成不同的shape
+	- 第1次调用getX时，传入相同参数，即js引擎会对比shape，如与以前的相同，则直接通过相同遍历位置获取属性x值
+	- 第2次调用getX，传入并不是相同参数，即对比shape是不同的，不能使用优化后的代码，需要重回基本的字节码
 
-5. 如运行到this.x = x为Point添加x属性，v8会构建一个hidden Class C1，将状态转为C1，this.y= y 时，会构建个C2![1544758478199](1-js概述、调用栈、事件循环.assets/1544758478199.png)
+5. 对于不同shape，如这样调用foo函数`foo{a:1};foo({a:2,b:3});foo({a:3,b:4,c:5})`foo传入虽为对象，但对象属性不同，故会认为是4种shape，每次都会存储，故需要比较4次，高于4种类型时，v8不再进行比较，而是直接查找（消耗较大）
 
-6. 最终，相当于构建了一个从c0到c2的路径
+6. 因此建议的优化方式是对象使用相同结构，如这样`foo{a:1,b:undefined,c:undefined};foo({a:2,b:3,c:undefined});foo({a:3,b:4,c:5})
 
-7. 结论
+7. 可以使用`node --v8-options test.js` 查看v8命令
 
-	- 虽然不知道这个如何起到高效的作用！！
+#### 举例说明ICs优化的重要性
 
-	- 但由于v8会构建路径，因此，对于如下不同顺序的赋值操作，v8会构建两条不一样的path
+1. ```javascript
+	(() => {
+	  const han = {firstname: "Han", lastname: "Solo",job: "Jedi"};
+	  const luke = {firstname: "Luke", lastname: "Skywalker",gender: "female"};
+	  const leia = {firstname: "Leia", lastname: "Organa", retired: true};
+	  const obi = {firstname: "Obi", lastname: "Wan", spacecraft: "Falcon"};
+	  const yoda = {firstname: "", lastname: "Yoda",rex: "ha"};
+	  const people = [
+	    han, luke, leia, obi,
+	    yoda, luke, leia, obi
+	  ];
+	  const getName = (person) => person.lastname;
+	  console.time("engine");
+	  for(var i = 0; i < 1000 * 1000 * 1000; i++) {
+	    getName(people[i & 7]);
+	  }
+	  console.timeEnd("engine");
+	})();
+	```
 
-		```javascript
-		function Point(x, y) {
-		    this.x = x;
-		    this.y = y;
-		}
-		var p1 = new Point(1, 2);
-		p1.a = 5;
-		p1.b = 6;
-		var p2 = new Point(3, 4);
-		p2.b = 7;
-		p2.a = 8;
-		```
+2. ```javascript
+	(() => {
+	  const han = {firstname: "Han", lastname: "Solo",        job: "Jedi" , gender: undefined, retired: undefined,spacecraft: undefined,rex:undefined};
+	  const luke = {firstname: "Luke", lastname: "Skywalker",job:undefined, gender: "female",  retired: undefined,spacecraft: undefined,rex:undefined};
+	  const leia = {firstname: "Leia", lastname: "Organa",   job:undefined, gender:undefined,  retired: true,     spacecraft: undefined,rex:undefined};
+	  const obi = {firstname: "Obi", lastname: "Wan",        job:undefined, gender:undefined,  retired:undefined, spacecraft: "Falcon",rex:undefined};
+	  const yoda = {firstname: "", lastname: "Yoda",         job:undefined, gender:undefined,  retired:undefined, spacecraft:undefined,rex: "ha"};
+	  const people = [
+	    han, luke, leia, obi,
+	    yoda, luke, leia, obi
+	  ];
+	  const getName = (person) => person.lastname;
+	  console.time("engine");
+	  for(var i = 0; i < 1000 * 1000 * 1000; i++) {
+	    getName(people[i & 7]);
+	  }
+	  console.timeEnd("engine");
+	})();
+	```
+
+3. 两者重要的区别是，第一个js片段属性名不同，每个对象会生成5个不同的shape，而第二个js片段对于无值的属性名赋了undefined，保证属性名顺序与名称一致，故js引擎会视为一个shape，故两者运行时间会相差几倍(本机测试：20129/3899=5.16)
+
+### 原型属性优化
+
+1. 对于如下代码，可以获得js引擎的transition树：
+
+	```javascript
+	function Bar(x) {
+		this.x = x;
+	}
+	Bar.prototype.getX = function getX() {
+		return this.x;
+	};
+	const foo = new Bar(true);
+	const qux = new Bar(false);
+	```
+
+	![img](1-js概述、调用栈、事件循环.assets/2018-08-21-Prototypes-13.svg)
+
+	- 原型Bar.prototype是一个对象，上面的方法可以理解为Bar.prototype的属性
+	- 而Bar内的this.x = x实际是在实例对象有一个属性为x
+	- `Bar.prototype` 的原型是 `Object.prototype`。由于 `Object.prototype` 是原型树的根节点，因此它的原型是 `null`。
+
+2. 调用`const x = foo.getX();`所有的调用可以理解为两步
+
+	```javascript
+	const $getX = foo.getX;
+	const x = $getX.call(foo);
+	```
+
+	- 第一步，加载这个方法
+	- 第二步，使用实例作为 `this` 值来调用该函数
+
+3. 加载方法
+
+	![img](1-js概述、调用栈、事件循环.assets/2018-08-21-Prototypes-14.svg)
+
+	- 引擎从 `foo` 实例开始，意识到 `foo` 的 shape 上没有 `'getX'` 属性，所以必须向原型链追溯。到了 `Bar.prototype`，查看它的原型 shape，发现它在偏移0处有 `'getX'` 属性。我们在 `Bar.prototype` 的这个偏移处查找该值，并找到我们想要的`JSFunction getX`
+	- 如上的检索方式，需要检索1+2N次（N为涉及的原型数量）；foo需要检索自己Shape为1次，然后检索其原型Bar.prototype，然后再检索Bar.prototype的Shape
+
+4. 考虑到原型链可以改变，而且通常情况下原型链很长，此检索方式可以优化
+
+	![img](1-js概述、调用栈、事件循环.assets/2018-08-21-Prototypes-17.svg)
+
+	- 引擎将原型链在 Shape 上，而不是直接链在实例上。
+	- 每次 `foo` 原型发生变化时，引擎都会转换到一个新 shape
+	- 将检查次数从 `1 + 2N` 降到 `1 + N`，以便在原型上更快地访问属性
+	- 引擎还采用了不同的技巧，特别是对于相同属性访问的后续执行，以进一步降低检查次数
+
+### 使用2个编译器
+
+1. full-codegen编译器
+  - 简单、非常迅速的编译器，产生简单但相对比较慢的机器码
+  - 主要用于代码第一次执行时，此编译器将js代码转换为机器码，不进行任何优化，没有中间语言
+2. Crankshaft 编译器
+  - 更复杂的（Just-In-Time）优化编译器，为hot方法生成优化的代码
+  - 某个函数运行多次后，引擎会识别为`hot`方法，Crankshaft 会启用一个线程将抽象逻辑树（解析编译后的代码）转换为名为Hydrogen的高级static single-assignment (SSA)  ，然后优化Hydrogen
 
 # 事件循环
 

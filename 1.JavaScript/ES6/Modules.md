@@ -178,13 +178,15 @@
       }
       ```
 
-
+4. ES6模块都是单例的，只有多次引入也只有一个实例，如需多个实例，需要利用工厂模式构造
 
 ## Modules是静态模块
 
 ### 概述
 
-1. 除ES6 modules 都是动态结构，比如CommonJs需要运行时，才会知道导入的是哪个脚本，导出的是哪个脚本
+1. ES6模块的设计思想：是尽量的静态化，使得编译时能确定模块的依赖关系，这也导致引用ES6模块本身（因为它不是对象）
+
+2. 除ES6 modules 都是动态结构，比如CommonJs需要运行时，才会知道导入的是哪个脚本，导出的是哪个脚本
 
       ```javascript
       // a.js
@@ -200,8 +202,7 @@
       }
       ```
 
-      - 但ES6在语法上强制import和export只能在顶层（不能嵌套在条件语句中）等
-      - 使的ES6 Modules变为静态模块
+      - 但ES6在语法上强制import和export只能在顶层（不能嵌套在条件语句中）等，使的ES6 Modules变为静态模块
 
 ### 优点1：代码打包期间消除死码
 
@@ -241,9 +242,51 @@
 
 ### 概述
 
-1. 声明在模块内的变量都不能被其他模块使用
-2. 除非这个变量被export并在另一个模块中用import引入
-3. exports有两种类型一个是default（只能有一个），另一个是命名exports
+1. 任何没有使用export标记的东西（函数、变量等）将在模块作用域内部私有
+2. exports有两种类型一个是default（只能有一个），另一个是命名exports
+
+### 导出写法
+
+1. ```javascript
+	// 方式1
+	export function(){}
+	// 方式2
+	function foo(){}
+	export {foo}
+	// 方式3
+	function foo(){}
+	export {foo as bar}
+	```
+
+
+### 命名导出别名
+
+1. ```javascript
+	function foo(){}
+	export {foo as bar}
+	```
+
+	- 导入时要使用bar，foo在模块内部隐藏
+
+### 默认导出
+
+1. 一个模块只能有一个默认导出
+
+2. ```javascript
+	// 方式1
+	function foo(){}
+	export default foo;
+	// 方式2
+	export function foo() {}
+	// 方式3
+	function foo(){}
+	export {foo as default}
+	```
+
+3. 注意：
+
+	- 如永远不打算更新一个默认导出的值，使用export default没问题
+	- 如打算更新这个值，必须使用`export {foo as default}`
 
 ### 不是值或引用的导出绑定
 
@@ -266,6 +309,38 @@
 ###  
 
 ## Import
+
+### 导入默认模块
+
+1. ```javascript
+	// 方式1
+	import foo from './test'
+	// 方式2
+	import {default as foo} from './test'
+	```
+
+2. 使用默认导入，名称foo可以任意，指代的都是export default内容
+
+### 重命名导入
+
+1. ```javascript
+	import {foo as func} from './test'
+	func();
+	```
+
+### 同时导入多个模块
+
+1. ```javascript
+	import foo,{ bar , baz as BAZ} from './test'
+	foo();
+	bar();
+	BAZ();
+	```
+
+### 全部导入
+
+1. `import * as foo from './test'`
+2. 将整个api导入到一个单独模块
 
 ### import会提升
 

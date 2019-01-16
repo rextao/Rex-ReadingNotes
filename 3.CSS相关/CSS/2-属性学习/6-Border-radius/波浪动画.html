@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>波浪动画</title>
+    <style>
+        .wrapper{
+            position: relative;
+            width: 200px;
+            height: 40px;
+            background-color: #0E9AEF;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .wrapper::before,.wrapper::after{
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 200px;
+            left: 50%;
+
+            background-color: #fff;
+            animation: rotate 5s linear infinite;
+        }
+        .wrapper::after{
+            bottom: 5px;
+            border-radius: 35%;
+            opacity: 0.5;
+
+        }
+        .wrapper::before{
+            bottom: 0;
+            border-radius: 37%;
+
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: translate(-50%, 0) rotateZ(0deg);
+            }
+            50% {
+                transform: translate(-50%, -2%) rotateZ(180deg);
+            }
+            100% {
+                transform: translate(-50%, 0%) rotateZ(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>利用旋转的椭圆本身生成波浪效果</h1>
+<p>主要思路</p>
+<h2>1、旋转的椭圆有凹凸的感觉，设置overflow截取下部分即可</h2>
+<p>- 为了更好显示水波效果，可以增加translate</p>
+<h2>2、通过叠加带有透明度的旋转椭圆，使得效果更好</h2>
+<p>- 注意：透明度的叠加顺序</p>
+<h2>引申出的波浪进度条</h2>
+<div class="wrapper">
+</div>
+</body>
+</html>

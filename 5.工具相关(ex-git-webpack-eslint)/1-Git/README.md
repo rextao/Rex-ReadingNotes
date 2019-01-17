@@ -118,3 +118,17 @@
 1. 如预期一个模块需要10天，这期间会有很多其他人commit的内容，需要不断的pull
 2. 那么本地的提交历史会变成这样：![1544929598574](../../5.%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3(ex-git-webpack-eslint)/1-Git/git.assets/1544929598574.png)
 3. 使用rebase可以解决这个问题
+
+# 实际问题
+
+## 撤销commit
+
+1. commit了，但不想push
+
+2. 命令：`git reset --hard commit_id  `
+
+3. 可以先使用`git log`获取commit_id
+
+   ![1547730457871](README.assets/1547730457871.png)
+
+4. 或利用`github desktop history`右键复制SHA值

@@ -134,7 +134,32 @@
 
 ### super
 
-1. 子类如包含constructor，必须在使用this之前调用super，否则会报错
-2. 必须是子类的constructor才能调用super，普通一个类的constructor调用super会报错
-3. super会指向父类，故可以在子类的其他方法调用`super.sayName`(指向Animal的sayName方法)
+#### 概述
+
+1. super的两个主要作用是：访问父级constructor，访问父类方法与属性
+	- 子类如包含constructor，必须在使用this之前调用super，否则会报错
+	- 可以在子类调用`super.sayName`(指向Animal的sayName方法)
+
+#### [[HomeObject]]
+
+1. 每个函数内部有个内部属性[[HomeObject]]存储着原始定义，即使用super.foo，内部实际访问的是[[HomeObject]].[[Prototype]].foo
+
+2. [[HomeObject]]在定义时确定，并且不能之后更改，理解为class定义后，更改prototype也无效
+
+	```javascript
+	class A {
+	    foo() {return 'foo in A';}
+	}
+	class B {
+	    foo() {return 'foo in B';}
+	}
+	const a = new A();
+	console.log(a.foo());      // foo in A
+	A.prototype = B.prototype  
+	console.log(a.foo());       // foo in A
+	```
+
+	
+
+3. 必须是子类的constructor才能调用super，普通一个类的constructor调用super会报错
 

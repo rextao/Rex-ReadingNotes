@@ -163,3 +163,6 @@
 
 3. 必须是子类的constructor才能调用super，普通一个类的constructor调用super会报错
 
+## 注意
+
+1. 函数定义的prototype是可写的，class定义的prototype是不可写的

@@ -471,6 +471,11 @@
 3. 事件循环会不断的运行，直到浏览器内容loaded完或关闭浏览器
 4. 事件表（ event table ）跟踪已触发的所有事件，并将它们发送到要执行的事件队列。 
 
+## 事件队列
+
+1. 因为js的单线程的，看到异步操作，如定时器、ajax等，会将回调函数放到事件队列中
+2. 至于何时放在事件队列中，由js运行环境决定
+
 ## task
 
 1. 是严格按照时间顺序压栈和执行的
@@ -478,7 +483,7 @@
 
 ## microtask（jobs）
 
-1. ES6引入新的“Job 队列”，主要是为了处理promise
+1. ES6引入新的“Job 队列”，即任务队列，主要是为了处理promise，当js主线程空时，会优先从任务队列拿回调函数执行，故优先级会高于事件队列，类似于插队效果
 2. microtask：通常来说就是需要在当前 task 执行结束后立即执行的任务
 3. microtask 任务队列是一个与 task 任务队列相互独立的队列，microtask 任务将会在每一个 task 任务执行结束之后执行。
 4. 每一个 task 中产生的 microtask 都将会添加到 microtask 队列中，microtask 中产生的 microtask 将会添加至当前队列的尾部，并且 microtask 会按序的处理完队列中的所有任务。
@@ -491,61 +496,7 @@
 
 
 
-## 时钟
-
-### setInterval 的问题
-
-1. 问题1：某些func未执行
-
-	- 如setInterval(func,100)，即100ms往队列添加一个事件，100ms后的某个事件，101ms，func调用；![1542960198163](1-js概述、调用栈、事件循环.assets/1542960198163.png)
-		- 根据事件循环，100ms添加一个定时器事件；在过了300ms后，应该t3创建，但此时t2创建的func还未执行完，故跳过t3创建
-
-2. 问题2：使用 setInterval 时，func 函数的实际调用间隔要比代码给出的间隔时间要短
-
-	![1547198210894](1-js概述、调用栈、事件循环.assets/1547198210894.png)
-
-	- setInterval，比如设置100ms运行func一次，但如果func执行时间就是100ms，则实际调用时，则无函数间隔（不考虑事件循环）
-
-3. 在Chrome/Opera/Safari中，弹窗会使周期时钟暂停
-
-### 递归setTimeout
-
-1. 比setInterval更灵活，如服务器过载，可以降低请求频率
-
-	```javascript
-	let delay = 5000;
-	
-	let timerId = setTimeout(function request() {
-	  // ...send request...
-	  if (request failed due to server overload) { 
-	    delay *= 2;
-	  }
-	  timerId = setTimeout(request, delay);
-	}, delay);
-	```
-
-### 时间间隔问题
-
-1. 利用递归形式的setTimeout，则可以保证函数间隔为100ms
-
-	![1547198366288](1-js概述、调用栈、事件循环.assets/1547198366288.png)
-
-### 嵌套定时器的最小间隔
-
-1. 在浏览器环境下，嵌套定时器的运行频率是受限制的。
-2. 根据 [HTML5 标准](https://www.w3.org/TR/html5/webappapis.html#timers) 所言：“经过 5 重嵌套之后，定时器运行间隔强制要求至少达到 4 毫秒”。（原话是：Timers can be nested; after five such nested timers, however, the interval is forced to be at least four milliseconds. ）
-
-### setTimeout(func,0)的用例
-
-1. 将耗费 CPU 的任务分割成多块，这样脚本运行不会进入“挂起”状态。
-2. 进程繁忙时也能让浏览器抽身做其它事情（例如绘制进度条）。
-   - 因为浏览器在所有脚本执行完后，才会开始“重绘（repainting）”过程。
-   - 所以，如果运行一个非常耗时的函数，即便在这个函数中改变了文档内容，除非这个函数执行完，那么变化是不会立刻反映到页面上的。
-3. 以上两种情况都可以利用setTimeout对任务进行分割
-
-## requestAnimationFrame
-
-1. 见《Rex-ReadingNotes\2.HTML\2-HTML5\window.requestAnimationFrame.md》
+## 
 
 
 

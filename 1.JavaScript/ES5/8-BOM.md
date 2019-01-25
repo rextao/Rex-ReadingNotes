@@ -42,11 +42,67 @@ console.log(win.closed);  //true,打开的窗口关闭了
 	- 保存着打开它的原始窗口对象；但原始窗口并不记录它们打开的弹出窗口，如有必要，需要手动实现跟踪
 
 ### 定时器
-1. setTimeout()：
-	- 参数1：不建议使用字符串（最好传递函数），由于传递字符串可能导致性能损失
-	- 参数2：告诉js再过多长时间把当前任务添加到队列中
-1. 使用一次性定时器模拟周期定时器是一种最佳模式
-1. 周期定时器很少使用，因为后一个周期定时器可能在前一个周期定时器结束之前启动
+
+#### setInterval 的问题
+
+1. 问题1：某些func未执行
+
+   - 如setInterval(func,100)，即100ms往队列添加一个事件，100ms后的某个事件，101ms，func调用；![1542960198163](1-js%E6%A6%82%E8%BF%B0%E3%80%81%E8%B0%83%E7%94%A8%E6%A0%88%E3%80%81%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.assets/1542960198163.png)
+     - 根据事件循环，100ms添加一个定时器事件；在过了300ms后，应该t3创建，但此时t2创建的func还未执行完，故跳过t3创建
+
+2. 问题2：使用 setInterval 时，func 函数的实际调用间隔要比代码给出的间隔时间要短
+
+   ![1547198210894](1-js%E6%A6%82%E8%BF%B0%E3%80%81%E8%B0%83%E7%94%A8%E6%A0%88%E3%80%81%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.assets/1547198210894.png)
+
+   - setInterval，比如设置100ms运行func一次，但如果func执行时间就是100ms，则实际调用时，则无函数间隔（不考虑事件循环）
+
+3. 在Chrome/Opera/Safari中，弹窗会使周期时钟暂停
+
+#### 递归setTimeout
+
+1. 比setInterval更灵活，如服务器过载，可以降低请求频率
+
+   ```javascript
+   let delay = 5000;
+   
+   let timerId = setTimeout(function request() {
+     // ...send request...
+     if (request failed due to server overload) { 
+       delay *= 2;
+     }
+     timerId = setTimeout(request, delay);
+   }, delay);
+   ```
+
+#### 时间间隔问题
+
+1. 利用递归形式的setTimeout，则可以保证函数间隔为100ms
+
+   ![1547198366288](1-js%E6%A6%82%E8%BF%B0%E3%80%81%E8%B0%83%E7%94%A8%E6%A0%88%E3%80%81%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.assets/1547198366288.png)
+
+#### 嵌套定时器的最小间隔
+
+1. 在浏览器环境下，嵌套定时器的运行频率是受限制的。
+2. 根据 [HTML5 标准](https://www.w3.org/TR/html5/webappapis.html#timers) 所言：“经过 5 重嵌套之后，定时器运行间隔强制要求至少达到 4 毫秒”。（原话是：Timers can be nested; after five such nested timers, however, the interval is forced to be at least four milliseconds. ）
+
+####  setTimeout
+
+1. `const timeoutId = window.setTimeout(function[,delay,param1,param2...])`
+   - function：不建议使用字符串（最好传递函数），由于传递字符串可能导致性能损失
+   - param1, ..., paramN：可选，定时器到时间后将参数传给function
+
+##### 用例
+
+1. 将耗费 CPU 的任务分割成多块，这样脚本运行不会进入“挂起”状态。
+2. 进程繁忙时也能让浏览器抽身做其它事情（例如绘制进度条）。
+   - 因为浏览器在所有脚本执行完后，才会开始“重绘（repainting）”过程。
+   - 所以，如果运行一个非常耗时的函数，即便在这个函数中改变了文档内容，除非这个函数执行完，那么变化是不会立刻反映到页面上的。
+3. 以上两种情况都可以利用setTimeout对任务进行分割
+
+#### requestAnimationFrame
+
+1. 见《Rex-ReadingNotes\2.HTML\2-HTML5\window.requestAnimationFrame.md》
+
 
 ### 系统对话框
 1. 浏览器可以通过alert(),confirm(),prompt()调用系统对话框向用户显示信息

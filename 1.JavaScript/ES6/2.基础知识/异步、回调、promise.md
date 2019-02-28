@@ -11,82 +11,90 @@
     - 浏览器可能会对控制台IO进行延迟，至于什么时候延迟是不确定的，故如console结果找不到头绪，可能是由IO的异步化造成的
     - 最好的调试办法是打断点，而不是console
 
-1. 
+    
+
 
 
 ### 并行线程
 1. 异步是关于现在和将来的时间间隙，而并行是关于能够同时发生的事情。
 1. Js 从不跨线程共享数据，不用考虑多线程编程的复杂度，不会有两个线程同时操作同一块内存
 1. 完整运行
-    - 如foo();bar()先后调用两个函数，foo运行开始，它所有代码都会在bar前运行
+    - 如`foo();bar()`先后调用两个函数，foo运行开始，它所有代码都会在bar前运行
     - 如果存在多线程，且 foo() 和 bar() 中的语句可以交替运行的话，输出结果数目将会增加不少！
 
 ### 并发
 1. 如果并发进程间没有相互影响的话，结果不确定性是完全可以接受的。
 1. 如出现进程交互，需要对它们的交互进行协调以避免竞争出现
-```javascript
-var res = [];
-function response(data) {
-    res.push( data );
-}
-// ajax(..)是某个库中提供的某个Ajax函数
-ajax( "http://some.url.1", response );
-ajax( "http://some.url.2", response );
-```
-    - 如先将url1放到res[0]中，url2放入res\[1]中，即使url1响应速度比url2快，但也无法保证url2先从服务器返回到浏览器
-    - 可以通过协调交互顺序来解决这样的竞争
-```javascript
-var res = [];
-function response(data) {
-    if (data.url == "http://some.url.1") {
-        res[0] = data;
+    ```javascript
+    var res = [];
+    function response(data) {
+        res.push( data );
     }
-    else if (data.url == "http://some.url.2") {
-        res[1] = data;
-    }
-}
-// ajax(..)是某个库中提供的某个Ajax函数
-ajax( "http://some.url.1", response );
-ajax( "http://some.url.2", response );
-```
-        - 其实是为url1和url2分别指定res数组位置
-        - 保证无论谁先返回，数组位置都是一致的
-        - 此办法可以应用于并发函数调用共享DOM
-            - 如foo为设置dom内容，bar为设置dom样式,要求先要更新了内容，才可以更新样式,可以利用上述代码形式
+    // ajax(..)是某个库中提供的某个Ajax函数
+    ajax( "http://some.url.1", response );
+    ajax( "http://some.url.2", response );
+    ```
+    - 先将url1放到res[0]中，url2放入res\[1]中，即使url1响应速度比url2快，但也无法保证url2先从服务器返回到浏览器
 
-### 任务
-1. 事件队列
-    - 因为js的单线程的，看到异步操作，如定时器、ajax等，会将回调函数放到事件队列中
-        - 至于何时放在事件队列中，由js运行环境决定
-1. 任务队列
-    - ES6为Promise新增的概念
-        - 类似于事件队列，但比事件队列优先级高
-        - 当js主线程空时，会优先从任务队列拿回调函数执行
-        - 类似于插队
+    - 可以通过协调交互顺序来解决这样的竞争，例如：
 
-## 回调
-1. 概述
-    - 回调是js中最基础的异步模式
-    - 主要介绍回调的缺点
-1. 缺点一（顺序性）：
-    - 大脑对于事情的计划方式是线性的、阻塞的、单线程的语义，但是回调表达异步流程的方式是非线性的、非顺序的，这使得正确推导这样的代码难度很大
-        - 需要一种更同步、更顺序、更阻塞的的方式来表达异步，就像我们的大脑一样
-    - 即书写回调函数的顺序并一定是实际函数调用顺序
-1. 缺点二（可信任性）：
-    - 回调会受到控制反转的影响，回调暗中把控制权交给第三方来调用你的代码。这种控制转移导致一系列麻烦的信任问题，比如回调被调用的次数会超出预期等。
-        - 虽然可以通过一些手段解决一部分信任问题，但会增加代码冗余
-        - 需要一个通用的方案来解决这些信任问题
+      ```javascript
+      var res = [];
+      function response(data) {
+          if (data.url == "http://some.url.1") {
+              res[0] = data;
+          }
+          else if (data.url == "http://some.url.2") {
+              res[1] = data;
+          }
+      }
+      // ajax(..)是某个库中提供的某个Ajax函数
+      ajax( "http://some.url.1", response );
+      ajax( "http://some.url.2", response );
+      ```
+
+      - 其实是为url1和url2分别指定res数组位置
+      - 保证无论谁先返回，数组位置都是一致的
+      - 此办法可以应用于并发函数调用共享DOM
+        - 如foo为设置dom内容，bar为设置dom样式,要求先要更新了内容，才可以更新样式,可以利用上述代码形式
+
+    
+
+# 回调
+## 概述
+
+1. 回调是js中最基础的异步模式
+
+
+
+## 主要缺点
+
+### 缺点一（顺序性）：
+
+1. 大脑对于事情的计划方式是线性的、阻塞的、单线程的语义，但是回调表达异步流程的方式是非线性的、非顺序的，这使得正确推导这样的代码难度很大
+2. 需要一种更同步、更顺序、更阻塞的的方式来表达异步，就像我们的大脑一样
+3. 即书写回调函数的顺序并一定是实际函数调用顺序
+
+### 缺点二（可信任性）：
+
+1. 回调会受到控制反转的影响，回调暗中把控制权交给第三方来调用你的代码。这种控制转移导致一系列麻烦的信任问题，比如回调被调用的次数会超出预期等。
+2. 虽然可以通过一些手段解决一部分信任问题，但会增加代码冗余
+3. 需要一个通用的方案来解决这些信任问题
 
 * * *
 
 # Promise
 ## Promise概述
+
+1. 同步执行的代码，不需要状态，代码要么执行成功，要么执行失败
+
 ### 对于x+y
-1. 如存在异步，则可能会出现2中以上的结果，在运算x+y时，如y值还不存在，可能NaN
+1. 如存在异步，则可能会出现2种以上的结果，在运算x+y时，如y值还不存在，可能NaN
+
 1. 回调的解决办法
-    - 回调的解决办法
-```javascript
-function add(getX,getY,cb) {
+
+    ```javascript
+    function add(getX,getY,cb) {
         var x, y;
         getX( function(xVal){
             x = xVal;
@@ -100,14 +108,98 @@ function add(getX,getY,cb) {
                 cb( x + y ); // 发送和
             }
         });
-}
-```
-        - 相当于把x，y都当做未来值，保证add函数结果可预测性
+    }
+    ```
 
-   - Promise的解决办法
-        - promise机制相当于内置了等待，会等待x，y值，然后进行决议
-        - promise决议后，值是不会改变的，可以传给第三方
-        - Promise 是一种封装和组合未来值的易于复用的机制
+    - 相当于把x，y都当做未来值，保证add函数结果可预测性
+
+1. Promise的解决办法
+
+    - promise机制相当于内置了等待，会等待x，y值，然后进行决议
+    - promise决议后，值是不会改变的，可以传给第三方
+    - Promise 是一种封装和组合未来值的易于复用的机制
+### Promise状态
+
+#### Pending
+
+1. 每个创建的promise都会无限期的处于pending状态，直到它resolved或rejected
+
+#### Resolved
+
+1. resolve后需要调用then方法
+
+#### Rejected
+
+1. reject 后需要调用catch方法
+
+
+
+## Promise API 概述
+
+### Promise构造函数
+
+1. ```javascript
+   new Promise((resolve,reject)  => {
+       resolve(1);
+       reject('error!...')
+   })
+   ```
+
+2. 构造函数接收一个函数，函数由两个参数，resolve()与reject()
+
+### then()
+
+#### 概述
+
+```javascript
+new Promise((resolve,reject)  => {
+    resolve(1);
+    reject('error!...')
+}).then((x)=>{
+    console.log(x);
+},(err)=>{
+    console.log(err);
+})
+```
+
+1. `then()`接收一个或两个参数：第一个用于完成回调，第二个用于拒绝回调；但通常使用then接收成功回调
+
+#### 同步调用
+
+```javascript
+new Promise((resolve,reject)  => {
+    resolve(1);
+}).then((x)=>{
+    return x*3;// 3
+}).then((x)=>{
+    console.log(x*10);// 30
+}).then((x)=>{
+    console.log(x);//undefined
+})
+```
+
+1. 同步链式调用then方法，即每次返回的不是promise
+2. 同步方法不推荐这样调用，都应写在一个then方法中即可
+3. 如不return值，则会为undefined
+
+#### 异步调用
+
+1. 当一个then方法返回promise，接下来的执行会在resolved或rejected之前挂起
+
+
+
+
+
+
+
+1. Promise.resolve(..) 和 Promise.reject(..)
+   - 快捷方式创建完成或拒绝的Promise
+2. then(..) 和 catch(..)
+   - 每个Promise实例都有这两个方法，可以为这个 Promise 注册完成和拒绝处理函数
+     - Promise 决议之后，立即会调用这两个处理函数之一，但不会两个都调用，而且总是异步调用
+   - - 
+   - catch(..)
+     - 只接受一个拒绝回调作为参数
 
 ## 具有 then 方法的鸭子类型
 1. 在使用Promise一个重要细节是如何确定某个值是否为Promise
@@ -405,24 +497,7 @@ var p = new Promise( function(X,Y){
 1. last([ .. ])：只有最后一个完成胜出
 1. 有些库提供了这些变体，也可以利用all和race实现这些
 
-## Promise API 概述
-1. new Promise(..) 构造器
-    - 接受两个函数回调，以支持 promise 的决议
-    - 一个是：resolve（）
-        - 既可能完成 promise，也可能拒绝
-            - 非Promise、非thenable的立即值，Promise完成
-            - Promise或thenable值，会展开后再确定
-    - 一个是：reject（）
-        - 拒绝这个 promise
-1. Promise.resolve(..) 和 Promise.reject(..)
-    - 快捷方式创建完成或拒绝的Promise
-1. then(..) 和 catch(..)
-    - 每个Promise实例都有这两个方法，可以为这个 Promise 注册完成和拒绝处理函数
-        - Promise 决议之后，立即会调用这两个处理函数之一，但不会两个都调用，而且总是异步调用
-    - then(..)
-        - 接受一个或两个参数：第一个用于完成回调，第二个用于拒绝回调
-    - catch(..)
-        - 只接受一个拒绝回调作为参数
+1. - - 
 
 ## Promise局限性
 	略过

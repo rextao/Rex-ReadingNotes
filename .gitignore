@@ -2,3 +2,4 @@
 .cache
 *.pdf
 node_modules
+test*.*

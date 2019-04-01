@@ -8,20 +8,14 @@
 6. 什么是调用栈？栈阻塞？
 7. 为何需要垃圾回收机制？回收的方法？
 8. 常见的js引擎？v8主要特点？
+9. 什么事件循环？与调用栈的关系？什么是事件队列？task与microtask？为何要有microtask
 
-# 内置类型
+# 2-类型与值
 
-1. JS 中分为七种内置类型，七种内置类型又分为两大类型：基本类型和对象（Object）。
-2. 基本类型有六种： `null`，`undefined`，`boolean`，`number`，`string`，`symbol`。
-3. 其中 JS 的数字类型是浮点类型的，没有整型。
-4. `NaN` 也属于 `number` 类型，并且 `NaN` 不等于自身。
-
-# Typeof
-
-1. `typeof` 对于基本类型，除了 `null` 都可以显示正确的类型
-2. `typeof` 对于对象，除了函数都会显示 `object`
-3. `null`会显示`object`
-4. 通过 `Object.prototype.toString.call(xx)`正确获取，获得类似 `[object Type]` 的字符串。
+1. 内置类型？
+2. typeof？null为何类型是object？如何正确判断null？constructor判断对象是某个函数实例的问题？基本类型的继承链？何为鸭子类型？正确获取类型的方式？
+3. void运算符？是否有整数类型？`42.toFixed(3) `结果？`0.1+0.2 ==0.3 // false`如何解决？何为最大安全数？isNaN与Number.isNaN()区别?
+4. 正负零有何用？负零如何判断？`Object.is()`为了解决的问题？
 
 # 类型转换
 

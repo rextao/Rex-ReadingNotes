@@ -24,6 +24,7 @@
 
 ### 并发
 1. 如果并发进程间没有相互影响的话，结果不确定性是完全可以接受的。
+
 1. 如出现进程交互，需要对它们的交互进行协调以避免竞争出现
     ```javascript
     var res = [];
@@ -58,7 +59,29 @@
       - 此办法可以应用于并发函数调用共享DOM
         - 如foo为设置dom内容，bar为设置dom样式,要求先要更新了内容，才可以更新样式,可以利用上述代码形式
 
-    
+    ## 通过事件处理异步
+
+    1. 例如`XMLHttpRequest`API，为每个请求创建一个请求对象，并登记事件处理函数
+
+       ```javascript
+       var req = new XMLHttpRequest();
+       req.open('GET', url);
+       req.onload = function () {
+           if (req.status == 200) {
+               processData(req.response);
+           } else {
+               console.log('ERROR', req.statusText);
+           }
+       };
+       req.onerror = function () {
+           console.log('Network Error');
+       };
+       req.send(); // Add request to task queue
+       ```
+
+       - `req.send()实际是放入事件队列，顾此句可以直接在req.open后面进行调用
+
+    2. 事件方式处理异步请求适用于多次接受结果的情况，如只需要接收一次结果使用这样方式就会显得冗长
 
 # 回调
 ## 概述
@@ -87,6 +110,7 @@
 ## Promise概述
 
 1. 同步执行的代码，不需要状态，代码要么执行成功，要么执行失败
+2. Promise 本质上是一个绑定了回调的对象，而不是将回调传进函数内部 
 
 ### 对于x+y
 1. 如存在异步，则可能会出现2种以上的结果，在运算x+y时，如y值还不存在，可能NaN
@@ -132,20 +156,32 @@
 
 1. reject 后需要调用catch方法
 
+## Promise/A+标准
+
+1. Promise实现需要遵循Promise/A+标准，需要遵循如下这些准则
+   - promise或"`rejected`"是一个对象，需要具有`then`方法
+   - pending状态可以转移到`fufilled`或`rejected`状态
+   - 已经解决的`fufilled`或`rejected`状态不能转为其他状态
+   - 已经解决的promise必须有一个值（可能是undefined），这个值不能改变
+
 
 
 ## Promise API 概述
 
 ### Promise构造函数
 
-1. ```javascript
+1. 创建Promise
+
+   ```javascript
    new Promise((resolve,reject)  => {
        resolve(1);
        reject('error!...')
    })
    ```
 
-2. 构造函数接收一个函数，函数由两个参数，resolve()与reject()
+2. 构造函数接收一个函数称之为`executor `
+
+3. `executor `函数由两个参数，resolve()与reject()
 
 ### then()
 
@@ -162,7 +198,15 @@ new Promise((resolve,reject)  => {
 })
 ```
 
-1. `then()`接收一个或两个参数：第一个用于完成回调，第二个用于拒绝回调；但通常使用then接收成功回调
+1. `then()`接收一个或两个参数：第一个用于完成回调，第二个用于拒绝回调；
+
+2. 由于如上方式，同时调用完成回调与拒绝回调，完成回调发生错误，则错误无法被处理，顾通常使用then接收成功回调，catch接收回调
+
+   ```javascript
+   save().then(handleSuccess).catch(handleError);
+   ```
+
+3. 但可能save可能是网络错误，then中的handleSuccess可能是程序猿造成的错误，顾可以利用then的拒绝回调处理save中的错误，catch处理handleSuccess（其实也可以根据错误不同类型，在catch中统一处理）
 
 #### 同步调用
 
@@ -186,7 +230,22 @@ new Promise((resolve,reject)  => {
 
 1. 当一个then方法返回promise，接下来的执行会在resolved或rejected之前挂起
 
+#### 如何实现一个then方法
 
+1. ```javascript
+   promise.then(
+     onFulfilled?: Function,
+     onRejected?: Function
+   ) => Promise
+   ```
+
+   onFulfilled和onRejected参数可选的，如不是函数应忽略
+
+2. 两个函数只能被调用一次
+
+3. then方法需要返回一个新的promise
+
+4. 如onRejected不是函数，且promise1被拒绝，返回的promise2必须以与promise1相同原因被拒绝
 
 
 

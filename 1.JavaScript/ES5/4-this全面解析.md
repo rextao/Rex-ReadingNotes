@@ -134,13 +134,13 @@
 1. 如obj是一个原始值，会自动“装箱”为对象形式
 
     ```javascript
-        function foo(){
-            console.log(this.a);
-        }
-        var obj = {
-            a : 2
-        };
-        foo.call(obj); //2
+    function foo(){
+        console.log(this.a);
+    }
+    var obj = {
+        a : 2
+    };
+    foo.call(obj); //2
     ```
 
     

@@ -16,78 +16,66 @@
 2. typeof？null为何类型是object？如何正确判断null？constructor判断对象是某个函数实例的问题？基本类型的继承链？何为鸭子类型？正确获取类型的方式？
 3. void运算符？是否有整数类型？`42.toFixed(3) `结果？`0.1+0.2 ==0.3 // false`如何解决？何为最大安全数？isNaN与Number.isNaN()区别?
 4. 正负零有何用？负零如何判断？`Object.is()`为了解决的问题？
-
-# 类型转换
-
-## 转Boolean
-
-1. 在条件判断时，除了 `undefined`， `null`， `false`， `NaN`， `''`， `0`， `-0`，其他所有值都转为 `true`。
-
-## 对象转基本类型
-
-1. 对象在转换基本类型时，首先会调用 `valueOf` 然后调用 `toString`。并且这两个方法你是可以重写的。
-2. 可以重写 `Symbol.toPrimitive` ，该方法在转基本类型时调用优先级最高。
-
-## 四则运算符
-
-1. 只有当加法运算时，其中一方是字符串类型，就会把另一个也转为字符串类型。
-2. 其他运算只要其中一方是数字，那么另一方就转为数字
-
-## `==` 操作符
-
-1. == 比较过程，[标准](http://www.ecma-international.org/ecma-262/6.0/#sec-abstract-equality-comparison)，如比较`x == y`
-	- x与y如类型相同，则调用===比较
-		- x或y为NaN（NaN是number类型），返回false
-	- 如比较的是undefined和null，则直接返回true
-	- 如比较的是`number`和`string`、`boolean`，则将string的转为`number`类型
-	- 如比较x为Boolean类型，则比较ToNumber(x) == y的结果
-	- 如一边是对象，将对象转为基本类型
-		- 有valueOf并返回基本类型，则使用
-		- 否则调用toString，返回基本类型，则使用
-		- 否则抛出异常
-
-## 比较运算符
-
-1. 如果是对象，就通过 `toPrimitive` 转换对象
-2. 如果是字符串，就通过 `unicode` 字符索引来比较
+5. string类型的特点？字符串与字符数组的异同，如何进行互转？
+6. 属性描述符？获取与配置属性描述符？对象不变性的3种方式？
+7. 如何判断一个属性值为undefined还是不存在？`4 in [2, 4, 6]` 的结果以及why?如何检测属性只在当前对象而不搜索Prototype链？区别是否可以枚举？
+8. 利用类似`for key in obj`方式复制对象的问题？浅复制的方式？node8深复制的方式？
+9. 检测数组的方式？toString与toLocalString区别？push多参数用法？concat、splice、slice方法？
+10. 显示几位小数？指数形式显示？URI编码？普通缺失值的判断？对象缺失值的判断？
+11. 值类型与引用类型？~~使用？
 
 
 
-# 原型
+# 3-作用域
 
-1. test1
+1. var a =2的理解？从RHS角度理解异常抛出？
+2. js定义变量的两种作用域？哪些方式可以形成块作用域？循环与闭包？
 
-	```javascript
-	var obj = {};
-	var arr = [];
-	function fn() {}
-	console.log(obj.__proto__ === ???); 
-	// Object.prototype
-	console.log(arr.__proto__ === ???); 
-	// -> Array.prototype
-	console.log(fn.__proto__ === ???); 
-	// -> Function.prototype
-	```
 
-2. `__proto__`与[[Prototype]]链的关系??
 
-# new
+# 4- this全面解析
 
-1. 参见《7-构造函数、原型、行为委托》
-2. 构造函数是？
-3. 当使用new操作符时，会发生？
-4. new.target是？
+1. 为什么使用this？绑定规则？
 
-# instanceof
 
-1. 检查类关系的4种方式
-2. 修改对象的[[Prototype]]关联，es5与es6方式？
-3. 继承实现的方式？？
 
-# this
+# 5-强制类型转换
 
-1. 绑定的4条规则
+1. toString方法转换不同类型值？JSON字符串化
+2. toNumber方法转换规则？Object.create(null) 的问题？
+3. 假值有哪些？对象转基本类型？`Symbol.toPrimitive `?Date对象的特殊性？
+4. 字符串和数字互转？a + ""（隐式）和 String(a)（显式）的差别？
+5. 转换为布尔值？symbol的特殊性？
+6. 解析和转换两者之间有明显的差别？parseInt的坑？
+7. || 和 &&？==的比较过程？
 
-# 执行上下文
+# 6-函数
 
-1. 参见《1-js概述》
+1. 函数的两种方式？length？具名函数？
+2. 为何需要立即执行函数？IIFE的形式？IIFE与闭包？
+3. 函数与变量提升的顺序？
+4. 纯函数？和为副作用？
+
+# 7-构造函数
+
+1. 构造函数的两个约定？构造函数的目的？
+2. 使用new操作符会发生？new.target？
+3. 字面量的`__proto__`
+4. prototype概述？
+5. [[Prototype]]链主要解决？
+6. `obj.foo = "bar"`的过程？隐式屏蔽的问题？
+7. Object.create？Object.create(null)？new与Object.create
+8. ES5原型继承的方式？修改对象的prototype关联的方式？
+9. 检查类的关系4种方式？
+10. 面向委托的设计风格？
+
+
+
+模块化
+
+防抖
+
+节流
+
+继承
+

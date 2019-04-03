@@ -1,35 +1,67 @@
 # DOM
-## 1、概述
+## 概述
 1. DOM是针对HMTL和XML的API，是W3c标准
 1. IE中的DOM是用COM实现的，故与js原生对象的行为特点和活动特点并不一样
 2. Document Object代表你的网页，如果要访问HTML网页的任何元素，通常是通过这个对象
 
-## 2、节点层次
+## 节点层次
 ### Node类型
 1. js中所有节点类型都继承自Node类型
+
 1. 节点类型在Node类型定义的12个常量中，IE不能使用常量
-1. NodeType属性：
-	- 表明节点类型
-1. nodeName和nodeType：
-	- 节点的具体信息
+
+1. nodeType属性：
+  - 用来区分不同类型的节点，比如元素、文本、注释。
+   - | 常量                             | 值   | 描述                           |
+
+    	 	| -------------------------------- | ---- | ------------------------------ |
+    
+    | Node.ELEMENT_NODE                | 1    | 一个元素节点                   |
+    | Node.TEXT_NODE                   | 3    | 文本                           |
+    | Node.PROCESSING_INSTRUCTION_NODE | 7    | xml的processingInstruction声明 |
+    | Node.COMMENT_NOD                 | 8    | 注释节点                       |
+    | Node.DOCUMENT_NODE               | 9    | Document节点                   |
+    | Node.DOCUMENT_TYPE_NOD           | 10   | DocumentType节点               |
+    | Node.DOCUMENT_FRAGMENT_NOD       | 11   | DocumentFragment 节点          |
+
+  - 2、4、5、6、12这几个值在DOM4规范已经移除
+
+1. nodeName属性：
+
+  - 返回当前节点的节点名称，html中返回值为大写
+
 1. childNodes属性
-	- 每个节点有一个childNodes属性，保存一个NodeList对象，并不是Array实例，DOM结构的变化会自动反应在NodeList对象上
-1. parenNode属性
-    - 文档树的父节点
+
+  - 每个节点有一个childNodes属性，保存一个NodeList对象，并不是Array实例，DOM结构的变化会自动反应在NodeList对象上
+
+1. parentNode属性
+
+  - 文档树的父节点
+
 1. previousSibling和nextSibling属性
+
     - 同胞上一个或下一个
-1. firstChild和lastChild
-    - 最初和最后一个
-1. appendChild(),insertBefore(),replaceChild(),removeChild()
-    - 节点操作
+
+1. firstChild和lastChild属性
+
+    - 返回该节点的第一个或最后一个子节点，如果该节点没有子节点则返回`null`。
+
+1. 节点操作
+
+    - node.appendChild(child)：插入节点
+    - node.removeChild(child)：从DOM中删除一个子节点
+    - parentNode.insertBefore(newNode, referenceNode);
+    -  parentNode.replaceChild(newChild, oldChild)：替换节点
+
 1. cloneNode()
     - 复制节点副本
     - 参数：true，复制节点及其子节点
     - 参数：false，复制当前节点
     - 不会复制js属性，如事件处理程序等，建议使用时移出事件处理程序
-1. contains()方法
-    - IE率先引入,且只支持element.contains()
-    - 查询一个节点是否为另一个节点的后代
+
+1. contains(otherNode)方法
+
+      - 查询一个节点是否为另一个节点的后代
 
 ### Document类型
 1. 概述
@@ -41,21 +73,19 @@
     - documentType子节点：访问<!DOCTYPE>，有兼容性问题
 1. 作为HTMLDocument实例
     - 提供一些标准document没有的属性和方法
-    - body属性：直接访问body元素
     - URL属性：页面完整URL（地址栏显示的URL）
     - domain属性：只包含页面的域名
-    - referrer属性：到当前页面上一个URL
-    - getElementById
+    - referrer属性：返回来源页面的URI
+    - getElementById()
         - 多个id，只返回文档第一次出现的元素
-        - ie7中，input的name值与后面的id值一样，会返回input元素，解决办法是不要将二者设置为一样的值
-    - getElementByTagName()
+    - getElementsByTagName()
         - HTML文档中，返回HTMLCollection对象
         - namedItem()方法：获取对象中的项p257
-    - getElementByName
+    - getElementByName()
         - HTMLDocument特有
         - 最常用的是取得单选按钮，保证发给服务器单选按钮有相同的name特性
     - 文档写入能力
-        - 讲输出流写入网页的能力
+        - 将输出流写入网页的能力
         - write()
         - writeln()：在每行后面加了换行
         - 上述两个方法会重写整个页面
@@ -67,46 +97,47 @@
 	- tagName属性
 	- 两者返回值相同，HTML中返回值为全部大写
 1. HTML元素
-    - 所有的HTML元素是由，HTMLELement元素或其子类型表示
+    - 所有的HTML元素是由HTMLELement元素或其子类型表示
     - HTML中的class是用className表示的，因为class是保留字，所以访问class要div.className
-1. 创建元素：domcument.createELement();
-    - ie7可以传入完整元素标签，解决ie7动态创建某些元素的bug
-    - 传入完整元素标签的方式，其他浏览器不支持
+1. 创建元素：domcument.createELement("div")
 1. 元素子节点
     - 元素可以有任意数目子节点和后代节点
     - 注意：如ul里面计算li数目，非ie浏览器会计算li与li之间的空白节点；计算节点数目时候，要注意浏览器的差异，可以通过判定nodeType=1来计数
-1. 取得特性：getAttribute()
+1. getAttribute()
+    - 返回元素上一个指定的属性值。如果指定的属性不存在，则返回  `null` 或 `""`（空字符串）
     - 传递参数要和HTML实际特性名相同，如class，应该传递class，而不是className
     - 特性名称不区分大小写，“ID”与“id”代表同一特性
     - 根据HTML5规范，自定义特性应加data-前缀以便验证
     - 只有公认的特性（非自定义的）才可以通过DOM对象属性访问，如id是div的公认属性，通过div.id可以得到，但my_index为自定义属性，获取不到
-```HTML
-<div id="test" my_index="i">hello world!!</div>
-```
-```javascript
-var div = document.getElementById("test");
-div.id //test
-div.my_index // undefined
-```
+        ```HTML
+        <div id="test" my_index="i">hello world!!</div>
+        ```
+        ```javascript
+        var div = document.getElementById("test");
+        div.id //test
+        div.my_index // undefined
+        ```
     - 通过属性值访问和getAttribute()返回值不同
-    	- div.style:属性访问返回对象
-    	- getAttribute("div"):返回是style属性包含的css文本
-        - div.onclick:属性访问返回js函数
-        - getAttribute("onclick"):返回是代码字符串
+      - div.style：访问返回对象
+      - getAttribute("style"):返回是style属性包含的css文本
+      - ![1554279756682](9-DOM.assets/1554279756682.png)
+      - div.onclick:属性访问返回js函数
+      - getAttribute("onclick"):返回是代码字符串
+      - ![1554280312649](9-DOM.assets/1554280312649.png)
     - 通常只有在自定义属性时候会用getAttribute，平时使用对象属性
 
 1. 设置与删除属性
-    - setAttribute()
+    - setAttribute(name, value)
         - div.mycolor="red";
         - 不会自动成为元素的特性；即div.getAttribute("mycolor")为null
     - removeAttribute()：删除属性和属性值
 
 1. attributes属性
-	- element类型是使用attributes属性的唯一一个DOM节点类型
-    - 包含一系列节点，每个节点的nodeName为特性名称，nodeValue为特性值
-    - 可以遍历元素的特性
-        - 不同浏览器返回的顺序可能不同
-        - ie7之前可能返回全部HTML可能特性，可能100多个
+  - 返回该元素所有属性节点的一个实时集合
+  - element类型是使用attributes属性的唯一一个DOM节点类型
+   - 返回结果是一个NameNodeMap对象（
+   - 可以遍历元素的特性
+       - 不同浏览器返回的顺序可能不同
 
 ### Text类型
 1. 概述
@@ -130,14 +161,6 @@ div.my_index // undefined
 1. div里面有注释节点，会被认为是div的一个子节点
 1. 如果想访问注释节点，一定要保证他们是HTML元素的后代
 
-### CDATASection
-1. 只针对xml文档
-1. 多少浏览器会解析为注释节点
-
-### DocumentType
-1. firfox，safari，opera支持，其他不支持
-1. 支持的浏览器会把DocumentType对象保存在document.type
-
 ### documentFragment
 1. 是轻量级的文档，没有对应的标记，不像完整文档那样占用额外资源
 1. 创建文档片段：document.createDocumentFragment();
@@ -152,10 +175,10 @@ div.my_index // undefined
 - - -
 
 # DOM扩展
-## 1、概述
+## 概述
 - 主要扩展是Selectors API和HTML5，都是来源于社区
 
-## 2、选择符API
+## 选择符API
 1. 概述
     - 通过css选择符匹配DOM元素
     - jQuery的核心是通过CSS选择符查询DOM文档取得元素的引用
@@ -166,11 +189,12 @@ div.my_index // undefined
         - 返回所有元素，返回一个NodeList实例
         - 如果未找到元素，NodeList为空
 1. 元素遍历
-    - 对于元素中间的空格，IE9之前版本不会返回文本节点，其他浏览器都会返回文本节点;为弥补这个差异，同时保证DOM规范不变，Element Traversal定义了一些新属性
+    - 对于元素中间的空格，IE9之前版本不会返回文本节点，其他浏览器都会返回文本节点;
+    - 为弥补这个差异，同时保证DOM规范不变，Element Traversal定义了一些新属性
     - childElementCount：返回子元素不包含文本节点和注释的个数
-    - nextElementSibling：后一个同辈元素，nextSibling的元素版
+    - nextElementSibling：后一个同辈元素（不包括文本节点、注释节点），nextSibling（包括文本节点、注释节点即回车、换行、空格、文本等等）
 
-##　4、专有扩展
+##　专有扩展
 1. 概述
     - 只有少部分浏览器支持，还不是标准
     - 具体支持情况需查看MDN或caniuse
@@ -179,9 +203,9 @@ div.my_index // undefined
     - 页面的文档模式决定可以使用什么功能，使用什么级别的css，哪些js API
     - 要强制浏览器以某种模式渲染页面，可以使用HTTP头信息X-UA-Compatible或通过等价的<meta>标签设置
     - content="IE=Edge"表示始终使用最新的文档模式来渲染页面，忽略文档类型声明 
-```
-<meta http-equiv = "X-UA-Compatible" content="IE=Edge">;
-```
+        ```html
+        <meta http-equiv = "X-UA-Compatible" content="IE=Edge">;
+        ```
 
 1. children属性
     - 为了解决IE9之前处理文本节点中空白符与其他浏览器的差异，出现的这个属性
@@ -194,12 +218,12 @@ div.my_index // undefined
 1. 注意：专有方法可能也会在将来被扩充到标准中，使用专有方法通常需要对浏览器进行能力测试等，避免使用的方法在某些浏览器中不能使用
 
 # DOM2和DOM3
-## 1、概述
+## 概述
    - DOM1级主要定义了HTML和XML文档的底层结构
    - DOM2和DOM3在这个基础上引入了更多的交互功能，支持更高的XML特性
 
 
-## 2、DOM变化
+## DOM变化
    - 概述
        - DOM2级核心，没有引入新类型，只是在DOM1基础上增加新方法和属性以增加既有类型
        - DOM3级核心，增强了既有类型，也引入了新类型
@@ -235,7 +259,7 @@ div.my_index // undefined
        - 所有浏览器都支持contentWindow属性
        - 访问框架或内联框架的文档对象要受到跨域安全策略的限制
 
-## 3、遍历
+## 遍历
 1. 概述
     - DOM2级，定义了两个辅助完成顺序遍历DOM结构的类型
     - 能够基于给定起点对DOM结构执行深度优先的遍历操作
@@ -260,7 +284,7 @@ div.my_index // undefined
     - 真正强大的地方是能够在DOM结构中沿任意方向移动
 1. 因为遍历方法IE不支持，故跨浏览器解决方案中很少用
 
-## 4、范围
+## 范围
 1. 概述
     - 通过范围可以选择文档的一个区域，而不用考虑节点界限
     - 选择后台完成，用户不可见

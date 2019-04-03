@@ -90,6 +90,14 @@
 5. 访问元素样式及注意事项？计算样式如何获取？如何获取伪元素样式？CSSStyleDeclaration API？CSSStyleDeclaration 属性及常用方法？
 6. CSSStyleSheet API优势？cssText使用？与CSSStyleDeclaration API关系
 
+## 10-事件
+
+1. 事件流的两种方式？事件流的三个阶段？三种方式为DOM元素注册事件处理函数以及异同？
+2. event.currentTarget、event.target、event.type、preventDefault()、stopPropogation()、eventPhase属性
+3. load、unload事件
+4. 不冒泡的事件有？当焦点从a元素移动到b元素，触发事件顺序是?
+5. 双击一个元素，事件发生顺序?mouseenter、mouseleave、mouseover、mouseout的区别？
+
 
 
 

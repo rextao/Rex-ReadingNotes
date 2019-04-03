@@ -19,27 +19,49 @@
 
 ### 窗口位置
 1. 用来确定和修改window对象位置的属性和方法有很多，但有兼容性问题
+
 1. 因为兼容性问题，无法跨浏览器条件下取得窗口左边和上边的精确位置
-1. 使用moveTo(),moveBy()方法，可以将窗口精确移动到一个新位置
-1. 但上述方法可能被浏览器禁用（IE7以上默认禁用），并不适用于框架，只能用于最外层的window对象
+
+1. moveTo()
+
+	- 按照绝对位置移动窗口
+
+1. moveBy()
+
+	- 按照相对位置移动窗口（重复调用，会一直移动，但moveTo则不会）
+
+1. demo
+
+	```javascript
+	myWindow=window.open('','','width=200,height=100');
+	 myWindow.moveBy(250,250);
+	```
+
+	
 
 ### 窗口大小
 1. 跨浏览器确定一个窗口大小不是一件容易的事
-1. resizeTo(),resizeBy()可以调整浏览器窗口大小
-1. 也可能别浏览器禁用
+1. resizeTo()
+	- 绝对大小调整浏览器窗口
+1. resizeBy()
+	- 相对大小调整浏览器窗口
+1. 窗口大小与位置移动只能用于window.open打开的窗口，并且打开的窗口不含tab页
 
-###导航和打开窗口
+### 打开与关闭窗口
+
 1. window.open();
+
 	- 弹出窗口被屏蔽，window.open()会返回null或者报错
 1. window.close();
 	- 只能关闭window.open()打开的窗口，关闭后，窗口的引用还存在，可以检测closed属性，窗口引用没别的作用了
-```javascript
-var win = window.open("http://www.baidu.com");
-win.close();  //关闭打开的百度窗口
-console.log(win.closed);  //true,打开的窗口关闭了
-```
+        ```javascript
+        var win = window.open("http://www.baidu.com");
+        win.close();  //关闭打开的百度窗口
+        console.log(win.closed);  //true,打开的窗口关闭了
+        ```
 1. opener属性
-	- 保存着打开它的原始窗口对象；但原始窗口并不记录它们打开的弹出窗口，如有必要，需要手动实现跟踪
+
+    - 保存着打开它的原始窗口对象；但原始窗口并不记录它们打开的弹出窗口，如有必要，需要手动实现跟踪
 
 ### 定时器
 
@@ -71,7 +93,7 @@ console.log(win.closed);  //true,打开的窗口关闭了
        delay *= 2;
      }
      timerId = setTimeout(request, delay);
-   }, delay);
+   }, delay);   
    ```
 
 #### 时间间隔问题
@@ -110,40 +132,61 @@ console.log(win.closed);  //true,打开的窗口关闭了
 2. prompt对话框，可以根据用户输入内容转跳页面
 
 ## 2、location
-1. 提供了与当前窗口中加载的文档有关的信息，还将url解析为独立的片段，并通过location.hash,location.host,location.hostname等属性进行访问
+1. 只读属性，包含有关文档当前位置信息
+
 1. 既是window对象属性，又是document对象属性
-1. location.search():
-	- 返回从问号到URL结尾的所有内容，但无法逐个访问其中每个查询字符串参数（通过自定义函数可以访问）
+
+1. location.search属性:
+
+  - 返回从问号到URL结尾的所有内容，但无法逐个访问其中每个查询字符串参数（通过自定义函数可以访问）
+
 1. 改变浏览器位置：
-	- location.assign(""):打开新的URL，并产生历史记录
-	- window.location = ""
-	- location.href = ""
-	- 上述三种方式效果完全一样
+  - location.assign("http://www.baidu.com"):打开新的URL，并产生历史记录
+  - window.location = ""
+  - location.href = ""
+  - 上述三种方式效果完全一样
+
 1. location.replace():
-	- 不会产生历史记录，故用户不能返回到之前页面
+
+  - 不会产生历史记录，故用户不能返回到之前页面
+
 1. location.reload():
-	- 重新加载当前页，传入true参数，从服务器获取，否则先在缓存中获取
-1. location.hostname
-    返回主页名
+
+  - 重新加载当前页，传入true参数，从服务器获取，否则先在缓存中获取
+
+1. location.hostname：返回主页名
+
 1. location.pathname：返回当前页面路径
+
 1. location.protocol：返回页面的协议
-1. location.assign("http://www.baidu.com")：重定向到网页
+
+1. demo：
+
+    ![1554274719177](8-BOM.assets/1554274719177.png)
 
 ## 3、navigator
-1. 识别客户端浏览器，所有支持js的浏览器共有的对象
-2. 主要问题是：Navigator信息可能会有问题；不同浏览器可以有相同名字，navigator数据可以被用户更改
-1. navigator.cookieEnabled：判断浏览器cookie是否开启
-1. navigator.appCodeName
-    - navigator.appName
-    - 两者一致，都返回浏览器名
-1. navigator.product：返回浏览器引擎名
-1. navigator.appVersion
+1. 用于请求运行当前代码的应用程序相关信息
+2. 主要问题是：
+    - Navigator信息可能会有问题；
+    - 不同浏览器可以有相同名字
+    - navigator数据可以被用户更改
+3. navigator.cookieEnabled：判断浏览器cookie是否开启
+4. navigator.appCodeName
+    - 返回浏览器名
+    - IE、chrome、safari返回的都是“Mozilla”
+5. navigator.appName
+    - 返回浏览器名
+    - IE、chrome、safari返回的都是“Netscape”
+6. navigator.product：返回浏览器引擎名
+7. navigator.appVersion
     - navigator.userAgent
     - 浏览器版本
-1. navigator.platform：浏览器所在的操作平台
-1. 检测插件
-	- 非ie可以使用navigator.plugins数组
-	- 典型做法是针对每个插件创建检测函数，而不是通用检测
+8. navigator.platform
+    - 浏览器所在的操作平台
+    - 可以用来区分移动端和pc端，但不是很好的方案
+9. 检测插件
+  - 非ie可以使用navigator.plugins数组
+  - 典型做法是针对每个插件创建检测函数，而不是通用检测
 
 ## 4、screen
 1. 只用来表明客户端能力,如屏幕实际DPI，屏幕像素高度等
@@ -189,4 +232,3 @@ console.log(win.closed);  //true,打开的窗口关闭了
 ## 4、用户代理检测
 1. 用户代理字符串是作为响应首部发送的
 1. 但由于历史问题，通过用户代理字符串检测特定浏览器不是一件容易的事
-

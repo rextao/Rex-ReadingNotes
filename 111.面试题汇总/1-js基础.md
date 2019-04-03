@@ -71,13 +71,26 @@
 9. 检查类的关系4种方式？
 10. 面向委托的设计风格？
 
+## 8-BOM
+
+1. top、parent、self对象的含义？
+2. 如何移动窗口、如何修改窗口大小？两个方法的异同
+3. setInterval的问题？
+4. window.location？？search属性？改变浏览器位置的方法？replace方法的特点？reload含义及传入不同参数的含义？
+5. navigator？可以获取哪些信息？
+6. screen？
+7. history的方法与属性？
+
+## 9-DOM
+
+1. node常用属性以及常用方法？
+2. 创建元素？返回元素的指定的属性值？直接node.id与利用Dom方法的不同？设置与删除属性？attributes属性是？
+3. 创建文本节点？
+4. 创建文档片段
+5. 访问元素样式及注意事项？计算样式如何获取？如何获取伪元素样式？CSSStyleDeclaration API？CSSStyleDeclaration 属性及常用方法？
+6. CSSStyleSheet API优势？cssText使用？与CSSStyleDeclaration API关系
 
 
-
-
-防抖
-
-节流
 
 
 

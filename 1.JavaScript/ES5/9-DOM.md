@@ -546,6 +546,26 @@
 
 # 元素大小
 
+## offsetWidth,offsetHeight
+
+1. 是一个只读属性，返回一个元素的布局宽度、高度
+2. 结果为四舍五入整数
+3. 表述元素的外尺寸：元素内容+内边距+边框(不包括外边距) 
+4. ![Image:Dimensions-offset.png](9-DOM.assets/Dimensions-offset.png)
+
+## offsetLeft，offsetTop
+
+1. 表示该元素的左上角（边框外边缘）与**已定位的父容器**（offsetParent对象）左上角的距离。
+2. offsetParent元素是指元素最近的定位（relative,absolute）祖先元素,可递归上溯。
+3. ![1554287922927](9-DOM.assets/1554287922927.png)
+
+## clientWidth，clientHeight
+
+1. 用于描述元素的内尺寸：元素内容+两边内边距
+2. 结果为四舍五入整数
+3. ![Image:Dimensions-client.png](9-DOM.assets/Dimensions-client.png)
+4. html宽度：document.documentElement.clientWidth（documentElement返回的是html元素）
+
 - 概述
 
   - 不属于DOM2规范，所有浏览器都支持

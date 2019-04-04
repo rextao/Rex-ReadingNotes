@@ -94,9 +94,16 @@
 
 1. 事件流的两种方式？事件流的三个阶段？三种方式为DOM元素注册事件处理函数以及异同？
 2. event.currentTarget、event.target、event.type、preventDefault()、stopPropogation()、eventPhase属性
-3. load、unload事件
-4. 不冒泡的事件有？当焦点从a元素移动到b元素，触发事件顺序是?
-5. 双击一个元素，事件发生顺序?mouseenter、mouseleave、mouseover、mouseout的区别？
+3. event.detail?
+4. MouseEvent获取客户区坐标位置、页面坐标位置、屏幕坐标位置、修改键、鼠标按钮判断、relatedTaget
+5. 如何准确判断滚动方向；WheelEvent.deltaX？
+6. KeyboardEvent.key与KeyboardEvent.code区别？location？getModifierState()
+7. load、unload事件?
+8. 不冒泡的事件有？当焦点从a元素移动到b元素，触发事件顺序是?
+9. mouseenter、mouseleave、mouseover、mouseout的区别？双击一个元素，事件发生顺序?
+10. contextmenu事件、beforeunload事件
+
+## 11- 表单脚本
 
 
 

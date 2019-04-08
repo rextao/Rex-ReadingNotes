@@ -1,5 +1,5 @@
-# 使用canvas绘图
-## 1、基本用法
+# canvas绘图
+## 基本用法
 1. 必须设置width和height，指定绘制区域
 1. 检测getContext是否存在
 1. 获得绘图上下文

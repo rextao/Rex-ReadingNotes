@@ -105,9 +105,20 @@
 
 ## 11- 表单脚本
 
+1. 设置全document可编辑？设置某个元素可编辑
 
+## 18- Ajax
 
-
+1. 什么是ajax？解决缓存的3个办法？xhr的局限性？
+2. 同源策略？创建XHR对象？ XHR常用方法？发送异步请求时需要检测xxx属性？xx属性改变会触发xx事件？如何设置HTTP头？如何获取响应头？
+3. get请求特点？post请求特点？两者异同？
+4. FormData类型？timeout属性，overrideMimeType？
+5. XHR事件？progress事件，position属性，totalSize属性？
+6. responseType的ArrayBuffer、Blob、Document、JSON、Text表示的含义
+7. 定时轮询？定时时间的长短有何影响？改进方式？
+8. 跨资源共享？背后的思想是？与XHR的异同？CORS默认的安全措施？
+9. SSE目的？局限性？
+10. WebSocket？资源URL的自定义模式？
 
 # ES6
 

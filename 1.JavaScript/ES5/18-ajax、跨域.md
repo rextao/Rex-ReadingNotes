@@ -18,12 +18,12 @@
 3. XHR可以并基本已经实现了大部分网络应用，如下载、上传、流传输等，但并不是说XHR在任何场景都是最有效的传输方式
 4. 2011年将“ XMLHttpRequest Level 2” 规 范 与 原 来 的 XMLHttpRequest 工 作草案合并，Level 1与Level 2已经没有什么关系了，今天只有一个统一的XHR规范，通过XMLHttpRequest API 提供的：接口不变，功能增强
 5. XHR 并不适合用来实现流式数据处理，之后可以使用Streams API
-	- streams API （MDN）：https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
-	- w3c：https://streams.spec.whatwg.org/
+  - streams API （MDN）：https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
+  - w3c：https://streams.spec.whatwg.org/
 6. XHR的自身局限性：
-	- XHR 不适合流式数据处理 
-	- XHR 实时交付更新方式都不好
-	- 对于这两方面应用，可以选用Server-Sent Events 和 WebSocket
+  - XHR 不适合流式数据处理 
+  - XHR 实时交付更新方式都不好（XHR使用轮询）
+  - 对于这两方面应用，可以选用Server-Sent Events 和 WebSocket
 
 ## 同源策略
 
@@ -36,16 +36,16 @@
 ## XHR用法
 ### xhr.open('get', 'rextao.com', false)
 
-1. 首先调用
+1. 初始化请求
 	- 参数：请求类型
 	- 参数：请求URL
-	- 参数：请求是异步还是同步
+	- 参数：请求是异步（true，默认值）还是同步
 2. 并不是真正发送请求，而是启动一个请求以备发送
 3. 只能向同一域相同端口和协议的URL发送请求，如有差别，则会引发安全错误
 
 ### xhr.send()
 
-1. 参数
+1. 向服务器发送数据：`XMLHttpRequest.send(body)`
 
 	- 请求主体发送的数据
 	- 如不需要，必须传入null
@@ -108,11 +108,11 @@
 1. GET与POST是HTTP协议的两种发送请求的方法
 2. HTTP的底层是TCP/IP。所以GET和POST的底层也是TCP/IP。GET和POST能做的事情是一样一样的。你要给GET加上request body，给POST带上url参数，技术上是完全行的通的。 
 3. 但由于浏览器与服务器的限制，导致他们在应用过程中体现了不同
-  - 如get请求即使加上request body，服务器可能也会忽略
+	- 如get请求即使加上request body，服务器可能也会忽略
 4. **重大区别**：GET产生一个TCP数据包；POST产生两个TCP数据包。
-  - 对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
-  - 对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
-  - 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。
+	- 对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
+	- 对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+	- 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。
 5. 其他区别
 	- post发送的数据更大（get有url长度限制） 
 	- post比get慢 （post两次TCP）
@@ -124,7 +124,7 @@
 1. 概述，虽然现在统一了XHR，但有的浏览器不支持如下特性
 2. FormData类型（ie11，ie10部分支持）
 	- 为序列化表单和创建与表单格式相同的数据提供便利
-	- ```var data = new FormData()```
+	- `var data = new FormData()`
 	- data.append()方法
 		- 参数：表单的键值
 	- 方便之处是：不用设置请求头，XHR对象可识别传入FormData的实例，并适配头部信息
@@ -179,13 +179,13 @@
 	```javascript
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', '/images/photo.webp');
-	xhr.responseType = 'blob'; ➊
+	xhr.responseType = 'blob'; // ➊
 	xhr.onload = function() {
 	if (this.status == 200) {
 	    var img = document.createElement('img');
-	    img.src = window.URL.createObjectURL(this.response); ➋
+	    img.src = window.URL.createObjectURL(this.response);// ➋
 	    img.onload = function() {
-	       window.URL.revokeObjectURL(this.src); ➌
+	       window.URL.revokeObjectURL(this.src); // ➌
 	    }
 	    document.body.appendChild(img);
 	    }
@@ -441,8 +441,8 @@
 ### WS与WSS
 
 1. WebSocket 资源 URL 采用了自定义模式： 
-  - ws 表示纯文本通信（如 ws://example. com/socket）
-  - wss 表示使用加密信道通信（ TCP+TLS）  
+	- ws 表示纯文本通信（如 ws://example. com/socket）
+	- wss 表示使用加密信道通信（ TCP+TLS）  
 2. 使用自定义模式主要目的是在浏览器中的应用与服务器之间提供优化的、双向通信机制，让WebSocket可以通过非HTTP协商机制交换数据
 
 ### 接收文本和二进制数据
@@ -520,9 +520,7 @@
 	}
 	```
 
-## WebSocket协议
 
-1. 
 
 # 其他跨域技术
 ### 图像ping
@@ -552,6 +550,6 @@
     - 确定JSONP请求是否失败并不容易，H5在script元素增加了onerror事件，可以查看
 
 
-### 
+
 
 

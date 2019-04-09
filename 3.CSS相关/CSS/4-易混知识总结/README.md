@@ -2,12 +2,13 @@
 
 ## 概述
 
-1. 块级格式化上下文（Block Fromatting Context）是按照块级盒子布局的
-2. 一个html元素要创建BFC，则要满足下面任意一个或多个条件
-	- float的值不是none
-	- position的值不是static或者relative
-	- display的值是inline-block、table-cell、flex、table-caption或者inline-flex
-	- overflow的值不是visible
+1. 块级格式化上下文（Block Fromatting Context）是按照块级盒子布局的，它是指一个独立的块级渲染区域
+2. BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素，反之亦然
+3. 一个html元素要创建BFC，则要满足下面任意一个或多个条件
+  - float的值不是none
+  - position的值不是static或者relative
+  - display的值是inline-block、table-cell、flex、table-caption或者inline-flex
+  - overflow的值不是visible
 
 ## 避免外边距折叠
 
@@ -21,6 +22,46 @@
 2. 通常利用`::after`来解决这个问题，BFC包含浮动也能解决这个问题（即经常使用overflow:hidden）
   ![1546582718394](README.assets/1546582718394.png)
 
+## 多栏布局
+
+1. 与浮动元素相邻的已生成BFC的元素不能与浮动元素相互覆盖
+
+2. ```html
+   <!DOCTYPE html>
+   <html>  
+   <head> 
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+   
+     <style> 
+       html, body { height: 100%; width: 100%; margin: 0; padding: 0; }
+       .left{
+         background:pink;
+         float: left;
+         width:180px;
+       }
+       .center{
+         background:lightyellow;
+         overflow:hidden;      
+       }
+       .right{
+         background: lightblue;
+         width:180px;
+         float:right;
+       }
+     </style>  
+   </head>
+   <body class="claro"> 
+     <div class="container">
+       <div class="left">aaaaaaa</div>
+       <div class="right">bbbbbbbb</div>
+       <div class="center">cccccc</div>
+     </div>
+   </html>
+   ```
+
+3. 
+
 
 
 # 
@@ -32,6 +73,8 @@
 1. 浏览器不会生成属性为display: none;的元素
 2. 不占据空间，动态改变此属性时会引起重排（改变页面布局），可以理解成在页面中把该元素删除掉一样 
 3. 不会被子孙继承，但是其子孙是不会显示的，毕竟都一起被隐藏了。  
+4. 搜索引擎可能认为被隐藏的文字属于垃圾信息而被忽略
+5. 屏幕阅读器（是为视觉上有障碍的人设计的读取屏幕内容的程序）会忽略被隐藏的文字。
 
 ## visibility:hidden
 

@@ -128,7 +128,7 @@
 
 
 
-# 垂直居中的方法
+# 水平垂直居中的方法
 
 ## margin:auto法
 
@@ -193,3 +193,22 @@
 ## flex
 
 1. 将父元素设置为display:flex，并且设置`align-items:center;justify-content:center;`
+
+
+
+# 多元素水平居中
+
+1. 把子级div设置成display:inline-block; 然后父级div设置text-align:center;
+
+2. 更方便灵活的做法还是使用flex-box, 设置水平居中 justify-content: center
+
+   ```css
+   main{
+       display:flex;
+       justify-content:center;
+   }
+   ```
+
+   
+
+   # 

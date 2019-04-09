@@ -31,4 +31,5 @@
       - 复习js准备面试，深入理解某些关键概念
       - 主要是英文blog，从不同角度深入理解js中关键概念
       - 年代比较久远、阅读量小的文章并没有看或略看
+4. 20190409，cavans，根据[MDN Tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)重新学习canvas
 

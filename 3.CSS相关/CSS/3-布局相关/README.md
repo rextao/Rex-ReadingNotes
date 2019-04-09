@@ -1,10 +1,10 @@
-### 三栏自适应布局
+# 三栏自适应布局
 
-#### 概述
+## 概述
 
 1. 两边宽度固定，中间自适应
 
-#### 普通玩法
+## 普通玩法
 
 1. 绝对定位法
 
@@ -70,7 +70,7 @@
 	```
 
 
-#### 进阶玩法（main先显示）
+### 进阶玩法（main先显示）
 
 1. 即html结构需要是，main在最前面，实现三列布局
 
@@ -128,9 +128,9 @@
 
 
 
-### 垂直居中的方法
+# 垂直居中的方法
 
-#### margin:auto法
+## margin:auto法
 
 1. 利用absolute与`margin:auto`
 
@@ -159,7 +159,7 @@
    </div>
    ```
 
-#### 负margin
+## 负margin
 
 ```html
 <style>
@@ -182,35 +182,14 @@
 </style>
 ```
 
-#### transform方法
+## transform方法
 
 1. 利用`transform：translateX(-50%)和transform：translateY(-50%) `
 
-#### table-cell（未脱离文档流的）
+## table-cell（未脱离文档流的）
 
 1. 设置父元素的display:table-cell,并且vertical-align:middle，这样子元素可以实现垂直居中。 
 
-#### flex
+## flex
 
 1. 将父元素设置为display:flex，并且设置`align-items:center;justify-content:center;`
-
-### 元素隐藏
-
-#### display:none
-
-1. 浏览器不会生成属性为display: none;的元素
-2. 不占据空间，动态改变此属性时会引起重排（改变页面布局），可以理解成在页面中把该元素删除掉一样 
-3. 不会被子孙继承，但是其子孙是不会显示的，毕竟都一起被隐藏了。  
-
-#### visibility:hidden
-
-1. 占据空间
-2. 会被子孙继承，子孙也可以通过显示的设置visibility: visible;来反隐藏。  
-3. 动态修改此属性会引起重绘。  
-4. 不会触发该元素已经绑定的事件。 
-
-#### opacity=0
-
-1. 透明度为100%，占据空间
-2. 会被子孙继承，子元素并 不能通过opacity=1，进行反隐藏。
-3. 依然能触发已经绑定的事件 

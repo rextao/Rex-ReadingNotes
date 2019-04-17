@@ -67,8 +67,10 @@
 9. 什么是CSS Hack
    - 针对不同的浏览器写不同的CSS,就是 CSS Hack
 10. 画一条0.5px的线
-   - 利用transform: scale(0.5) 
-   - viewpoint的initial-sacle=0.5
-11. 
+  - 利用transform: scale(0.5) 
+  - viewpoint的initial-sacle=0.5
+11. transition和animation的区别
+   - transition从某种层度上讲，动画控制的更粗一些，它唯一能定义动画变化过程效果的便是transition-timing-function属性
+   - animation提供的keyframe方法，可以让你手动去指定每个阶段的属性。此外animation还封装了循环次数，动画延迟，反向循环等功能,更加自由和强大。
 
 ## 

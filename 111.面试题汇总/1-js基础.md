@@ -92,7 +92,7 @@
 
 ## 10-事件
 
-1. 事件流的两种方式？事件流的三个阶段？三种方式为DOM元素注册事件处理函数以及异同？
+1. 事件流的两种方式？如何让事件先冒泡后捕获？事件流的三个阶段？三种方式为DOM元素注册事件处理函数以及异同？
 2. event.currentTarget、event.target、event.type、preventDefault()、stopPropogation()、eventPhase属性
 3. event.detail?
 4. MouseEvent获取客户区坐标位置、页面坐标位置、屏幕坐标位置、修改键、鼠标按钮判断、relatedTaget
@@ -134,3 +134,17 @@
 6. ES6 modules的优势？设计思想及这样做的优点？普通script脚本与modules区别？不是值或引用的导出绑定的理解？
 7. 与CommonJs的语法区别、加载方式的区别、导入方式不同？
 8. 如何在浏览器使用modules？如何应对回退？
+
+# 其他
+
+### document.write和innerHTML的区别
+
+1. document.write是直接写入到页面的内容流，会导致页面全部重绘
+2. innerHTML将内容写入某个DOM节点，不会导致页面全部重绘
+
+### 小知识
+
+1. undefined和null区别
+   - null： Null类型，代表“空值”，代表一个空对象指针，使用typeof运算得到 “object”，它是一个特殊的对象值。
+   - undefined： Undefined类型
+   - null是javascript的关键字，undefined是预定义的全局变量

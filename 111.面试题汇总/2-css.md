@@ -13,6 +13,7 @@
 1. 概述？如何才能构成？有何作用？
 2. 元素隐藏的三种方式以及异同
 3. css三大特性？
+4. 伪类与伪元素？
 
 # 基础知识
 
@@ -31,6 +32,7 @@
 
 1. 盒模型：文档中的每个元素被描绘为矩形盒子，包括padding+margin+border+content内容区
 2. 盒子模型分为标准模型与ie模型
+3. 
 
 ## 请写一个简单的幻灯效果页面
 
@@ -40,8 +42,19 @@
 
 1. link属于html标签，而[@import](https://github.com/import)是css提供的
 2. 页面被加载时，link会同时被加载，而[@import](https://github.com/import)引用的css会等到页面加载结束后加载
+3. link方式的样式的权重高于@import的权重
 
-## 其他
+## position的absolute与fixed共同点与不同点
+
+1. 共同点：
+	- 改变行内元素的呈现方式，display被置为block；
+	- 让元素脱离普通流，不占据空间
+	- 默认会覆盖到非定位元素上
+2. 不同点：
+	- absolute的”根元素“是可以设置的
+	- fixed的”根元素“固定为浏览器窗口。当你滚动网页，fixed元素与浏览器窗口之间的距离是不变的。
+
+# 其他
 
 1. 如何优化网页的打印样式?
    - 针对打印机的样式: @media print{...}
@@ -70,7 +83,17 @@
   - 利用transform: scale(0.5) 
   - viewpoint的initial-sacle=0.5
 11. transition和animation的区别
-   - transition从某种层度上讲，动画控制的更粗一些，它唯一能定义动画变化过程效果的便是transition-timing-function属性
-   - animation提供的keyframe方法，可以让你手动去指定每个阶段的属性。此外animation还封装了循环次数，动画延迟，反向循环等功能,更加自由和强大。
+	- transition从某种层度上讲，动画控制的更粗一些，它唯一能定义动画变化过程效果的便是transition-timing-function属性
+	- animation提供的keyframe方法，可以让你手动去指定每个阶段的属性。此外animation还封装了循环次数，动画延迟，反向循环等功能,更加自由和强大。
+12. box-sizing常用的属性有哪些？分别有什么作用？
+	- content-box；在CSS中定义的宽度和高度之外绘制元素的内边距和边框
+	- border-box；元素在设置内边距和边框是在已经设定好的宽度和高度之内进行绘制
+13. px和em的区别
+	- px表示像素 ，是绝对单位，不会因为其他元素的尺寸变化而变化；
+	- em表示相对于父元素的字体大小。em是相对单位 ，没有一个固定的度量值，而是由其他元素尺寸来决定的相对值。
+14. eval()的作用
+	- 把字符串参数解析成JS代码并运行
+	- 由于js引擎无法事先获得eval中的js代码，无法对代码进行优化，不建议使用
 
-## 
+
+

@@ -148,3 +148,33 @@
    - null： Null类型，代表“空值”，代表一个空对象指针，使用typeof运算得到 “object”，它是一个特殊的对象值。
    - undefined： Undefined类型
    - null是javascript的关键字，undefined是预定义的全局变量
+
+2. JS哪些操作会造成内存泄露
+
+	- 闭包引起的内存泄露
+	- 没有清理的DOM元素引用
+	- 被遗忘的定时器或者回调 
+
+3. 怎样添加、移除、移动、复制、创建和查找节点？
+
+	- 创建新节点
+
+		createDocumentFragment() //创建一个DOM片段
+
+		createElement() //创建一个具体的元素
+
+		createTextNode() //创建一个文本节点
+
+	- 2）添加、移除、替换、插入
+		appendChild() //添加
+		removeChild() //移除
+		replaceChild() //替换
+		insertBefore() //插入
+
+	- 3）查找
+		getElementsByTagName() //通过标签名称
+		getElementsByName() //通过元素的Name属性的值getElementById() //通过元素Id，唯一性
+
+
+		--------------------- 
+		

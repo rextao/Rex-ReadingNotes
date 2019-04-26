@@ -54,10 +54,11 @@
 
 ## 6-函数
 
-1. 函数的两种方式？length？具名函数？
+1. 函数的两种方式？length？call模拟实现？具名函数？
 2. 为何需要立即执行函数？IIFE的形式？IIFE与闭包？
 3. 函数与变量提升的顺序？
 4. 纯函数？和为副作用？
+5. 防抖和节流的区别？典型应用
 
 ## 7-构造函数
 
@@ -143,6 +144,16 @@
 1. document.write是直接写入到页面的内容流，会导致页面全部重绘
 2. innerHTML将内容写入某个DOM节点，不会导致页面全部重绘
 
+### 谈谈你对JS执行上下文栈和作用域链的理解
+
+1. 执行上下文就是当前 JavaScript 代码被解析和执行时所在环境,
+2. JS执行上下文栈可以认为是一个存储函数调用的栈结构，遵循先进后出的原则。
+3. LHS和RHS查询，但无论LHS与RHS查询，都会在当前的作用域开始查找，如果没有找到，就会向上级作用域继续查找目标标识符，每次上升一个作用域，一直到全局作用域为止。
+4. RHS在所有作用域都查询不到，会抛出ReferenceError（未声明）错误
+	- 如查询到变量，但对变量值进行不合理操作（应用null中的属性等），会抛出TypeError
+5. LHS在所有作用域查询不到，会在全局作用域创建这个变量（非严格模式）
+	- 严格模式禁止隐式或自动创建全局变量
+
 ### 小知识
 
 1. undefined和null区别
@@ -175,4 +186,37 @@
 	- 3）查找
 		getElementsByTagName() //通过标签名称
 		getElementsByName() //通过元素的Name属性的值getElementById() //通过元素Id，唯一性
+	
+4. 如何判断一个变量是不是数组？
+
+  - 使用 Array.isArray 判断，如果返回 true, 说明是数组
+  - 使用 instanceof Array 判断，如果返回true, 说明是数组
+  - 使用 Object.prototype.toString.call 判断，如果值是 [object Array], 说明是数组
+  - 通过 constructor 来判断，如果是数组，那么 `arr.constructor === Array`. (不准确，因为我们可以指定 `obj.constructor = Array`)
+
+5. 类数组可以转换为数组:
+
+	- Array.prototype.slice.call(arrayLike, start);
+	- [...arrayLike];
+	- Array.from(arrayLike);
+
+6. 数组api哪些能改变原数组哪些不能
+
+	- 直接修改的：splice，reverse，sort，push，pop，shift，unshift
+	- 不修改的：concat，join，slice
+
+7. 词法作用域和this的区别
+
+	- 词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的
+	- this 是在调用时被绑定的，this 指向什么，完全取决于函数的调用位置
+
+8. 闭包的作用有:
+
+	- 封装私有变量
+	- 模仿块级作用域(ES5中没有块级作用域)
+	- 实现JS的模块
+
+	
+
+	
 

@@ -94,6 +94,11 @@
 14. eval()的作用
 	- 把字符串参数解析成JS代码并运行
 	- 由于js引擎无法事先获得eval中的js代码，无法对代码进行优化，不建议使用
+15. postion
+	- sticky：在屏幕范围（viewport）时该元素的位置并不受到定位影响（设置是top、left等属性无效），当该元素的位置将要移出偏移范围时，定位又会变成fixed，根据设置的left、top等属性成固定位置的效果。兼容性不太好
+	- fixed：会受到父级定位的影响（父级`position:absolute;left:10px`,当前元素为`position:fixed;left:10px`），相当于当前元素距离左边20px，滚动时，保持位置不变；父级有transform会根据父级定位
+	- relative：相对于原文档流位置进行偏移
+	- absolute：绝对定位
 
 
 

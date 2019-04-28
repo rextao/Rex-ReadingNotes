@@ -47,7 +47,7 @@
 1. 构造函数是可以提升的（构造函数也是函数）
 2. class并不能提升，故类调用需要在类定义之后
 
-## 
+
 
 ## 定义方法
 
@@ -163,6 +163,9 @@
 
 3. 必须是子类的constructor才能调用super，普通一个类的constructor调用super会报错
 
-## 注意
+## 与ES5类的区别
 
-1. 函数定义的prototype是可写的，class定义的prototype是不可写的
+1. ES6必须使用 new 调用
+2. ES6不存在变量提升
+3. class定义的prototype是不可写的，ES5函数定义的prototype是可写的，即es6定义了class后，不能更改prototype
+4. ES6内部所有定义的方法都是不可枚举的

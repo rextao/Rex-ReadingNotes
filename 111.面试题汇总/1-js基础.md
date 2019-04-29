@@ -145,6 +145,11 @@
 7. 与CommonJs的语法区别、加载方式的区别、导入方式不同？
 8. 如何在浏览器使用modules？如何应对回退？
 
+## Promise
+
+1. 回调方式主要的缺点？promise的状态？
+2. Promise的构造函数？
+
 # 其他
 
 ### document.write和innerHTML的区别

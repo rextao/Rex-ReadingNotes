@@ -59,29 +59,33 @@
       - 此办法可以应用于并发函数调用共享DOM
         - 如foo为设置dom内容，bar为设置dom样式,要求先要更新了内容，才可以更新样式,可以利用上述代码形式
 
-    ## 通过事件处理异步
+    
 
-    1. 例如`XMLHttpRequest`API，为每个请求创建一个请求对象，并登记事件处理函数
+    
 
-       ```javascript
-       var req = new XMLHttpRequest();
-       req.open('GET', url);
-       req.onload = function () {
-           if (req.status == 200) {
-               processData(req.response);
-           } else {
-               console.log('ERROR', req.statusText);
-           }
-       };
-       req.onerror = function () {
-           console.log('Network Error');
-       };
-       req.send(); // Add request to task queue
-       ```
+## 通过事件处理异步
 
-       - `req.send()实际是放入事件队列，顾此句可以直接在req.open后面进行调用
+1. 例如`XMLHttpRequest`API，为每个请求创建一个请求对象，并登记事件处理函数
 
-    2. 事件方式处理异步请求适用于多次接受结果的情况，如只需要接收一次结果使用这样方式就会显得冗长
+    ```javascript
+    var req = new XMLHttpRequest();
+    req.open('GET', url);
+    req.onload = function () {
+        if (req.status == 200) {
+            processData(req.response);
+        } else {
+            console.log('ERROR', req.statusText);
+        }
+    };
+    req.onerror = function () {
+        console.log('Network Error');
+    };
+    req.send(); // Add request to task queue
+    ```
+
+    - `req.send()`实际是放入事件队列，顾此句可以直接在req.open后面进行调用
+
+2. 事件方式处理异步请求适用于多次接受结果的情况，如只需要接收一次结果使用这样方式就会显得冗长
 
 # 回调
 ## 概述
@@ -100,14 +104,27 @@
 
 ### 缺点二（可信任性）：
 
-1. 回调会受到控制反转的影响，回调暗中把控制权交给第三方来调用你的代码。这种控制转移导致一系列麻烦的信任问题，比如回调被调用的次数会超出预期等。
-2. 虽然可以通过一些手段解决一部分信任问题，但会增加代码冗余
+1. 回调会受到控制反转的影响，回调暗中把控制权交给第三方来调用你的代码。如下c部分代码：
+
+	```javascript
+	// a
+	ajax('',(）>={
+	    //c
+	})
+	// b
+	```
+
+	- 这种控制转移导致一系列麻烦的信任问题
+	- 比如回调被调用的次数会超出预期、少于预期、调用过早、调用过晚等。
+
+2. 虽然可以通过在c中增加一些判断，通过一些手段可以信任问题，但会增加代码冗余
+
 3. 需要一个通用的方案来解决这些信任问题
 
 * * *
 
 # Promise
-## Promise概述
+## 概述
 
 1. 同步执行的代码，不需要状态，代码要么执行成功，要么执行失败
 2. Promise 本质上是一个绑定了回调的对象，而不是将回调传进函数内部 
@@ -156,6 +173,34 @@
 
 1. reject 后需要调用catch方法
 
+## 具有 then 方法的鸭子类型
+
+1. 在使用Promise一个重要细节是如何确定某个值是否为Promise
+
+2. 不可使用p instanceof Promise
+
+	- Promise值可能来源于frame或其他浏览器，他们的Promise可能与自己的不一样
+	- 有些库可能实现了Promise机制，但使用的不是ES6
+
+3. 使用：
+
+	```javascript
+	p !== null
+	&& (
+	    typeof p === "object" ||
+	    typeof p === "function"
+	)
+	&&
+	    typeof p.then === "function"
+	```
+
+	- 来检测是否为Promise实例
+
+4. 但使用这样的检测方式同样存在问题：
+    - 可能某些普通对象存在then方法，只是想当做普通对象的，被识别为thenable
+    - 有些库已经存在了then方法，与ES6不兼容，并无法更改不，则只能表示不兼容基于ES6 promise代码
+    - 如果把不是Promise的识别为Promise是有危害的
+
 ## Promise/A+标准
 
 1. Promise实现需要遵循Promise/A+标准，需要遵循如下这些准则
@@ -187,18 +232,18 @@
 
 #### 概述
 
-```javascript
-new Promise((resolve,reject)  => {
-    resolve(1);
-    reject('error!...')
-}).then((x)=>{
-    console.log(x);
-},(err)=>{
-    console.log(err);
-})
-```
-
 1. `then()`接收一个或两个参数：第一个用于完成回调，第二个用于拒绝回调；
+
+	```javascript
+	new Promise((resolve,reject)  => {
+	    resolve(1);
+	    reject('error!...')
+	}).then((x)=>{
+	    console.log(x);
+	},(err)=>{
+	    console.log(err);
+	})
+	```
 
 2. 由于如上方式，同时调用完成回调与拒绝回调，完成回调发生错误，则错误无法被处理，顾通常使用then接收成功回调，catch接收回调
 
@@ -230,61 +275,121 @@ new Promise((resolve,reject)  => {
 
 1. 当一个then方法返回promise，接下来的执行会在resolved或rejected之前挂起
 
-#### 如何实现一个then方法
+### Promise.resolve与Promise.reject
 
-1. ```javascript
-   promise.then(
-     onFulfilled?: Function,
-     onRejected?: Function
-   ) => Promise
-   ```
+1. 创建完成或拒绝的Promise的快捷方式
 
-   onFulfilled和onRejected参数可选的，如不是函数应忽略
+2. 如下两种方式是等价的
 
-2. 两个函数只能被调用一次
+	```javascript
+	// 方式1
+	const p1 = new Promise(resolve,reject){
+	    resolve('haha');
+	}
+	// 方式2
+	const p2 = Promise.resolve('haha');
+	```
 
-3. then方法需要返回一个新的promise
+3. 特别注意：Promise.resolve()也会展开thenable值，如是thenable值，可能是完成也可能是拒绝
 
-4. 如onRejected不是函数，且promise1被拒绝，返回的promise2必须以与promise1相同原因被拒绝
+	```javascript
+	var fulfilledTh = {
+	    then: function(cb) { cb( 42 ); }
+	};
+	var rejectedTh = {
+	    then: function(cb,errCb) {
+	        errCb( "Oops" );
+	    }
+	};
+	var p1 = Promise.resolve( fulfilledTh );// p1是完成的promise
+	var p2 = Promise.resolve( rejectedTh );// p2是拒绝的promise
+	```
+
+4. 传入Promise.resolve()的是promise，只会直接把值返回
+
+### then() 与 catch()
+
+1. Promise 决议之后，立即会调用
+	这两个处理函数之一，但不会两个都调用，而且总是异步调用
+2. `Promise.prototype.then(onFulfilled, onRejected)`
+	- 对promise添加`onFulfilled`和`onRejected`回调，并返回的是一个新的Promise实例（不是原来那个Promise实例）
+3. `Promise.prototype.catch(onRejected)`
+	- 该方法是`.then(undefined, onRejected)`的别名，用于指定发生错误时的回调函数。
+
+## 
+
+### Promise.all()
+
+1. 同时执行两个或更多步骤，完成的顺序不关键，关键的是必须都完成
+2. 比如ajax1,ajax2无论顺序如何，但需要两者都完成后，才能执行第三个，可以用```Promise.all([ajax1,ajax2])```
+3. 如数组中有一个被拒绝，则会立即被拒绝，并丢弃来自其他所有Promise的全部结果
+
+### Promise.race()
+
+1. 一旦有任何一个 Promise 决议为完成， Promise.race([ .. ])
+	就会完成；
+
+2. 一旦有任何一个 Promise 决议为拒绝，它就会拒绝。
+
+3. 注意：如传入空数组，即不会完成也不会拒绝，由于Promise库早于es6 Promise，故遗留下这个问题
+
+4. 超时竞赛
+
+	```javascript
+	Promise.race([
+	    foo(), // 启动foo()
+	    timeoutPromise(3000) // 给它3秒钟
+	]).then(
+	    function () {
+	        // foo(..)按时完成！
+	    },
+	    function (err) {
+	        // 要么foo()被拒绝，要么只是没能够按时完成
+	        // 因此要查看err了解具体原因
+	    }
+	);
+	```
+
+	- foo运行时间超过3s，则定时器会触发函数，可以返回reject，则Promise返回拒绝状态
 
 
 
 
-
-1. Promise.resolve(..) 和 Promise.reject(..)
-   - 快捷方式创建完成或拒绝的Promise
-2. then(..) 和 catch(..)
-   - 每个Promise实例都有这两个方法，可以为这个 Promise 注册完成和拒绝处理函数
-     - Promise 决议之后，立即会调用这两个处理函数之一，但不会两个都调用，而且总是异步调用
-   - - 
-   - catch(..)
-     - 只接受一个拒绝回调作为参数
-
-## 具有 then 方法的鸭子类型
-1. 在使用Promise一个重要细节是如何确定某个值是否为Promise
-1. 不可使用p instanceof Promise
-    - Promise值可能来源于frame或其他浏览器，他们的Promise可能与自己的不一样
-    - 有些库可能实现了Promise机制，但使用的不是ES6
-1. 使用：
-```javascript
-p !== null
-        && (
-            typeof p === "object" ||
-            typeof p === "function"
-        )
-        &&
-        typeof p.then === "function"
-```
-    - 来检测是否为Promise实例
-    - 同样存在问题：
-        - 对象存在then方法会被识别为Promise
-        - 有些库已经存在了then方法，如更改不了，则表示不能支持Promise
-        - 如果把不是Promise的识别为Promise是有危害的
 
 ## Promise 信任问题
-1. Promise 的特性就是专门用来解决回调信任问题的（如回调过早，重复回调等）
-1. 调用过早
-    - 对于立即完成的Promise，即调用then时候，Promise已经有决议，也是异步调用
+
+### 调用过早
+
+1. 对于回调函数，如下：
+
+	```javascript
+	function result(data) {
+	    console.log( a );
+	}
+	var a = 0;
+	ajax( "..pre-cached-url..", result );
+	a++;
+	```
+
+	- 如ajax是同步调用个，则返回0，异步调用则是1
+
+2. 但对于promise就不会出现这样的情况
+
+	- `new Promise(function(resolve){ resolve(42); }).then()`
+	- 调用then时，即使promise已经决议，也总是异步调用
+
+### 回调未调用
+
+1. 假设由于某种原因，上面的ajax并没有调用result函数
+2. promise一定会决议并调用注册的完成回调或拒绝回调
+3. 如promise本身并未决议，则可以通过Promise.race构建一个超时竞赛来解决
+
+### 调用过多
+
+1. Promise只能被决议一次，如试图调用resolve或reject多次，则只接受第一次决议，忽略后面的
+2. 由于 Promise 只能被决议一次，所以任何通过 then(..) 注册的（每个）回调就只会被调
+	用一次。
+
 1. 调用过晚
     - 因为存在任务队列，一个 Promise 决议后，这个 Promise 上所有的通过then(..) 注册的回调都会在下一个异步时机点上依次被立即调用
 ```javascript
@@ -308,11 +413,8 @@ p.then(
     - 如Promise本身未决议呢？？
         - Promise机制提供利用竞争的高级抽象机制来解决
 
-1. 调用次数过少或过多
-    - Promise 只能被决议一次
-        - 任何通过 then(..) 注册的（每个）回调就只会被调用一次
-        - 即使写为p.then();p.then()；同一个回调函数被注册2次，但响应函数只被调用一次
-
+1. - - 
+    
 1. 吞掉错误或异常
     - Promise创建或决议中任何时间点出错，异常被捕获
 ```javascript
@@ -515,46 +617,6 @@ var p = new Promise( function(X,Y){
 1. 浏览器的帮忙
     - 浏览器追踪Promise，在被垃圾回收时有拒绝，浏览器就可以确认这是一个未捕获错误，报告给控制台
     - 但如果Promise未被垃圾回收（很多代码模式会造成这种情况），还是会存在问题
-
-
-## Promise 模式
-### Promise.all([ .. ])
-1. 同时执行两个或更多步骤
-    - 类似于“门”，里面内容全完成，门才会打开
-    - 其实就是&&
-1. 比如ajax1,ajax2无论顺序如何，但需要两者都完成后，才能执行第三个，可以用```Promise.all([ajax1,ajax2])```
-1. 输入参数：
-    - promise数组，数组值会被Promise.resolve()处理
-1. 返回值
-    - 完成信息组成的数组，与参数指定顺序一致
-1. 如有一个被拒绝，则promise会立即被拒绝
-
-### Promise.race([ .. ])
-1. 一旦任何一个Promise决议完成或拒绝，就会返回结果
-    - 其实就是||
-1. 超时竞赛
-```javascript
-    Promise.race([
-        foo(), // 启动foo()
-        timeoutPromise(3000) // 给它3秒钟
-    ]).then(
-            function () {
-                // foo(..)按时完成！
-            },
-            function (err) {
-                // 要么foo()被拒绝，要么只是没能够按时完成
-                // 因此要查看err了解具体原因
-            }
-    );
-```
-    - foo运行时间超过3s，则定时器会触发函数，可以返回reject，则Promise返回拒绝状态
-
-### 变体
-1. none([ .. ]):全拒绝
-1. any([ .. ]):只需要完成一个就完成，忽略拒绝
-1. first([ .. ])：第一个 Promise 完成，忽略后面的拒绝和完成
-1. last([ .. ])：只有最后一个完成胜出
-1. 有些库提供了这些变体，也可以利用all和race实现这些
 
 1. - - 
 

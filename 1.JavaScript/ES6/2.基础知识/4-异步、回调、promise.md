@@ -387,53 +387,10 @@ new Promise((resolve,reject)  => {
 ### 调用过多
 
 1. Promise只能被决议一次，如试图调用resolve或reject多次，则只接受第一次决议，忽略后面的
-2. 由于 Promise 只能被决议一次，所以任何通过 then(..) 注册的（每个）回调就只会被调
-	用一次。
+2. 由于 Promise 只能被决议一次，所以任何通过 then(..) 注册的（每个）回调就只会被调用一次。
+	
 
-1. 调用过晚
-    - 因为存在任务队列，一个 Promise 决议后，这个 Promise 上所有的通过then(..) 注册的回调都会在下一个异步时机点上依次被立即调用
-```javascript
-p.then(
-        function () {
-            p.then(function () {
-                console.log("C");
-            });
-            console.log("A");
-        });
-p.then(
-        function () {
-            console.log("B");
-        });
-// A B C
-```
-     - "C" 无法打断或抢占 "B"，这是因为 Promise 的运作方式
-1. 回调未调用
-    - 任何东西（js错误）都无法阻止Promise通知决议（如果决议了）
-        - 如配置了返程回调和拒绝回调，Promise决议后一定会调用其中之一
-    - 如Promise本身未决议呢？？
-        - Promise机制提供利用竞争的高级抽象机制来解决
-
-1. - - 
-    
-1. 吞掉错误或异常
-    - Promise创建或决议中任何时间点出错，异常被捕获
-```javascript
-var p = new Promise(function (resolve, reject) {
-        foo.bar(); // foo未定义，所以会出错！
-        resolve(42); // 永远不会到达这里 :(
-});
-p.then(
-        function fulfilled() {
-			// 永远不会到达这里 :(
-        },
-        function rejected(err) {
-			// err将会是一个TypeError异常对象来自foo.bar()这一行
-        }
-);
-```
-        - promise创建中出错，Promise被拒绝，错误会被rejected捕获
-        - promise机制将错误变为异步，解决出错可能引起同步响应的风险
-
+	
 ## 是可信任的 Promise 吗
 1. Promise 并没有完全摆脱回调
    - 解决方案是ES6原生的 Promise.resolve(..)

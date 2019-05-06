@@ -194,7 +194,20 @@
 
 ### 跨域综述
 
-1. 
+1. jsonp
+	- HTML标签里，一些标签比如script、img这样的获取资源的标签是没有跨域限制的，利用这一点
+	- html写一个script标签，请求一个url带一个function的参数
+	- 后台配合，返回一个函数，函数体内为需要的数据
+	- 但只能get请求
+2. CORS
+	- 跨域资源共享，后台需要设置Access-Control-Allow-Origin
+3. nginx代理
+
+对动画的理解
+
+1. setTimeInterval，setTimeout定时时间不准
+2. requestAnimationFrame
+3. css3 animation,transition
 
 ### 小知识
 
@@ -241,35 +254,36 @@
 	- Array.prototype.slice.call(arrayLike, start);
 	- [...arrayLike];
 	- Array.from(arrayLike);
-
 6. 数组api哪些能改变原数组哪些不能
 
 	- 直接修改的：splice，reverse，sort，push，pop，shift，unshift
 	- 不修改的：concat，join，slice
-
 7. 词法作用域和this的区别
 
 	- 词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的
 	- this 是在调用时被绑定的，this 指向什么，完全取决于函数的调用位置
-
 8. 闭包的作用有:
 
 	- 封装私有变量
 	- 模仿块级作用域(ES5中没有块级作用域)
 	- 实现JS的模块
-
 9. 取数组的最大值（ES5、ES6）
 
 	- `Math.max.apply(null, [14, 3, 77, 30]);`
 	- Math.max(...[14, 3, 77, 30]);
-
 10. 请求中如何传中文？
 
 	- 利用encodeURIComponent或encodeURI编码
+11. 什么情况下用相等==
 
-11. 
+	- 简而言之：没有，使用===会更清晰，也可以代替==的情况
+	- 如可以用来比较：`new String('123') == '123'
+	- 但可以用来比较undefined与null
+	- if(!x)，但undefined，null，false，0，""
+12. 为何jsonp不支持post请求
+	- jsonp本质就是使用js的script标签 进行传参，那么必然是get方式的了，和浏览器中敲入一个url一样
 
-	
 
-	
+
+
 

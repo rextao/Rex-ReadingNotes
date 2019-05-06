@@ -99,6 +99,7 @@
 	- fixed：会受到父级定位的影响（父级`position:absolute;left:10px`,当前元素为`position:fixed;left:10px`），相当于当前元素距离左边20px，滚动时，保持位置不变；父级有transform会根据父级定位
 	- relative：相对于原文档流位置进行偏移
 	- absolute：绝对定位
+16. 介绍下flexbox
 
 
 

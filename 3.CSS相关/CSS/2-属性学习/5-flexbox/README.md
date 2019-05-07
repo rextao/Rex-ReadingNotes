@@ -205,10 +205,9 @@
 ### flex-grow
 
 1. 控制Flex项目在容器有多余的空间如何放大（扩展）
-
 2. **弹性布局默认不改变项目的宽度。**
-
-3. flex-grow属性值设置为0，表示Flex项目不会增长，填充Flex容器可用空间
+3. 如其他item也具有此属性，则按flex-grow的比例分割空余空间
+4. flex-grow属性值设置为0，表示Flex项目不会增长，填充Flex容器可用空间
 
   - 比如html，并添加css后得到如下样子
 
@@ -235,6 +234,9 @@
 ### flex-shrink
 
 1. 控制Flex项目在容器在没有额外空间又如何缩小。
+2. 初始值为1
+3. 如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。
+4. 如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。
 
 ### flex-basis
 
@@ -255,20 +257,22 @@
 
 2. 注意顺序，可以记忆为GSB
 
-3. flex少一个值：形成一个绝对flex项目或相对flex项目（之后介绍）
+3. 如只有单个值，一个无单位数，会被理解为flex-grow值，一个有效宽度，则被理解为flex-basis
 
-	```css
-	/* 这是一个绝对的Flex项目 */
-	li {
-	  flex: 1 1; /*flex-basis 默认值为 0*/
-	}
-	/* 这是一个相对的Flex项目 */
-	li {
-	  flex-basis: 200px; /* 只设置了flex-basis的值 */
-	}
-	```
+4. flex少一个值：形成一个绝对flex项目或相对flex项目（之后介绍）
 
-	
+  ```css
+  /* 这是一个绝对的Flex项目 */
+  li {
+    flex: 1 1; /*flex-basis 默认值为 0*/
+  }
+  /* 这是一个相对的Flex项目 */
+  li {
+    flex-basis: 200px; /* 只设置了flex-basis的值 */
+  }
+  ```
+
+  
 
 #### flex: 0 1 auto
 

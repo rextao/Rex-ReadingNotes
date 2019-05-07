@@ -6,68 +6,70 @@
 
 ## 普通玩法
 
-1. 绝对定位法
+1. 注意：html，中间的元素
 
-	```html
-	<style>
-	#left,#right{
-	    width: 200px;
-	    height: 200px; 
-	    background-color: #ffe6b8;
-	    position: absolute;}
-	#left{left:0px;}
-	#right{right: 0px;}
-	#center{
-	    margin:2px 210px ;
-	    background-color: #eee;
-	    height: 200px; }
-	</style>
-	<div id="box">
-	    <h3>实现三列宽度自适应布局</h3>
-	    <div id = "left">我是左边</div>
-	    <div id = "right">我是右边</div>
-	    <div id = "center">我是中间</div>
-	</div>
-	```
+2. 绝对定位法
 
-	- 优点：三个div顺序可以任意改变
+  ```html
+  <style>
+  #left,#right{
+      width: 200px;
+      height: 200px; 
+      background-color: #ffe6b8;
+      position: absolute;}
+  #left{left:0px;}
+  #right{right: 0px;}
+  #center{
+      margin:2px 210px ;
+      background-color: #eee;
+      height: 200px; }
+  </style>
+  <div id="box">
+      <h3>实现三列宽度自适应布局</h3>
+      <div id = "left">我是左边</div>
+      <div id = "right">我是右边</div>
+      <div id = "center">我是中间</div>
+  </div>
+  ```
 
-2. 浮动大法
+  - 优点：三个div顺序可以任意改变，注意要设置div的top值
 
-	```css
-	#left,#right{
-	    width: 200px;
-	    height: 200px; 
-	    background-color: #ffe6b8;}
-	#left{float: left;}
-	#right{float: right;}
-	#center{
-	    margin:2px 210px ;
-	    background-color: #eee;
-	    height: 200px; }
-	```
+3. 浮动大法
 
-	- center元素必须放在最后，如放第一个会独占一行
-	- 后面的元素会在下一行分别左右浮动
+  ```css
+  #left,#right{
+      width: 200px;
+      height: 200px; 
+      background-color: #ffe6b8;}
+  #left{float: left;}
+  #right{float: right;}
+  #center{
+      margin:2px 210px ;
+      background-color: #eee;
+      height: 200px; }
+  ```
 
-3. flex大法
+  - center元素必须放在最后，如放第一个会独占一行
+  - 后面的元素会在下一行分别左右浮动
 
-	```html
-	<style>
-	    #box{display: flex;}
-	    #left,#right{
-	        width: 200px;
-	        height: 200px;
-	        background-color: #ffe6b8;
-	    }
-	    #center{flex: 1;background-color: lightgreen;}
-	</style>
-	<div id="box">
-	    <div id = "left">我是左边</div>
-	    <div id = "center">我是中间</div>
-	    <div id = "right">我是右边</div>
-	</div>
-	```
+4. flex大法
+
+  ```html
+  <style>
+      #box{display: flex;}
+      #left,#right{
+          width: 200px;
+          height: 200px;
+          background-color: #ffe6b8;
+      }
+      #center{flex: 1;background-color: lightgreen;}
+  </style>
+  <div id="box">
+      <div id = "left">我是左边</div>
+      <div id = "center">我是中间</div>
+      <div id = "right">我是右边</div>
+  </div>
+  ```
 
 
 ### 进阶玩法（main先显示）
@@ -92,7 +94,7 @@
   }
   ```
 
-  - 利用flex的order将调整显示顺序
+  - 利用flex的order将调整显示顺序，元素默认的order都是0，顾给center增加1，并不能让center在left与right中间
 
 4. 浮动大法（圣杯布局）
 
@@ -110,21 +112,31 @@
       background-color: #ffe6b8;
   }
   #right{
-      margin-right: -100%;
+         margin-left: -200px;
+    	right: -200px;
   }
   #left{
-      left:-200px;
-      margin-left: -100%;
+      margin-right: -100%;
+      right:-200px;
   }
   #center{
       width: 100%;
       background-color: lightgreen;}
   ```
 
-  - 外围container利用padding，将center两边空出left与right大小
-  - left与right利用负100%margin换行到第一行
-  - 利用relative定位，将left左移200px，避免挡住center内容
-  - 当缩小到一定程度，会导致3个元素混乱
+  - 首先将外围包裹的div设置padding;
+
+  - 设置center，width:100%,撑开整行
+
+    ![1557238220137](README.assets/1557238220137.png)
+
+  - 现在将left，margin-left设置为-100%，会形成
+
+    ![1557239678078](README.assets/1557239678078.png)
+
+  - 而对于right元素，需要-200px才能将元素上移
+
+  - 再分别利用left和right进行移动左右元素
 
 
 

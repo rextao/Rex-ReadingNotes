@@ -254,34 +254,52 @@
 	- Array.prototype.slice.call(arrayLike, start);
 	- [...arrayLike];
 	- Array.from(arrayLike);
+	
 6. 数组api哪些能改变原数组哪些不能
 
 	- 直接修改的：splice，reverse，sort，push，pop，shift，unshift
 	- 不修改的：concat，join，slice
+	
 7. 词法作用域和this的区别
 
 	- 词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的
 	- this 是在调用时被绑定的，this 指向什么，完全取决于函数的调用位置
+	
 8. 闭包的作用有:
 
 	- 封装私有变量
 	- 模仿块级作用域(ES5中没有块级作用域)
 	- 实现JS的模块
+	
 9. 取数组的最大值（ES5、ES6）
 
 	- `Math.max.apply(null, [14, 3, 77, 30]);`
 	- Math.max(...[14, 3, 77, 30]);
+	
 10. 请求中如何传中文？
 
 	- 利用encodeURIComponent或encodeURI编码
+	
 11. 什么情况下用相等==
 
 	- 简而言之：没有，使用===会更清晰，也可以代替==的情况
 	- 如可以用来比较：`new String('123') == '123'
 	- 但可以用来比较undefined与null
 	- if(!x)，但undefined，null，false，0，""
+	
 12. 为何jsonp不支持post请求
+	
 	- jsonp本质就是使用js的script标签 进行传参，那么必然是get方式的了，和浏览器中敲入一个url一样
+	
+13. html5对于input新增的属性
+
+	- autoComplete
+
+	- autoFocus
+
+	- required
+
+		
 
 
 

@@ -80,3 +80,6 @@
 	- 拖放API
 2. 你知道多少种Doctype文档类型？
 	-  HTML 4.01 规定了三种文档类型：Strict、Transitional 以及 Frameset。
+3. <b>和<strong>的区别
+	- b是ui层面的加粗字体
+	- strong 是语义层面的强调

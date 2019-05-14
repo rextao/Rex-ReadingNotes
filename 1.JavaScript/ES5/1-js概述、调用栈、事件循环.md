@@ -159,17 +159,22 @@
 1. 这是一个记录函数调用的数据结构，如调用一个函数来执行，bar调用foo，我们需要记录foo计算完返回到哪，我们将函数调用推入堆栈，当函数返回时，弹出堆栈的顶部 
 
     ```javascript
-    function foo(b){
-        var a = 5;
-        return a*b;
+    function h(z) {
+        // 打印调用栈信息
+        console.log(new Error().stack); // (A)
     }
-    function bar(x) {
-        return foo(x*3)
+    function g(y) {
+        h(y + 1); // (B)
     }
-    console.log(bar(6))
+    function f(x) {
+        g(x + 1); // (C)
+    }
+    f(3); // (D)
     ```
 
-1. 调用栈内容，main>console.log(bar(6))>bar(6)>foo(18)，然后再依次弹出返回值
+1. 调用栈内容，main>f>g>h，然后再依次弹出返回值
+
+1. 程序开始运行时，调用栈为空，当运行f时，由于要记录f函数返回到哪，故调用栈加入main函数
 
 ### 栈阻塞
 

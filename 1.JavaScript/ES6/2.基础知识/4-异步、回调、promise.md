@@ -650,10 +650,10 @@ var p = new Promise( function(X,Y){
     - 浏览器追踪Promise，在被垃圾回收时有拒绝，浏览器就可以确认这是一个未捕获错误，报告给控制台
     - 但如果Promise未被垃圾回收（很多代码模式会造成这种情况），还是会存在问题
 
-1. - - 
+1. - 
 
 ## Promise局限性
-	略过
+1. 循环promise无法得知代码何时运行完，故只能使用类似Promise.all
 
 
 

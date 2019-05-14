@@ -34,8 +34,16 @@
 
 ## 优缺点
 
+## 概述
+
 1. `async 和 await` 相比直接使用 `Promise` 来说，优势在于处理 `then` 的调用链，能够更清晰准确的写出代码。
 2. 缺点在于滥用 `await` 可能会导致性能问题，因为 `await` 会阻塞代码，也许之后的异步代码并不依赖于前者，但仍然需要等待前者完成，导致代码失去了并发性。
+
+## 错误处理
+
+1. async可以使用try/catch来处理错误，而promise不可以（由于promise是异步，并且promise的reject是内部一个状态）
+
+
 
 # 并发与串行执行
 
@@ -62,6 +70,8 @@ async function dbFuc(db) {
 ## 并行
 
 1. 利用promise.all
+
+## 
 
 # demo
 

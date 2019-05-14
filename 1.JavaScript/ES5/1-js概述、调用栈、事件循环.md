@@ -482,10 +482,11 @@
 1. 因为js的单线程的，看到异步操作，如定时器、ajax等，会将回调函数放到事件队列中
 2. 至于何时放在事件队列中，由js运行环境决定
 
-## task
+## macrotask
 
 1. 是严格按照时间顺序压栈和执行的
 2. 可以理解为事件循环中的每个正常事件（task）
+3. 常见的macrotask：setTimeout、setInterval、 setImmediate、script（整体代码）、 I/O 操作、UI 渲染等。
 
 ## microtask（jobs）
 
@@ -494,6 +495,11 @@
 3. microtask 任务队列是一个与 task 任务队列相互独立的队列，microtask 任务将会在每一个 task 任务执行结束之后执行。
 4. 每一个 task 中产生的 microtask 都将会添加到 microtask 队列中，microtask 中产生的 microtask 将会添加至当前队列的尾部，并且 microtask 会按序的处理完队列中的所有任务。
 5. microtask 类型的任务目前包括了 MutationObserver (DOM3 Events，会在指定的DOM发生变化时被调用 )以及 Promise 的回调函数。
+6. 常见的microtask：process.nextTick、new Promise().then(回调)、MutationObserver(html5 新特性，提供了监视对DOM树所做更改的能力)
+
+## task与microtask运行机制
+
+![img](1-js概述、调用栈、事件循环.assets/2019-01-14-007.gif)
 
 ## 如何判断 task 和 microtask
 
@@ -502,7 +508,7 @@
 
 
 
-## 
+
 
 
 

@@ -2,9 +2,10 @@
 
 ## 概述
 
-1. async 函数返回的是一个 Promise 对象，故可以把 `async` 看成将函数返回值使用 `Promise.resolve()` 包裹了下。
-2. 由于async返回的是一个promise对象，故需要使用then来调用
-3. async是 Generator 函数的语法糖，async/await 使得异步代码看起来像同步代码，异步编程发展的目标就是让异步逻辑的代码看起来像同步一样
+1. async 函数返回的是一个 Promise 对象（无论是否内部使用await），故可以把 `async` 看成将函数返回值被`Promise.resolve()` 包裹了下。
+2. 由于async返回的是一个promise对象
+3. async是 Generator 函数的语法糖，顾可以使用generator作为async/await的 polyfill
+4. async/await 使得异步代码看起来像同步代码，异步编程发展的目标就是让异步逻辑的代码看起来像同步一样
 
 ## 优点
 
@@ -31,17 +32,89 @@
 2. 如果它等到的是一个 Promise 对象，await 就忙起来了，它会阻塞后面的代码，等着 Promise 对象resolve，然后得到 resolve 的值，作为 await 表达式的运算结果。
 3. 由于await会阻塞代码，故这是必须用在async函数的原因；
 4. async 函数调用不会造成阻塞，它内部所有的阻塞都被封装在一个 Promise 对象中异步执行。
+5. 注意：因此await后面只能等待promise，普通的异步是不能被等待的
 
-## 优缺点
+## 优点
 
-## 概述
+### 概述
 
 1. `async 和 await` 相比直接使用 `Promise` 来说，优势在于处理 `then` 的调用链，能够更清晰准确的写出代码。
 2. 缺点在于滥用 `await` 可能会导致性能问题，因为 `await` 会阻塞代码，也许之后的异步代码并不依赖于前者，但仍然需要等待前者完成，导致代码失去了并发性。
 
-## 错误处理
+### 错误处理
 
-1. async可以使用try/catch来处理错误，而promise不可以（由于promise是异步，并且promise的reject是内部一个状态）
+1. async可以使用try/catch来处理同步和异步错误，而promise不可以（由于promise是异步，并且promise的reject是内部一个状态）
+
+2. 而且promise的错误指向也不如async/await更加清晰
+
+3. 如对于promise，对于JSON.parse的错误，只能通过promise.catch来处理，而同步错误利用try-catch来处理
+
+   ```javascript
+   const oddRequest = () => {
+       try {
+           getJSON()
+               .then(result => {
+               // this parse may fail
+               const data = JSON.parse(result)
+               console.log(data)
+           }).catch((err) => {//  handle asynchronous errors
+               console.log(err)
+           })
+       } catch (err) {
+           console.log(err)
+       }
+   }
+   ```
+
+4. 改写为async/await
+
+   ```javascript
+   const oddRequest = async () => {
+       try {
+           // this parse may fail
+           const data = JSON.parse(await getJSON())
+           console.log(data)
+       } catch (e) {
+           console.log(e)
+       }
+   }
+   ```
+
+### 条件语句更优雅
+
+1. async/await处理条件语句更加优雅
+
+   ```javascript
+   // promise
+   const getNumbers = () => {
+       return getJSON().then(data=> {
+           if (data.name) {
+               return getAge(data.name)
+                   .then(age=> {
+                   	console.log(age)
+                   return data
+               })
+           } else {
+               console.log(data)
+               return data
+           }
+       })
+   }
+   // async/await
+   const getNumbers = () => {
+       const data = await getJSON():
+       if (data.name) {
+       	const age = await getAge(data.name);
+           console.log(age);
+           return data
+       } else {
+           console.log(data);
+           return data
+       }   
+   }
+   ```
+
+   
 
 
 
@@ -50,14 +123,7 @@
 ## 串行
 
 ```javascript
-async function dbFuc(db) {
-  let docs = [{}, {}, {}];
-  // 可能得到错误结果
-  docs.forEach(async function (doc) {
-    await db.post(doc);
-  });
-}
-// 正确的做法是
+// 串行做法是
 async function dbFuc(db) {
   let docs = [{}, {}, {}];
   for (let doc of docs) {
@@ -67,9 +133,24 @@ async function dbFuc(db) {
 
 ```
 
+1. 注意：for循环等会造成串行
+
 ## 并行
 
 1. 利用promise.all
+
+2. 如上例，使用：
+
+   ```javascript
+   async function dbFuc(db) {
+     let docs = [{}, {}, {}];  
+     docs.map(async function (doc) {
+       await db.post(doc);
+     });
+   }
+   ```
+
+   - `array.map(func)` 不在乎我提供给它的是不是异步函数，只把它当作一个返回 Promise 的函数来看待。 它不会等到第一个函数执行完毕就会调用第二个函数。
 
 ## 
 

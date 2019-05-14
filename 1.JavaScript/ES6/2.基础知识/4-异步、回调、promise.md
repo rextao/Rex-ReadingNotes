@@ -83,9 +83,9 @@
     req.send(); // Add request to task queue
     ```
 
-    - `req.send()`实际是放入事件队列，顾此句可以直接在req.open后面进行调用
+    - `req.send()`实际是放入事件队列，顾此句可以直接在req.open后面进行调用（即先调用req.send，再调用req.onerror与req.onload也是可以的）
 
-2. 事件方式处理异步请求适用于多次接受结果的情况，如只需要接收一次结果使用这样方式就会显得冗长
+2. 事件方式处理异步请求适用于多次接受结果的情况，如只需要接收一次结果使用这样方式就会显得冗长，故回调函数变的流行
 
 # 回调
 ## 概述
@@ -161,6 +161,9 @@
     - Promise 是一种封装和组合未来值的易于复用的机制
 ### Promise状态
 
+1. promise状态只能改变一次，然后就不再改变
+2. promise总是在如下三种状态之一
+
 #### Pending
 
 1. 每个创建的promise都会无限期的处于pending状态，直到它resolved或rejected
@@ -220,13 +223,18 @@
    ```javascript
    new Promise((resolve,reject)  => {
        resolve(1);
-       reject('error!...')
+       reject('error!...');// 忽略
    })
    ```
 
-2. 构造函数接收一个函数称之为`executor `
+2. 构造函数接收一个函数称之为`executor `，
+
+	- 执行器会立即执行，如上面的resolve(1)
+	- 执行器仅调用一次resolve或reject，因为调用一次，状态就被确定
 
 3. `executor `函数由两个参数，resolve()与reject()
+
+4. ![img](4-异步、回调、promise.assets/promise-resolve-reject.png)
 
 ### then()
 
@@ -234,24 +242,19 @@
 
 1. `then()`接收一个或两个参数：第一个用于完成回调，第二个用于拒绝回调；
 
-	```javascript
-	new Promise((resolve,reject)  => {
-	    resolve(1);
-	    reject('error!...')
-	}).then((x)=>{
-	    console.log(x);
-	},(err)=>{
-	    console.log(err);
-	})
-	```
+  ```javascript
+  new Promise((resolve,reject)  => {
+      resolve(1);
+      reject('error!...')；// 忽略,不会决议2次
+  }).then((x)=>{
+      console.log(x);
+  },(err)=>{
+      console.log(err);
+  })
+  ```
 
-2. 由于如上方式，同时调用完成回调与拒绝回调，完成回调发生错误，则错误无法被处理，顾通常使用then接收成功回调，catch接收回调
+  
 
-   ```javascript
-   save().then(handleSuccess).catch(handleError);
-   ```
-
-3. 但可能save可能是网络错误，then中的handleSuccess可能是程序猿造成的错误，顾可以利用then的拒绝回调处理save中的错误，catch处理handleSuccess（其实也可以根据错误不同类型，在catch中统一处理）
 
 #### 同步调用
 
@@ -273,50 +276,107 @@ new Promise((resolve,reject)  => {
 
 #### 异步调用
 
-1. 当一个then方法返回promise，接下来的执行会在resolved或rejected之前挂起
+1. 当一个then方法返回promise，接下来的执行会在promise决议前挂起
+
+#### 时序问题
+
+1. then的回调函数全部是异步调用
+
+	```javascript
+	Promise.resolve().then(() => console.log(2));
+	console.log(1); // 1, 2
+	```
+
+2. then的回调函数处于microtask队列
+
+	```javascript
+	const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+	wait().then(() => console.log(4));
+	Promise.resolve().then(() => console.log(2)).then(() => console.log(3));
+	console.log(1); // 1, 2, 3, 4
+	```
+
+	
 
 ### Promise.resolve与Promise.reject
 
 1. 创建完成或拒绝的Promise的快捷方式
 
-2. 如下两种方式是等价的
+2. Promise.resolve转换任何值（Promise、thenable、其他值）为Promise
 
-	```javascript
-	// 方式1
-	const p1 = new Promise(resolve,reject){
-	    resolve('haha');
-	}
-	// 方式2
-	const p2 = Promise.resolve('haha');
-	```
+3. 如下两种方式是等价的
 
-3. 特别注意：Promise.resolve()也会展开thenable值，如是thenable值，可能是完成也可能是拒绝
+  ```javascript
+  // 方式1
+  const p1 = new Promise(resolve,reject){
+      resolve('haha');
+  }
+  // 方式2
+  const p2 = Promise.resolve('haha');
+  ```
 
-	```javascript
-	var fulfilledTh = {
-	    then: function(cb) { cb( 42 ); }
-	};
-	var rejectedTh = {
-	    then: function(cb,errCb) {
-	        errCb( "Oops" );
-	    }
-	};
-	var p1 = Promise.resolve( fulfilledTh );// p1是完成的promise
-	var p2 = Promise.resolve( rejectedTh );// p2是拒绝的promise
-	```
+4. 特别注意：Promise.resolve()也会展开thenable值，如是thenable值，可能是完成也可能是拒绝
 
-4. 传入Promise.resolve()的是promise，只会直接把值返回
+  ```javascript
+  var fulfilledTh = {
+      then: function(cb) { cb( 42 ); }
+  };
+  var rejectedTh = {
+      then: function(cb,errCb) {
+          errCb( "Oops" );
+      }
+  };
+  var p1 = Promise.resolve( fulfilledTh );// p1是完成的promise
+  var p2 = Promise.resolve( rejectedTh );// p2是拒绝的promise
+  ```
+
+5. 传入Promise.resolve()的是promise，只会直接把值返回
 
 ### then() 与 catch()
 
-1. Promise 决议之后，立即会调用
-	这两个处理函数之一，但不会两个都调用，而且总是异步调用
-2. `Promise.prototype.then(onFulfilled, onRejected)`
-	- 对promise添加`onFulfilled`和`onRejected`回调，并返回的是一个新的Promise实例（不是原来那个Promise实例）
+1. Promise 决议之后，立即会调用这两个处理函数之一，但不会两个都调用，而且总是异步调用
+
+2. 不管是 then 还是 catch 方法调用，都返回了一个新的promise对象
+	
+	```javascript
+	var aPromise = new Promise(function (resolve) {
+	    resolve(100);
+	});
+	var thenPromise = aPromise.then(function (value) {
+	    console.log(value);
+	});
+	var catchPromise = thenPromise.catch(function (error) {
+	    console.error(error);
+	});
+	console.log(aPromise !== thenPromise); // => true
+	console.log(thenPromise !== catchPromise);// => true
+	```
+	
 3. `Promise.prototype.catch(onRejected)`
+	
 	- 该方法是`.then(undefined, onRejected)`的别名，用于指定发生错误时的回调函数。
 
-## 
+### finally()
+
+1. promise决议后都会调用finally
+
+2. finally(onFinally)，onFinally的回调没有参数
+
+3. finally函数会将结果或err传递给后面，通过then或catch可以处理
+
+	```javascript
+	new Promise((resolve, reject) => {
+	  setTimeout(() => resolve("result"), 2000)
+	})
+	  .finally(() => alert("Promise ready"))
+	  .then(result => alert(result)); // 会弹出result
+	```
+
+	- finally不是为了处理Promise结果的
+
+### 注意
+
+1. 如promise状态是pending，则`.then/catch/finally`会等待结果，如promise已经被决议，则立即执行
 
 ### Promise.all()
 
@@ -432,7 +492,11 @@ p.then(function (msg) {
     - 当我们调用一个函数foo()并不十分信任其返回值是否为Promise时，可以使用Promise.resolve(foo()).then()
 
 ## 链式流
-1. 用来实现可控的异步加载流
+### 概述
+
+1. 链式调用的关键是then方法返回一个值
+
+![img](4-异步、回调、promise.assets/promise-handler-variants.png)
 
 ### 链式流的关键
 1. Promise调用then返回新Promise对象
@@ -522,6 +586,17 @@ var p = new Promise( function(X,Y){
     - onFulfilled和onRejected
 
 ## 错误处理
+
+1. 由于如上方式，同时调用完成回调与拒绝回调，完成回调发生错误，则错误无法被处理，顾通常使用then接收成功回调，catch接收回调
+
+	```javascript
+	save().then(handleSuccess).catch(handleError);
+	```
+
+2. 但save可能是网络错误，then中的handleSuccess可能是程序猿造成的错误，顾可以利用then的拒绝回调处理save中的错误，catch处理handleSuccess（其实也可以根据错误不同类型，在catch中统一处理）
+
+
+
 ### 概述
 1. try-catch
     - 只能处理同步错误，不能处理异步

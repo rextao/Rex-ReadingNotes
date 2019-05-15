@@ -294,12 +294,20 @@
 13. html5对于input新增的属性
 
 	- autoComplete
-
-	- autoFocus
-
+- autoFocus
 	- required
 
-		
+14. 介绍localstorage的API
+
+	- getItem，setItem，removeItem，clear，key(n)
+
+15. 类数组转为数组
+
+	- Array.prototype.slice.call(arguments)
+	- Array.from
+	- 扩展运算符
+
+	
 
 
 

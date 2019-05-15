@@ -122,21 +122,73 @@
 ## XMLHttpRequest2级
 
 1. 概述，虽然现在统一了XHR，但有的浏览器不支持如下特性
-2. FormData类型（ie11，ie10部分支持）
-	- 为序列化表单和创建与表单格式相同的数据提供便利
-	- `var data = new FormData()`
-	- data.append()方法
-		- 参数：表单的键值
-	- 方便之处是：不用设置请求头，XHR对象可识别传入FormData的实例，并适配头部信息
-3. XHR.timeout属性
-	- 超时设定，请求多少毫秒之后终止，默认值为0，即无超时设定
-	- XHR对象的属性
-	- 不可以用在同步XMLHttpRequest请求中
-	- 规定时间没收到响应，会触发timeout事件，调用ontimeout事件处理程序
-4. XMLHttpRequest.overrideMimeType()
-	- 指定响应的MIME类型
-	- 例如可以强制数据流解析为'text/xml'
-	- 返回响应的MIME类型决定了XHR对象如何处理它
+
+	
+
+### FormData
+
+1. ie11，ie10部分支持
+
+2. 为序列化表单和创建与表单格式相同的数据提供便利
+
+3. `var formdata= new FormData()`
+
+4. 常用方法：
+
+  - formdata.append(key,value)：在数据末尾追加数据
+  - formdata.set(key, value)：设置修改数据；key值不存在，则追加一个值，否则修改
+  - formdata.has(key)：判断是否有key
+  - formdata.delete(key)：删除key
+  - formdata.get(key)：获取第一个
+  - formdata.getAll(key)：获取全部
+
+5. 方便之处是：不用设置请求头，XHR对象可识别传入FormData的实例，并适配头部信息
+
+6. 举例
+
+	```html
+	<form id="advForm">
+	    <p>广告名称：<input type="text" name="advName" value="xixi"></p>
+	    <p>广告类别：<select name="advType">
+	        <option value="1">轮播图</option>
+	        <option value="2">轮播图底部广告</option>
+	        <option value="3">热门回收广告</option>
+	        <option value="4">优品精选广告</option>
+	        </select></p>
+	    <p>广告图片：<input type="file" name="advPic"></p>
+	    <p>广告地址：<input type="text" name="advUrl"></p>
+	    <p>广告排序：<input type="text" name="orderBy"></p>
+	    <p><input type="button" id="btn" value="添加"></p>
+	</form>
+	```
+
+	```javascript
+	var btn=document.querySelector("#btn");
+	btn.onclick=function(){
+	    var formdata=new FormData(document.getElementById("advForm"));
+	    var xhr=new XMLHttpRequest();
+	    xhr.open("post","http://127.0.0.1/adv");
+	    xhr.send(formdata);
+	    xhr.onload=function(){
+	        if(xhr.status==200){
+	            //...
+	        }
+	    }
+	}
+	```
+
+	
+
+### XHR.timeout属性
+1. 超时设定，请求多少毫秒之后终止，默认值为0，即无超时设定
+1. XHR对象的属性
+1. 不可以用在同步XMLHttpRequest请求中
+1. 规定时间没收到响应，会触发timeout事件，调用ontimeout事件处理程序
+
+### XMLHttpRequest.overrideMimeType()
+1. 指定响应的MIME类型
+1. 例如可以强制数据流解析为'text/xml'
+1. 返回响应的MIME类型决定了XHR对象如何处理它
 
 ## XHR进度事件
 

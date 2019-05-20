@@ -357,7 +357,7 @@ function _instanceof(leftVaule, rightVaule) {
 
 
 
-### 手动实现new
+## 手动实现new
 
 ```javascript
 function _new(fn, ...arg) {

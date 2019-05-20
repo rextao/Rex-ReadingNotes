@@ -33,6 +33,7 @@
 
 1. var a =2的理解？从RHS角度理解异常抛出？
 2. js定义变量的两种作用域？哪些方式可以形成块作用域？循环与闭包？
+3. 词法作用域和动态作用域
 
 
 
@@ -114,6 +115,7 @@
 ## 13-错误处理
 
 1. 常见的js错误
+2. try-catch-finally 与return的关系
 
 ## 14- Ajax
 
@@ -207,11 +209,16 @@
 	- 跨域资源共享，后台需要设置Access-Control-Allow-Origin
 3. nginx代理
 
-对动画的理解
+### 对动画的理解
 
 1. setTimeInterval，setTimeout定时时间不准
 2. requestAnimationFrame
 3. css3 animation,transition
+
+### 执行上下文与作用域
+
+1. 执行上下文：当前 JavaScript 代码被解析和执行时所在环境
+2. 作用域：提供查找变量和函数方法的规则
 
 ### 小知识
 
@@ -258,43 +265,35 @@
 	- Array.prototype.slice.call(arrayLike, start);
 	- [...arrayLike];
 	- Array.from(arrayLike);
-	
-6. 数组api哪些能改变原数组哪些不能
+6. 数组api哪些能改变原数组哪些不能（纯函数）
 
 	- 直接修改的：splice，reverse，sort，push，pop，shift，unshift
 	- 不修改的：concat，join，slice
-	
 7. 词法作用域和this的区别
 
 	- 词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的
 	- this 是在调用时被绑定的，this 指向什么，完全取决于函数的调用位置
-	
 8. 闭包的作用有:
 
 	- 封装私有变量
 	- 模仿块级作用域(ES5中没有块级作用域)
 	- 实现JS的模块
-	
 9. 取数组的最大值（ES5、ES6）
 
 	- `Math.max.apply(null, [14, 3, 77, 30]);`
 	- Math.max(...[14, 3, 77, 30]);
-	
 10. 请求中如何传中文？
 
 	- 利用encodeURIComponent或encodeURI编码
-	
 11. 什么情况下用相等==
 
 	- 简而言之：没有，使用===会更清晰，也可以代替==的情况
 	- 如可以用来比较：`new String('123') == '123'
 	- 但可以用来比较undefined与null
 	- if(!x)，但undefined，null，false，0，""
-	
 12. 为何jsonp不支持post请求
 	
 	- jsonp本质就是使用js的script标签 进行传参，那么必然是get方式的了，和浏览器中敲入一个url一样
-	
 13. html5对于input新增的属性
 
 	- autoComplete
@@ -303,30 +302,28 @@
 14. 介绍localstorage的API
 
 	- getItem，setItem，removeItem，clear，key(n)
-
 15. 类数组转为数组
 
 	- Array.prototype.slice.call(arguments)
 	- Array.from
 	- 扩展运算符
-
 16. 判断`JavaScript`数据类型的方式
 
     - typeof，只能判断基本类型
     - instanceof，判断对象
     - toString.call
     - constructor，`c.constructor === Array` constructor可以被重写
-
 17. 准确判断array
 
     - toString.call
     - isArray
-
 18. `JavaScript`可以存储的最大数字、最大安全数、解决精度丢失的方法
 
     - 最大安全数：2^53-1
     - 最大数：由于js数是按照双精度浮点数，故最大值可以是1.79*10^308
     - 解决小数精度丢失：通常是*100转为整数运算，或使用bigInt（stage3非标准）
+19. forEach的特殊性
+    - forEach不直接改变调用它的对象，但是对象可能会被callback改变
 
 # 实现代码
 
@@ -360,3 +357,36 @@ function _new(fn, ...arg) {
     return {} //返回新的对象obj
 }
 ```
+
+
+
+
+
+# 实际问题
+
+## 前端处理处理海量数据
+
+1. 方式1：
+
+	- 利用createDocumentFragment减少dom操作次数
+
+	- 然后利用requestAnimationFrame分次插入新节点
+
+	- 利用事件委托，减少注册事件数
+
+		```javascript
+		// 伪代码
+		const total = 100000; // 10w数据
+		const num = 10；// 1次插入10条
+		function addItem (){
+		    fragement.append('');
+		    appendBatch();
+		}
+		function appendBatch(){
+		    if(){
+		        window.requestAnimationFrame(addItem)
+		    }   
+		}
+		```
+
+2. 大量数据做计算:web worker

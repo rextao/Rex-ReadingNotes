@@ -120,43 +120,9 @@
 
 # 并发与串行执行
 
-## 串行
+1. 主要是使用定时器，每隔一秒输出arr的一个值
 
-```javascript
-// 串行做法是
-async function dbFuc(db) {
-  let docs = [{}, {}, {}];
-  for (let doc of docs) {
-    await db.post(doc);
-  }
-}
-
-```
-
-1. 注意：for循环等会造成串行
-
-## 并行
-
-1. 利用promise.all
-
-2. 如上例，使用：
-
-   ```javascript
-   async function dbFuc(db) {
-     let docs = [{}, {}, {}];  
-     docs.map(async function (doc) {
-       await db.post(doc);
-     });
-   }
-   ```
-
-   - `array.map(func)` 不在乎我提供给它的是不是异步函数，只把它当作一个返回 Promise 的函数来看待。 它不会等到第一个函数执行完毕就会调用第二个函数。
-
-# 循环与异步
-
-1. 题目：要求用setTimeout，每1秒输出arr =[1,2,3]的一个值
-
-## for循环方式
+## 普通方式
 
 ```javascript
 const arr = [1,2,3];
@@ -170,28 +136,33 @@ for(let i=0;i<arr.length;i++){
 1. 注意：使用var会出现问题（3-作用域有介绍）
 2. 这种方式会创造多个setTimeout定时器
 
-## Promise方式
+## 串行
+
+### Promise方式
 
 ```javascript
 const arr = [1,2,3];
 function asyncTimetOut(arr,i) {
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
-            console.log(arr[i])
+            console.log(arr[i]);
             resolve(i);
-        },1000*i);
+        },1000);
     })
 }
-const p = [];
-for(let i=0;i<arr.length;i++){
-    p.push(asyncTimetOut(arr,i))
+function foo(){
+    arr.reduce((promise,item,index)=>{
+        return promise.then(()=>{
+            return asyncTimetOut(arr,index)
+        })
+    },Promise.resolve());
 }
-Promise.all(p)
+foo()
 ```
 
-1. 同样会创建多个定时器
 
-## await方式
+
+### await方式
 
 ```javascript
 const arr = [1,2,3];
@@ -211,7 +182,45 @@ async function foo(){
 foo()
 ```
 
-1. 注意定时器时间，await会等待定时器决议
+1. 注意：for循环等会造成串行，await会等待定时器决议
+
+## 并行
+
+### Promise方式
+
+```javascript
+const arr = [1,2,3];
+function asyncTimetOut(arr,i) {
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            console.log(arr[i])
+            resolve(i);
+        },1000*i);
+    })
+}
+const p = [];
+for(let i=0;i<arr.length;i++){
+    p.push(asyncTimetOut(arr,i))
+}
+Promise.all(p)
+```
+
+
+
+### await
+
+```javascript
+async function dbFuc(db) {
+  let docs = [{}, {}, {}];  
+  docs.map(async function (doc) {
+    await db.post(doc);
+  });
+}
+```
+
+1. array.map(func)` 不在乎我提供给它的是不是异步函数，只把它当作一个返回 Promise 的函数来看待。 它不会等到第一个函数执行完毕就会调用第二个函数。
+
+
 
 # demo
 

@@ -311,9 +311,60 @@
 	- Array.from
 	- 扩展运算符
 
-	
+16. 判断`JavaScript`数据类型的方式
+
+    - typeof，只能判断基本类型
+    - instanceof，判断对象
+    - toString.call
+    - constructor，`c.constructor === Array` constructor可以被重写
+
+17. 准确判断array
+
+    - toString.call
+    - isArray
+
+18. `JavaScript`可以存储的最大数字、最大安全数、解决精度丢失的方法
+
+    - 最大安全数：2^53-1
+    - 最大数：由于js数是按照双精度浮点数，故最大值可以是1.79*10^308
+    - 解决小数精度丢失：通常是*100转为整数运算，或使用bigInt（stage3非标准）
+
+    
 
 
 
 
+
+# 实现代码
+
+## 模拟实现instanceof
+
+```javascript
+function _instanceof(leftVaule, rightVaule) { 
+    let rightProto = rightVaule.prototype; // 取右表达式的 prototype 值
+    leftVaule = Object.getProtyotypeOf(leftVaule); // 取左表达式的__proto__值
+    while (true) {
+        if (leftVaule === null) {
+            return false;	
+        }
+        if (leftVaule === rightProto) {
+            return true;	
+        } 
+        leftVaule = Object.getProtyotypeOf(leftVaule)
+    }
+}
+```
+
+
+
+### 手动实现new
+
+```javascript
+function _new(fn, ...arg) {
+    const obj = {}; //创建一个新的对象
+    obj.__proto__ = fn.prototype; //把obj的__proto__指向fn的prototype,实现继承
+    fn.apply(obj, arg) //改变this的指向
+    return {} //返回新的对象obj
+}
+```
 

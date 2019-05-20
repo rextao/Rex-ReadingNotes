@@ -33,6 +33,7 @@
 
 1. var a =2的理解？从RHS角度理解异常抛出？
 2. js定义变量的两种作用域？哪些方式可以形成块作用域？循环与闭包？
+3. 词法作用域和动态作用域
 
 
 
@@ -114,6 +115,7 @@
 ## 13-错误处理
 
 1. 常见的js错误
+2. try-catch-finally 与return的关系
 
 ## 14- Ajax
 
@@ -207,11 +209,16 @@
 	- 跨域资源共享，后台需要设置Access-Control-Allow-Origin
 3. nginx代理
 
-对动画的理解
+### 对动画的理解
 
 1. setTimeInterval，setTimeout定时时间不准
 2. requestAnimationFrame
 3. css3 animation,transition
+
+### 执行上下文与作用域
+
+1. 执行上下文：当前 JavaScript 代码被解析和执行时所在环境
+2. 作用域：提供查找变量和函数方法的规则；
 
 ### 小知识
 
@@ -259,7 +266,7 @@
 	- [...arrayLike];
 	- Array.from(arrayLike);
 	
-6. 数组api哪些能改变原数组哪些不能
+6. 数组api哪些能改变原数组哪些不能（纯函数）
 
 	- 直接修改的：splice，reverse，sort，push，pop，shift，unshift
 	- 不修改的：concat，join，slice
@@ -311,9 +318,43 @@
 	- Array.from
 	- 扩展运算符
 
+16. forEach的特殊性
+
+	- forEach不直接改变调用它的对象，但是对象可能会被callback改变
+
 	
 
 
 
 
 
+# 实际问题
+
+## 前端处理处理海量数据
+
+1. 方式1：
+
+	- 利用createDocumentFragment减少dom操作次数
+
+	- 然后利用requestAnimationFrame分次插入新节点
+
+	- 利用事件委托，减少注册事件数
+
+		```javascript
+		// 伪代码
+		const total = 100000; // 10w数据
+		const num = 10；// 1次插入10条
+		function addItem (){
+		    fragement.append('');
+		    appendBatch();
+		}
+		function appendBatch(){
+		    if(){
+		        window.requestAnimationFrame(addItem)
+		    }   
+		}
+		```
+
+2. 大量数据做计算:web worker
+
+	

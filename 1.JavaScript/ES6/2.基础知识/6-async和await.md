@@ -152,7 +152,66 @@ async function dbFuc(db) {
 
    - `array.map(func)` 不在乎我提供给它的是不是异步函数，只把它当作一个返回 Promise 的函数来看待。 它不会等到第一个函数执行完毕就会调用第二个函数。
 
-## 
+# 循环与异步
+
+1. 题目：要求用setTimeout，每1秒输出arr =[1,2,3]的一个值
+
+## for循环方式
+
+```javascript
+const arr = [1,2,3];
+for(let i=0;i<arr.length;i++){
+    setTimeout(()=>{
+        console.log(arr[i])
+    },1000*i);
+}
+```
+
+1. 注意：使用var会出现问题（3-作用域有介绍）
+2. 这种方式会创造多个setTimeout定时器
+
+## Promise方式
+
+```javascript
+const arr = [1,2,3];
+function asyncTimetOut(arr,i) {
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            console.log(arr[i])
+            resolve(i);
+        },1000*i);
+    })
+}
+const p = [];
+for(let i=0;i<arr.length;i++){
+    p.push(asyncTimetOut(arr,i))
+}
+Promise.all(p)
+```
+
+1. 同样会创建多个定时器
+
+## await方式
+
+```javascript
+const arr = [1,2,3];
+function asyncTimetOut(arr,i) {
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            console.log(arr[i])
+            resolve(i);
+        },1000);
+    })
+}
+async function foo(){
+    for(let i=0;i<arr.length;i++){
+        await asyncTimetOut(arr,i)
+    }
+}
+foo()
+```
+
+1. 注意定时器时间，await会等待定时器决议
 
 # demo
 

@@ -298,9 +298,8 @@
 13. html5对于input新增的属性
 
 	- autoComplete
-- autoFocus
+	- autoFocus
 	- required
-
 14. 介绍localstorage的API
 
 	- getItem，setItem，removeItem，clear，key(n)
@@ -328,12 +327,6 @@
     - 最大安全数：2^53-1
     - 最大数：由于js数是按照双精度浮点数，故最大值可以是1.79*10^308
     - 解决小数精度丢失：通常是*100转为整数运算，或使用bigInt（stage3非标准）
-
-    
-
-
-
-
 
 # 实现代码
 
@@ -367,4 +360,3 @@ function _new(fn, ...arg) {
     return {} //返回新的对象obj
 }
 ```
-

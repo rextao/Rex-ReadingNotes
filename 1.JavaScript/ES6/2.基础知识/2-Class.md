@@ -169,3 +169,69 @@
 2. ES6不存在变量提升
 3. class定义的prototype是不可写的，ES5函数定义的prototype是可写的，即es6定义了class后，不能更改prototype
 4. ES6内部所有定义的方法都是不可枚举的
+
+## 实现ES6
+
+```javascript
+// 主要是通过babel转义得到，https://www.babeljs.cn/repl
+// 关键函数
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor)
+      descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps)
+    _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps)
+    _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+// 创建一个Parent类转义后的结果
+var Parent =
+  /*#__PURE__*/
+  function () {
+    function Parent() {
+      if (! (this instanceof Parent)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+    _createClass(Parent,
+      [{
+        key: "construtor",
+        value: function construtor(name) {
+          this.name = name;
+        }
+      }, {
+        key: "say",
+        value: function say() {
+          console.log(this.name);
+        }
+      }],
+      [{
+        key: "hello",
+        value: function hello() {
+          console.log('hello');
+        }
+      }]
+    );
+    return Parent;
+  }();
+// Child 继承父类Parent,主要函数
+function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function");
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: { value: subClass, writable: true, configurable: true } });
+    if (superClass)
+        Object.setPrototypeOf(subClass, superClass);
+}
+```
+
+1. 注意：提供一种直接使用Object.create绑定construtor的方法

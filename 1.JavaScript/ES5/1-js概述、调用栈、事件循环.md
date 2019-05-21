@@ -4,6 +4,7 @@
 1. 与浏览器没有依赖关系
 2. web浏览器只是ECMAScript实现的宿主环境之一，其他环境：如Node，Flash
 3. 主要是用来规定：语法、类型、语句、关键字、保留字、操作符、对象
+4. ECMAScript是JavaScript的规范，JavaScript是ECMAScript的实现
 
 ### DOM
 1. 是针对XML，经过扩展用于HTML的应用程序编程接口

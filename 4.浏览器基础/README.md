@@ -53,3 +53,26 @@
 
 1. 现在Chrome内核是Blink。
 2. Blink其实是webkit的分支，大部分国产浏览器最新版都采用Blink内核。 
+
+## 渲染流程
+
+### webkit渲染过程
+
+![1558426842404](README.assets/1558426842404.png)
+
+### Gecko渲染过程
+
+![1558426863101](README.assets/1558426863101.png)
+
+### 渲染基本流程
+
+1. HTML解析文件，生成DOM Tree，解析CSS文件生成CSSOM Tree
+2. 将Dom Tree和CSSOM Tree结合，生成Render Tree(渲染树)
+3. 根据Render Tree渲染绘制，将像素渲染到屏幕上。
+
+### css加载阻塞dom渲染
+
+1. 根据流程可知，dom与css解析是两个并行过程，故css不会阻塞dom解析
+2. 但由于render tree依赖于dom tree与cssdom tree，故需要css加载完，才能生成
+3. 故css加载会阻塞dom渲染
+

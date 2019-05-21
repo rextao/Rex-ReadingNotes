@@ -56,5 +56,28 @@
 
 3. 解决：利用max-width代替width，可以使浏览器更好地处理小窗口的情况 
 
+# 渐变色
 
+## Linear gradient
 
+1. `linear-gradient(side-or-corner,color-stop)`
+2. side-or-corner：可以是
+	- 角度值：20deg
+	- to top, to bottom, to left 和 to right会被转换为0度、180度、270度和90度
+	- 注意：必须要有to这个关键字
+3. color-stop，可以是：
+	- 一系列颜色值+终点位置，如linear-gradient(side-or-corner,red 10%,green 30px)
+	- 30px是沿渐进轴的终点位置
+
+## radial gradient
+
+1. 默认是椭圆形渐变色，可以更改为圆形渐变：`background: radial-gradient(circle,red,blue);`  
+2. 默认绘制为中心点，更改绘制position：
+	- `radial-gradient(at 40px 20px,red,blue)`
+	- 使用关键字`radial-gradient(at top,red,blue)`
+
+## repeat gradient
+
+1. 分为`repeating-linear-gradient`与` repeating-radial-gradient`两个函数
+2. 表示创建重复的线性渐变或径向渐变
+3. 参数与上面的相同

@@ -24,3 +24,12 @@ typora-copy-images-to: images
 ## 概述
 
 1.  在 Webpack 运行的生命周期中会广播出许多事件，Plugin 可以监听这些事件
+
+
+
+# Loader
+
+## 概述
+
+1. 用于对模块的源代码进行转换，在 `import` 或"加载"模块时预处理文件
+2. 如可以将文件从不同的语言（如 TypeScript）转换为JavaScript，或将内联图像转换为 data URL

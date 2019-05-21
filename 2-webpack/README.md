@@ -18,9 +18,3 @@ typora-copy-images-to: images
 3. 在浏览器地址栏输入，chrome://inspect/#devices，并点击Open dedicated DevTools for Node，打开node调试的控制台
 4. 在Node控制台输入要监听的地址![1531904417346](/1531904417346.png)
 5. 在sources中可以查看需要调试的代码![1531904449773](/1531904449773.png)
-
-# Plugin
-
-## 概述
-
-1.  在 Webpack 运行的生命周期中会广播出许多事件，Plugin 可以监听这些事件

@@ -127,3 +127,60 @@
 |    ::after     | 在指定元素的内容前面插入内容   |  2   |
 |    ::before    | 在指定元素的内容后面插入内容   |  2   |
 |  ::selection   | 选择指定元素中被用户选中的内容 |  3   |
+
+# css modules
+
+## 概述
+
+1. 只有局部作用域的CSS文件
+2. 不是官方标准，也不是浏览器特性，只是对css类名限定作用域的一种方式
+3. 使用css模块时，类名动态生成且唯一，准确对应源文件的各个样式
+
+## 为何需要-全局作用域
+
+1. css都是全局的，对整个页面有效，容易出现样式冲突
+2. 通常解决办法：
+	- class命名写长一点吧，降低冲突的几率
+	- 加个父元素的选择器，限制范围
+	- 重新命名个class吧，比较保险
+
+## 模块方案
+
+### css命名规定
+
+1. 使用规范化的命名解决方案
+2. 如BEM、OOCSS
+
+### css in Js
+
+1. 用js写css规则，然后内联样式
+2. 如react-style
+3. 主要问题
+	- 不能使用预处理器
+	- 样式代码出现大量重复
+
+### js 管理样式模块
+
+1. 代表是css Modules，https://github.com/css-modules/css-modules
+2. 最大化地结合现有 CSS 生态(预处理器/后处理器等)和 JS 模块化能力
+
+## css module在react实践
+
+1. babel-plugin-react-css-modules：可以实现使用`styleName`属性自动加载CSS模块
+2. react-css-modules：运行时才获取className，性能损耗大
+
+# at-rule规则
+
+1. CSS样式声明，以@开头，紧跟着是标识符（charset），最后以分号（;）结尾
+
+2. @charset：定义被样式表使用的字符集
+
+3. @import：引入外部的CSS样式表
+
+4. @media：媒体查询
+
+5. @font-face：外部引入字体
+
+6. @keyframes：css动画
+
+	 

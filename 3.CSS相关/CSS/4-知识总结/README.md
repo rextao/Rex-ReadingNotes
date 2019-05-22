@@ -62,10 +62,6 @@
 
 3. 
 
-
-
-# 
-
 # 元素隐藏
 
 ## display:none
@@ -172,15 +168,32 @@
 # at-rule规则
 
 1. CSS样式声明，以@开头，紧跟着是标识符（charset），最后以分号（;）结尾
-
 2. @charset：定义被样式表使用的字符集
-
 3. @import：引入外部的CSS样式表
-
 4. @media：媒体查询
-
 5. @font-face：外部引入字体
-
 6. @keyframes：css动画
 
-	 
+# css函数
+
+## attr()
+
+1. 在CSS2.1中attr()总是返回一个字符串。在CSS3中attr()可以返回多种不同的类型
+
+	```html
+	.tooltip:after{   
+	  content:attr(data-tooltip);  
+	}
+	<div class="tooltip" data-tooltip="提示" data-direction="down">down</div>
+	```
+
+## calc()
+
+1. css3
+2. 相当于计算器，运算我们的表达式
+
+## filter()
+
+1. 专门用来做各种滤镜的
+
+ 

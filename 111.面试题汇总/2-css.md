@@ -67,6 +67,44 @@
 1. 天然分层：jQuery，严重耦合；组件化：react，便于维护；生态：有成熟的框架
 2. 本质是解决了UI 与状态同步问题
 
+## 常用图形绘制
+
+1. 半圆
+
+	```css
+	height: 100px;
+	width: 200px;
+	background: #D65E2A;
+	border-radius: 100px 100px 0 0;
+	```
+
+2. 椭圆
+
+	```css
+	width: 200px;
+	height: 100px;
+	background: #1C951A;
+	border-radius: 100px/50px;
+	```
+
+3. 三角
+
+	```javascript
+	.triangle {
+	    width: 0;
+	    height: 0;
+	    border-width: 50px;
+	    border-style: solid;
+	    border-color: #8D0EEE transparent transparent transparent;
+	}
+	```
+
+4. 梯形：如上三角形直接将宽度加宽
+
+5. 菱形：transform:rotate(45deg)
+
+6. 平行四边形：tranform:skew(-20deg)
+
 # 其他
 
 1. 如何优化网页的打印样式?

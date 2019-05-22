@@ -457,7 +457,8 @@
 
 ## 概述
 
-1. WebSocket 可以实现客户端与服务器间双向、基于消息的文本或二进制数据传输
+1. HTML5新的协议，主要目的是即时通讯，替换轮询
+2. WebSocket 可以实现客户端与服务器间双向、基于消息的文本或二进制数据传输
 
 ## WebSocket API
 
@@ -572,7 +573,13 @@
 	}
 	```
 
+## 与HTTP关系
 
+1. WebSocket和HTTP都是基于TCP协议的两个不同的协议
+2. WebSocket依赖于HTTP连接
+	- 每个WebSocket连接都始于一个HTTP请求
+	- 通过http请求头：Upgrade：websocket
+	- 如服务器支持，则返回101后，使用新的websocket协议
 
 # 其他跨域技术
 ### 图像ping

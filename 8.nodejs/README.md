@@ -16,6 +16,19 @@
 
 1. process.nextTick ，promise在各个阶段切换的中间执行,即从一个阶段切换到下个阶段前执行
 
+# NodeAPI
+
+## path
+
+### path.resolve()
+
+1. 不带参数`path.resolve()`  
+   - 返回的是当前的文件的绝对路径`/Users/xxxx/`
+2. 带不是`/`开头的参数或`./`开头的参数
+   - `path.resolve('a')`  `path.resolve('./a')`  返回的是当前绝对路径拼接现在的参数`/Users/xxxx/a`
+   - `path.resolve('a'，'b')` `path.resolve('./a','./b')`   返回的是当前绝对路径拼接现在的参数`/Users/xxxx/a/b`
+3. `__dirname` 总是指向被执行 js 文件的绝对路径
+
 # 前后端分离
 
 ## 交互方式

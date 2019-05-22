@@ -1,3 +1,26 @@
+# 常见的布局方案
+
+## 静态布局
+
+1. 主要是在body上增加min-width，所有内容以该容器为标准
+2. 如页面过小，会出现滚动条
+3. 主要问题是：无法适用于移动端，移动端需要设计另一套布局
+
+## 流式布局
+
+1. 通常是左边固定+右边自适应或者左右固定+中间自适应
+2. 元素宽高用百分比作为单位，元素会根据分辨率调整，布局不会发生变化
+3. 主要问题：屏幕尺寸跨度大时，页面无法正常显示
+
+## flex布局
+
+1. 简单、方便
+2. 主要问题：兼容性问题
+
+## 响应式布局
+
+1. 主要是利用媒体查询，检测不同屏幕宽度，设置不同的css样式
+
 # 响应式布局方案
 
 ## 概述
@@ -124,29 +147,30 @@
 4. 浮动大法（圣杯布局）
 
   ```css
-  #box{
-      padding: 0 200px;
-  }
-  #left,#right,#center{
-      position: relative;
-      float: left;
-  }
-  #left,#right{
-      width: 200px;
-      height: 200px;
-      background-color: #ffe6b8;
-  }
-  #right{
-         margin-left: -200px;
-    	right: -200px;
-  }
-  #left{
-      margin-right: -100%;
-      right:-200px;
-  }
-  #center{
-      width: 100%;
-      background-color: lightgreen;}
+#box{
+    padding: 0 200px;
+}
+#left,#right,#center{
+    position: relative;
+    float: left;
+}
+#left,#right{
+    width: 200px;
+    height: 200px;
+    background-color: #ffe6b8;
+}
+#right{
+    margin-left: -200px;
+    right: -200px;
+}
+#left{
+    margin-left:-100%;
+    left:-200px;
+}
+#center{
+    width: 100%;
+    background-color: lightgreen;
+}
   ```
 
   - 首先将外围包裹的div设置padding;

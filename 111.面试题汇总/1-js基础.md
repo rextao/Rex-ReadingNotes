@@ -411,6 +411,89 @@ function deepClone(obj) {
 
 
 
+## 手写柯里化函数
+
+```javascript
+function createCurry(func, args = []) {
+    const arity = func.length;
+    return function() {
+        const _args = Array.prototype.slice.call(arguments);
+        Array.prototype.push.apply(_args, args);
+        // 如果参数个数小于最初的func.length，则递归调用，继续收集参数
+        if (_args.length < arity) {
+            return createCurry.call(this, func, _args);
+        }
+        // 参数收集完毕，则执行func
+        return func.apply(this, _args);
+ }
+}
+// 调用
+function add(a,b,c) {
+    return a+b+c
+}
+const res = createCurry(add);
+res(1)(1)(1);// 3，显示结果，需要调用3次
+```
+
+
+
+## 手写bind
+
+```javascript
+if (!Function.prototype.bind) {
+  Function.prototype.bind = function(oThis) {
+    if (typeof this !== 'function') {
+      // closest thing possible to the ECMAScript 5
+      // internal IsCallable function
+      throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+    }
+    var aArgs   = Array.prototype.slice.call(arguments, 1),
+        fToBind = this,
+        fNOP    = function() {},
+        fBound  = function() {
+          // this instanceof fBound === true时,说明返回的fBound被当做new的构造函数调用
+          return fToBind.apply(this instanceof fBound
+                 ? this
+                 : oThis,
+                 // 获取调用时(fBound)的传参.bind 返回的函数入参往往是这么传递的
+                 aArgs.concat(Array.prototype.slice.call(arguments)));
+        };
+
+    // 维护原型关系
+    if (this.prototype) {
+      // Function.prototype doesn't have a prototype property
+      fNOP.prototype = this.prototype; 
+    }
+    // 下行的代码使fBound.prototype是fNOP的实例,因此
+    // 返回的fBound若作为new的构造函数,new生成的新对象作为this传入fBound,新对象的__proto__就是fNOP的实例
+    fBound.prototype = new fNOP();
+    return fBound;
+  };
+}
+```
+
+## 手写call
+
+```javascript
+  Function.prototype.foo = function(context){
+      if (!context) {
+          //context为null或者是undefined
+          context = typeof window === 'undefined' ? global : window;
+      }
+      context.func = this;
+      const res = [...arguments].slice(1);
+      const result = context.func(...res);
+      delete context.func;
+  	return result;
+  }
+  // 调用
+  const obj = {a:1}
+  function c(){
+      console.log(this.a)
+  }
+  c.foo(obj);// 1
+```
+
 
 
 # 实际问题

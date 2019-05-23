@@ -286,45 +286,49 @@
 10. 请求中如何传中文？
 
 	- 利用encodeURIComponent或encodeURI编码
-11. 什么情况下用相等==
+11. escape、encodeURI和encodeURIComponent区别
+	- escape：对字符串编码
+	- encodeURI：对url编码
+	- encodeURIComponent：对url参数进行编码
+12. 什么情况下用相等==
 
 	- 简而言之：没有，使用===会更清晰，也可以代替==的情况
 	- 如可以用来比较：`new String('123') == '123'
 	- 但可以用来比较undefined与null
 	- if(!x)，但undefined，null，false，0，""
-12. 为何jsonp不支持post请求
-	
+13. 为何jsonp不支持post请求
+
 	- jsonp本质就是使用js的script标签 进行传参，那么必然是get方式的了，和浏览器中敲入一个url一样
-13. html5对于input新增的属性
+14. html5对于input新增的属性
 
 	- autoComplete
 	- autoFocus
 	- required
-14. 介绍localstorage的API
+15. 介绍localstorage的API
 
 	- getItem，setItem，removeItem，clear，key(n)
-15. 类数组转为数组
+16. 类数组转为数组
 
 	- Array.prototype.slice.call(arguments)
 	- Array.from
 	- 扩展运算符
-16. 判断`JavaScript`数据类型的方式
+17. 判断`JavaScript`数据类型的方式
 
-    - typeof，只能判断基本类型
-    - instanceof，判断对象
-    - toString.call
-    - constructor，`c.constructor === Array` constructor可以被重写
-17. 准确判断array
+	- typeof，只能判断基本类型
+	- instanceof，判断对象
+	- toString.call
+	- constructor，`c.constructor === Array` constructor可以被重写
+18. 准确判断array
 
-    - toString.call
-    - isArray
-18. `JavaScript`可以存储的最大数字、最大安全数、解决精度丢失的方法
+	- toString.call
+	- isArray
+19. `JavaScript`可以存储的最大数字、最大安全数、解决精度丢失的方法
 
-    - 最大安全数：2^53-1
-    - 最大数：由于js数是按照双精度浮点数，故最大值可以是1.79*10^308
-    - 解决小数精度丢失：通常是*100转为整数运算，或使用bigInt（stage3非标准）
-19. forEach的特殊性
-    - forEach不直接改变调用它的对象，但是对象可能会被callback改变
+	- 最大安全数：2^53-1
+	- 最大数：由于js数是按照双精度浮点数，故最大值可以是1.79*10^308
+	- 解决小数精度丢失：通常是*100转为整数运算，或使用bigInt（stage3非标准）
+20. forEach的特殊性
+	- forEach不直接改变调用它的对象，但是对象可能会被callback改变
 
 # 实现代码
 

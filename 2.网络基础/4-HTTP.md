@@ -358,42 +358,44 @@
 
 ### 客户端其他操作
 
-#### 修改cookie
+1. 修改cookie
+	- 直接重新赋值即可
+	- 注意：设置新cookie时，`path/domain`这几个选项一定要旧cookie 保持一样。否则不会修改旧值，而是添加了一个新的 cookie。
+2. 删除cookie
+	- 将新的expires设置一个过去的时间点即可
+	- 也要注意path/domain保持一样
+3. 读取cookie
+	- document.cookie可以获取全部非Httponly的cookie字段
+4. 子cookie
+	- 为绕开浏览器单个域名的cooki限制
+	- 如`name=name1=value&name2=value`，即name这个key保存的是`name1=value&name2=value`这样的值
+	- 删除子cookie，不能将key置空，需获得cookie下所有子cookie，然后再删除具体的
 
-1. 直接重新赋值即可
-2. 注意：设置新cookie时，`path/domain`这几个选项一定要旧cookie 保持一样。否则不会修改旧值，而是添加了一个新的 cookie。
+### 优缺点
 
-#### 删除cookie
+1. 优点
+	- 极高的扩展性和可用性 
+	- Cookie有效期限未到时，Cookie能使用户在不键入密码和用户名的情况下进入曾经浏览过的一些站点 
+	- 主要是：解决浏览器用户与Web服务器之间无状态通信。
+2. 缺点
+	- cookie在性质上是绑定在特定的域名下的
+	- `Cookie`数量和长度的限制。每个域的cookie总数是有限的，每个cookie长度不能超过4KB，否则会被截掉。
+	- 安全性问题。如果cookie被人拦截了，那人就可以取得所有的session信息。即使加密也与事无补，因为拦截者并不需要知道cookie的意义，他只要原样转发cookie就可以达到目的了。
+	- 由于所有的cookie都是由浏览器作为请求头发送，包含大量信息会无形中浪费了带宽
 
-1. 将新的expires设置一个过去的时间点即可
-2. 也要注意path/domain保持一样
-
-#### 读取cookie
-
-1. document.cookie可以获取全部非Httponly的cookie字段
-
-#### 子cookie
-
-1. 为绕开浏览器单个域名的cooki限制
-2. 如`name=name1=value&name2=value`，即name这个key保存的是`name1=value&name2=value`这样的值
-3. 删除子cookie，不能将key置空，需获得cookie下所有子cookie，然后再删除具体的
-
-### 优点
-
-1. 极高的扩展性和可用性 
-2. Cookie有效期限未到时，Cookie能使用户在不键入密码和用户名的情况下进入曾经浏览过的一些站点 
-3. 主要是：解决浏览器用户与Web服务器之间无状态通信。
-
-### 缺点
-
-1. cookie在性质上是绑定在特定的域名下的
-2. `Cookie`数量和长度的限制。每个域的cookie总数是有限的，每个cookie长度不能超过4KB，否则会被截掉。
-3. 安全性问题。如果cookie被人拦截了，那人就可以取得所有的session信息。即使加密也与事无补，因为拦截者并不需要知道cookie的意义，他只要原样转发cookie就可以达到目的了。
-4. 由于所有的cookie都是由浏览器作为请求头发送，包含大量信息会无形中浪费了带宽
-
-## 注意
+### 注意
 
 1. 存储在`cookie`中的数据，每次都会被浏览器自动放在`http`请求中；
+
+## session
+
+### 实现机制
+
+1. 用户发送请求，服务器验证用户发来的用户名密码。
+2. 如果正确则把当前用户名（通常是用户对象）存储到redis中，并生成它在redis中的ID，这个ID称为Session ID，通过Session ID可以从Redis中取出对应的用户对象， 敏感数据（比如`authed=true`）都存储在这个用户对象中。
+3. 设置Cookie为`sessionId=xxxxxx|checksum`并发送HTTP响应。
+4. 用户收到HTTP响应后，便看不到任何敏感数据了。在此后的请求中发送该Cookie给服务器。
+5. 服务器获取请求中的sessionID，然后从redis等存储中取出用户对象
 
 
 # HTTPS

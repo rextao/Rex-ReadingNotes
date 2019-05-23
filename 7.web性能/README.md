@@ -4,7 +4,8 @@
 
 ![1557756310618](README.assets/1557756310618.png)
 
-
+1. cookie参见《2.网络基础/HTTP》
+2. webstorage、indexDB、service worker参见《2-html5/1-离线应用与存储》
 
 # HTTP 缓存
 

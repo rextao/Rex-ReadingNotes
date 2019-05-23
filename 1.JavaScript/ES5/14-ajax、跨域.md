@@ -601,12 +601,37 @@
 
 ### JSONP
 1. JSON with padding缩写（填充式JSON或参数式JSON）
-1. 由回调函数和数据组成
-    - 回调函数：响应到来时应该在页面调用的函数，一般在请求中指明
-    - 数据：传入回调函数中的JSON数据
+
+1. 主要是利用了web中src属性的标签具有跨域能力
+    
+1. 客户端
+    
+    ```html
+    <script type="text/javascript">
+        var localHandler = function(data){
+            alert('我是本地函数，可以被跨域的remote.js文件调用，远程js带来的数据是：' + data.result);
+        };
+    </script>
+    <script type="text/javascript" src="http://remoteserver.com/remote.js"></script>
+    ```
+    
+    - 服务端构建一个remote.js
+    
+    	```javascript
+    	localHandler(
+    		{
+    	        result:123
+    	    }
+    	)
+    	```
+    
+    - 由于客户端已经声明了这个localHandler函数，故当加载完remote.js函数到前端后，会调用这个函数
+    
 1. 缺点
     - JSONP从其他域中加载代码执行，无法保证代码安全
     - 确定JSONP请求是否失败并不容易，H5在script元素增加了onerror事件，可以查看
+    
+- 与ajax是不同的，ajax本质是使用XMLHttpRequest对象，而jsonp实际是利用了带有src属性的标签具有跨域性
 
 
 

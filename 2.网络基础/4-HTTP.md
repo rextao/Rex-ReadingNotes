@@ -304,27 +304,81 @@
 2. session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能
 3. cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗
 
-### js中的cookie
+### cookie的属性选项
 
-1. document.cookie
-   - 返回当前页面可用的所有cookie字符串，一系列用分号隔开
-   - 所有名都是用URL编码的
-2. 创建Cookie
-   - document.cookie="username=John Doe";
-   - 可以配置存在时间，默认关闭浏览器清除
-   - 可以配置path，默认当前网页
-3. 读取Cookie
-   - `var x = document.cookie`;
-   - 会读取全部cookie
-4. 改变Cookie：和创建一致，覆盖旧的cookie
-5. 删除Cookie：设置存在时间为0
-6. 子cookie
-   - 为绕开浏览器单个域名的cooki限制
-   - name=name1=value&name2=value
-   - 浏览器存一个key为name，实际里面有两个key-value对
-   - 删除子cookie，不能将key置""，需获得cookie下所有子cookie，然后再删除具体的
+1. 可以通过cookie选项设置expires、domain、path、HttpOnly
 
-优点
+2. 设置这些属性时，属性之间由一个分号和一个空格隔开
+
+	`"key=name; expires=Thu, 25 Feb 2016 04:18:00 GMT; domain=ppsc.sankuai.com; path=/; secure; "`
+
+#### expires
+
+1. 与http请求头一致，表示cookie的失效时间，GMT格式（可以通过new Date(),toGMTString()或new Date().toUTCString()获取）
+2. 未设置，则默认有效期是session时间，浏览器关闭后就清除
+
+#### domain 和 path
+
+1. 共同决定了`cookie`何时被浏览器自动添加到请求头部中发送出去
+2. 如domain为'baidu.com'，path为'/'，则api.baidu.com、/home、/home/login，浏览器都会将cookie添加到请求头中
+
+#### secure
+
+1. 设置后，只有https请求才会将cookie发送
+
+2. 默认不带secure，故http与https都会被发送
+
+3. 添加了此项，在chrome通过如下看出
+
+	![å¾çæè¿°](4-HTTP.assets/2691230866-56dd2f7d11728_articlex.png)
+
+#### httpOnly
+
+1. 用来设置`cookie`是否能通过 `js` 去访问
+2. 在客户端是不能通过`js`代码去设置一个`httpOnly`类型的`cookie`的，这种类型的`cookie`只能通过服务端来设置。
+3. ![å¾çæè¿°](4-HTTP.assets/1857238552-56dd2f9b1f80f_articlex.png)
+4. 如上PA_VITME是无法通过document.cookie获取到的，也不能通过js修改
+
+### 设置cookie
+
+#### 服务器设置
+
+1. 响应头有一个`set-cookie`，是服务端专门用来设置`cookie`的
+2. 每个字段对应一个`cookie`（注意不能将多个`cookie`放在一个`set-cookie`字段中
+
+#### 客户端设置
+
+1. 直接利用document.cookie=''设置
+
+2. `document.cookie="age=12; expires=Thu, 26 Feb 2116 11:50:25 GMT; domain=sankuai.com; path=/";`
+
+3. 注意：设置多个cookie，需要多次调用document.cookie，如下形式是不能将多个cookie设置的
+
+	`document.cookie = "name=Jonh; age=12; class=111";`
+
+### 客户端其他操作
+
+#### 修改cookie
+
+1. 直接重新赋值即可
+2. 注意：设置新cookie时，`path/domain`这几个选项一定要旧cookie 保持一样。否则不会修改旧值，而是添加了一个新的 cookie。
+
+#### 删除cookie
+
+1. 将新的expires设置一个过去的时间点即可
+2. 也要注意path/domain保持一样
+
+#### 读取cookie
+
+1. document.cookie可以获取全部非Httponly的cookie字段
+
+#### 子cookie
+
+1. 为绕开浏览器单个域名的cooki限制
+2. 如`name=name1=value&name2=value`，即name这个key保存的是`name1=value&name2=value`这样的值
+3. 删除子cookie，不能将key置空，需获得cookie下所有子cookie，然后再删除具体的
+
+### 优点
 
 1. 极高的扩展性和可用性 
 2. Cookie有效期限未到时，Cookie能使用户在不键入密码和用户名的情况下进入曾经浏览过的一些站点 
@@ -336,6 +390,10 @@
 2. `Cookie`数量和长度的限制。每个域的cookie总数是有限的，每个cookie长度不能超过4KB，否则会被截掉。
 3. 安全性问题。如果cookie被人拦截了，那人就可以取得所有的session信息。即使加密也与事无补，因为拦截者并不需要知道cookie的意义，他只要原样转发cookie就可以达到目的了。
 4. 由于所有的cookie都是由浏览器作为请求头发送，包含大量信息会无形中浪费了带宽
+
+## 注意
+
+1. 存储在`cookie`中的数据，每次都会被浏览器自动放在`http`请求中；
 
 
 # HTTPS

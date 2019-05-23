@@ -2,7 +2,7 @@
 
 # 前端缓存综述
 
-![1557756310618](README.assets/1557756310618.png)
+![1557756310618](2-web缓存.assets/1557756310618.png)
 
 1. cookie参见《2.网络基础/HTTP》
 2. webstorage、indexDB、service worker参见《2-html5/1-离线应用与存储》
@@ -18,13 +18,13 @@
 
 ### 概述
 
-![img](README.assets/4845448-ab0e961921da5694.webp)
+![img](2-web缓存.assets/4845448-ab0e961921da5694.webp)
 
 ## 缓存请求流程
 
 1. 第二次访问时
 
-	![img](README.assets/977033-20170410175310876-1823314432.png)
+	![img](2-web缓存.assets/977033-20170410175310876-1823314432.png)
 
 ### 强缓存
 

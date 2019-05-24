@@ -315,6 +315,43 @@ ReactDOM.render(
 1. 当React遇到的元素是用户自定义的组件，它会将JSX属性作为单个对象传递给该组件，这个对象称之为“props”。
 2. 所有的React组件必须像纯函数那样使用它们的props。
 
+## Context
+
+### 概述
+
+1. 提供了一个无需通过组件树逐层传递 props的方式
+2. 主要应用场景在于很多不同层级的组件需要访问同样一些的数据
+3. 需要慎重选择，会使组件的复用性变差
+
+### 使用方式
+
+```jsx
+// 创建context，默认值是'light'，返回一个ThemeContext的Provider组件
+const ThemeContext = React.createContext('light');
+// 注意：value是Provider的一个属性
+class App extends React.Component {
+  render() {    
+    // 无论多深，任何组件都能读取这个值value值。
+    return (
+      <ThemeContext.Provider value="dark">
+        <Toolbar />
+      </ThemeContext.Provider>
+    );
+  }
+}
+
+//<Toolbar/>组件下的某个深层组件<Too/>
+class Too extends React.Component {
+  // React 会往上找到最近的 theme Provider，然后使用它的值。
+  // 在这个例子中，当前的 theme 值为 “dark”。
+  // 任何生命周期都可以使用this.context这个值
+  static contextType = ThemeContext;
+  render() {
+    return <Button theme={this.context} />;
+  }
+}
+```
+
 
 
 # 生命周期

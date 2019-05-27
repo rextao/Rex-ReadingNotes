@@ -1,6 +1,7 @@
 # 什么是flux
 
 1. 两者的设计思想差不多
+2. 
 
 
 
@@ -10,7 +11,7 @@
 
 1. redux是js的可预测状态容器，可以保证在不同运行环境（client、server或native）下表现一致性
 
-2. Redux是一个流行的JavaScript框架，为应用程序提供一个可预测的状态容器。
+2. Redux是一个流行的JavaScript框架，为应用程序提供一个可预测的状态容器，为了解决大型应用中组件状态管理混乱的问题
 
 3. Redux基于简化版本的Flux框架，Redux严格限制了数据只能在一个方向上流动。
 
@@ -169,7 +170,41 @@
 
 ## Provider
 
-1. Provider主要就是将React context进行封装，然后把redux中的store对象传递给孙子组件
+1. Provider是一个react组件，主要就是将React context进行封装，接收store参数，然后传递给孙子组件
 
-1. connect：连接容器组件和傻瓜组件；
-2. Provider：提供包含store的connect；
+2. provider功能主要分为：
+
+	- 在原应用组件上包裹一层，使原来整个应用成为Provider的子组件
+	- 接收Redux的store作为props，通过context对象传递给子孙组件上的connect
+
+3. 调用方式：
+
+	```jsx
+	import React from 'react'
+	import { render } from 'react-dom'
+	import { Provider } from 'react-redux'
+	import { createStore } from 'redux'
+	
+	let store = createStore(reducers)
+	
+	render(
+	  <Provider store={store}>
+	    <App />
+	  </Provider>,
+	  document.getElementById('root')
+	)
+	```
+
+## connect
+
+1. `connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])`
+	- [`mapStateToProps(state, [ownProps]): stateProps`]：
+		- 如定义这个参数，只要Redux改变，这个函数就会被调用，如省略，则不监听redux
+		- 必须返回一个纯对象；
+	- [`mapDispatchToProps(dispatch, [ownProps]): dispatchProps`]：定义的属性会合并到组件的props上
+
+## bindActionCreators
+
+1. 作用是将单个或多个ActionCreator转化为dispatch(action)的函数集合形式。
+2. 开发者不用再手动dispatch(actionCreator(type))，而是可以直接调用方法。
+

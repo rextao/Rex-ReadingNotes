@@ -501,7 +501,15 @@ class BodyIndex extends  React.Component{
 	}
 	```
 
-	
+
+# this.props.children
+
+1. 获取当前组件的所有子节点
+2. 返回值：
+	- 没有子节点：返回undefined
+	- 有一个子节点：返回object
+	- 多个子节点，返回array
+3. 通过React.Children.map遍历子节点，不用担心this.props.children的数据类型
 
 # React Fiber
 

@@ -89,7 +89,12 @@
 
 # Redux
 
-## 工作流程
+1. 多个组件之间如何拆分各自的state
+	- 一个全局的 reducer , 页面级别的 reducer , 然后redux 里有个 combineReducers 把所有的 reducer 合在一起
+2. Redux数据流的流程
+	- view => action/dispatch => store(reducer) => view
+3. redux请求如何处理并发
+	-  promise.all
 
 ## 适用情况
 

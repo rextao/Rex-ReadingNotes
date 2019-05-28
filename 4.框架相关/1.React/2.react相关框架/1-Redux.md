@@ -164,6 +164,33 @@
 
 	
 
+## Middleware
+
+### 概述
+
+1. 主要的作用就是处理Action，Redux中的Action必须是一个plain object。但是为了实现异步的Action或其他功能，这个Action可能是一个函数，或是一个promise对象。这需要中间件帮助来处理这种特殊的Action了
+2. Redux中的Middleware会对特定类型action做一定的转换，最后传给reducer的action一定是标准的plain object
+3. 针对action的特征，middleware可以采取如下操作：
+   - 可以选择传递给下一个中间件
+   - 可以选择跳过某些中间件
+   - 结束传递
+
+### redux-thunk
+
+1. action可以是一个函数，用来发起异步请求
+
+### redux-promise
+
+1. action可以是一个promise对象，用来更优雅的进行异步操作
+
+
+
+### 流程图
+
+1. 主要是在action处理处新增了middleware，其他流程没有变化
+
+![img](1-Redux.assets/593627-20160418100236976-196339185.png)
+
 # React-Redux
 
 1. 提供了两个重要功能模块Provider和connect，这两个模块保证了react和redux之间的通信

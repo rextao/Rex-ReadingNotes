@@ -188,7 +188,12 @@ typora-copy-images-to: images
 
    
 
+# tree-shaking
 
+## 概述
+
+1. 消除无用的js代码，编译器可以判断出某些代码根本不影响输出，然后消除这些代码，这个称之为DCE（dead code elimination）。
+2. tree-shaking是DCE的新实现，传统方法消灭不可能执行的代码，而Tree-shaking 更关注消除没有用到的代码
 
 # 如何调试webpack程序
 

@@ -367,6 +367,8 @@ class Too extends React.Component {
 3. render()
 4. componentDidMount()
 
+1. 
+
 ### 更新
 
 1. static getDerivedStateFromProps()
@@ -378,25 +380,73 @@ class Too extends React.Component {
 ### 卸载
 
 1. componentWillUnmount()
+   - 主要是清除组件中使用的定时器，手动创建的DOM元素等，以避免引起内存泄漏
 
-## getDerivedStateFromProps
+## 函数详解
+
+### render
+
+1. render是纯函数，不能在里面执行this.setState，会有改变组件状态的副作用
+2. render返回React元素，但不负责实际渲染工作
+
+### shouldComponentUpdate
+
+1. 此方法仅作为**性能优化的方式**而存在，官方不推荐依靠此方法阻塞渲染，对于简单的应该使用pureComponent
+2. 不建议进行深层比较或使用 `JSON.stringify()`，非常影响性能
+
+#### 父组件重新render
+
+1. 父组件重新render，但传给子组件的props值并未发生变化，子组件也会重新render
+
+2. 可以使用shouldComponentUpdate进行优化
+
+   ```javascript
+   shouldComponentUpdate(nextProps, nextState, nextContext) {
+       if(this.props.age === nextProps.age) {
+           return false;
+       }
+       return true;
+   }
+   ```
+
+   - 注意：对比的是具体某个属性值
+
+#### 组件本身调用setState
+
+1. 组件本身调用setState，但是无论state是否变化，都会调用render方法
+2. 可以使用shouldComponentUpdate进行优化
+
+
+
+### componentDidMount
+
+1. 最适合获取组件数据的地方
+2. 组件挂载到DOM后调用，且只会被调用一次
+3. 此处获取数据直接操作DOM节点是绝对安全的
+
+### getDerivedStateFromProps
 
 1. `static getDerivedStateFromProps(nextProps, prevState)`
 2. 不管原因是什么，都会在每次渲染前触发此方法
 3. 返回一个对象来更新 state，如果返回 null 则不更新任何内容
-4. 
+4. 能做的操作局限在根据props和state决定新的state
 
-## getSnapshotBeforeUpdate()
+### getSnapshotBeforeUpdate
 
 1.  `componentDidUpdate(prevProps, prevState, snapshot)`
 2. 在最近一次渲染输出（提交到 DOM 节点）之前调用
 3. 此生命周期的任何返回值将作为参数传递componentDidUpdate()。
 
-## 删除render之前的钩子函数原因
+### 删除render之前的钩子函数原因
 
-1. 因为如果要开启async rendering，在render函数之前的所有函数，都有可能被执行多次。
+1. 因为如果要开启async rendering，在render前执行的生命周期方法做AJAX请求的话，那AJAX将被无谓地多次调用
+2. 如果在componentWillMount发起ajax，无论多快也赶不上首次render
 
-	
+## 函数组件没有生命周期
+
+1. es6构建组件需要继承React.Component，也就继承了react的基类，才能有render，生命周期等方法可以使用
+
+
 
 # 事件处理
 
@@ -510,6 +560,12 @@ class BodyIndex extends  React.Component{
 	- 有一个子节点：返回object
 	- 多个子节点，返回array
 3. 通过React.Children.map遍历子节点，不用担心this.props.children的数据类型
+
+
+
+# 组件懒加载
+
+1. React.lazy(), 它可以让代码分割(code splitting)更加容易
 
 # React Fiber
 

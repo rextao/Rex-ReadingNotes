@@ -2,13 +2,26 @@
 
 ## 概述
 
-1. 块级格式化上下文（Block Fromatting Context）是按照块级盒子布局的，它是指一个独立的块级渲染区域
+1. 块级格式化上下文（Block Fromatting Context）是一个块级元素 的渲染显示规则
 2. BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素，反之亦然
-3. 一个html元素要创建BFC，则要满足下面任意一个或多个条件
-  - float的值不是none
-  - position的值不是static或者relative
-  - display的值是inline-block、table-cell、flex、table-caption或者inline-flex
-  - overflow的值不是visible
+
+## BFC布局规则
+
+1. 内部盒子垂直排列
+2. 是页面上的一个隔离的独立容器
+3. 不与float重叠
+4.  计算BFC的高度时，浮动元素也参与计算 
+	- 这条规则，使得构建一个BFC可以清除浮动
+	- 浮动会使父级高度塌陷，但BFC会计算浮动元素高度
+5. BFC内部盒子会出现上下margin重叠现象
+
+## 触发BFC
+
+1. body 根元素
+2. float的值不是none
+3. position的值不是static或者relative
+4. overflow的值不是visible
+5. display的值是inline-block、table-cell、flex、table-caption或者inline-flex
 
 ## 避免外边距折叠
 
@@ -60,7 +73,15 @@
    </html>
    ```
 
-3. 
+
+# IFC
+
+## 布局规则
+
+1. 在行内格式化上下文中，框(boxes)一个接一个地水平排列。
+2. 水平方向上的 `margin`，`border`和 `padding`在框之间得到保留。
+3. 框在垂直方向上可以以不同的方式对齐。
+4. 包含那些框的长方形区域，会形成一行，叫做行框。
 
 # 元素隐藏
 

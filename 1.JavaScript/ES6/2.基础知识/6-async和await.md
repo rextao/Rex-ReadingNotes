@@ -24,7 +24,8 @@
 2. await 会暂停当前async的执行，等待promise处理完成
 	- 如promise返回fufilled，则回调的resovle函数参数作为await表达式的值，继续执行async函数
 	- 如promise返回rejected，抛出异常原因
-	- 如await后不是promise，则返回该值本身
+	- 如await后不是promise，则返回该值本身；
+	- 注意：故对于一个普通的异步函数，如setTimeout，直接返回id值，而不是异步回调结果值
 
 ## await运行机制
 
@@ -118,7 +119,7 @@
 
 
 
-# 并发与串行执行
+# 循环与并行串行
 
 1. 主要是使用定时器，每隔一秒输出arr的一个值
 

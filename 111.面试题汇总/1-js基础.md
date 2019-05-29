@@ -4,12 +4,21 @@
 
 1. 内联js代码和外部文件区别？一个script出错是否会影响其他script？不同script之间的全局作用域提升机制？
 2. DOMContentLoaded与load区别
+	- async加载完，触发DOMContentLoaded
+	- defer解析完，触发DOMContentLoaded
+	- load全部资源加载完毕
+	- DOMContentLoaded：dom解析完毕，dom树构建完毕
 3. defer与async的区别
+	- async是异步加载js，加载好后就执行
+	- defer，延迟解析js，html解析完后解析js
 4. `<noscript>`标签含义
+	- 脚本无效情况下向用户显示其中的信息
 5. 执行上下文的类型？
+	- js代码被解析和执行时所在环境
 6. 什么是调用栈？栈阻塞？
 7. 为何需要垃圾回收机制？回收的方法？
 8. 常见的js引擎？v8主要特点？
+	- spiderMonkey，v8，javascriptCore
 9. 什么事件循环？与调用栈的关系？什么是事件队列？task与microtask？为何要有microtask
 
 ## 2-类型与值
@@ -69,11 +78,30 @@
 3. 字面量的`__proto__`
 4. prototype概述？
 5. [[Prototype]]链主要解决？
+	- 属性查找问题
 6. `obj.foo = "bar"`的过程？隐式屏蔽的问题？
+	- obj有foo，则直接设置值
+	- obj无foo，原型链有writable:false（未标记只读），创建foo
 7. Object.create？Object.create(null)？new与Object.create
-8. ES5原型继承的方式？修改对象的prototype关联的方式？
+	- es5创建原型链的方式
+	- 创建一个无原型链对象，方便数据存储
+	- Object.create未执行构造函数
+8. 修改对象的prototype关联的方式？
+	- Object.create()
+	- `__proto__`
+	- es6：Object.setPrototypeOf( Bar.prototype, Foo.prototype );
 9. 检查类的关系4种方式？
+	- instanceof
+	- `__proto__`
+	- Object.getPrototypeOf()：获取原型链
+	- a.isPrototypeOf(b)：a是否出现在b的原型链上
 10. 面向委托的设计风格？
+	- `obj = {a:1}`
+	- `newObj = Object.create(obj)`
+	- `newObj.b = 2`
+11. `Object.__proto__`和Object.prototype结果有何不同
+	- ƒ () { [native code] }
+	- `{constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}`
 
 ## 8-BOM
 
@@ -156,6 +184,16 @@
 
 1. 回调方式主要的缺点？promise的状态？
 2. Promise的构造函数？
+
+## await
+
+1. await语法描述（后面值表示何种含义）
+2. 循环与并行串行
+
+## Proxy
+
+1. proxy是啥，实现双向绑定
+2. Reflect？
 
 # 其他
 
@@ -363,6 +401,16 @@ function _new(fn, ...arg) {
 }
 ```
 
+## 实现Object.create
+
+```javascript
+Object.create =  function (o) {
+    var F = function () {};
+    F.prototype = o;
+    return new F();
+};
+```
+
 
 
 ## 深拷贝
@@ -493,6 +541,8 @@ if (!Function.prototype.bind) {
   }
   c.foo(obj);// 1
 ```
+
+
 
 
 

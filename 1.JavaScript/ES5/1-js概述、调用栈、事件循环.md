@@ -57,7 +57,7 @@
 
 #### DOMContentLoaded与load
 
-1. DOMContentLoaded：html文档加载解析完后触发，无需等待样式表、图像和子框架的完成加载
+1. DOMContentLoaded：html文档加载解析完后触发，无需等待样式表、图像和子框架的完成加载，相当于DOM树构建完成
 
 2. load：依赖资源全部加载完
 
@@ -87,8 +87,9 @@
 
 #### defer与DOMContentLoaded
 
-1. 下载完js也不会执行js，要等待html解析完![1546501160912](1-js概述、调用栈、事件循环.assets/1546501160912.png)
-2. 注意：与async图非常像，关键是DOMContentLoaded触发点![1546501211713](1-js概述、调用栈、事件循环.assets/1546501211713.png)
+1. 有defer的脚本必须，DOMContentLoad在defer脚本解析后触发
+2. 下载完js也不会执行js，要等待html解析完![1546501160912](1-js概述、调用栈、事件循环.assets/1546501160912.png)
+3. 注意：与async图非常像，关键是DOMContentLoaded触发点![1546501211713](1-js概述、调用栈、事件循环.assets/1546501211713.png)
 
 ### `<noscript>`
 

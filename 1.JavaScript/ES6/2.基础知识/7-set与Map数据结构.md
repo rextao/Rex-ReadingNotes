@@ -31,6 +31,12 @@
 	- `has(value)`：返回一个布尔值，表示该值是否为`Set`的成员。
 	- `clear()`：清除所有成员，没有返回值。
 
+## WeakSet
+
+1. WeakSet 的成员只能是对象，而不能是其他类型的值
+2. WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用
+3. 由于WeakSet对象会随时消失（取决于垃圾回收机制有没有运行）
+
 # Map
 
 ## 概述
@@ -101,3 +107,39 @@
 ### clear()
 
 1. 清除所有成员
+
+## WeakMap
+
+1. 只接受对象（除了null）作为key，不接收其他类型
+2. `WeakMap`的键名所指向的对象，不计入垃圾回收机制
+3. 主要作用是：防止内存泄露
+
+### 典型用途
+
+1. 如想在DOM元素添加某些数据，通常是
+
+	```javascript
+	const e1 = document.getElementById('foo');
+	const e2 = document.getElementById('bar');
+	const arr = [
+	  [e1, 'foo 元素'],
+	  [e2, 'bar 元素'],
+	];
+	```
+
+	- 但如不需要arr这个对象时，必须手动删除`arr[0]=null;arr[1]=0`，解除arr对e1，e2引用
+	- 否则垃圾回收器就不会释放`e1`和`e2`占用的内存
+
+2. 使用WeakMap解决了这个问题
+
+	```javascript
+	const wm = new WeakMap();
+	const element = document.getElementById('example');
+	wm.set(element, 'some information');
+	wm.get(element) // "some information"
+	```
+
+	- 这样wm对象中的element是弱引用
+	- 当wm不需要时，会自动清除element
+
+	### 

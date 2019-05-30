@@ -93,6 +93,9 @@
 
 1. 何时使用class component而不是functional
 	- 组件需要内部状态或生命周期时，用class
+2. 为何提供React.children.map
+	- props.children不一定是数组
+3. 
 
 # Redux
 

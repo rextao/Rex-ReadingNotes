@@ -87,6 +87,13 @@
 1. React是单向数据流，数据主要从父节点传递到子节点（通过props）。
 2. 如果顶层（父级）的某个props改变了，React会重渲染所有的子节点。
 
+## 
+
+## 小问题
+
+1. 何时使用class component而不是functional
+	- 组件需要内部状态或生命周期时，用class
+
 # Redux
 
 1. 多个组件之间如何拆分各自的state

@@ -186,7 +186,36 @@ typora-copy-images-to: images
    };
    ```
 
-   
+3. 从 webpack v4 开始, 指定 mode 会自动地配置 DefinePlugin（之前配置环境是开发环境还是生产环境时使用）
+
+4. 配置为production时，会默认启用压缩
+
+# 代码分离
+
+## 手动配置entry
+
+1. 如入口有多个重复模块，会被引入到各个bundle中
+2. 不够灵活
+
+## 防止重复
+
+1. 利用`SplitChunksPlugin`替换之前的`commonsChunkPlugin`，由于之前插件无法进一步优化
+
+2. 如使用splitChunksPlugin默认行为，则直接使用：
+
+	```javascript
+	optimization: {
+	    splitChunks: {
+	        chunks: 'all'
+	    }
+	}
+	```
+
+## 动态代码拆分
+
+1. 推荐方式：es的import()提案，实现动态导入
+	- import()会在内部用到promises
+2. 遗留方式：webpack的require.ensure
 
 # tree-shaking
 

@@ -128,6 +128,8 @@ V16.7.0
 1. 解释为何每个模块开头需要引用`import React from 'react';`
 2. 由于 JSX 编译成`React.createElement`方法的调用，所以在你的 JSX 代码中，`React`库必须也始终在作用域中。
 
+##
+
 # 组件
 
 ## 概述
@@ -313,7 +315,18 @@ ReactDOM.render(
 ### 概述
 
 1. 当React遇到的元素是用户自定义的组件，它会将JSX属性作为单个对象传递给该组件，这个对象称之为“props”。
+
 2. 所有的React组件必须像纯函数那样使用它们的props。
+
+3. 如果你没给 prop 赋值，它的默认值是 `true`，不建议这样写
+
+	```jsx
+	{/*两者等价*/}
+	<MyTextBox autocomplete />
+	<MyTextBox autocomplete={true} />
+	```
+
+	
 
 ## Context
 
@@ -439,8 +452,11 @@ class Too extends React.Component {
 
 ### 删除render之前的钩子函数原因
 
-1. 因为如果要开启async rendering，在render前执行的生命周期方法做AJAX请求的话，那AJAX将被无谓地多次调用
-2. 如果在componentWillMount发起ajax，无论多快也赶不上首次render
+1. 过时的生命周期函数
+	- 挂载时：componentWillMount()
+	- 更新时：componentWillUpdate()，componentWillReceiveProps()
+2. 因为如果要开启async rendering，在render前执行的生命周期方法做AJAX请求的话，那AJAX将被无谓地多次调用
+3. 如果在componentWillMount发起ajax，无论多快也赶不上首次render
 
 ## 函数组件没有生命周期
 

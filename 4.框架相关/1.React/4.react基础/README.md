@@ -583,6 +583,43 @@ class BodyIndex extends  React.Component{
 
 1. React.lazy(), 它可以让代码分割(code splitting)更加容易
 
+
+
+# render props
+
+1. 是一种在不重复代码的情况下共享组件间功能的方法
+
+2. 核心思想是，通过一个函数将class组件的state作为props传递给纯函数组件
+
+3. 主要解决类似，如何分享一个组件状态或行为。比如一个组件获取鼠标位置，如何给另一个组件使用呢？
+
+	```jsx
+	import React from 'react';
+	export default class MouseTracker extends React.Component {
+	  constructor(props) {
+	    super(props);
+	    this.handleMouseMove = this.handleMouseMove.bind(this);
+	    this.state = { x: 0, y: 0 };
+	  }
+	  handleMouseMove(event) {
+	    this.setState({
+	      x: event.clientX,
+	      y: event.clientY
+	    });
+	  }
+	  render() {
+	    return (
+	      <div style={{ height: '100%' }} onMouseMove={this.handleMouseMove}>
+	        <h1>移动鼠标!</h1>
+	        <p>当前的鼠标位置是 ({this.state.x}, {this.state.y})</p>
+	      </div>
+	    );
+	  }
+	}
+	```
+
+	
+
 # React Fiber
 
 ## react的局限性

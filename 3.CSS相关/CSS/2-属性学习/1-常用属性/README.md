@@ -1,3 +1,38 @@
+# background
+
+1. 注意：`<bg-size> `只能紧接着` <position> `出现，以"/"分割，如： "center/80%".
+
+## background-size
+
+1. 设置背景图片大小
+2. 百分比：背景图片相对背景区的百分比
+3. auto：以背景图的比例缩放图片
+4. cover
+	- 背景图保持原始比例放缩以完全覆盖背景区，可能有部分图片看不到；
+	- 背景图以它的全部宽或者高覆盖所在容器
+5. contain
+	- 缩放背景图片以完全装入背景区，可能背景区部分空白
+
+## background-image
+
+1. 用于为一个元素设置一个或多个背景图，绘制时，以z轴方向堆叠
+2. border在image之前，background-color在image之下绘制
+3. 如指定的url无法加载，则视为none
+
+## background-position
+
+1. 多个图片的初试位置
+
+## background-clip
+
+1. 设置背景是否延伸到边框下面
+2. `background-clip: border-box | padding-box | content-box;`
+
+## background-origin
+
+1. 图片开始绘制的地方，从border开始，border内部开始，还是从padding内部开始
+2. `background-origin: border-box | padding-box | content-box;`
+
 # vertical-align
 
 ## 基本现象

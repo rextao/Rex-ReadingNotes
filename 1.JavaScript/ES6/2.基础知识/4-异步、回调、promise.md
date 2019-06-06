@@ -206,13 +206,69 @@
 
 ## Promise/A+标准
 
-1. Promise实现需要遵循Promise/A+标准，需要遵循如下这些准则
-   - promise或"`rejected`"是一个对象，需要具有`then`方法
-   - pending状态可以转移到`fufilled`或`rejected`状态
-   - 已经解决的`fufilled`或`rejected`状态不能转为其他状态
-   - 已经解决的promise必须有一个值（可能是undefined），这个值不能改变
+### 术语
 
+1. promise：一个具有then方法，并且行为符合此规范的对象或函数
+2. thenable：一个具有then方法的函数或对象
+3. value：任何合法值（包括undefined、thenable或promise）
+4. exception：使用throw语句抛出的值
+5. reason：promise被拒绝的原因
 
+### promise状态
+
+1. 一个promise必须是pending、fufilled、reject这三种状态中的一种
+2. 处于pending状态时：
+   - 可以转换为fufilled或reject状态
+3. 处于fufilled状态时：
+   - 不能转为其他状态
+   - 必须有一个不能改变的value值
+4. 处于reject状态时
+   - 不能转为其他状态
+   - 必须有一个不能改变的reason值
+5. 不能改变表示不可改变状态（即===），但不意味着深不可变
+
+### then方法
+
+1. 一个promise必须有一个then方法来获取成功值或失败值
+
+   `promise2 = promise.then(onFulfilled,onRejected)`
+
+2. onFulfilled或onRejected是可选参数，如不是函数，必须忽略它
+
+3. 两者都只能被调用一次，且在promise执行前不得调用
+
+4. 如成功，则promise的value会作为onFulfilled的参数
+
+5. 如失败，则promise的reason作为onRejected的参数
+
+6. 同一个promise可以调用多次then方法，回调必须按顺序执行；
+
+7. then返回值：必须是promise值
+
+8. promise2值的确定：
+
+   - 如onfulfilled或onRejected返回一个x值，会执行`[[Resolve]](promise2, x)`
+   - 如onfulfilled或onRejected 抛出e，promise2必须使用e作为reason来rejected
+   - 如promise1是fufilled，但onFufilled不是一个函数，promise2必须使用promise1相同值fufilled
+   - 如promise1是rejected，但onRejected不是一个函数，promise2必须使用promise1相同值rejected
+   - 综述：有返回值，则会执行promise特定步骤；如未配置函数，则传给promise2；如有异常，则promise2会rejected
+
+### promise解决过程
+
+1. 即如何处理`[[Resolve]](promise2, x)`，promise2是then的返回值，x为onFufilled或onRejected的返回值
+2. 如promise2与x指向相同对象，会用TypeError拒绝promise
+3. x为promise，会采用x的状态
+   - 如x处于pending状态，promise2会处于pending状态，直到x决议
+   - 如x是fufilled，使用相同的值fufill promise
+   - 如x是rejected，则拒绝
+4. x为obj或function
+   - 如then是一个函数，会传递两个参数resolvePromise与rejectPromise
+     - 如resolvePromise调用，则运行`[[Resolve]](promise,y)`
+     - 如rejectPromise调用，则会reject
+     - 函数只能会被调用一次
+     - 如then中抛出异常，如resolvePromise或rejectPromise调用了，会忽略抛出的异常
+   - 如then不是一个函数，则用x值fufill promise
+5. x不是obj或function，则用x来fulfill promise
 
 ## Promise API 概述
 

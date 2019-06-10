@@ -7,27 +7,64 @@
 
 ## BFC布局规则
 
-1. 内部盒子垂直排列
+1. 内部盒子垂直排列，并出现上下margin重叠现象
 2. 是页面上的一个隔离的独立容器
 3. 不与float重叠
 4.  计算BFC的高度时，浮动元素也参与计算 
 	- 这条规则，使得构建一个BFC可以清除浮动
 	- 浮动会使父级高度塌陷，但BFC会计算浮动元素高度
-5. BFC内部盒子会出现上下margin重叠现象
 
 ## 触发BFC
 
 1. body 根元素
 2. float的值不是none
 3. position的值不是static或者relative
-4. overflow的值不是visible
+4. overflow的值不是visible（即hidden、auto、scroll）
 5. display的值是inline-block、table-cell、flex、table-caption或者inline-flex
 
 ## 避免外边距折叠
 
 1. 默认情况下，垂直排列的盒子外边距会进行重叠
-2. 两个相邻元素要处于同一个BFC中，元素会发生折叠；
-3. 若两个相邻元素在不同的BFC中，就能避免外边距折叠。
+
+2. 如想避免外边距重叠，可以将元素放于不同的BFC容器中
+
+	```html
+	<head>
+	    <style>
+	        div{margin: 50px 0;}
+	        p{margin: 50px 0;}
+	    </style>
+	</head>
+	<body>
+	    <div style="overflow:hidden">
+	        <p>aaaaaa</p>
+	    </div>
+	    <div>bbbbbbbb</div>
+	</body>
+	```
+
+	- 如p的外层div不是bfc的话，则p与下面div处于同一个bfc（根元素）下，垂直margin会被合并
+	- 但当div设置overflow:hidden时，会形成新的bfc
+	- 处于不同bfc的元素不会进行margin合并
+
+## BFC区域不与float box重叠
+
+1. 对于浮动元素，如下
+
+	```html
+	<div style="height: 100px;width: 100px;float: left;background: lightblue">左浮动</div>
+	<div style="width: 200px; height: 200px;background: #ababab">aaaaaaa</div>
+	```
+
+	- 浮动元素会覆盖在第二个div上面，但不会挡住文字
+
+		![1560150060563](README.assets/1560150060563.png)
+
+2. 利用给第2个div添加BFC的方式（overflow:hidden），防止重叠
+
+	![1560150159517](README.assets/1560150159517.png)
+
+3. 利用这种方式，可以实现自适应两栏布局，即不设置第二个div的宽度
 
 ## 消除浮动
 
@@ -37,41 +74,45 @@
 
 ## 多栏布局
 
-1. 与浮动元素相邻的已生成BFC的元素不能与浮动元素相互覆盖
+1. 主要是应用BFC与浮动元素不重叠
 
-2. ```html
+2. 代码如下：
+
+   ```html
    <!DOCTYPE html>
-   <html>  
-   <head> 
-     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+   <html>
+   <head>
+       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    
-     <style> 
-       html, body { height: 100%; width: 100%; margin: 0; padding: 0; }
-       .left{
-         background:pink;
-         float: left;
-         width:180px;
-       }
-       .center{
-         background:lightyellow;
-         overflow:hidden;      
-       }
-       .right{
-         background: lightblue;
-         width:180px;
-         float:right;
-       }
-     </style>  
+       <style>
+           html, body { height: 100%; width: 100%; margin: 0; padding: 0; }
+           p{margin: 0;}
+           .left{background:pink;float: left;width:180px;}
+           .center{background:lightyellow;}
+           .right{background: lightblue;width:180px;float:right;}
+       </style>
    </head>
-   <body class="claro"> 
-     <div class="container">
+   <body>
+   <div>
        <div class="left">aaaaaaa</div>
        <div class="right">bbbbbbbb</div>
-       <div class="center">cccccc</div>
-     </div>
+       <div class="center">
+           我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我爱北京天安门啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+       </div>
+   </div>
+   </body>
    </html>
    ```
+
+3. 如不设置center为BFC的话，得到的结果是
+
+	![1560155613278](README.assets/1560155613278.png)
+
+4. 当设置center的overflow:hidden时，形成BFC，BFC不与浮动元素重叠，得到
+
+	![1560155592063](README.assets/1560155592063.png)
+
+	
 
 
 # IFC

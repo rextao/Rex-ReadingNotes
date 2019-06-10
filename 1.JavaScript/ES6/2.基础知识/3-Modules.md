@@ -210,6 +210,8 @@
       ```
 
       - 但ES6在语法上强制import和export只能在顶层（不能嵌套在条件语句中）等，使的ES6 Modules变为静态模块
+      
+3. module运行机制：JS 引擎对脚本静态分析的时候，遇到模块加载命令`import`，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。
 
 ### 优点1：代码打包期间消除死码
 
@@ -405,7 +407,7 @@
       - executing a.js
       - hello world
 
-2. CommonJs（Node.js）：按需加载
+2. CommonJs（Node.js）：按需加载，即运行时加载，本质是加载的一个对象（module.exports属性），该对象只有在脚本运行完才会生成
 
       ```javascript
       // main.js
@@ -426,6 +428,82 @@
 3. 注意：两者加载模块的先后顺序不同
 
 4. 由于加载顺序的不同，nodejs将`.mjs`文件使用ES6 modules方式加载，`.js`按照CommonJs加载
+
+### 导入方式不同
+
+#### CommonJs
+
+1. CommonJs导出的是值的拷贝
+
+2. 无论是导入一个变量还是一个对象，这个值是被复制的
+
+	![img](../2.%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Modules.assets/31_cjs_variable.png)
+
+3. A、B这两个地方复制两次，因为引入的b.js是原来b.js的复制，因此原来b.js发生了什么，不会影响外面结果，故结果都为0
+
+	```javascript
+	// main.js
+	const b = require('./b.js');// (B)
+	console.log(b.num);// 0
+	b.add();
+	console.log(b.num);// 0
+	// b.js
+	let num = 0;
+	function add () {
+	    num++;
+	}
+	module.exports = {
+	    add ,// (A)
+	    num
+	};
+	```
+
+#### Modules
+
+1. ES6 modules导出的是值的引用
+
+2. ES6中，每个import相当于和exports的数据进行了连接
+
+3. import只是可读不能写
+
+4. `import x from 'foo'`导入后x类似于const声明的变量
+
+	```javascript
+	// main.js
+	import { num , add} from './test.js'
+	console.log(num); // 0
+	add();
+	console.log(num); // 1
+	// test.js
+	export let num = 0;
+	export function add() {
+		num++;
+	}
+	```
+
+5. `import * as b from 'foo'`，b类似一个frozen对象
+
+	```javascript
+	// main.js
+	import * as b from './test.js'
+	console.log(b.num); // 0
+	b.add();
+	console.log(b.num); // 1
+	b = {} // TypeError
+	```
+
+6. 注意：虽然不能导入改变的值，但可以改变对象内部值
+
+	```javascript
+	//------ lib.js ------
+	export let obj = {};
+	//------ main.js ------
+	import { obj } from './lib';
+	obj.prop = 123; // OK
+	obj = {}; // TypeError
+	```
+
+
 
 ### 解决循环引用
 
@@ -491,80 +569,6 @@
 
 	- 并不会报错，可以得到正确结果
 	- 如果将所有modules语法改为CommonJs，会报错
-
-### 导入方式不同
-
-#### CommonJs
-
-1. CommonJs导入是导出值的赋值
-
-2. 无论是导入一个变量还是一个对象，这个值是被复制的
-
-    ![img](Modules.assets/31_cjs_variable.png)
-
-3. A、B这两个地方复制两次，因为引入的b.js是原来b.js的复制，因此原来b.js发生了什么，不会影响外面结果，故结果都为0
-
-    ```javascript
-    // main.js
-    const b = require('./b.js');// (B)
-    console.log(b.num);// 0
-    b.add();
-    console.log(b.num);// 0
-    // b.js
-    let num = 0;
-    function add () {
-        num++;
-    }
-    module.exports = {
-        add ,// (A)
-        num
-    };
-    ```
-
-#### Modules
-
-1. ES6 modules是导出值的可读版本
-
-1. ES6中，每个import相当于和exports的数据进行了连接
-
-1. import只是可读不能写
-
-1. `import x from 'foo'`导入后x类似于const声明的变量
-
-    ```javascript
-    // main.js
-    import { num , add} from './test.js'
-    console.log(num); // 0
-    add();
-    console.log(num); // 1
-    // test.js
-    export let num = 0;
-    export function add() {
-    	num++;
-    }
-    ```
-
-1. `import * as b from 'foo'`，b类似一个frozen对象
-
-    ```javascript
-    // main.js
-    import * as b from './test.js'
-    console.log(b.num); // 0
-    b.add();
-    console.log(b.num); // 1
-    b = {} // TypeError
-    ```
-
-1. 注意：虽然不能导入改变的值，但可以改变对象内部值
-
-    ```javascript
-    //------ lib.js ------
-    export let obj = {};
-    //------ main.js ------
-    import { obj } from './lib';
-    obj.prop = 123; // OK
-    obj = {}; // TypeError
-    ```
 
 
 

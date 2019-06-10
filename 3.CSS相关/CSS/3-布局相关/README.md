@@ -1,3 +1,23 @@
+# 常见定位方案
+
+## 普通流
+
+1. 在普通流中，元素按照其在 HTML 中的先后位置至上而下布局
+2. 行内元素水平排列，直到当行被占满然后换行
+3. 块级元素则会被渲染为完整的一个新行
+4. 所有元素默认都是普通流定位
+
+## 浮动
+
+1. 首先按照普通流位置出现，然后尽可能向左边或右边偏移
+
+## 绝对定位
+
+1. 元素脱离文档流，绝对定位元素不会对兄弟元素造成影响
+2. 元素具体的位置由绝对定位的坐标决定
+
+
+
 # 常见的布局方案
 
 ## 静态布局
@@ -58,49 +78,62 @@
 
 2. 绝对定位法
 
-  ```html
-  <style>
-  #left,#right{
-      width: 200px;
-      height: 200px; 
-      background-color: #ffe6b8;
-      position: absolute;}
-  #left{left:0px;}
-  #right{right: 0px;}
-  #center{
-      margin:2px 210px ;
-      background-color: #eee;
-      height: 200px; }
-  </style>
-  <div id="box">
-      <h3>实现三列宽度自适应布局</h3>
-      <div id = "left">我是左边</div>
-      <div id = "right">我是右边</div>
-      <div id = "center">我是中间</div>
-  </div>
-  ```
+	- 三个div顺序可以任意改变，注意要设置div的top值
 
-  - 优点：三个div顺序可以任意改变，注意要设置div的top值
+		```html
+		<style>
+		    #left,#right{
+		        width: 200px;
+		        height: 200px;
+		        background-color: #ffe6b8;
+		        position: absolute;}
+		    #left{left:0;}
+		    #right{right: 0;}
+		    #center{
+		        margin:2px 210px ;
+		        background-color: #eee;
+		        height: 200px; }
+		</style>
+		<body>
+		    <div id="box">
+		        <h3>实现三列宽度自适应布局</h3>
+		        <div id = "left">我是左边</div>
+		        <div id = "right">我是右边</div>
+		        <div id = "center">我是中间</div>
+		    </div>
+		</body>
+		```
 
-3. 浮动大法
+3. 浮动大法1
 
-  ```css
-  #left,#right{
-      width: 200px;
-      height: 200px; 
-      background-color: #ffe6b8;}
-  #left{float: left;}
-  #right{float: right;}
-  #center{
-      margin:2px 210px ;
-      background-color: #eee;
-      height: 200px; }
-  ```
+	- center元素必须放在最后，如放第一个会独占一行
 
-  - center元素必须放在最后，如放第一个会独占一行
-  - 后面的元素会在下一行分别左右浮动
+	- 后面的元素会在下一行分别左右浮动
 
-4. flex大法
+		```css
+		#left,#right{
+		    width: 200px;
+		    height: 200px; 
+		    background-color: #ffe6b8;}
+		#left{float: left;}
+		#right{float: right;}
+		#center{
+		    margin:2px 210px ;
+		    background-color: #eee;
+		    height: 200px; }
+		```
+
+4. 浮动大法2
+
+	- 主要利用浮动元素与BFC模块不会重叠的规则
+
+	- left、right元素不变，center元素将margin改为overflow:hidden，使center元素构建一个BFC
+
+		```css
+		#center{overflow:hidden;}
+		```
+
+5. flex大法
 
   ```html
   <style>
@@ -120,7 +153,8 @@
   ```
 
 
-### 进阶玩法（main先显示）
+
+## 进阶玩法（main先显示）
 
 1. 即html结构需要是，main在最前面，实现三列布局
 

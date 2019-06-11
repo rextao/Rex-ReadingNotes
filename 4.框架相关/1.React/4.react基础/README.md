@@ -306,7 +306,80 @@ ReactDOM.render(
 	}
 	```
 
-	
+
+## 受控组件
+
+1. 表单有个input标签，通过onChange事件触发改变state中的值，然后利用state值更新input，形成一个闭环
+
+2. react大多数时候推荐使用受控组件方式处理表单数据
+
+   ```jsx
+   class NameForm extends React.Component {
+     constructor(props) {
+       super(props);
+       this.state = {value: ''};
+   
+       this.handleChange = this.handleChange.bind(this);
+       this.handleSubmit = this.handleSubmit.bind(this);
+     }
+   
+     handleChange(event) {
+       this.setState({value: event.target.value});
+     }
+   
+     handleSubmit(event) {
+       alert('提交的名字: ' + this.state.value);
+       event.preventDefault();
+     }
+   
+     render() {
+       return (
+         <form onSubmit={this.handleSubmit}>
+           <label>
+             名字:
+             <input type="text" value={this.state.value} onChange={this.handleChange} />
+           </label>
+           <input type="submit" value="提交" />
+         </form>
+       );
+     }
+   }
+   ```
+
+3. 提交数据时，直接使用this.state.value就可以获取input框中的内容
+
+## 非受控组件
+
+1. 使用ref从dom中获取表单数据，而不是为每个状态编写数据处理函数
+
+   ```jsx
+   class NameForm extends React.Component {
+     constructor(props) {
+       super(props);
+       this.handleSubmit = this.handleSubmit.bind(this);
+       this.input = React.createRef();
+     }
+   
+     handleSubmit(event) {
+       alert('A name was submitted: ' + this.input.current.value);
+       event.preventDefault();
+     }
+   
+     render() {
+       return (
+         <form onSubmit={this.handleSubmit}>
+           <label>
+             Name:
+             <input type="text" ref={this.input} />
+           </label>
+           <input type="submit" value="Submit" />
+         </form>
+       );
+     }
+   }
+   ```
+
+2. 提交时，使用this.ref.current.value获取ref引用的input框内容
 
 # props与State
 

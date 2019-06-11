@@ -65,6 +65,8 @@
 1. 虽然`setState`并非使用了`setTimeout`或promise的那种进入到事件回圈(Event loop)的异步执行，但它的执行行为在React库中时，的确是异步的，也就是有延时执行的行为。
 2. 官方文件中较精确的说法 - "**它不是保证同步的**"。
 3. 是在React库控制时，异步；否则同步。
+4. setState 只在合成事件和钩子函数中是“异步”的，在原生事件和 setTimeout 中都是同步的。
+5. 对于setState异步可以通过第二个参数 setState(partialState, callback) 中的callback拿到更新后的结果。
 
 ## 对无状态组件的理解
 

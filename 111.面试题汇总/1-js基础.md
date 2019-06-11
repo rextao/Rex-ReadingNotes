@@ -580,3 +580,24 @@ if (!Function.prototype.bind) {
 		```
 
 2. 大量数据做计算:web worker
+
+# 算法
+
+1. 实现new Foo，每次返回this.id 加1
+
+	```javascript
+	const Foo = (function () {
+	    let id = 0;
+	    return function () {
+	        this.id = id ++;
+	    }
+	})();
+	```
+
+2. 10亿数找top10
+
+	- 分治法：分成100分，然后找最大
+	- Hash法：如有很多重复数，利用Hash法去重
+	- 最小堆或最大堆
+
+	

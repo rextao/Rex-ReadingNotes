@@ -2,7 +2,14 @@
 
 ## 概述
 
-1. 由使用::before引起z-index深入复习
+1. 适用于已定位元素（position不是static）
+
+2. z-index取值
+
+   - auto（默认值）：不会创建堆叠上下文
+   - 数值：任何数值都会创建新的层叠上下文
+
+   
 
 ## 注意
 
@@ -13,7 +20,9 @@
 
 ## 层叠顺序
 
-1. ![1540361010866](z-index.assets/1540361010866.png)
+1. 一个层叠上下文有7种层叠等级
+
+   ![Stacking Order](README.assets/stacking-order1.png)
 
 ### 举例
 
@@ -89,8 +98,6 @@
 1. 会使当前元素形成层叠上下，在box设置了opacity后，图片跑到box上面![1540369337654](z-index.assets/1540369337654.png)
 
 ### transform
-
-### 等一些css3元素
 
 ## ::before与z-index
 

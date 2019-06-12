@@ -1,10 +1,17 @@
 1. 常用的loader
-	- 
 	- file-loader url-loader：css中font、img地址，小于某个大小图片可以转为base64
 	- html-withimg-loader：html的img地址
+	- postcss-loader autoprefixer：添加前缀
 2. 常用的plugin
-  - 
-  - extract-text-webpack-plugin：分离css，可以用link引入
+  - MiniCssExtractPlugin（替换之前extract-text-webpack-plugin）：分离css，可以用link引入
   - clean-webpack-plugin：清除dist
   - babel-plugin-import：按需加载
+  - HtmlWebpackPlugin：简化了HTML文件的创建
   - SplitChunksPlugin替换之前commonsChunkPlugin：防止打包重复
+    - 如使用默认配置，则optimization：{splitChunk：{chunks：'all'}}
+3. 主要需要配置哪些内容
+   - entry：入口文件
+   - output：输出
+   - module：{rules：[{test:}]}：loader
+   - plugins：插件
+   - mode：模式production，development

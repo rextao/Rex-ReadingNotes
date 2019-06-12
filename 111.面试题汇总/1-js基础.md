@@ -2,24 +2,40 @@
 
 ## 1-js概述
 
-1. 内联js代码和外部文件区别？一个script出错是否会影响其他script？不同script之间的全局作用域提升机制？
-2. DOMContentLoaded与load区别
-	- async加载完，触发DOMContentLoaded
-	- defer解析完，触发DOMContentLoaded
-	- load全部资源加载完毕
-	- DOMContentLoaded：dom解析完毕，dom树构建完毕
-3. defer与async的区别
-	- async是异步加载js，加载好后就执行
-	- defer，延迟解析js，html解析完后解析js
-4. `<noscript>`标签含义
-	- 脚本无效情况下向用户显示其中的信息
-5. 执行上下文的类型？
-	- js代码被解析和执行时所在环境
-6. 什么是调用栈？栈阻塞？
-7. 为何需要垃圾回收机制？回收的方法？
-8. 常见的js引擎？v8主要特点？
-	- spiderMonkey，v8，javascriptCore
-9. 什么事件循环？与调用栈的关系？什么是事件队列？task与microtask？为何要有microtask
+1. ECMAScript
+   - ECMAScript是Js的规范，Js是ECMAScript的实现
+2. 内联js代码和外部文件区别？
+   - 内联代码不能出现`</scirpt>`，只要出现就被认为是代码块结束
+   - 内联代码则使用其所在页面文件的字符集，外联可以charset属性指定
+   - 带有src的script元素，会忽略标签中js代码
+3. 一个script出错是否会影响其他script？
+   - 不会
+4. 不同script之间的全局作用域提升机制？
+   - 没有
+5. DOMContentLoaded与load区别
+  - async加载完，触发DOMContentLoaded
+  - defer解析完，触发DOMContentLoaded
+  - load全部资源加载完毕
+  - DOMContentLoaded：dom解析完毕，dom树构建完毕
+6. defer与async的区别
+  - async是异步加载js，加载好后就执行
+  - defer，延迟解析js，html解析完后解析js
+7. `<noscript>`标签含义
+  - 脚本无效情况下向用户显示其中的信息
+8. 执行上下文的类型？
+  - js代码被解析和执行时所在环境
+9. 常见引擎
+   - spiderMonkey，v8，javascriptCore
+10. 什么事件循环？
+    - 提供了一种机制来处理程序中多个块的执行，且执行每块时调用 JavaScript 引擎
+11. 与调用栈的关系？
+    - 事件循环会检查调用栈是否为空，如空，则去查询事件队列
+12. macrotask
+    - setTimeout、setInterval、IO操作
+13. microtask
+   - promise、MutationObserver、process.nextTick
+14. 为啥要用 microtask
+    - 每个 task 运行完以后，UI 都会重渲染
 
 ## 2-类型与值
 
@@ -65,11 +81,39 @@
 
 ## 6-函数
 
-1. 函数的两种方式？length？call模拟实现？具名函数？
-2. 为何需要立即执行函数？IIFE的形式？IIFE与闭包？
-3. 函数与变量提升的顺序？
-4. 纯函数？和为副作用？
-5. 防抖和节流的区别？典型应用
+1. 函数的返回值
+   - 不指定返回值，函数无return语句，函数返回undefined
+   - return后不带任何返回值，函数返回undefined
+   - 位于return后的代码永远不会执行
+2. arguments对象
+   - 参数列表
+3. caller、callee
+   - 调用当前函数的函数
+   - 指向当前函数
+4. length
+   - 希望接收参数的个数
+5. call、apply、bind
+   - 参数列表
+   - 数组
+   - 返回函数
+6. toString()
+   - 返回函数的代码，不同浏览器可能存在差异
+7. 函数的两种方式
+   - 函数声明，函数表达式
+8. 函数与变量提升的顺序？
+   - 函数声明会提升，函数表达式不会
+   - 函数优先，函数提升完后，变量提升，发现有声明，会忽略变量声明
+   - 函数后面声明会覆盖前面的声明
+9. 纯函数
+   - 输出由输入决定，预测性、易测性、并行计算
+10. 防抖和节流的区别？典型应用
+    - 防抖：是将多次执行变为最后一次执行，用户调用间隔必须大于wait，才会触发func
+      - 每次 resize/scroll 触发统计事件
+      - 文本输入的验证（连续输入文字后发送 AJAX 请求进行验证，验证一次就好）
+    - 节流：将多次执行变成每隔一段时间执行。
+      - DOM 元素的拖拽功能实现（mousemove）
+      - 射击游戏的 mousedown/keydown 事件（单位时间只能发射一颗子弹）
+      - 搜索联想（keyup）
 
 ## 7-构造函数
 
@@ -134,6 +178,8 @@
 8. 不冒泡的事件有？当焦点从a元素移动到b元素，触发事件顺序是?
 9. mouseenter、mouseleave、mouseover、mouseout的区别？双击一个元素，事件发生顺序?
 10. contextmenu事件、beforeunload事件
+11. addEventListener与onclick同时作用时
+    - 谁先点先触发谁
 
 ## 11- 表单脚本
 
@@ -161,29 +207,62 @@
 
 # ES6
 
+## 基本类型扩展
+
+1. array
+   - Array.from()：将类数组转为数组
+   - Array.of()：将一组值转为数组
+   - find：找到一个满足条件的
+
 ## Class
 
-1. 与ES5类的区别
-	- ES6必须使用 new 调用
-	- ES6不存在变量提升
-	- class定义的prototype是不可写的，ES5函数定义的prototype是可写的，即es6定义了class后，不能更改prototype
-	- ES6内部所有定义的方法都是不可枚举的
+1. super主要作用
+	- 访问父级constructor，访问父类方法与属性
+	- 必须是子类才能调用super
+2. 与ES5类的区别
+  - ES6必须使用 new 调用
+  - ES6不存在变量提升
+  - class定义的prototype是不可写的，ES5函数定义的prototype是可写的，即es6定义了class后，不能更改prototype
+  - ES6内部所有定义的方法都是不可枚举的
 
 ## modules
 
 1. 使用`<script>`标签的问题？
+   - 污染全局变量
+   - 无法解决循环引用
+   - 不知道标签依赖关系
+   - 每个标签是一个http请求
 2. 模块化的不同方式以及问题？
+   - 不同函数方式
+   - 立即调用函数
 3. CommonJS概述？导入与导出模块？
+   - 同步加载模块，服务器优先
+   - module.exports、require
 4. AMD？requireJS解决的问题？
-5. UMD？
-6. ES6 modules的优势？设计思想及这样做的优点？普通script脚本与modules区别？不是值或引用的导出绑定的理解？
-7. 与CommonJs的语法区别、加载方式的区别、导入方式不同？
-8. 如何在浏览器使用modules？如何应对回退？
+   - 异步加载模块，浏览器优先
+   - require主要解决多文件依赖关系
+5. requireJs加载原理
+   - 通过data-main属性获取入口文件
+   - require前面数组文件通过创建脚本异步加载
+   - 利用onload事件监听加载完成，调用回调
+6. UMD？
+   - 通过代码判断分别支持commonJS与AMD
+7. 模块加载器与捆绑器的不同
+   - requireJS与webpack是不同的
+   - webpack先打包为bundle文件，然后运行时直接加载
+8. es6与CommonJs区别
+   - 加载方式不同：es6是执行前先解析（import会提升），CommonJs是按需加载
+   - 导入方式不同：es6是引用拷贝（导出文件会影响导入的），CommonJs是值拷贝
+9. 如何应对回退？
+   - `<script nomodule src="runs-if-module-not-supported.js"></script>`
 
 ## Promise
 
-1. 回调方式主要的缺点？promise的状态？
-2. Promise的构造函数？
+1. 处理异步的方式
+   - 基于事件的，如XMLHTTPRequest
+   - 回调（回调地域，控制反转）
+2. promise的状态？
+3. Promise的构造函数？
 
 ## await
 
@@ -373,6 +452,33 @@
 20. forEach的特殊性
 	- forEach不直接改变调用它的对象，但是对象可能会被callback改变
 21. 数组更改length有何结果
+
+# 移动端相关
+
+1. rem计算方式
+
+   - 利用clientwidth/750
+
+   - 阿里团队：利用DPR调整页面放缩值，达到高清
+   - 
+
+2. viewport
+
+   - initial-scale 初始化缩放比例
+   - minimum-scale 最小缩放比例
+   - maxinum-scale 最大缩放比例
+   - user-scalable 用户是否可以缩放
+
+3. dpr并不都是2
+
+   | 手机型号    | css像素宽度 | dpr  | 物理像素 |
+   | ----------- | ----------- | ---- | -------- |
+   | iphone 5s   | 320px       | 2    | 640px    |
+   | iphone 6    | 375px       | 2    | 750px    |
+   | iphone 6 sp | 414px       | 3    | 1242px   |
+
+   - 故iphone6截图在电脑打开宽度是750px
+   - 设计给的图也都是750px
 
 # 实现代码
 
@@ -642,6 +748,18 @@ if (!Function.prototype.bind) {
 		}
 		```
 
-		
+4. 数组reverse如何实现
 
-	
+   - 利用push，pop方式
+   - 互换1与length-1的方式，o(n/2)
+
+5. 提取url参数
+
+   ```javascript
+   let obj ={};
+   "?ie=utf&&aa=1&&bb=2".replace(/(\w+)=(\w+)/g,function(str,p1,p2){
+       obj[p1] =p2
+   })
+   ```
+
+   

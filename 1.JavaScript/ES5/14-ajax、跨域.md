@@ -91,34 +91,6 @@
 
 1. 包含所有头部信息的长字符串
 
-## get与post请求
-
-### get请求
-
-1. 可以将查询字符串参数添加到URL尾部
-1. 位于open方法的URL的查询字符串必须经过正确编码才行
-1. 查询字符串中每个参数的名称和值都必须使用encodeURIComponent()进行编码
-
-
-### post请求
-1. 将数据作为请求主体提交
-1. 消耗资源比get多，以相同数据计算，get请求速度最多可达post请求的2倍
-### 两者区别
-
-1. GET与POST是HTTP协议的两种发送请求的方法
-2. HTTP的底层是TCP/IP。所以GET和POST的底层也是TCP/IP。GET和POST能做的事情是一样一样的。你要给GET加上request body，给POST带上url参数，技术上是完全行的通的。 
-3. 但由于浏览器与服务器的限制，导致他们在应用过程中体现了不同
-	- 如get请求即使加上request body，服务器可能也会忽略
-4. **重大区别**：GET产生一个TCP数据包；POST产生两个TCP数据包。
-	- 对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
-	- 对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
-	- 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。
-5. 其他区别
-	- post发送的数据更大（get有url长度限制） 
-	- post比get慢 （post两次TCP）
-	- post用于修改和写入数据，get一般用于搜索排序和筛选之类的操作
-	- post更安全（不会作为url的一部分，不会被缓存、保存在服务器日志、以及浏览器浏览记录中） 
-
 ## XMLHttpRequest2级
 
 1. 概述，虽然现在统一了XHR，但有的浏览器不支持如下特性
@@ -581,31 +553,16 @@
 	- 通过http请求头：Upgrade：websocket
 	- 如服务器支持，则返回101后，使用新的websocket协议
 
-# 其他跨域技术
-### 图像ping
-1. 一个网页可以从任何网页加载图像，而无需担心跨域问题
-1. 概念
-    - 图像ping是与服务器进行简单、单向的跨域通信的一种方式
-    - 通过图像ping，浏览器得不到任何具体数据，但通过load和error事件，可以知道响应是什么时候接受的
-1. 请求数据
-    - 通过查询字符串形式发送
-1. 响应
-    - 可以是任意内容，通常是像素图或204响应
-1. 主要作用
-    - 跟踪用户点击页面或动态广告曝光次数
-1. 缺点
-    - 只能发get请求
-    - 只能单向通信
-    - 无法访问服务器的响应文本
+# JSONP
 
+## 概述
 
-### JSONP
 1. JSON with padding缩写（填充式JSON或参数式JSON）
 
 1. 主要是利用了web中src属性的标签具有跨域能力
-    
+   
 1. 客户端
-    
+   
     ```html
     <script type="text/javascript">
         var localHandler = function(data){
@@ -626,12 +583,13 @@
     	```
     
     - 由于客户端已经声明了这个localHandler函数，故当加载完remote.js函数到前端后，会调用这个函数
-    
-1. 缺点
-    - JSONP从其他域中加载代码执行，无法保证代码安全
-    - 确定JSONP请求是否失败并不容易，H5在script元素增加了onerror事件，可以查看
-    
-- 与ajax是不同的，ajax本质是使用XMLHttpRequest对象，而jsonp实际是利用了带有src属性的标签具有跨域性
+
+## 缺点
+
+1. 只能发get请求，不能发送post请求
+2. JSONP从其他域中加载代码执行，无法保证代码安全
+3. 确定JSONP请求是否失败并不容易，H5在script元素增加了onerror事件，可以查看
+4. 与ajax是不同的，ajax本质是使用XMLHttpRequest对象，而jsonp实际是利用了带有src属性的标签具有跨域性
 
 
 

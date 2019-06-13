@@ -13,19 +13,19 @@
 4. 不同script之间的全局作用域提升机制？
    - 没有
 5. DOMContentLoaded与load区别
-  - async加载完，触发DOMContentLoaded
-  - defer解析完，触发DOMContentLoaded
-  - load全部资源加载完毕
-  - DOMContentLoaded：dom解析完毕，dom树构建完毕
+    - async加载完，触发DOMContentLoaded
+    - defer解析完，触发DOMContentLoaded
+    - load全部资源加载完毕
+    - DOMContentLoaded：dom解析完毕，dom树构建完毕
 6. defer与async的区别
-  - async是异步加载js，加载好后就执行
-  - defer，延迟解析js，html解析完后解析js
+    - async是异步加载js，加载好后就执行
+    - defer，延迟解析js，html解析完后解析js
 7. `<noscript>`标签含义
-  - 脚本无效情况下向用户显示其中的信息
+	- 脚本无效情况下向用户显示其中的信息
 8. 执行上下文的类型？
-  - js代码被解析和执行时所在环境
+    - js代码被解析和执行时所在环境
 9. 常见引擎
-   - spiderMonkey，v8，javascriptCore
+	- spiderMonkey，v8，javascriptCore
 10. 什么事件循环？
     - 提供了一种机制来处理程序中多个块的执行，且执行每块时调用 JavaScript 引擎
 11. 与调用栈的关系？
@@ -33,9 +33,9 @@
 12. macrotask
     - setTimeout、setInterval、IO操作
 13. microtask
-   - promise、MutationObserver、process.nextTick
+	- promise、MutationObserver、process.nextTick
 14. 为啥要用 microtask
-    - 每个 task 运行完以后，UI 都会重渲染
+	- 每个 task 运行完以后，UI 都会重渲染
 
 ## 2-类型与值
 
@@ -508,7 +508,7 @@ function _instanceof(leftVaule, rightVaule) {
 function _new(fn, ...arg) {
     const obj = {}; //创建一个新的对象
     obj.__proto__ = fn.prototype; //把obj的__proto__指向fn的prototype,实现继承
-    fn.apply(obj, arg) //改变this的指向
+    fn.apply(obj, arg) //改变this的指向***********
     return obj //返回新的对象obj
 }
 ```
@@ -762,4 +762,7 @@ if (!Function.prototype.bind) {
    })
    ```
 
-   
+6. js数字用逗号分隔
+
+   - 可以使用`toLocaleString()`
+   - 小数会有问题：利用split+reverse，replace(`/(\d{3})/g, ``"$1,"`)，然后reverse，join

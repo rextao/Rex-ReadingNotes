@@ -17,7 +17,8 @@
 
 ## 各类值
 
-1. 百分之继承的是
+1. 数字值时，后代元素的line-height为后代元素自身的font-size乘以该父元素的line-height数值；
+2. 百分比时，后代元素的line-height与该父元素的line-height相等（即都为该父元素的font-size乘以该父元素的line-height）
 
 ## 行高200px
 

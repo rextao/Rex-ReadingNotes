@@ -274,7 +274,39 @@
 | DELETE  | DELETE请求后指定资源会被删除                                 |
 | CONNECT | CONNECT方法是HTTP/1.1协议预留的，能够将连接改为管道方式的代理服务器。 |
 
+## get与post请求
 
+### get请求
+
+1. 从指定的资源请求数据
+2. 可以将查询字符串参数添加到URL尾部
+3. 位于XMLHttpRequest.open方法的URL的查询字符串必须经过正确编码才行
+4. 查询字符串中每个参数的名称和值都必须使用encodeURIComponent()进行编码
+
+### post请求
+
+1. 向指定的资源提交要被处理的数据
+2. 将数据作为请求主体提交
+3. 消耗资源比get多，以相同数据计算，get请求速度最多可达post请求的2倍
+
+### 两者区别
+
+1. GET与POST是HTTP协议的两种发送请求的方法
+2. HTTP的底层是TCP/IP。所以GET和POST的底层也是TCP/IP。GET和POST能做的事情是一样一样的。你要给GET加上request body，给POST带上url参数，技术上是完全行的通的。 
+3. 但由于浏览器与服务器的限制，导致他们在应用过程中体现了不同
+   - 如get请求即使加上request body，服务器可能也会忽略
+4. **重大区别**：GET产生一个TCP数据包；POST产生两个TCP数据包。
+   - 对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
+   - 对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+   - 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。
+5. 其他区别
+   - post发送的数据更大（get有url长度限制） 
+   - post比get慢 （post两次TCP）
+   - post用于修改和写入数据，get一般用于搜索排序和筛选之类的操作
+   - post更安全（不会作为url的一部分，不会被缓存、保存在服务器日志、以及浏览器浏览记录中） 
+   - 刷新按钮：get请求无害，post会重新提交数据
+   - 缓存：get浏览器会默认缓存，post不会
+   - 书签：get可收藏为书签，post不可以
 
 
 # 解决HTTP无状态性

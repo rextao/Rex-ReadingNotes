@@ -2,15 +2,122 @@
 
 #  2-属性学习
 
-1. 浮动特性？浮动布局的劣势？清除浮动的办法？
-2. 渐变色
+## 常用属性
+
+1. background
+   - background："center/80%''，position/bg-size
+   - background-size：cover（完全覆盖背景区，可能部分图可能看不到）contain（图完全装入背景区，可能有空白）
+   - background-position：可以多个值，表示多个图的起始位置
+   - background-clip：背景是否延伸到边框下面
+   - background-origin：图片开始绘制的地方
+2. 图片不能完全贴合父级底部的解决办法
+   - 让vertical-align失效：img { display: block; }
+   - vertical-align不使用baseline，使用bottom，middle等
+   - 外围div的font-size设置为0
+3. 渐变色
+   - `linear-gradient(to top|to bottom|to left| to right|20deg,color-stop)`
+   - `radial-gradient(circle,red,blue);`  
+
+## 浮动
+
+1. 浮动规则
+   - 浮动让元素脱离正常流，不占据空间
+   - 上一个元素为浮动元素，则会跟随上一个元素的后边
+   - 上一个元素为非浮动元素，则在当前文档流向左或右移动
+   - 浮动元素之后的元素，会占据浮动元素位置
+2. 清除浮动
+   - 浮动末尾直接一个`<div style="clear:both;"></div>` 
+   - overflow大法
+   - after大法
+3. 浮动布局的局限性
+   - 每个列表元素的高度必须要一致，否则会出现类型俄罗斯方块的排列
+   - 使用inline-block代替
+4. inline-block间隙空格问题
+   - 使用font-size:0
+
+## z-index
+
+1. 同级层叠顺序（从下到上）
+
+   - background/border
+   - 负z-index
+   - block
+   - float盒子
+   - inline与inline-block
+   - z-index：auto或z-index:0
+   - +z-index
+
+2. 如下html
+
+   ```html
+   <div class="box">
+       <img src="//image.zhangxinxu.com/image/blog/201601/2016-01-08_220622.jpg">
+   </div>
+   ```
+
+   - 正常情况：img在box之上
+   - img增加z-index：-1，position；img在box之后，因为box属于根的层叠上下文，z-index是auto
+   - 再给box增加z-index：-1；img在box之上，父是层叠上下文，子元素多大的z-index都无用
+
+3. 创建层叠上下文的途径
+
+   - 页面根元素天生具有层叠上下文 
+   - z-index值为数值的定位元素的传统层叠上下文 
+   - css属性，如opacity 、transform
+
+4. ::before是当前元素的子元素
+
+## flexbox
+
+1. 容器属性
+   - 沿主轴排列方向：`flex-direction: row || column || row-reverse || column-reverse;`
+   - 是否允许flex项目换行：`flex-wrap: wrap || nowrap || wrap-reverse;`
+   - 速记属性：`flex-flow：row wrap`：
+   - 主轴对齐：`justify-content: flex-start || flex-end || center || space-between ||space-around`
+   - 次轴对齐：`align-items: flex-start || flex-end || center || stretch || baseline `
+   - 次轴排列方向：`align-content:stretch||flex-start|| flex-end`
+2. 项目属性
+   - 允许项目重排：order，默认是0
+   - 如何利用多余空间：flex-grow，1是利用，0是不拉伸
+   - 如何压缩：flex-shrink
+   - 初试大小：flex-basis，默认值auto，根据内容确定
+   - flex: 0 1 auto；不拉伸，压缩，宽根据内容
+   - flex: 0 0 auto；不拉伸，不压缩，宽根据内容
+   - flex：2 1 0；初始宽度为0，则拉伸项目填满可用，只要能收缩尽可能收缩，项目宽度会根据flex-grow比例计算
+3. 注意：当在Flex项目上使用 margin: auto 时，值为 auto的方向（左、右或者二者都是）会占据所有剩余空间
+
+## border-radius
+
+1. border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+   - 表示角的水平和垂直高度
+
+## viewport
+
+1. 如何绘制手机的1px
+   - transform: scale(0.5) 方式
+   - initial-sacle=0.5
+2. viewport配置
+   - `<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0"\>`
+
+## lineheight
+
+1. 数字值时，后代元素的line-height为后代元素自身的font-size乘以该父元素的line-height数值；
+2. 百分比时，后代元素的line-height与该父元素的line-height相等（即都为该父元素的font-size乘以该父元素的line-height）
 
 # 3-布局相关
 
 1. 响应式布局方案
+   - rem，@media，百分比，flex
 2. 三栏自适应布局
+   - 
 3. 水平垂直居中的方法
+   - 负margin
+   - transform：translateX(-50%)和transform：translateY(-50%)
+   - align-items:center;justify-content:center;
+   - display:table-cell,vertical-align:middle
 4. 多元素水平居中
+   - 子inline-block，父text-align：center
+   - 使用justify-content:center;
 
 # 4-易混知识总结
 

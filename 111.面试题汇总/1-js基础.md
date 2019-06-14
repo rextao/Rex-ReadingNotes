@@ -117,33 +117,145 @@
 
 ## 7-构造函数
 
-1. 构造函数的两个约定？构造函数的目的？
-2. 使用new操作符会发生？new.target？
-3. 字面量的`__proto__`
-4. prototype概述？
-5. [[Prototype]]链主要解决？
-	- 属性查找问题
-6. `obj.foo = "bar"`的过程？隐式屏蔽的问题？
-	- obj有foo，则直接设置值
-	- obj无foo，原型链有writable:false（未标记只读），创建foo
-7. Object.create？Object.create(null)？new与Object.create
-	- es5创建原型链的方式
-	- 创建一个无原型链对象，方便数据存储
+1. 构造函数的两个约定？
+
+	- 必须首字母大写
+	- 必须使用new调用
+
+2. 构造函数的目的？
+
+	- 重用对象创建的代码
+
+3. 使用new操作符会发生？
+
+	- 构建一个空对象{}
+	- `{}.__proto__ = Foo.prototype`
+	- Foo.call({})
+	- return {}
+
+4. new.target？
+
+	- 是否是用new调用的
+
+5. `var obj={},arr=[]，obj.__proto__,arr.__proto__分别指向什么`
+
+	- `obj.__proto__ === Object.prototype;//true`
+	- `arr.__proto__ === Array.prototype;//true`
+
+6. `__proto__的理解`
+
+	- 原型链的外在表现形式
+
+7. prototype概述？
+
+	- 创建一个函数时，js引擎会自动为函数增加一个共有不可枚举的prototype属性，prototype上有一个constructor属性，指向这个函数
+
+8. [[Prototype]]链主要解决？
+
+  - 属性查找问题
+
+9. `obj.foo = "bar"`的过程？隐式屏蔽的问题？
+  - obj有foo，则直接设置值
+  - obj无foo，原型链也无foo，设置值
+  - obj无foo，原型链有writable:false（未标记只读），创建foo
+
+10. 隐式屏蔽问题
+
+	```javascript
+	var original = {
+	    a:2
+	};
+	var obj = Object.create( original );
+	console.log(original.a); // 2
+	console.log(obj.a); // 2
+	console.log(original.hasOwnProperty( "a" )); // true
+	console.log(obj.hasOwnProperty( "a" )); // false,a属性不是obj的直接属性
+	obj.a++; // 隐式屏蔽！
+	console.log(original.a); // 2
+	console.log(obj.a); // 3
+	console.log(obj.hasOwnProperty( "a" )); // true
+	```
+
+	
+
+11. Object.create？
+
+   - 手动设置一个对象的原型链
+   - es5创建原型链的方式
+   - 可以传入任意对象`obj = Object.create(obj1)`
+
+12. Object.create(null)？
+
+   - 创建一个无原型链对象，方便数据存储
+   - 由于原型链为空，故instanceof任何值都为false
+
+13. new与Object.create
+
 	- Object.create未执行构造函数
-8. 修改对象的prototype关联的方式？
-	- Object.create()
-	- `__proto__`
-	- es6：Object.setPrototypeOf( Bar.prototype, Foo.prototype );
-9. 检查类的关系4种方式？
-	- instanceof
-	- `__proto__`
-	- Object.getPrototypeOf()：获取原型链
-	- a.isPrototypeOf(b)：a是否出现在b的原型链上
-10. 面向委托的设计风格？
+
+14. 绘制p=new Person的完整原型链关系图
+
+	![1560482765795](1-js基础.assets/1560482268413.png)
+
+15. 继承实现
+
+   ```javascript
+   function Parent (param) {
+       this.names = [];
+   }
+   Parent.prototype.getName = function () {
+       console.log(this.names);
+   };
+   function Child () {
+       Parent.call(this,'aaaaaaaaaaaaaa');// 关键
+   }
+   // 主要区别+
+   function F(){};
+   F.prototype = Parent.prototype;
+   Child.prototype = new F();// 继承关系
+   Child.prototype.constructor = Child;
+   // ****************
+   const child1 = new Child();
+   child1.names.push('c');
+   child1.getName(); // [ "c"]
+   const child2 = new Child();
+   child2.getName(); // []
+   // 解决问题：
+   child1.names === child2.names;// false,属性独立(正确)
+   child1.getName === child2.getName;// true,，方法共享
+   child1.__proto__.names ;// undefined，proto上不存在parent的属性
+   ```
+
+16. es5实现上述继承
+
+	- ```javascript
+		Child.prototype = Object.create(Parent.prototype,{
+		    constructor:{
+		        value:Child
+		    }
+		})
+		```
+
+		
+
+17. 修改对象的prototype关联的方式？
+
+   - Object.create()
+   - `__proto__`
+   - es6：Object.setPrototypeOf( Bar.prototype, Foo.prototype );
+
+18. 检查类的关系4种方式？
+   - instanceof
+   - `__proto__`
+   - Object.getPrototypeOf()：获取原型链
+   - a.isPrototypeOf(b)：a是否出现在b的原型链上
+
+19. 面向委托的设计风格？
 	- `obj = {a:1}`
 	- `newObj = Object.create(obj)`
 	- `newObj.b = 2`
-11. `Object.__proto__`和Object.prototype结果有何不同
+
+20. `Object.__proto__`和Object.prototype结果有何不同
 	- ƒ () { [native code] }
 	- `{constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}`
 
@@ -751,7 +863,29 @@ if (!Function.prototype.bind) {
 4. 数组reverse如何实现
 
    - 利用push，pop方式
-   - 互换1与length-1的方式，o(n/2)
+
+   - 互换1与length-1的方式
+
+   - js.reverse()，利用JSPerf测试是最慢或倒数第2慢
+
+   - 利用XOR交换，速度最快
+
+   	```javascript
+   	var i = null;
+   	var r = null;
+   	for (i = 0, r = length - 1; i < r; i += 1, r -= 1)
+   	{
+   	    var left = array[i];
+   	    var right = array[r];
+   	    left ^= right;
+   	    right ^= left;
+   	    left ^= right;
+   	    array[i] = left;
+   	    array[r] = right;
+   	}
+   	```
+
+   	
 
 5. 提取url参数
 

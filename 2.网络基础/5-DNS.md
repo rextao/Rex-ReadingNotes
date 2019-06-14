@@ -66,30 +66,7 @@
 2. chrome 浏览器chrome://net-internals/#dns
 3. ![1557910055723](5-DNS.assets/1557910055723.png)
 
-## DNS 预解析
 
-### 作用
-
-1. 根据浏览器定义的规则，提前解析之后可能会用到的域名，使解析结果缓存到系统缓存中，缩短DNS解析时间，来提高网站的访问速度
-
-### 如何使用
-
-#### 关闭预解析
-
-1. 关闭DNS预解析`<meta http-equiv="x-dns-prefetch-control" content="off">`
-	- off：关闭
-	- on：开启
-2. 也可以响应头添加`X-DNS-Prefetch-Control`
-
-#### 手动添加
-
-1. `<link rel="dns-prefetch" href="http://www.google.com">`
-
-### 更好的使用
-
-1. 不用对超链接做手动prefetch，浏览器会自动做
-2. 可以对静态资源、js发起的转跳域名、会重定向的域名手动prefetch
-3. 页面Head里面有个css链接, 在当前页的Head里加上对应的手动dns prefetching的link标签，实际上并没有好处
 
 ## 域名发散与收敛
 

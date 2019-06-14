@@ -256,6 +256,7 @@
 	- `newObj.b = 2`
 
 20. `Object.__proto__`和Object.prototype结果有何不同
+
 	- ƒ () { [native code] }
 	- `{constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}`
 
@@ -801,66 +802,70 @@ if (!Function.prototype.bind) {
 
 # 算法
 
-1. 实现new Foo，每次返回this.id 加1
+1. 排序的稳定性与性能
 
-	```javascript
-	const Foo = (function () {
-	    let id = 0;
-	    return function () {
-	        this.id = id ++;
-	    }
-	})();
-	```
+	![1560483593712](1-js基础.assets/1560483593712.png)
+	
+2. 实现new Foo，每次返回this.id 加1
 
-2. 10亿数找top10
+  ```javascript
+  const Foo = (function () {
+      let id = 0;
+      return function () {
+          this.id = id ++;
+      }
+  })();
+  ```
 
-	- 分治法：分成100分，然后找最大
-	- Hash法：如有很多重复数，利用Hash法去重
-	- 最小堆或最大堆
+3. 10亿数找top10
 
-3. 树的深度与广度遍历
+  - 分治法：分成100分，然后找最大
+  - Hash法：如有很多重复数，利用Hash法去重
+  - 最小堆或最大堆
 
-	- 深度遍历
+4. 树的深度与广度遍历
 
-		```javascript
-		function dfs(node){
-		    let nodes=[];
-		    if(node!=null){
-		        let stack=[];//同来存放将来要访问的节点
-		        stack.push(node);
-		        while(stack.length !== 0){
-		            let item=stack.pop();//正在访问的节点
-		            nodes.push(item);
-		            let childrens=item.children;
-		            for(let i=childrens.length-1;i>=0;i--)//将现在访问点的节点的子节点存入stack，供将来访问
-		                stack.push(childrens[i]);
-		        }
-		    }
-		    return nodes;
-		}
-		```
+  - 深度遍历
 
-	- 广度遍历
+  	```javascript
+  	function dfs(node){
+  	    let nodes=[];
+  	    if(node!=null){
+  	        let stack=[];//同来存放将来要访问的节点
+  	        stack.push(node);
+  	        while(stack.length !== 0){
+  	            let item=stack.pop();//正在访问的节点
+  	            nodes.push(item);
+  	            let childrens=item.children;
+  	            for(let i=childrens.length-1;i>=0;i--)//将现在访问点的节点的子节点存入stack，供将来访问
+  	                stack.push(childrens[i]);
+  	        }
+  	    }
+  	    return nodes;
+  	}
+  	```
 
-		```javascript
-		function bfs(node){
-		    let nodes = [];
-		    if (node != null) {
-		        let queue = [];
-		        queue.push(node);
-		        while (queue.length !== 0) {
-		            let item = queue.shift();
-		            nodes.push(item);
-		            let children = item.children;
-		            for (let i = 0; i < children.length; i++)
-		                queue.push(children[i]);
-		        }
-		    }
-		    return nodes;
-		}
-		```
+  - 广度遍历
 
-4. 数组reverse如何实现
+  	```javascript
+  	function bfs(node){
+  	    let nodes = [];
+  	    if (node != null) {
+  	        let queue = [];
+  	        queue.push(node);
+  	        while (queue.length !== 0) {
+  	            let item = queue.shift();
+  	            nodes.push(item);
+  	            let children = item.children;
+  	            for (let i = 0; i < children.length; i++)
+  	                queue.push(children[i]);
+  	        }
+  	    }
+  	    return nodes;
+  	}
+  	```
+
+5. 数组reverse如何实现
 
    - 利用push，pop方式
 
@@ -887,7 +892,7 @@ if (!Function.prototype.bind) {
 
    	
 
-5. 提取url参数
+6. 提取url参数
 
    ```javascript
    let obj ={};
@@ -896,7 +901,7 @@ if (!Function.prototype.bind) {
    })
    ```
 
-6. js数字用逗号分隔
+7. js数字用逗号分隔
 
    - 可以使用`toLocaleString()`
    - 小数会有问题：利用split+reverse，replace(`/(\d{3})/g, ``"$1,"`)，然后reverse，join

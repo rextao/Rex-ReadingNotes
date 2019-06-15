@@ -40,18 +40,95 @@
 ## 2-类型与值
 
 1. 内置类型？
-2. 两种数据类型存储有什么区别？
-3. typeof？null为何类型是object？如何正确判断null？constructor判断对象是某个函数实例的问题？基本类型的继承链？何为鸭子类型？正确获取类型的方式？
-4. void运算符？是否有整数类型？`42.toFixed(3) `结果？`0.1+0.2 ==0.3 // false`如何解决？何为最大安全数？isNaN与Number.isNaN()区别?
-5. 正负零有何用？负零如何判断？`Object.is()`为了解决的问题？
-6. string类型的特点？字符串与字符数组的异同，如何进行互转？
-7. 属性描述符？获取与配置属性描述符？对象不变性的3种方式？
-8. 如何判断一个属性值为undefined还是不存在？`4 in [2, 4, 6]` 的结果以及why?如何检测属性只在当前对象而不搜索Prototype链？区别是否可以枚举？
-9. 利用类似`for key in obj`方式复制对象的问题？浅复制的方式？node8深复制的方式？
-10. 检测数组的方式？toString与toLocalString区别？push多参数用法？concat、splice、slice方法？
-11. 显示几位小数？指数形式显示？URI编码？普通缺失值的判断？对象缺失值的判断？
-12. 值类型与引用类型？~~使用？
-13. 正则常用方法？正则常用的一些值，如+、*、？等
+   - string，number，symbol，null，undefined，Boolean
+   - 复杂类型
+2. typeof
+   - 结果是字符串，如typeof 123  => 'number'
+   - typeof 基本类型，除了null（显示object）都显示正确
+   - typeof 对象，除了函数都显示为object
+   - js最初为了性能考虑，用000表示对象，故null表示为全000，故判断为object
+3. instanceof
+   - 判断是否a为b的实例
+   - 并不是多有对象都是object实例，`Object.create(null) instanceof Object`
+4. Object.prototype.toString
+   - 返回值"[object Array]"
+5. Undefined类型与void操作符
+   - undefined类型只有undefined一个值，且可以被更改
+   - void表达式不放表达式值
+6. Number类型
+   - 都是浮点数，没有整型，只有没有小数的浮点数
+   - 42.toFixed(3)// 报错，点会被优先识别为数字常量的一部分
+7. 进制转换
+   - toString(num)
+8. 最大安全数
+   - 2^53 - 1
+9. NaN
+   - 唯一一个不等于自身的数值
+   - isNaN有bug，如isNaN('foo')=》true
+10. 正负0
+    - 可以在动画中，用正负表示方向
+    - 利用1/n = +Infinity或-Infinity来判断正负零
+11. Object.is
+    - 判断两个值是否绝对相等
+    - 解决NaN，-0===+0=》true的情况
+12. 如何处理浮点数
+    - 转为整数
+    - 利用round处理，而不是让引擎四舍五入
+13. 两种数据类型存储有什么区别？
+14. Object类型
+    - key一定是字符串，非字符串会被转为字符串
+15. 获取属性描述符，配置属性描述符
+    - Object.getOwnPropertyDescriptor( myObj, "a" );
+    - Object.defineProperty( myObj, "a", {} )
+16. Object.defineProperty()属性描述符默认值
+    - false
+17. 对象不变性
+    - Object.preventExtensions，禁止添加
+    - Object.seal，禁止删除
+    - Object.freeze，禁止修改
+    - 都是浅不变性
+18. 对象浅拷贝
+    - for-in
+    - Object.assign
+19. Array构造器的问题
+    - new Array()：[]空数组
+    - new Array(2)：[empty × 2]
+    - new Array(1,2)：[1,2]
+20. 修改length对数组的影响
+    - arr.length = 5；原数组为5
+    - arr.length=3，会删除数据
+    - arr.length=7,后面会添加[empty*2]
+21. 检测数组
+    - instanceof
+    - Array.isArray()
+    - Object.prototype.toString
+22. pop，push方法
+    - 返回弹出的最后一个元素
+    - push返回数组长度，可以将1或多个数据添加到末尾
+23. reverse与sort
+    - 返回数组与原数组保持相同引用
+24. cancat
+    - 返回新数组
+    - 浅拷贝
+25. slice
+    - 提取元素，start，end
+    - 返回新数组
+26. splice(0,2,1)
+    - 从0位置删除2项，然后插入1
+    - 返回值为删除的元素
+27. foreach如何跳出循环
+    - 没有办法跳出或终止forEach循环，除非抛出异常
+28. 正则常见字符含义
+    - `* ` 0次或多次  
+    - `+` 1次或多次  
+    - ?  0次或一次
+    - \d  匹配数字  
+    - \D  非数字 
+    -  \s  匹配空白字符
+    -   \S  非空白字符
+    -   \w  匹配一个字符，等价于[A-Za-z0-9_] 
+    -  \W  非空字符
+29. 未完。。
 
 
 

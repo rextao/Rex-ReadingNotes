@@ -145,6 +145,15 @@
 2. 盒子模型分为标准模型与ie模型
 3. ![1557115284089](2-css.assets/1557115284089.png)
 
+## 盒模型与background
+
+1. border，padding，margin都是10px，width,height都是100px，背景色红色，不同盒模型下，背景色范围
+2. 关键的关键是：背景色会延伸到border下
+3. `content-box = 100+10*2+10*2`
+4. `padding-box=100px`
+
+
+
 ## 请写一个简单的幻灯效果页面
 
 1. 主要是使用css3的:target选择器

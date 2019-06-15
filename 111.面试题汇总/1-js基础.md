@@ -542,11 +542,6 @@
 15. 介绍localstorage的API
 
 	- getItem，setItem，removeItem，clear，key(n)
-16. 类数组转为数组
-
-	- Array.prototype.slice.call(arguments)
-	- Array.from
-	- 扩展运算符
 17. 判断`JavaScript`数据类型的方式
 
 	- typeof，只能判断基本类型
@@ -823,47 +818,47 @@ if (!Function.prototype.bind) {
   - Hash法：如有很多重复数，利用Hash法去重
   - 最小堆或最大堆
 
-4. 树的深度与广度遍历
+4. 树的深度与广度遍历（二叉树的遍历也利用类似方式）
 
-  - 深度遍历
+    - 深度遍历
 
-  	```javascript
-  	function dfs(node){
-  	    let nodes=[];
-  	    if(node!=null){
-  	        let stack=[];//同来存放将来要访问的节点
-  	        stack.push(node);
-  	        while(stack.length !== 0){
-  	            let item=stack.pop();//正在访问的节点
-  	            nodes.push(item);
-  	            let childrens=item.children;
-  	            for(let i=childrens.length-1;i>=0;i--)//将现在访问点的节点的子节点存入stack，供将来访问
-  	                stack.push(childrens[i]);
-  	        }
-  	    }
-  	    return nodes;
-  	}
-  	```
+    ```javascript
+    function dfs(node){
+        let nodes=[];
+        if(node!=null){
+            let stack=[];//同来存放将来要访问的节点
+            stack.push(node);
+            while(stack.length !== 0){
+                let item=stack.pop();//正在访问的节点
+                nodes.push(item);
+                let childrens=item.children;
+                for(let i=childrens.length-1;i>=0;i--)//将现在访问点的节点的子节点存入stack，供将来访问
+                    stack.push(childrens[i]);
+            }
+        }
+        return nodes;
+    }
+    ```
 
-  - 广度遍历
+    - 广度遍历
 
-  	```javascript
-  	function bfs(node){
-  	    let nodes = [];
-  	    if (node != null) {
-  	        let queue = [];
-  	        queue.push(node);
-  	        while (queue.length !== 0) {
-  	            let item = queue.shift();
-  	            nodes.push(item);
-  	            let children = item.children;
-  	            for (let i = 0; i < children.length; i++)
-  	                queue.push(children[i]);
-  	        }
-  	    }
-  	    return nodes;
-  	}
-  	```
+    ```javascript
+    function bfs(node){
+        let nodes = [];
+        if (node != null) {
+            let queue = [];
+            queue.push(node);
+            while (queue.length !== 0) {
+                let item = queue.shift();
+                nodes.push(item);
+                let children = item.children;
+                for (let i = 0; i < children.length; i++)
+                    queue.push(children[i]);
+            }
+        }
+        return nodes;
+    }
+    ```
 
 5. 数组reverse如何实现
 
@@ -905,3 +900,19 @@ if (!Function.prototype.bind) {
 
    - 可以使用`toLocaleString()`
    - 小数会有问题：利用split+reverse，replace(`/(\d{3})/g, ``"$1,"`)，然后reverse，join
+   
+8. 数组去重
+
+    - 利用filter
+
+      ```javascript
+      array.filter(function(item, index, array){
+          return array.indexOf(item) === index;
+      })
+      ```
+
+    - es6：` [...new Set(array)]`
+
+    - 双重循环
+
+    - 利用obj

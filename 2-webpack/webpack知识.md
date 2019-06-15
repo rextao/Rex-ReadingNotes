@@ -224,6 +224,36 @@ typora-copy-images-to: images
 1. 消除无用的js代码，编译器可以判断出某些代码根本不影响输出，然后消除这些代码，这个称之为DCE（dead code elimination）。
 2. tree-shaking是DCE的新实现，传统方法消灭不可能执行的代码，而Tree-shaking 更关注消除没有用到的代码
 
+# 文件Hash值
+
+## hash
+
+1. hash是跟整个项目的构建相关
+
+2. 只要项目里有文件更改，整个项目构建的hash值都会更改，并且全部文件都共用相同的hash值
+
+3. 主要作用可以是：
+
+   ```json
+   output: {
+       filename: '/dest/[hash]/[name].js'
+   }
+   ```
+
+   - 将每次编译放在一个文件夹内
+
+## chunkhash
+
+1. 采用hash计算的话，每一次构建后生成的哈希值都不一样，即使文件内容压根没有改变，这样子是没办法实现缓存效果
+2. chunkhash根据不同的入口文件(Entry)进行依赖文件解析、构建对应的chunk，生成对应的哈希值
+3. 只要公共库代码不改变，就可以保证hash值不变
+
+## contenthash
+
+1. 假如index.css被index.js引用，两个共用相同是chunkhash
+2. 如js改变导致css文件重新构建，会生成新的chunkhash
+3. 因此使用contenthash保证文件内容不变化
+
 # 如何调试webpack程序
 
 1. 不知如何调试整个webapck的项目，可以调试某个具体文件

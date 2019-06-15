@@ -138,21 +138,21 @@
 
 1. location.search属性:
 
-  - 返回从问号到URL结尾的所有内容，但无法逐个访问其中每个查询字符串参数（通过自定义函数可以访问）
+    - 返回从问号到URL结尾的所有内容，但无法逐个访问其中每个查询字符串参数（通过自定义函数可以访问）
 
 1. 改变浏览器位置：
-  - location.assign("http://www.baidu.com"):打开新的URL，并产生历史记录
-  - window.location = ""
-  - location.href = ""
-  - 上述三种方式效果完全一样
+    - location.assign("http://www.baidu.com"):打开新的URL，并产生历史记录
+    - window.location = ""
+    - location.href = ""
+    - 上述三种方式效果完全一样
 
 1. location.replace():
 
-  - 不会产生历史记录，故用户不能返回到之前页面
+	- 不会产生历史记录，故用户不能返回到之前页面
 
 1. location.reload():
 
-  - 重新加载当前页，传入true参数，从服务器获取，否则先在缓存中获取
+	- 重新加载当前页，传入true参数，从服务器获取，否则先在缓存中获取
 
 1. location.hostname：返回主页名
 

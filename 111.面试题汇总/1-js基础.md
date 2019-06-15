@@ -262,13 +262,41 @@
 
 ## 8-BOM
 
-1. top、parent、self对象的含义？
-2. 如何移动窗口、如何修改窗口大小？两个方法的异同
-3. setInterval的问题？
-4. window.location？？search属性？改变浏览器位置的方法？replace方法的特点？reload含义及传入不同参数的含义？
-5. navigator？可以获取哪些信息？
-6. screen？
-7. history的方法与属性？
+1. BOM下的对象
+   - window，location，navigator，screen，history
+2. top、parent、self对象的含义？
+   - top：指向最外层框架
+   - parent：指向当前框架的上层框架
+   - self：和window对象一样
+3. 如何移动窗口、如何修改窗口大小？两个方法的异同
+   - moveTo,moveBy：挪动到xy绝对位置；相对位置
+   - resizeTo，resizeBy：绝对调整，相对调整
+4. setInterval的问题？
+   - 隔一段时间在队列添加一个事件
+5. 定时间最小时间间隔
+   - html5规定最少要4ms
+6. 打开系统对话框
+   - window.alert,window.confim,window.prompt
+7. window.location
+   - 只读属性，包含有关文档当前位置信息
+8. search属性
+   - 从问号到URL尾部
+9. 改变浏览器位置的方法
+   - location.assign
+   - window.location
+   - location.href
+10. replace方法的特点
+    - 不会产生历史记录，用户不能返回到之前页面
+11. window.reload，参数true含义
+    - 重新加载页面
+    - true表示从服务器获取，否则先从缓存
+12. navigator？可以获取哪些信息？
+    - 获取当前代码应用程序相关的
+    - 如浏览器名，浏览器引擎，浏览器版本，操作平台等
+13. screen？
+    - 表明客户端能力，屏幕像素，宽高等，屏幕颜色等
+14. history
+    - 保存用户上网的历史记录
 
 ## 9-DOM
 
@@ -764,6 +792,59 @@ if (!Function.prototype.bind) {
 
 
 
+## 节流函数
+
+```javascript
+// 方式1
+function debounce(method, context) {
+    clearTimeout(method.tId);
+    method.tId = setTimeout(function() {
+        method.call(context);
+    }, 1000);
+}
+function print() {
+    console.log('hello world');
+}
+window.onscroll = function() {
+    debounce(print);
+};
+// 方式2
+function throttle(fn, mustRun = 500) {
+    const timer = null;
+    let previous = null;
+    return function() {
+        const now = new Date();
+        if (!previous){
+            previous = now;
+        }
+        const remaining = now - previous;
+        if (mustRun && remaining >= mustRun) {
+            fn(context);
+            previous = now;
+        }
+    }
+}
+```
+
+## 防抖函数
+
+```javascript
+// func是用户传入需要防抖的函数
+// wait是等待时间
+const debounce = (func, wait = 50) => { 
+    let timer = 0 
+    return function(...args) {
+        // 当小于wait时间再调用时，
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(() => {
+            func.apply(this, args)
+        }, wait)
+    }
+}
+```
+
+
+
 
 
 # 实际问题
@@ -916,3 +997,70 @@ if (!Function.prototype.bind) {
     - 双重循环
 
     - 利用obj
+
+9. sleep函数
+
+    ```javascript
+    function sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+    
+    // 用法
+    sleep(500).then(() => {
+        // 这里写sleep之后需要去做的事情
+    })
+    ```
+
+10. 链表反转
+
+    ```javascript
+    function reverseList(node) {
+        let pre = null;
+        let next;
+        while (node){
+            next = node.next;
+            node.next = pre;
+            pre = node;
+            node = next;
+        }
+        return pre;
+    }
+    ```
+
+11. 图片懒加载
+
+     ```javascript
+     function isInSight(el) {
+         const bound = el.getBoundingClientRect();
+         const clientHeight = window.innerHeight;
+         return bound.top <= clientHeight + 100;
+     }
+     function checkImgs() {
+         const imgs = document.querySelectorAll('.my-photo');
+         Array.from(imgs).forEach(el => {
+             if (isInSight(el)) {
+                 loadImg(el);
+             }
+         })
+     }
+     
+     function loadImg(el) {
+         if (!el.src) {
+             const source = el.dataset.src;
+             el.src = source;
+         }
+     }
+     window.onscroll = chekImgs();
+     ```
+
+     - 可以将src存储在img的一个data-src属性上，当图片到达可视区域后，将data-src取出后放在src上
+
+12. 判断回文
+
+     ```javascript
+     var str1=str.split("").reverse();
+     var str2=str1.join("");
+     if(str==str2){}
+     ```
+
+     

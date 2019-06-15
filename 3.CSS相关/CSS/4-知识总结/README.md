@@ -26,26 +26,38 @@
 
 1. 默认情况下，垂直排列的盒子外边距会进行重叠
 
-2. 如想避免外边距重叠，可以将元素放于不同的BFC容器中
+2. **注意**：这种情况只要盒子不是处于不同的BFC下就会发送，故
 
 	```html
-	<head>
-	    <style>
-	        div{margin: 50px 0;}
-	        p{margin: 50px 0;}
-	    </style>
-	</head>
-	<body>
-	    <div style="overflow:hidden">
-	        <p>aaaaaa</p>
-	    </div>
-	    <div>bbbbbbbb</div>
-	</body>
+	<div style="margin-top: 50px;">
+	    <p style="margin-top: 10px;">asdf</p>
+	</div>
 	```
+	
+	- p并不会距离div10px，而是紧贴着div
+	- 而div距离上边缘是50px，两个元素处于同一个BFC下，故会形成垂直外边距折叠
+	- 解决办法，可以让div变为BFC
+	
+3. 如想避免外边距重叠，可以将元素放于不同的BFC容器中
 
-	- 如p的外层div不是bfc的话，则p与下面div处于同一个bfc（根元素）下，垂直margin会被合并
-	- 但当div设置overflow:hidden时，会形成新的bfc
-	- 处于不同bfc的元素不会进行margin合并
+  ```html
+  <head>
+      <style>
+          div{margin: 50px 0;}
+          p{margin: 50px 0;}
+      </style>
+  </head>
+  <body>
+      <div style="overflow:hidden">
+          <p>aaaaaa</p>
+      </div>
+      <div>bbbbbbbb</div>
+  </body>
+  ```
+
+  - 如p的外层div不是bfc的话，则p与下面div处于同一个bfc（根元素）下，垂直margin会被合并
+  - 但当div设置overflow:hidden时，会形成新的bfc
+  - 处于不同bfc的元素不会进行margin合并
 
 ## BFC区域不与float box重叠
 

@@ -134,9 +134,36 @@
 
 ## 3-作用域
 
-1. var a =2的理解？从RHS角度理解异常抛出？
-2. js定义变量的两种作用域？哪些方式可以形成块作用域？循环与闭包？
-3. 词法作用域和动态作用域
+1. RHS与LHS，以及抛出的异常有何不同
+
+   - LHS查询不到会创建变量（非严格模式）
+   - RHS查询不到会抛出ReferenceError错误，查询到但进行不合理操作会报typeerror
+
+2. 临时性死区
+
+   - 区块中使用了let或const
+   - 凡是在声明之前就使用这些变量，就会报错。
+
+3. 词法作用域
+
+   - js使用的是词法作用域
+   - 词法作用域是由函数声明处的位置决定
+
+4. 闭包
+
+   - 当函数可以记住并访问所在的词法作用域时，就产生了闭包
+
+5. 如下代码输出结果
+
+   ```javascript
+   for(var i = 1 ; i <= 5 ; i++){
+       setTimeout(function timer() {
+           console.log(i); 
+       },1000)
+   }
+   ```
+
+   -  结果输出5次6
 
 
 
@@ -431,6 +458,11 @@
    - Array.from()：将类数组转为数组
    - Array.of()：将一组值转为数组
    - find：找到一个满足条件的
+2.  箭头函数的特点
+   - this使用外部作用域。
+   - 不能使用new命令，否则会抛出错误
+   - 不可以使用arguments，使用rest参数代替
+   - 不可以使用yield命令，箭头函数不能用作Generator函数
 
 ## Class
 
@@ -482,10 +514,50 @@
 2. promise的状态？
 3. Promise的构造函数？
 
-## await
+## async/await
 
-1. await语法描述（后面值表示何种含义）
-2. 循环与并行串行
+1. async返回值
+
+   - Promise对象
+
+2. await语法描述（后面值表示何种含义）
+
+   - 如是fulfilled，回调resolve的参数作为await表达式的值
+   - 如是reject，则抛出异常原因
+   - 不是promise，则返回该值本身
+   - 如是一个setTimeout，直接返回id，不会等setTimeout
+
+3. 循环与并行串行
+
+   - promise串行
+
+     ```javascript
+     const arr = [1,2,3];
+     function asyncTimetOut(arr,i) {
+         return new Promise((resolve, reject)=>{
+             setTimeout(()=>{
+                 console.log(arr[i]);
+                 resolve(i);
+             },1000);
+         })
+     }
+     function foo(){
+         arr.reduce((promise,item,index)=>{
+             return promise.then(()=>{
+                 return asyncTimetOut(arr,index)
+             })
+         },Promise.resolve());
+     }
+     foo()
+     ```
+
+   - promise并行，promise.all()
+
+   - await串行，直接for循环
+
+   - await并行，map里面加await
+
+4. 
 
 ## Proxy
 

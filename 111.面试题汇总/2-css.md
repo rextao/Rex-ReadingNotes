@@ -109,22 +109,62 @@
 1. 响应式布局方案
    - rem，@media，百分比，flex
 2. 三栏自适应布局
-   - 
-3. 水平垂直居中的方法
+   - postition+absolute ，中间元素margin
+   - float+margin:0 120px
+   - float+BFC
+   - flex，flex-basis：200px，flex：1
+3. 三栏，main先加载
+   - flex，left：order:-1
+4. 水平垂直居中的方法
    - 负margin
    - transform：translateX(-50%)和transform：translateY(-50%)
    - align-items:center;justify-content:center;
    - display:table-cell,vertical-align:middle
-4. 多元素水平居中
+5. 多元素水平居中
    - 子inline-block，父text-align：center
    - 使用justify-content:center;
 
 # 4-易混知识总结
 
-1. 概述？如何才能构成？有何作用？
-2. 元素隐藏的三种方式以及异同
-3. css三大特性？
-4. 伪类与伪元素？
+1. BFC
+   - 块级格式化上下文
+   - 页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素
+2. 触发BFC
+   - body 根元素
+   - float的值不是none
+   - position的值不是static或者relative
+   - overflow的值不是visible（即hidden、auto、scroll）
+   - display的值是inline-block、table-cell、flex、table-caption或者inline-flex
+3. BFC主要应用
+   - 避免外边距折叠
+   - BFC区域不与float重叠
+   - 清除浮动
+4. 元素隐藏的三种方式以及异同
+   - display：none，不占空间，不会引起重绘，不会被子孙继承
+   - visibility：hidden，占空间，会引起重绘，子孙会继承
+   - opacity=0：会被子孙继承，占用空间
+5. css三大特性？
+   - 层叠性
+   - 继承性
+   - 优先级
+     - !important > 
+     - 内联样式>
+     - ID选择器 > 
+     - 类选择器(.class) > 
+     - 标签 （div）> 
+     - 通配符 > 
+     - 属性选择器（[type="text"]）>
+     - 伪类（:hover）>
+     - 伪元素（：first-line）>
+     - 继承 >
+     - 浏览器默认属性
+6. 伪类与伪元素？
+   - 伪类：用于选择DOM数之外的信息
+   - 伪元素：DOM树没有定义的虚拟元素
+   - 伪元素::before，::after
+7. css函数
+   - calc()：相当于计算器，运算我们的表达式
+   - filter()：各种滤镜
 
 # 基础知识
 
@@ -271,8 +311,6 @@
 	- relative：相对于原文档流位置进行偏移
 	- absolute：绝对定位
 	
-16. 介绍下flexbox
-
 17. css兼容性写法
 
 	- -webkit-：针对safari、chrome

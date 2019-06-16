@@ -1,5 +1,28 @@
 # React
 
+## 生命周期
+
+1. construtor，getDerivedStateFromProps，render，componentDidMount
+2. getDerivedStateFromProps，shouldComponentUpdate，render，getSnapShotBeforeUpdate，componentDidUpdate
+3. componentWillUnmoment
+
+## shouldComponentUpdate优化
+
+1. 还可以使用pureComponent
+2. 父组件渲染，未向子组件更新props，会重新渲染子组件，可以利用shouldComponentUpdate(nextProps, nextState, nextContext) 
+3. 组件本身调用setState，无论state有无变化，都会渲染
+
+## 获取数据最佳地方
+
+1. componentDidMount中
+2. 组件挂载到DOM后调用，且只会被调用一次，此处访问dom是绝对安全的
+
+## 删除的生命周期函数
+
+1. 挂载时：componentWillMount()
+2. 更新时：componentWillUpdate()，componentWillReceiveProps()
+3. 因为，开启async rendering，在render之前的生命周期函数可能被多次调用
+
 ## react常见的通信方式
 
 1. 父组件向子组件通信：使用props
@@ -62,11 +85,15 @@
 
 ## setState是同步还是异步
 
-1. 虽然`setState`并非使用了`setTimeout`或promise的那种进入到事件回圈(Event loop)的异步执行，但它的执行行为在React库中时，的确是异步的，也就是有延时执行的行为。
-2. 官方文件中较精确的说法 - "**它不是保证同步的**"。
+1. 官方文件中较精确的说法 - "**它不是保证同步的**"。
 3. 是在React库控制时，异步；否则同步。
 4. setState 只在合成事件和钩子函数中是“异步”的，在原生事件和 setTimeout 中都是同步的。
 5. 对于setState异步可以通过第二个参数 setState(partialState, callback) 中的callback拿到更新后的结果。
+
+## 受控与非受控组件
+
+1. 受控组件，如表单有input标签，通过onChange事件改变state值，然后利用state更新input的value
+2. 非受控组件，利用ref，React.createRef()和this.ref.current来
 
 ## 对无状态组件的理解
 
@@ -89,7 +116,19 @@
 1. React是单向数据流，数据主要从父节点传递到子节点（通过props）。
 2. 如果顶层（父级）的某个props改变了，React会重渲染所有的子节点。
 
-## 
+## Diff算法
+
+1. 从n^3转变为层级比较的On
+
+## react Fiber
+
+1. 如一个组件更新1毫秒，200个组件就是200ms，由于同步更新，会阻塞用户input
+2. 更新分两个阶段，找出需要更新哪些DOM，这个阶段是可以被打断的；提交更新DOM，是一鼓作气完成的，不会被打断
+
+## react key的作用
+
+1. key的真实目的是为了标识在前后两次渲染中元素的对应关系，防止发生不必要的更新操作
+2. 如果两个元素有不同的key，那么在前后两次渲染中就会被认为是不同的元素，会将旧的元素unmount，新的元素被mount
 
 ## 小问题
 
@@ -97,22 +136,30 @@
 	- 组件需要内部状态或生命周期时，用class
 2. 为何提供React.children.map
 	- props.children不一定是数组
-3. 
+3. 组件懒加载
+   - React.lazy()
+4. react事件
+   - 利用的是事件代理的方式
+   - 在顶层使用了一个全局事件监听器监听所有的事件
+   - 会在内部维护一个映射表记录事件与组件事件处理函数的对应关系
 
 # Redux
 
-1. 多个组件之间如何拆分各自的state
-	- 一个全局的 reducer , 页面级别的 reducer , 然后redux 里有个 combineReducers 把所有的 reducer 合在一起
-2. Redux数据流的流程
-	- view => action/dispatch => store(reducer) => view
-3. redux请求如何处理并发
-	-  promise.all
+## 流程分析
 
-## 适用情况
+1. 通过combineReducers组合多个reducer
+2. 通过createStore(reducers)构建全局唯一是状态存储store
+3. store通过dispatch(action)派发一个action
+4. store会调用reducers更新状态（dispatch内部功能）
 
-1. 多交互、多数据源。
-2. 不同身份的用户有不同的使用方式（比如普通用户和管理员）
-3. 从组件层面
-	- 某个状态需要在任何地方都可以拿到
-	- 某个组件的状态，需要共享
-	- 一个组件需要改变全局状态
+## 常用中间件
+
+1. redux-thunk：action可以使用函数
+2. redux-promise：action可以是promise对象
+
+## React-Redux
+
+1. 主要提供两个重要模块，Provider与connect
+2. Provider主要是将store传递给react各个组件
+3. `connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])`
+4. bindActionCreators：不用手动调用dispatch

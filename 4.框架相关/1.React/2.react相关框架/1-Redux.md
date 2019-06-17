@@ -23,7 +23,7 @@
 
 1. 从一个简单的react例子开始，如现在有如下组件结构，UserAvatar与UserStats都需要使用user这个属性，显示用户头像
 
-   ![ç»ä»¶å±çº§](1-Redux.assets/16b02b834ddd51d7)
+   ![1559144600299](1-Redux.assets/1559144600299.png)
 
 2. 在App定义此属性，然后利用props逐层传递可以解决问题
 

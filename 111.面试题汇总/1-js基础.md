@@ -40,26 +40,130 @@
 ## 2-类型与值
 
 1. 内置类型？
-2. 两种数据类型存储有什么区别？
-3. typeof？null为何类型是object？如何正确判断null？constructor判断对象是某个函数实例的问题？基本类型的继承链？何为鸭子类型？正确获取类型的方式？
-4. void运算符？是否有整数类型？`42.toFixed(3) `结果？`0.1+0.2 ==0.3 // false`如何解决？何为最大安全数？isNaN与Number.isNaN()区别?
-5. 正负零有何用？负零如何判断？`Object.is()`为了解决的问题？
-6. string类型的特点？字符串与字符数组的异同，如何进行互转？
-7. 属性描述符？获取与配置属性描述符？对象不变性的3种方式？
-8. 如何判断一个属性值为undefined还是不存在？`4 in [2, 4, 6]` 的结果以及why?如何检测属性只在当前对象而不搜索Prototype链？区别是否可以枚举？
-9. 利用类似`for key in obj`方式复制对象的问题？浅复制的方式？node8深复制的方式？
-10. 检测数组的方式？toString与toLocalString区别？push多参数用法？concat、splice、slice方法？
-11. 显示几位小数？指数形式显示？URI编码？普通缺失值的判断？对象缺失值的判断？
-12. 值类型与引用类型？~~使用？
-13. 正则常用方法？正则常用的一些值，如+、*、？等
+   - string，number，symbol，null，undefined，Boolean
+   - 复杂类型
+2. typeof
+   - 结果是字符串，如typeof 123  => 'number'
+   - typeof 基本类型，除了null（显示object）都显示正确
+   - typeof 对象，除了函数都显示为object
+   - js最初为了性能考虑，用000表示对象，故null表示为全000，故判断为object
+3. instanceof
+   - 判断是否a为b的实例
+   - 并不是多有对象都是object实例，`Object.create(null) instanceof Object`
+4. Object.prototype.toString
+   - 返回值"[object Array]"
+5. Undefined类型与void操作符
+   - undefined类型只有undefined一个值，且可以被更改
+   - void表达式不放表达式值
+6. Number类型
+   - 都是浮点数，没有整型，只有没有小数的浮点数
+   - 42.toFixed(3)// 报错，点会被优先识别为数字常量的一部分
+7. 进制转换
+   - toString(num)
+8. 最大安全数
+   - 2^53 - 1
+9. NaN
+   - 唯一一个不等于自身的数值
+   - isNaN有bug，如isNaN('foo')=》true
+10. 正负0
+    - 可以在动画中，用正负表示方向
+    - 利用1/n = +Infinity或-Infinity来判断正负零
+11. Object.is
+    - 判断两个值是否绝对相等
+    - 解决NaN，-0===+0=》true的情况
+12. 如何处理浮点数
+    - 转为整数
+    - 利用round处理，而不是让引擎四舍五入
+13. 两种数据类型存储有什么区别？
+14. Object类型
+    - key一定是字符串，非字符串会被转为字符串
+15. 获取属性描述符，配置属性描述符
+    - Object.getOwnPropertyDescriptor( myObj, "a" );
+    - Object.defineProperty( myObj, "a", {} )
+16. Object.defineProperty()属性描述符默认值
+    - false
+17. 对象不变性
+    - Object.preventExtensions，禁止添加
+    - Object.seal，禁止删除
+    - Object.freeze，禁止修改
+    - 都是浅不变性
+18. 对象浅拷贝
+    - for-in
+    - Object.assign
+19. Array构造器的问题
+    - new Array()：[]空数组
+    - new Array(2)：[empty × 2]
+    - new Array(1,2)：[1,2]
+20. 修改length对数组的影响
+    - arr.length = 5；原数组为5
+    - arr.length=3，会删除数据
+    - arr.length=7,后面会添加[empty*2]
+21. 检测数组
+    - instanceof
+    - Array.isArray()
+    - Object.prototype.toString
+22. pop，push方法
+    - 返回弹出的最后一个元素
+    - push返回数组长度，可以将1或多个数据添加到末尾
+23. reverse与sort
+    - 返回数组与原数组保持相同引用
+24. cancat
+    - 返回新数组
+    - 浅拷贝
+25. slice
+    - 提取元素，start，end
+    - 返回新数组
+26. splice(0,2,1)
+    - 从0位置删除2项，然后插入1
+    - 返回值为删除的元素
+27. foreach如何跳出循环
+    - 没有办法跳出或终止forEach循环，除非抛出异常
+28. 正则常见字符含义
+    - `* ` 0次或多次  
+    - `+` 1次或多次  
+    - ?  0次或一次
+    - \d  匹配数字  
+    - \D  非数字 
+    -  \s  匹配空白字符
+    -   \S  非空白字符
+    -   \w  匹配一个字符，等价于[A-Za-z0-9_] 
+    -  \W  非空字符
+29. 未完。。
 
 
 
 ## 3-作用域
 
-1. var a =2的理解？从RHS角度理解异常抛出？
-2. js定义变量的两种作用域？哪些方式可以形成块作用域？循环与闭包？
-3. 词法作用域和动态作用域
+1. RHS与LHS，以及抛出的异常有何不同
+
+   - LHS查询不到会创建变量（非严格模式）
+   - RHS查询不到会抛出ReferenceError错误，查询到但进行不合理操作会报typeerror
+
+2. 临时性死区
+
+   - 区块中使用了let或const
+   - 凡是在声明之前就使用这些变量，就会报错。
+
+3. 词法作用域
+
+   - js使用的是词法作用域
+   - 词法作用域是由函数声明处的位置决定
+
+4. 闭包
+
+   - 当函数可以记住并访问所在的词法作用域时，就产生了闭包
+
+5. 如下代码输出结果
+
+   ```javascript
+   for(var i = 1 ; i <= 5 ; i++){
+       setTimeout(function timer() {
+           console.log(i); 
+       },1000)
+   }
+   ```
+
+   -  结果输出5次6
 
 
 
@@ -262,13 +366,41 @@
 
 ## 8-BOM
 
-1. top、parent、self对象的含义？
-2. 如何移动窗口、如何修改窗口大小？两个方法的异同
-3. setInterval的问题？
-4. window.location？？search属性？改变浏览器位置的方法？replace方法的特点？reload含义及传入不同参数的含义？
-5. navigator？可以获取哪些信息？
-6. screen？
-7. history的方法与属性？
+1. BOM下的对象
+   - window，location，navigator，screen，history
+2. top、parent、self对象的含义？
+   - top：指向最外层框架
+   - parent：指向当前框架的上层框架
+   - self：和window对象一样
+3. 如何移动窗口、如何修改窗口大小？两个方法的异同
+   - moveTo,moveBy：挪动到xy绝对位置；相对位置
+   - resizeTo，resizeBy：绝对调整，相对调整
+4. setInterval的问题？
+   - 隔一段时间在队列添加一个事件
+5. 定时间最小时间间隔
+   - html5规定最少要4ms
+6. 打开系统对话框
+   - window.alert,window.confim,window.prompt
+7. window.location
+   - 只读属性，包含有关文档当前位置信息
+8. search属性
+   - 从问号到URL尾部
+9. 改变浏览器位置的方法
+   - location.assign
+   - window.location
+   - location.href
+10. replace方法的特点
+    - 不会产生历史记录，用户不能返回到之前页面
+11. window.reload，参数true含义
+    - 重新加载页面
+    - true表示从服务器获取，否则先从缓存
+12. navigator？可以获取哪些信息？
+    - 获取当前代码应用程序相关的
+    - 如浏览器名，浏览器引擎，浏览器版本，操作平台等
+13. screen？
+    - 表明客户端能力，屏幕像素，宽高等，屏幕颜色等
+14. history
+    - 保存用户上网的历史记录
 
 ## 9-DOM
 
@@ -326,6 +458,11 @@
    - Array.from()：将类数组转为数组
    - Array.of()：将一组值转为数组
    - find：找到一个满足条件的
+2.  箭头函数的特点
+   - this使用外部作用域。
+   - 不能使用new命令，否则会抛出错误
+   - 不可以使用arguments，使用rest参数代替
+   - 不可以使用yield命令，箭头函数不能用作Generator函数
 
 ## Class
 
@@ -377,10 +514,50 @@
 2. promise的状态？
 3. Promise的构造函数？
 
-## await
+## async/await
 
-1. await语法描述（后面值表示何种含义）
-2. 循环与并行串行
+1. async返回值
+
+   - Promise对象
+
+2. await语法描述（后面值表示何种含义）
+
+   - 如是fulfilled，回调resolve的参数作为await表达式的值
+   - 如是reject，则抛出异常原因
+   - 不是promise，则返回该值本身
+   - 如是一个setTimeout，直接返回id，不会等setTimeout
+
+3. 循环与并行串行
+
+   - promise串行
+
+     ```javascript
+     const arr = [1,2,3];
+     function asyncTimetOut(arr,i) {
+         return new Promise((resolve, reject)=>{
+             setTimeout(()=>{
+                 console.log(arr[i]);
+                 resolve(i);
+             },1000);
+         })
+     }
+     function foo(){
+         arr.reduce((promise,item,index)=>{
+             return promise.then(()=>{
+                 return asyncTimetOut(arr,index)
+             })
+         },Promise.resolve());
+     }
+     foo()
+     ```
+
+   - promise并行，promise.all()
+
+   - await串行，直接for循环
+
+   - await并行，map里面加await
+
+4. 
 
 ## Proxy
 
@@ -542,11 +719,6 @@
 15. 介绍localstorage的API
 
 	- getItem，setItem，removeItem，clear，key(n)
-16. 类数组转为数组
-
-	- Array.prototype.slice.call(arguments)
-	- Array.from
-	- 扩展运算符
 17. 判断`JavaScript`数据类型的方式
 
 	- typeof，只能判断基本类型
@@ -769,6 +941,59 @@ if (!Function.prototype.bind) {
 
 
 
+## 节流函数
+
+```javascript
+// 方式1
+function debounce(method, context) {
+    clearTimeout(method.tId);
+    method.tId = setTimeout(function() {
+        method.call(context);
+    }, 1000);
+}
+function print() {
+    console.log('hello world');
+}
+window.onscroll = function() {
+    debounce(print);
+};
+// 方式2
+function throttle(fn, mustRun = 500) {
+    const timer = null;
+    let previous = null;
+    return function() {
+        const now = new Date();
+        if (!previous){
+            previous = now;
+        }
+        const remaining = now - previous;
+        if (mustRun && remaining >= mustRun) {
+            fn(context);
+            previous = now;
+        }
+    }
+}
+```
+
+## 防抖函数
+
+```javascript
+// func是用户传入需要防抖的函数
+// wait是等待时间
+const debounce = (func, wait = 50) => { 
+    let timer = 0 
+    return function(...args) {
+        // 当小于wait时间再调用时，
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(() => {
+            func.apply(this, args)
+        }, wait)
+    }
+}
+```
+
+
+
 
 
 # 实际问题
@@ -823,47 +1048,47 @@ if (!Function.prototype.bind) {
   - Hash法：如有很多重复数，利用Hash法去重
   - 最小堆或最大堆
 
-4. 树的深度与广度遍历
+4. 树的深度与广度遍历（二叉树的遍历也利用类似方式）
 
-  - 深度遍历
+    - 深度遍历
 
-  	```javascript
-  	function dfs(node){
-  	    let nodes=[];
-  	    if(node!=null){
-  	        let stack=[];//同来存放将来要访问的节点
-  	        stack.push(node);
-  	        while(stack.length !== 0){
-  	            let item=stack.pop();//正在访问的节点
-  	            nodes.push(item);
-  	            let childrens=item.children;
-  	            for(let i=childrens.length-1;i>=0;i--)//将现在访问点的节点的子节点存入stack，供将来访问
-  	                stack.push(childrens[i]);
-  	        }
-  	    }
-  	    return nodes;
-  	}
-  	```
+    ```javascript
+    function dfs(node){
+        let nodes=[];
+        if(node!=null){
+            let stack=[];//同来存放将来要访问的节点
+            stack.push(node);
+            while(stack.length !== 0){
+                let item=stack.pop();//正在访问的节点
+                nodes.push(item);
+                let childrens=item.children;
+                for(let i=childrens.length-1;i>=0;i--)//将现在访问点的节点的子节点存入stack，供将来访问
+                    stack.push(childrens[i]);
+            }
+        }
+        return nodes;
+    }
+    ```
 
-  - 广度遍历
+    - 广度遍历
 
-  	```javascript
-  	function bfs(node){
-  	    let nodes = [];
-  	    if (node != null) {
-  	        let queue = [];
-  	        queue.push(node);
-  	        while (queue.length !== 0) {
-  	            let item = queue.shift();
-  	            nodes.push(item);
-  	            let children = item.children;
-  	            for (let i = 0; i < children.length; i++)
-  	                queue.push(children[i]);
-  	        }
-  	    }
-  	    return nodes;
-  	}
-  	```
+    ```javascript
+    function bfs(node){
+        let nodes = [];
+        if (node != null) {
+            let queue = [];
+            queue.push(node);
+            while (queue.length !== 0) {
+                let item = queue.shift();
+                nodes.push(item);
+                let children = item.children;
+                for (let i = 0; i < children.length; i++)
+                    queue.push(children[i]);
+            }
+        }
+        return nodes;
+    }
+    ```
 
 5. 数组reverse如何实现
 
@@ -905,3 +1130,86 @@ if (!Function.prototype.bind) {
 
    - 可以使用`toLocaleString()`
    - 小数会有问题：利用split+reverse，replace(`/(\d{3})/g, ``"$1,"`)，然后reverse，join
+   
+8. 数组去重
+
+    - 利用filter
+
+      ```javascript
+      array.filter(function(item, index, array){
+          return array.indexOf(item) === index;
+      })
+      ```
+
+    - es6：` [...new Set(array)]`
+
+    - 双重循环
+
+    - 利用obj
+
+9. sleep函数
+
+    ```javascript
+    function sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+    
+    // 用法
+    sleep(500).then(() => {
+        // 这里写sleep之后需要去做的事情
+    })
+    ```
+
+10. 链表反转
+
+    ```javascript
+    function reverseList(node) {
+        let pre = null;
+        let next;
+        while (node){
+            next = node.next;
+            node.next = pre;
+            pre = node;
+            node = next;
+        }
+        return pre;
+    }
+    ```
+
+11. 图片懒加载
+
+     ```javascript
+     function isInSight(el) {
+         const bound = el.getBoundingClientRect();
+         const clientHeight = window.innerHeight;
+         return bound.top <= clientHeight + 100;
+     }
+     function checkImgs() {
+         const imgs = document.querySelectorAll('.my-photo');
+         Array.from(imgs).forEach(el => {
+             if (isInSight(el)) {
+                 loadImg(el);
+             }
+         })
+     }
+     
+     function loadImg(el) {
+         if (!el.src) {
+             const source = el.dataset.src;
+             el.src = source;
+         }
+     }
+     window.onscroll = chekImgs();
+     ```
+
+     - 可以将src存储在img的一个data-src属性上，当图片到达可视区域后，将data-src取出后放在src上
+
+12. 判断回文
+
+     ```javascript
+     var str1=str.split("").reverse();
+     var str2=str1.join("");
+     if(str==str2){}
+     ```
+
+     

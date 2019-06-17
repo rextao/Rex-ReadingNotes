@@ -6,6 +6,10 @@
 | koa     | web框架 | es6  | Generator函数+yield语句+Promise |
 | koa2    | web框架 | es7  | async/await+Promise             |
 
+1. express主要基于Connect中间件，并且自身封装了路由、视图处理等功能
+2. Koa基于Co中间件，本身不包括任何中间件，需要借助第三方
+3. 如错误处理与异步流程控制，则是es6与es5回调的区别
+
 ## Koa
 
 1. koa 是由 Express 原班人马打造的

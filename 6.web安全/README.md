@@ -102,7 +102,7 @@
 
 ## 攻击原理
 
-1. a登录了c网站，a处存有c网站的cookie
+1. a登录了c网站（不登出），a处存有c网站的cookie
 2. c网站一个转账请求使用的是get请求，即通过`http://www.mybank.com/Transfer.php?toBankId=11&money=1000`就可以转账
 3. 攻击者可以在论坛、邮箱中构造一个链接诱导用户去点击，或者直接在论坛上传外链图片（用户一进入，就会默认加载这个图片，即直接发起转账请求）
 
@@ -123,16 +123,37 @@
 
 1. 当浏览器向web服务器发出请求的时，一般会带上Referer请求头，告诉服务器用户从哪个页面连接过来的
 2. js中通过`document.referrer`获取referrer
-3. 对于CSRF攻击，黑客需要在自己网站构造请求，referer值肯定不同
+3. 如在`www.bank.com`上的一个按钮，点击转账功能，Referer肯定执行`www.bank.com`的某个地址，对于CSRF攻击，黑客需要在自己网站构造请求，referer值肯定与`www.bank.com`不同
 4. 但referer值由浏览器提供，不能保证浏览器没有安全漏洞，而且这种方式是将安全性都依赖于第三方（即浏览器）来保障
+5. 还有就是由于referer值会记录用户的访问来源，有些组织担心内网信息被暴露，设置浏览器发送请求时不提供referer字段
 
 ## Anti CSRF Token
+
+### 基本方式
 
 1. 服务端在收到路由请求时，生成一个随机数token，在渲染请求页面时把随机数埋入页面（一般埋入 form 表单内，<input type="hidden" name="csrf_token" value="xxxx">）
 2. 将token保存在session中
 3. 当用户发送 GET 或者 POST 请求时带上csrf_token参数
 4. 服务器将用户发来的token与session中的token进行对比。
 5. 由于黑客无法获取随机的token，故可以防止黑客进行csrf攻击
+
+### 基本方式的缺点
+
+1. 如果请求很多每个请求都加上token很麻烦，很容易遗漏
+2. 可以页面每次加载时，使用js遍历dom，给每个a和form增加token
+3. 但对于js动态生成的js，还需要程序猿手动添加
+4. 但上面的方法不能保证token本身安全，如一个支持用户发表信息的网站，黑客可以发布自己的网站，原网站的token就被附带（这个问题可以结合Referer来避免，不是自己站的不增加token，但使用Referer就有上述Referer问题）
+
+### HTTP自定义属性
+
+1. 利用ajax，将token放于HTTP自定义属性中
+2. 但这种方式只能用于ajax局部刷新
+
+### 结论
+
+1. 目前还没有完美的解决方案
+
+
 
 # HTTPS降级攻击
 

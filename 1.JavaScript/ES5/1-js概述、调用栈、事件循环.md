@@ -44,6 +44,7 @@
 
 1. 表示：document解析完后再**执行**脚本，因此脚本不会影响html解析
 2. `<script type="" src="" defer="defer"></script>`放在head中会延迟加载
+3. html解析完需要等待js执行完，才会触发DOMContentLoaded
 
 ### 异步脚本(async)
 

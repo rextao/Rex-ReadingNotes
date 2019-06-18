@@ -429,8 +429,9 @@
 
 ## 概述
 
-1. HTML5新的协议，主要目的是即时通讯，替换轮询
-2. WebSocket 可以实现客户端与服务器间双向、基于消息的文本或二进制数据传输
+1. WebSocket API是HTML5标准的一部分，主要目的是即时通讯，替换轮询
+2. 但并不意味着WebSocket一定要在HTML中使用，或基于浏览器使用，C，node，Python等都提供了WebSocket的支持
+3. WebSocket 可以实现客户端与服务器间双向、基于消息的文本或二进制数据传输
 
 ## WebSocket API
 
@@ -545,13 +546,56 @@
 	}
 	```
 
+## 与node的交互测试
+
+1. 使用node包ws（<https://github.com/websockets/ws#how-to-get-the-ip-address-of-the-client>）
+
+2. node.js
+
+	```javascript
+	const WebSocket = require('ws');
+	const ws =  new WebSocket.Server({ port: 8080 });
+	ws.on('connection', function connection(ws) {
+	    ws.on('message', function incoming(message) {
+	        console.log('received: %s', message);
+	    });
+	    ws.send('something');
+	    setTimeout(()=>{
+	        ws.send('timer')
+	    },10000)
+	});
+	```
+
+3. 前端html页面
+
+	```javascript
+	const ws = new WebSocket('ws://localhost:8080');
+	ws.onopen = function () {
+	    ws.send("Connection established. Hello server!");
+	};
+	ws.onmessage = function(msg) {
+	    console.log(msg)
+	}
+	```
+
+4. 结果可以看到，10秒后，前端会收到timer这个信息
+
+
+
 ## 与HTTP关系
 
-1. WebSocket和HTTP都是基于TCP协议的两个不同的协议
+1. WebSocket和HTTP都是基于TCP协议的两个不同的应用层协议
 2. WebSocket依赖于HTTP连接
 	- 每个WebSocket连接都始于一个HTTP请求
 	- 通过http请求头：Upgrade：websocket
 	- 如服务器支持，则返回101后，使用新的websocket协议
+3. WebSocket在建立握手时，数据是通过HTTP传输的。但是建立之后，在真正传输时候是不需要HTTP协议的
+
+## 与Socket连接
+
+1. Socket其实并不是一个协议，而是为了方便使用TCP或UDP而抽象出来的一层，是位于应用层和传输控制层之间的一组接口。
+2. 当两台主机通信时，必须通过Socket连接，Socket则利用TCP/IP协议建立TCP连接。
+3. Socket是传输控制层协议，WebSocket是应用层协议。
 
 # JSONP
 

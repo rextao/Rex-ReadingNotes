@@ -436,9 +436,16 @@ new Promise((resolve,reject)  => {
 
 ### Promise.all()
 
-1. 同时执行两个或更多步骤，完成的顺序不关键，关键的是必须都完成
-2. 比如ajax1,ajax2无论顺序如何，但需要两者都完成后，才能执行第三个，可以用```Promise.all([ajax1,ajax2])```
-3. 如数组中有一个被拒绝，则会立即被拒绝，并丢弃来自其他所有Promise的全部结果
+1. `Promise.all(iterable)`
+	- iterable，可迭代对象，如array或string
+	- 返回值
+		- 如iterable为空，则返回resolved Promise
+		- 如iterable不包含任何promise，则返回一个异步完成的Promise
+		- 其他情况返回pending Promise，等待决议
+2. 同时执行两个或更多步骤，完成的顺序不关键，关键的是必须都完成
+3. 比如ajax1,ajax2无论顺序如何，但需要两你排名者都完成后，才能执行第三个，可以用`Promise.all([ajax1,ajax2]).then((arr)=>{})`
+	- 注意：then的item为一个arr
+4. 如数组中有一个被拒绝，则会立即被拒绝，并丢弃来自其他所有Promise的全部结果
 
 ### Promise.race()
 

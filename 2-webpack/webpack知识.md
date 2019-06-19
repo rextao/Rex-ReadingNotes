@@ -3,11 +3,174 @@ typora-root-url: images
 typora-copy-images-to: images
 ---
 
-1. 
+# webpack4
 
-# 
+## 概述
+
+1. webpack的局限性是，只能用于采用了模块化开发的项目
+2. 非模块化的会影响打包解析效率
+
+## 起步
+
+1. 项目结构
+
+	```json
+	webpack-demo
+	|-src
+	  |-index.js
+	|-index.html
+	|-package.json
+	|-webpack.config.js
+	```
+
+2. index.js
+
+	```javascript
+	import _ from 'lodash';
+	function component() {
+	  var element = document.createElement('div');
+	  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+	  return element;
+	}
+	document.body.appendChild(component());
+	```
+
+	- 项目引入loash，使用`yarn add loash`
+
+3. index.html
+
+	```html
+	<!doctype html>
+	<html>
+	<head>
+	    <title>起步</title>
+	</head>
+	<body>
+	<script src="bundle.js"></script>
+	</body>
+	</html>
+	```
+
+4. webpack.config.js
+
+	```javascript
+	const path = require('path');
+	module.exports = {
+	  entry: './src/index.js',
+	  output: {
+	    filename: 'bundle.js',
+	    path: path.resolve(__dirname, 'dist')
+	  }
+	};
+	```
+
+5. 控制台直接运行`npx webpack`即可看到dist的打包文件
+
+## 入口与上下文
+
+### context
+
+1. webpack在寻找相对路径文件时，会以context为根目录
+
+2. context默认是执行webpack所在的当前工作目录
+
+3. 如需相对路径的根路径是app，可以
+
+	```javascript
+	module.exports = {
+	    context: path.resolve （__dirname,'app'）
+	}
+	```
+
+### Entry
+
+#### Entry类型
+
+```javascript
+// string类型
+module.exports = {
+  entry: './src/index.js'
+};
+// array类型
+entry: ['./app/a.js','./app/b.js']
+// obj类型
+entry: {
+    a: './app/a.js',
+    b: './app/b.js'
+}
+
+```
+
+#### chunk名称
+
+1. 默认情况下：webpack会为每个生成的Chunk取一个名字，名字与Entry的配置有关
+2. 如entry是string或array，会生成一个Chunk，名为main
+3. 如entry是obj，可能会出现多个Chunk，名为对应的key值
+
+#### 配置动态Entry
 
 
+
+## Output
+
+1. 配置 webpack 如何去输出、以及在哪里输出
+2. 是一个对象，包含一系列配置
+
+### filename
+
+1. 如输出一个文件，可以写为`output:{filename:'bundle.js'}`
+2. 但多个Chunk输出时，就需要借助模板和变量了
+3. 内置变量
+	- id：chunk的唯一标识，从0开始
+	- name，chunk的名字
+	- hash，chunk的唯一hash值，默认32位，可以用hash:8代表8位
+	- chunkhash，内容hash值，默认32位
+
+## Module
+
+1. 配置处理模块的规则
+
+### noParse
+
+1. 让webpack忽略没有采用模块化的库，如
+
+	```javascript
+	module.exports = {
+	    module:{
+	        noParse: function(content) {
+	            return /jquery|lodash/.test(content);
+	        }
+	    }
+	};
+	```
+
+2. 注意，被忽略的文件，不应该包含import，require，define等模块化语句，否则在浏览器环境下会出错
+
+3. 只能控制哪些文件不被解析
+
+### rules
+
+1. module.rules，配置模块读取与解析规则，通常用来配置Loader，是一个数组，rule是一个对象
+
+	```javascript
+	module.exports = {
+	    module:{
+	        rules:[
+	            rule,
+	            // 举例
+	            {
+	                test:/\.js/,
+	                use:['babel-loader'],
+	                include:path.resolve(__dirname,'src')
+	            }
+	        ]
+	    }
+	};
+	```
+
+	
+
+#### 配置条件
 
 
 
@@ -260,4 +423,4 @@ typora-copy-images-to: images
 2. node --inspect-brk build/utils.js，控制台会输出![1531904382795](/1531904382795.png)
 3. 在浏览器地址栏输入，chrome://inspect/#devices，并点击Open dedicated DevTools for Node，打开node调试的控制台
 4. 在Node控制台输入要监听的地址![1531904417346](/1531904417346.png)
-5. 在sources中可以查看需要调试的代码![1531904449773](/1531904449773.png)
+5. 

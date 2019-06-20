@@ -4,6 +4,9 @@
 
 1. 在 Webpack 运行的生命周期中会广播出许多事件，Plugin 可以监听这些事件，在合适的时机通过 Webpack 提供的 API 改变输出结果。
 2. 插件都是一个类，最好是使用大写字母命名
+3. 开发插件时，需要知道某个钩子函数在哪里调用，故需要查看webpack源码，搜索`hooks.<hook name>.call`
+
+
 
 ## Compiler和Compilation
 
@@ -12,6 +15,70 @@
 3. Compilation 对象包含了当前的模块资源、编译生成资源、变化的文件等。当 Webpack 以开发模式运行时，每当检测到一个文件变化，一次新的 Compilation 将被创建。Compilation 对象也提供了很多事件回调供插件做扩展。通过 Compilation 也能读取到 Compiler 对象
 4. 区别在于：Compiler 代表了整个 Webpack 从启动到关闭的生命周期，而 Compilation 只是代表了一次新的编译。
 5. Compiler 和 Compilation 都继承自 Tapable
+
+## 钩子的调用方式
+
+### 概述
+
+1. compiler与Compilation都可以使用相同方式调用生命周期钩子
+
+	```javascript
+	compiler.hooks.someHook.tap(/* ... */);
+	compilation.hooks.someHook.tap(/* ... */);
+	```
+
+	- 在某些钩子上还可以访问`tapAsync`和`tapPromise`
+
+### 钩子类型
+
+1. 钩子分为：基本钩子，Waterfall钩子，Bail钩子
+2. 根据同步异步等可以分为：
+	- Sync钩子，只能调用myHook.tap()方法
+	- AsyncSeries与AsyncParallel，可以调用`myHook.tap()`, `myHook.tapAsync()` and `myHook.tapPromise()`，分别表示同步，异步和promise
+3. 在官网，可以看到各钩子的类型，如：
+	- emit：AsyncSeriesHook
+	- 生成资源到 output 目录之前
+	- 参数：compilation
+
+
+## 插件构成
+
+1. 一个具名 JavaScript 函数。
+2. 在它的原型上定义 `apply` 方法。
+3. 指定一个触及到 webpack 本身的 事件钩子。
+4. 操作 webpack 内部的实例特定数据。
+5. 在实现功能后调用 webpack 提供的 callback。
+
+### 举例
+
+```javascript
+class MyPlugin {
+    apply(compiler) {
+        // 生成资源到 output 目录之前。
+        compiler.hooks.emit.tapAsync(
+            'MyPlugin',
+            (compilation, callback) => {
+                console.log('ahahahha');               
+                callback();
+            }
+        );
+    }
+}
+module.exports = MyPlugin;
+// webpack.config.js
+const path = require('path');
+const MyPlugin = require('./src/MyPlugin')
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  plugins: [new MyPlugin()]
+};
+```
+
+
 
 ## 事件流
 

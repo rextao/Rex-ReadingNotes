@@ -1,5 +1,21 @@
 
 
+# webpack 流程分析
+
+## debug Webpack
+
+1. `npm install --global node-nightly`
+2. 在浏览器中访问 `chrome://inspect`
+3. `node-nightly --inspect-brk ./node_modules/webpack/bin/webpack.js`
+	- --inspect-brk：会在脚本第一句有断点
+
+## shell与config解析
+
+1. 每次在命令行输入 webpack 后，操作系统都会去调用 `./node_modules/.bin/webpack` 这个 shell 脚本
+2. 这个脚本会去调用 `./node_modules/webpack/bin/webpack.js` 并追加输入的参数，如 -p , -w
+3. cmd的脚本看不懂，但在本地文件的node_modules/webpack/bin/webpack.js写个console
+4. 在命令行运行时，会发现运行的确实是这个脚本
+
 # 代码分离
 
 ## 手动配置entry

@@ -102,7 +102,8 @@
 
 ### 缩写
 
-`v-bind:href`缩写为`:href`
+1. `v-bind:href`缩写为`:href`
+2. 注意：如`v-bind="post"`这种形式，不能再将v-bind进行简写
 
 ## v-once
 
@@ -250,7 +251,79 @@
 
 ## v-model
 
+### 概述
 
+1. 在表单 `<input>`、`<textarea>` 及 `<select>` 元素上创建双向数据绑定
+2. 本质是一个语法糖
+3. 会忽略value，checked，selected初始值，总是以vue实例数据作为数据源
+4. 对于输入法（中文等）可能v-model的不会在输入法组合文字过程中得到更新，使用input
+
+### 用法
+
+#### text与textarea
+
+1. 内部实际是将value属性与input事件进行了绑定
+2. 在文本区域插值 (`<textarea>{{text}}</textarea>`) 并不会生效，应用 `v-model` 来代替（编译器会提示）
+
+#### checkbox与radio
+
+1. 内部实际是将checked属性与chang事件进行了绑定
+
+2. 多个复选框绑定到数组上
+
+   ```html
+   <input type="checkbox" id="check1" v-model="checkbox" value="a">
+   <label for="check1">check1</label>
+   <input type="checkbox" id="check2" v-model="checkbox" value="b">
+   <label for="check2">check2</label>
+   <script>
+       data:function () {
+           return {
+               checkbox:[]
+           }
+       },
+   </script>
+   ```
+
+   
+
+#### select
+
+1. 内部实际是value与change事件进行了绑定
+2. 多选绑定数组：` <select v-model="selected" multiple></select>`
+
+### 值绑定
+
+1. 将value值绑定到vue实例上
+
+2. 复选框：`<input type="checkbox"  v-model="toggle" true-value="yes" false-value="no">`
+
+   - 选中时，`vm.toggle === 'yes'`，非选中时，`vm.toggle === 'no'`
+   
+3. 单选框：`<input type="radio" v-model="pick" :value="a">`
+
+4. select
+
+   ```html
+   <select v-model="selected">
+       <!-- 内联对象字面量 -->
+     <option v-bind:value="{ number: 123 }">123</option>
+   </select>
+   ```
+
+### 修饰符
+
+#### .lazy
+
+1. 将v-model每次由input事件触发改为以change事件触发
+
+#### .number
+
+1. 将输入值转为数值，但如果输入的不能被parseFloat解析，则会返回原始值
+
+#### .trim
+
+1. 过滤输入首位空格
 
 
 
@@ -430,7 +503,128 @@ data: {
 	})
 	```
 
-	
+
+# 组件
+
+## 概述
+
+1. 一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立拷贝
+2. 如果组件不是函数，那么组件间相同的data.name会相互影响
+
+## 组件注册
+
+### 组件名
+
+1. 可以使用`my-component-name`或`MyComponentName`
+2. 组件调用时是： `<my-component-name>`或`<MyComponentName>` 
+
+### 全局注册
+
+1. 注意：**全局注册的行为必须在根 Vue 实例 (通过 new Vue) 创建之前发生**
+
+2. 使用如下语法：
+
+   ```javascript
+   Vue.component('my-component-name', {
+     // ... 选项 ...
+   })
+   ```
+
+3. 全局注册的组件可以根实例的所有子组件中使用
+
+4. 缺点是，可能有些组件不再使用了，webpack打包时还是给你打包进去了
+
+### 局部注册
+
+1. 在 `components` 选项中定义你想要使用的组件
+
+   ```javascript
+   new Vue({
+       el: '#app',
+       components: {
+           'component-a': ComponentA,
+           'component-b': ComponentB
+       }
+   })
+   ```
+
+2. 注意，这种方式ComponentA并不能在ComponentB中使用，需要如下方式才可以
+
+   ```javascript
+   import ComponentA from './ComponentA.vue'
+   
+   export default {
+     components: {
+       'component-a': ComponentA// 也可以利用es6简写为ComponentA，但组件名则为ComponentA而不是'component-a'
+     },
+   }
+   ```
+
+### 自动化全局注册
+
+1. 主要是解决有很多非常非常基础的组件，被频繁使用，利用Vue.component一个个注册太繁琐
+2. 利用`require.context()`这个函数
+
+## Prop
+
+### 传值
+
+1. 静态传值：`<blog-post title="123"></blog-post>`
+2. 动态传值：`<blog-post :title="post.title"></blog-post>`
+3. 传入boolean，数组，对象：`<blog-post :title="false"></blog-post>`
+   - 注意要用v-bind指令，如不使用的话，会认为后面的是字符串，而不是表达式
+   - 对于上面false，如不适用v-bind，在blog-post的v-if中会认为是字符串false，故认为是true
+4. 传递一个对象全部属性：`<blog-post v-bind="post"></blog-post>`
+   - 如post的数据结构为{a:1,b:2}
+   - 上述等价为`<blog-post :a="post.a" :b="post.b"></blog-post>`
+
+### prop类型
+
+1. prop可以配置名称和类型
+
+   ```javascript
+   props: {
+     title: String,
+     likes: Number,
+     isPublished: Boolean,
+     commentIds: Array,
+     author: Object,
+     callback: Function,
+     contactsPromise: Promise // or any other constructor
+   }
+   ```
+
+### 单向数据流
+
+1. 数据流从父组件向子组件流动，即不应该试图改变prop，如这样做，控制台会报错
+
+2. 每次父级组件发生更新时，子组件中所有的 prop 都将会刷新为最新的值
+
+3. 子组件需要将prop作为本地prop使用，最好是
+
+   ```javascript
+   props: ['counter'],
+   data: function () {
+     return {
+       counter: this.counter
+     }
+   }
+   ```
+
+   - 注意data中引用props是`this.counter`
+
+4. 子组件需要对prop进行转换，最好使用计算属性
+
+   ```javascript
+   props: ['size'],
+   computed: {
+     normalizedSize: function () {
+       return this.size.trim().toLowerCase()
+     }
+   }
+   ```
+
+5. 注意：父组件是数组与对象传递的是引用，改变会影响父组件
 
 # 特殊特性
 
@@ -450,3 +644,5 @@ data: {
 
 1. 列表渲染时，vue说使用了机智的手段，在某些数组方法返回新数组时，更高效的复用dom，如果做到的
 2. 修饰符.passive的含义，为何能提升移动端性能
+3. select值绑定，为何要绑定内联对象字面量
+4. prop传一个数值，:title=123与title=123有什么区别，只是让vue知道这是一个js表达式？对于boolean是有区别的

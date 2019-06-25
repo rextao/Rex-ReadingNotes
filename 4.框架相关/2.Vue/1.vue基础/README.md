@@ -571,7 +571,7 @@ data: {
 
 1. 静态传值：`<blog-post title="123"></blog-post>`
 2. 动态传值：`<blog-post :title="post.title"></blog-post>`
-3. 传入boolean，数组，对象：`<blog-post :title="false"></blog-post>`
+3. 传入数字、boolean，数组，对象：`<blog-post :title="false"></blog-post>`
    - 注意要用v-bind指令，如不使用的话，会认为后面的是字符串，而不是表达式
    - 对于上面false，如不适用v-bind，在blog-post的v-if中会认为是字符串false，故认为是true
 4. 传递一个对象全部属性：`<blog-post v-bind="post"></blog-post>`
@@ -626,6 +626,227 @@ data: {
 
 5. 注意：父组件是数组与对象传递的是引用，改变会影响父组件
 
+### Prop验证
+
+1. 验证发生在组件实例创建之前，故实例的data、computed等是不可在验证中使用的
+
+2. 主要提供：基础类型检测、多个类型检测（数组形式）、必填字段（required）、默认值（default）、自定义验证函数（validator）
+
+	```javascript
+	Vue.component('my-component', {
+	  props: {
+	    // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+	    propA: Number,
+	    // 多个可能的类型
+	    propB: [String, Number],
+	    // 必填的字符串
+	    propC: {
+	      type: String,
+	      required: true
+	    },
+	    // 带有默认值的数字
+	    propD: {
+	      type: Number,
+	      default: 100
+	    },
+	    // 带有默认值的对象
+	    propE: {
+	      type: Object,
+	      // 对象或数组默认值必须从一个工厂函数获取
+	      default: function () {
+	        return { message: 'hello' }
+	      }
+	    },
+	    // 自定义验证函数
+	    propF: {
+	      validator: function (value) {
+	        // 这个值必须匹配下列字符串中的一个
+	        return ['success', 'warning', 'danger'].indexOf(value) !== -1
+	      }
+	    }
+	  }
+	})
+	```
+
+3. type可以是原生构造函数（String、Boolean、Number等）也可以是自定义的构造函数，vue会通过instanceof检测
+
+### 非Prop特性
+
+1. 是指在组件上传入一个prop，但是组件内部并没有相应prop定义
+
+2. 这种情况，会默认将特性添加到组件的根元素上
+
+3. 如果出现组件传入class或style值，vue会合并他们的值
+
+	```html
+	<!-- data-input 组件-->
+	<input type="date" class="form-control">
+	<date-input
+	  data-date-picker="activated"
+	  class="dark"
+	></date-input>
+	```
+
+	- vue并不会用dark覆盖form-control，而是合并为`form-control dark`
+
+## 自定义事件
+
+1. 子组件与父组件进行沟通，或传递值到父组件
+
+	```html
+	<!-- 子组件HelloWorld -->
+	<!-- msg可以是data中的一个属性值 -->
+	<h1 @click="$emit('my-event',msg)">click</h1>
+	<!-- 父组件 -->
+	<!-- hello的第一个参数则为msg的值 -->
+	<HelloWorld @my-event="hello"></HelloWorld>
+	<!-- 还可以用$event引用msg值 -->
+	<HelloWorld @my-event="post += $event"></HelloWorld>
+	```
+
+### 事件名
+
+1. 推荐使用my-event这样的kebab-case 的事件名
+2. 因为，如子组件$emit('myEvent')，父组件是无法用@myEvent接收到的，html会将大写全部转为小写
+
+### 自定义组件v-model(2.2+)
+
+1. 组件的v-model默认是用名为value的prop与input事件，如需更改，可以使用
+
+	```javascript
+	Vue.component('base-checkbox', {
+	  model: {
+	    prop: 'checked',
+	    event: 'change'
+	  }
+	})
+	```
+
+### 将原生事件绑定到组件
+
+1. 使用 `v-on` 的 `.native` 修饰符
+
+2. 但对于如下结构
+
+	```html
+	<base v-on:focus.native="onFocus"></base-input>
+	<label>
+	  {{ label }}
+	  <input
+	    v-bind="$attrs"
+	    v-on:input="$emit('input', $event.target.value)"
+	  >
+	</label>
+	```
+
+	- 实际父级的 `.native` 监听器将静默失败，不会产生错误
+	- 因为在label上没有原生的focus事件
+
+3. 为了解决这个问题，可以在子组件中使用$listeners获取父级所有监听器，相当于在input上重新绑定一下
+
+	```javascript
+	Vue.component('base-input', {
+	  inheritAttrs: false,
+	  props: ['label', 'value'],
+	  computed: {
+	    inputListeners: function () {
+	      var vm = this
+	      // `Object.assign` 将所有的对象合并为一个新对象
+	      return Object.assign({},
+	        // 我们从父级添加所有的监听器
+	        this.$listeners,
+	        // 然后我们添加自定义监听器，
+	        // 或覆写一些监听器的行为
+	        {
+	          // 这里确保组件配合 `v-model` 的工作
+	          input: function (event) {
+	            vm.$emit('input', event.target.value)
+	          }
+	        }
+	      )
+	    }
+	  },
+	  template: `
+	    <label>
+	      {{ label }}
+	      <input
+	        v-bind="$attrs"
+	        v-bind:value="value"
+	        v-on="inputListeners"
+	      >
+	    </label>
+	  `
+	})
+	```
+
+	- 利用`this.$listeners`获取父级的全部监听器
+	- 然后再添加自身的input事件的处理函数
+
+## 插槽
+
+### 插槽内容
+
+1. 父组件间的内容，子组件可以通过`<slot>` 元素进行引用
+
+2. 如子组件不包含`<slot>` 元素，父组件间的内容会被抛弃
+
+3. 父组件间可以是任何模板代码，甚至是组件
+
+	```html
+	<!-- 子组件 -->
+	<slot></slot>
+	<!-- 父组件 -->
+	<HelloWorld>hello this is slot</HelloWorld>
+	```
+
+### 编译作用域
+
+1. 父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的
+
+2. 对于如下例子
+
+	```html
+	<navigation-link url="/profile">
+	  Clicking here will send you to: {{ url }}
+	  <!--
+	  这里的 `url` 会是 undefined，因为 "/profile" 是
+	  _传递给_ <navigation-link> 的而不是
+	  在 <navigation-link> 组件*内部*定义的。
+	  -->
+	</navigation-link>
+	```
+
+	- 插槽内容是无法访问到url的
+	- 因为 "/profile" 是传递给<navigation-link> 的而不是 <navigation-link> 组件内部的
+
+### 后备内容
+
+1. 相当于为插槽设置一个默认值，即`<slot>submit</slot>`
+2. 如父组件之间无内容，则渲染为submit，如有内容，则会渲染父组件之间内容
+
+### 具名插槽
+
+1. 主要解决需要多个插槽的情况
+
+	```html
+	<!-- 子组件 -->
+	<slot name="header"></slot>
+	<slot></slot>
+	<!-- 父组件 -->
+	<HelloWorld>
+	    <template v-slot:header>
+	        <h1>hahahahah</h1>
+	    </template>
+	    <p>main</p>
+	</HelloWorld>
+	```
+
+2. slot有个额外的特性：name，用来定义额外的插槽，默认值是default
+
+3. 向具名插槽提供内容时，需要使用v-slot指令，此指令只能用于template和组件上
+
+4. 任何没有被包裹在带有 `v-slot`的 `<template>` 中的内容都会被视为默认插槽的内容。
+
 # 特殊特性
 
 ## key
@@ -645,4 +866,6 @@ data: {
 1. 列表渲染时，vue说使用了机智的手段，在某些数组方法返回新数组时，更高效的复用dom，如果做到的
 2. 修饰符.passive的含义，为何能提升移动端性能
 3. select值绑定，为何要绑定内联对象字面量
-4. prop传一个数值，:title=123与title=123有什么区别，只是让vue知道这是一个js表达式？对于boolean是有区别的
+4. 并不太理解[禁用特性继承](https://cn.vuejs.org/v2/guide/components-props.html#禁用特性继承)
+5. 看基础组件checkbox源码，看组件v-model的使用有何意义
+6. .sync 修饰符使用

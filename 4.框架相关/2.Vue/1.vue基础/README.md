@@ -847,6 +847,32 @@ data: {
 
 4. 任何没有被包裹在带有 `v-slot`的 `<template>` 中的内容都会被视为默认插槽的内容。
 
+### 作用域插槽
+
+1. 主要目的是让插槽可以访问子组件
+
+	```html
+	<!-- 子组件 -->
+	<slot name="header" v-bind:user="user"></slot>
+	<slot v-bind:age="age"></slot>
+	<!-- 父组件 -->
+	<HelloWorld>
+	    <template v-slot:header="slotProps">
+	        <h1>{{slotProps.user}}</h1>
+	    </template>
+	    <template v-slot:default="slotProps">
+	        <p>{{slotProps.age}}</p>
+	    </template>    
+	</HelloWorld>
+	```
+
+	- `v-slot:default="slotProps"`可以简写为`v-slot="slotProps"`
+
+### 具名插槽缩写
+
+1.  `v-slot:header` 可以被重写为 `#header`
+2. 与其他指令一样，只有后面有`:`参数时，才可以用，故`#="user"`会报错，可以写为`#default="user"`
+
 # 特殊特性
 
 ## key

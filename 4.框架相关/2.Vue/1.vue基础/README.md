@@ -109,6 +109,7 @@
 
 1. 节点只渲染一次
 2. 随后的重新渲染，元素/组件及其所有子节点都视为静态资源跳过
+3. 可以创建低开销的静态组件，除非渲染性能变慢很明显，不然完全没必要使用，它会造成，另一个开发者漏看v-once，会花几个小时查询为何模板无法自动更新
 
 ## v-if
 
@@ -873,6 +874,216 @@ data: {
 1.  `v-slot:header` 可以被重写为 `#header`
 2. 与其他指令一样，只有后面有`:`参数时，才可以用，故`#="user"`会报错，可以写为`#default="user"`
 
+### 动态插槽(2.6+)
+
+1. 动态指令可以使用在v-slot上
+
+	```html
+	<base-layout>
+	  <template v-slot:[dynamicSlotName]>
+	  </template>
+	</base-layout>
+	```
+
+
+
+## 处理边界情况
+
+1. 注意这些功能都是有劣势或危险的场景的
+
+### 访问根实例
+
+1. 根实例可以通过 `$root` 属性进行访问
+
+### 访问父级组件
+
+1. 通过`$parent`属性可以用来从一个子组件访问父组件的实例
+2. 更推荐下面依赖注入的方式
+
+### 访问子组件
+
+1. 需要在 JavaScript 里直接访问一个子组件
+
+2. 在要访问的子组件上，使用ref赋予ID
+
+	`<base ref="user"></base>`
+
+3. 然后可以通过`this.$ref.user`来访问
+
+4. `$refs` 只会在组件渲染完成之后生效，并且它们不是响应式的。
+
+5. 避免在模板或计算属性中访问 `$refs`
+
+### 依赖注入
+
+1. 父组件可以直接传递数据给孙组件
+
+2. 父组件，利用provide选项
+
+	```javascript
+	provide: function () {
+	  return {
+	    getMap: this.getMap
+	  }
+	}
+	```
+
+3. 孙组件使用inject选项
+
+	```javascript
+	inject: ['getMap']
+	```
+
+4. 主要缺点：
+
+	- 会使组件变得耦合在一起
+	- 属性是非响应式的
+
+5. 最好还是使用vuex
+
+### 强制更新
+
+1. 如果需要强制更新，99%是某个地方使用错误
+2. 如没有留意数组或对象的变更检测注意事项，或者依赖了一个未被vue响应式系统追踪的状态
+3. 通过`$forceUpdate`来完成这件事
+
+# 动画
+
+1. 使用transition组件进行包装
+
+## 组件/单个元素过渡
+
+### 概述
+
+1. 可以给如下任何元素或组件添加进入/离开过渡
+	- 条件渲染 (使用 `v-if`)
+	- 条件展示 (使用 `v-show`)
+	- 动态组件（使用component）
+	- 组件根节点
+2. 当插入或删除时，会做如下处理
+	- 判断是否有css过渡或动画，如有在合适时机添加类名
+	- 是否有js钩子函数，如有被调用
+	- 如都没有，则DOM 操作 (插入/删除) 在下一帧中立即执行
+
+### 过渡类名
+
+1. `v-enter`：在元素被插入之前生效，在元素被插入之后的下一帧移除。
+
+2. `v-enter-active`：动画进入的整个阶段，主要用于设置动画时间与曲线函数等。
+
+3. `v-enter-to`: 在元素被插入之后下一帧生效，在过渡/动画完成之后移除。
+
+4. 举例说明，p产生动画效果
+
+	```css
+	p{
+	    width: 100px;
+	    height: 100px;
+	    background-color: red;
+	    position: absolute;
+	    left:0;
+	}
+	.fade-enter-active{
+	    transition: all 3s;
+	}
+	.fade-enter{
+	    left:500px
+	}
+	.fade-enter-to{
+	    left: 300px
+	}
+	```
+
+	- p默认在`left:0`这个位置，点击按钮，开始动画
+	- p会先跳到`left:500px`位置，然后删除此样式，增加fade-enter-to这个类名
+	- 故p会从500px到300px进行动画，然后当动画运行到300px后，动画结束
+	- p会立即跳到原始的`left:0`这个位置
+
+5. 对应离开的过度类名有：`v-leave`，`v-leave-active`,`v-leave-to`
+
+6. 如使用 `<transition>`，则是默认的`v-`这些类名
+
+7. 如使用`<transition name="fade">`，则类名是fade-leave，fade-enter等
+
+### css动画
+
+1. 主要区别是动画中 `v-enter` 类名在节点插入 DOM 后不会立即删除，而是在 `animationend` 事件触发时删除。
+
+### 自定义过渡类名
+
+1. 优先级高于普通类名，主要是方便与第三方库进行结合
+2. `enter-class`
+3. `enter-active-class`
+4. `enter-to-class` (2.1.8+)
+5. `leave-class`
+6. `leave-active-class`
+7. `leave-to-class` (2.1.8+)
+
+### js钩子
+
+1. 可以在属性中声明js钩子
+
+	```html
+	<transition
+	  v-on:before-enter="beforeEnter"
+	  v-on:enter="enter"
+	  v-on:after-enter="afterEnter"
+	  v-on:enter-cancelled="enterCancelled"
+	  v-on:before-leave="beforeLeave"
+	  v-on:leave="leave"
+	  v-on:after-leave="afterLeave"
+	  v-on:leave-cancelled="leaveCancelled"
+	>
+	</transition>
+	```
+
+2. 当只用 JavaScript 过渡的时候，**在 enter 和 leave 中必须使用 done 进行回调**。否则，它们将被同步调用，过渡会立即完成。
+
+## 多个元素过渡
+
+1. 注意：当有相同标签元素切换时，最好是设置key，否则vue会只替换相同标签内部内容
+
+2. 比如，如下切换
+
+	```html
+	<transition>
+	    <button v-if="isEditing" key="save">
+	        Save
+	    </button>
+	    <button v-else key="edit">
+	        Edit
+	    </button>
+	</transition>
+	```
+
+3. 完全可以写为是
+
+	```html
+	<transition>
+	    <button v-bind:key="isEditing">
+	        {{ isEditing ? 'Save' : 'Edit' }}
+	    </button>
+	</transition>
+	```
+
+## 多组件过渡
+
+1. 直接使用动态组件
+
+## 列表过渡
+
+1. 使用`transition-group`组件
+
+### v-move
+
+1. 主要是应用在`transition-group`组件中，元素改变定位的过程中应用
+2. 可以通过name属性自定义前缀，通过move-class自定义类名
+3. Vue 使用了一个叫 [FLIP](https://aerotwist.com/blog/flip-your-animations/) 简单的动画队列将元素从之前的位置平滑过渡新的位置
+
+## 动态过渡
+
+1. 
+
 # 特殊特性
 
 ## key
@@ -887,6 +1098,67 @@ data: {
 	- 由于使用key，新增加的元素会被创建，删除的元素会被销毁
 6. 常见用例4：触发过渡动画
 
+## is
+
+1. 用于动态组件
+
+# 内置组件
+
+## component
+
+1. props
+
+	- is
+	- inline-template
+
+2. 染一个“元组件”为动态组件。依 `is` 的值，来决定哪个组件被渲染。
+
+3. 可以根据`is:current`的current值来渲染不同的组件
+
+	```html
+	<template>
+	  <div id="app">
+	    <button 
+	            v-for="tab in tabs" 
+	            v-bind:key="tab" @click="currentTab = tab"
+	            >{{ tab }}
+	    </button>
+	    <component :is="currentTab"></component>
+	  </div>
+	</template>
+	
+	<script>
+	import A from "./components/A";
+	import B from "./components/B";
+	export default {
+	  data: function() {
+	    return {
+	      currentTab: "A",
+	      tabs: ["A", "B", "C"]
+	    };
+	  },
+	  components: {
+	    A,B
+	  }
+	};
+	</script>
+	```
+
+	- 点击button，currentTab会得到不同的值
+	- component会根据不同的currentTab值渲染不同组件
+
+## keep-alive
+
+1. 可以保存组件状态，避免反复重渲染导致的性能问题，比如tab下的subtab，第一次切换subtab为2时，希望subtab切换回来时可以保存2这个状态
+
+	```html
+	<keep-alive>
+	    <component v-bind:is="currentTabComponent"></component>
+	</keep-alive>
+	```
+
+
+
 # 问题
 
 1. 列表渲染时，vue说使用了机智的手段，在某些数组方法返回新数组时，更高效的复用dom，如果做到的
@@ -895,3 +1167,10 @@ data: {
 4. 并不太理解[禁用特性继承](https://cn.vuejs.org/v2/guide/components-props.html#禁用特性继承)
 5. 看基础组件checkbox源码，看组件v-model的使用有何意义
 6. .sync 修饰符使用
+7. 插槽的解构使用
+8. 异步组件的应用
+9. 程序化侦听器的应用
+10. vue的 animationend怎么搞
+11. 如何同时使用过渡和动画，以及transition的duration 属性等使用
+12. 过渡模式
+13. 列表的交错过渡

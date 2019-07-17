@@ -77,14 +77,14 @@
 
 ### merger
 
-1. 如图所示，我们有一个分支feature需要合并到master上，需要提交一个g，代表合并之后的![0_fQxnxhrYC6Exwn8d](../../5.%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3(ex-git-webpack-eslint)/1-Git/git.assets/0_fQxnxhrYC6Exwn8d.gif)
+1. 如图所示，我们有一个分支feature需要合并到master上，需要提交一个g，代表合并之后的![0_fQxnxhrYC6Exwn8d](README.assets/0_fQxnxhrYC6Exwn8d.gif)
 
-### rebase
+### rebase 
 
 #### 概述
 
 1. rebase相当于重写历史
-2. rebase命令，先将feature指向master的最新节点c，然后在c后添加d，如有冲突提示用户处理冲突，一直添加完全部feature内容![2](../../5.%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3(ex-git-webpack-eslint)/1-Git/git.assets/2.gif)
+2. rebase命令，先将feature指向master的最新节点c，然后在c后添加d，如有冲突提示用户处理冲突，一直添加完全部feature内容![2](git.assets/2.gif)
 3. 相比merge主要的好处是提交历史是线性的，而不是发散的
 
 #### 主要问题
@@ -116,8 +116,12 @@
 ### 提交历史混乱，如何处理
 
 1. 如预期一个模块需要10天，这期间会有很多其他人commit的内容，需要不断的pull
-2. 那么本地的提交历史会变成这样：![1544929598574](../../5.%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3(ex-git-webpack-eslint)/1-Git/git.assets/1544929598574.png)
+2. 那么本地的提交历史会变成这样：![1544929598574](README.assets/1544929598574.png)
 3. 使用rebase可以解决这个问题
+
+## branch
+
+1. 
 
 # 实际问题
 
@@ -132,3 +136,16 @@
    ![1547730457871](README.assets/1547730457871.png)
 
 4. 或利用`github desktop history`右键复制SHA值
+
+## 分支内容被代入master
+
+1. 分支修改的内容，如果未add与commit进行提交
+2. 进行分支切换，会将文件带到新的分支上
+
+## 如何fork项目并pull request
+
+1. 先fork一个项目
+2. 然后git clone到本地，最好是在分支进行更改代码
+3. 然后再master上，运行git merge dev合并分支
+4. git push 'fork的地址'，这样可以将代码提交到自己github上
+5. 然后利用pull request，将更改提交

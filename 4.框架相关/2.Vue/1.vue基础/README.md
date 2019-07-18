@@ -785,7 +785,12 @@ data: {
 
 ## 插槽
 
-### 插槽内容
+### 概述
+
+1. 让用户可以拓展组件，去更好地复用组件和对其做定制化处理
+2. slot的用法可以分为三类，分别是默认插槽、具名插槽和作用域插槽
+
+### 默认插槽
 
 1. 父组件间的内容，子组件可以通过`<slot>` 元素进行引用
 
@@ -799,6 +804,50 @@ data: {
 	<!-- 父组件 -->
 	<HelloWorld>hello this is slot</HelloWorld>
 	```
+
+### 具名插槽
+
+1. 主要解决需要多个插槽的情况
+
+   ```html
+   <!-- 子组件 -->
+   <slot name="header"></slot>
+   <slot></slot>
+   <!-- 父组件 -->
+   <HelloWorld>
+       <template v-slot:header>
+           <h1>hahahahah</h1>
+       </template>
+       <p>main</p>
+   </HelloWorld>
+   ```
+
+2. slot有个额外的特性：name，用来定义额外的插槽，默认值是default
+
+3. 向具名插槽提供内容时，需要使用v-slot指令，此指令只能用于template和组件上
+
+4. 任何没有被包裹在带有 `v-slot`的 `<template>` 中的内容都会被视为默认插槽的内容。
+
+### 作用域插槽
+
+1. 主要目的是将子组件的信息传递给父组件使用
+
+   ```html
+   <!-- 子组件 -->
+   <slot name="header" v-bind:user="user"></slot>
+   <slot v-bind:age="age"></slot>
+   <!-- 父组件 -->
+   <HelloWorld>
+       <template v-slot:header="slotProps">
+           <h1>{{slotProps.user}}</h1>
+       </template>
+       <template v-slot:default="slotProps">
+           <p>{{slotProps.age}}</p>
+       </template>    
+   </HelloWorld>
+   ```
+
+   - `v-slot:default="slotProps"`可以简写为`v-slot="slotProps"`
 
 ### 编译作用域
 
@@ -824,50 +873,6 @@ data: {
 
 1. 相当于为插槽设置一个默认值，即`<slot>submit</slot>`
 2. 如父组件之间无内容，则渲染为submit，如有内容，则会渲染父组件之间内容
-
-### 具名插槽
-
-1. 主要解决需要多个插槽的情况
-
-	```html
-	<!-- 子组件 -->
-	<slot name="header"></slot>
-	<slot></slot>
-	<!-- 父组件 -->
-	<HelloWorld>
-	    <template v-slot:header>
-	        <h1>hahahahah</h1>
-	    </template>
-	    <p>main</p>
-	</HelloWorld>
-	```
-
-2. slot有个额外的特性：name，用来定义额外的插槽，默认值是default
-
-3. 向具名插槽提供内容时，需要使用v-slot指令，此指令只能用于template和组件上
-
-4. 任何没有被包裹在带有 `v-slot`的 `<template>` 中的内容都会被视为默认插槽的内容。
-
-### 作用域插槽
-
-1. 主要目的是让插槽可以访问子组件
-
-	```html
-	<!-- 子组件 -->
-	<slot name="header" v-bind:user="user"></slot>
-	<slot v-bind:age="age"></slot>
-	<!-- 父组件 -->
-	<HelloWorld>
-	    <template v-slot:header="slotProps">
-	        <h1>{{slotProps.user}}</h1>
-	    </template>
-	    <template v-slot:default="slotProps">
-	        <p>{{slotProps.age}}</p>
-	    </template>    
-	</HelloWorld>
-	```
-
-	- `v-slot:default="slotProps"`可以简写为`v-slot="slotProps"`
 
 ### 具名插槽缩写
 

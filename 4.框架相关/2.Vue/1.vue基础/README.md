@@ -333,6 +333,7 @@
 ## 计算属性
 
 1. 模板放入太多逻辑会让模板难以维护，而且不方便多次引用，故使用计算属性
+2. 声明的计算属性会绑定到this对象上
 
 
 
@@ -371,15 +372,101 @@
 	}
 	```
 
-## 监听属性
+## 监听属性watch
 
 1. 一种更通用的方式来观察和响应 Vue 实例上的数据变动的方式
 2. 当需要数据变化时执行异步或开销较大的操作时，最有用
 
 ### vs计算属性
 
-1. 使用 `watch` 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。
-2. 这些都是计算属性无法做到的。
+1. 两者都是依赖一个数据，并进行处理
+2. 使用 `watch` 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，并在我们得到最终结果前设置中间状态，这些都是计算属性无法做到的。
+3. 能用computed的时候优先用computed，避免了多个数据影响其中某个数据时多次调用watch的尴尬情况。
+
+### immediate属性
+
+1. 初始化的时候watch是不会执行的，即如下代码不会显示，console.log
+
+   ```javascript
+   var vm = new Vue({
+     el: '#demo',
+     data: {
+       firstName: 'Foo',
+       lastName: 'Bar',
+       fullName: 'Foo Bar'
+     },
+     watch: {
+       firstName: function (val) {
+         console.log('第一次没有执行～')
+         this.fullName = val + ' ' + this.lastName
+       }
+     }
+   })
+   ```
+
+2. 可以使用immediate，改写为
+
+   ```javascript
+   watch: {
+     firstName: {
+       handler(val) {
+         console.log('第一次执行了～')
+         this.fullName = val + ' ' + this.lastName
+       },
+         immediate: true
+     }
+   }
+   ```
+
+   - 注意要使用handler方法
+   - `immediate:true`，表示如果watch声明了firstName，会立即执行handler方法
+
+### deep属性
+
+1. 由于 Vue 会在初始化实例时对属性执行 getter/setter 转化过程，所以属性必须在 data 对象上存在才能让 Vue 转换它，才能让它是响应式的。所以如果初始化a={},vue是无法监听到a添加或删除属性的
+
+2. 解决办法1，在mounted钩子中，对obj进行赋值，这样vue就可以监听obj.a的变化，但如果想监听obj属性呢？
+
+   ```javascript
+   mounted() {
+     this.obj = {
+       a: '123'
+     }
+   }
+   ```
+
+3. 解决方式2：使用deep属性
+
+   ```javascript
+   watch: {
+     obj: {
+       handler(val) {
+         console.log('obj.a changed')
+       },
+         immediate: true，
+         deep: true
+     }
+   }
+   ```
+
+   - 会深度遍历obj，并为每一层增加一个监听器
+   - 但这样的方式性能消耗很大，而且可能并不需要监听全部obj的属性变化
+
+4. 可以
+
+   ```javascript
+   watch: {
+     'obj.a': {
+       handler(val) {
+         console.log('obj.a changed')
+       },
+         immediate: true
+       // deep: true
+     }
+   }
+   ```
+
+   
 
 # class与style
 

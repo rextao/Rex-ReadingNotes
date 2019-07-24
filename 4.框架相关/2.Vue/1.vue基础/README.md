@@ -820,7 +820,7 @@ data: {
 	- 插槽内容是无法访问到url的
 	- 因为 "/profile" 是传递给<navigation-link> 的而不是 <navigation-link> 组件内部的
 
-### 后备内容
+### 插槽默认值
 
 1. 相当于为插槽设置一个默认值，即`<slot>submit</slot>`
 2. 如父组件之间无内容，则渲染为submit，如有内容，则会渲染父组件之间内容

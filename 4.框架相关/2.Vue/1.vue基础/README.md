@@ -1176,6 +1176,98 @@ data: {
 
 1. 
 
+
+
+# 可复用性
+
+## 混入
+
+### 概述
+
+1. 一个混入对象可以包含任意组件选项。
+
+2. 当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。
+
+   ```javascript
+   export default {
+       mixins: [mixin],
+   };
+   ```
+
+### 选项合并
+
+1. 数据对象：递归合并，组件数据优先。
+2. 钩子函数：将合并为一个数组，都将被调用。混入对象的钩子将在组件自身钩子**之前**调用。
+3. `methods、components`：合并为同一个对象，键名冲突，取组件对象的键值对
+4. 注意：`Vue.extend()` 也使用同样的策略进行合并
+
+### 全局混入
+
+1. 一旦使用全局混入，它将影响**每一个**之后创建的 Vue 实例。
+
+2. 推荐将其作为[插件](https://cn.vuejs.org/v2/guide/plugins.html)发布，以避免重复应用混入。
+
+   ```javascript
+   Vue.mixin({
+     created: function () {
+       var myOption = this.$options.myOption
+       if (myOption) {
+         console.log(myOption)
+       }
+     }
+   })
+   ```
+
+## 过滤器
+
+### 概述
+
+1. 过滤器可以用在两个地方：**双花括号插值和 v-bind 表达式** (后者从 2.1.0+ 开始支持)
+
+2. 过滤器应该被添加在 JavaScript 表达式的尾部
+
+   ```javascript
+   <!-- 在双花括号中 -->
+   {{ message | capitalize }}
+   <!-- 在 `v-bind` 中 -->
+   <div v-bind:id="rawId | formatId"></div>
+   ```
+
+### 定义过滤器
+
+1. 组件定义过滤器
+
+   ```javascript
+   filters: {
+     capitalize: function (value) {
+     }
+   }
+   ```
+
+2. 全局定义过滤器
+
+   ```javascript
+   Vue.filter('capitalize', function (value) {
+   })
+   
+   ```
+
+3. 当全局过滤器和局部过滤器重名时，会采用局部过滤器。
+
+4. 过滤器串联
+
+   ```javascript
+   {{ message | filterA | filterB }}
+   ```
+
+## 插件
+
+### 概述
+
+1. 插件通常用来为 Vue 添加全局功能
+2. 通过全局方法 `Vue.use()` 使用插件。它需要在你调用 `new Vue()` 启动应用之前完成
+3. `Vue.use` 会自动阻止多次注册相同插件，届时即使多次调用也只会注册一次该插件
+
 # 特殊特性
 
 ## key
@@ -1259,6 +1351,8 @@ data: {
 	```
 
 
+
+## 
 
 # 问题
 

@@ -35,7 +35,8 @@ const sharedPropertyDefinition = {
   set: noop
 }
 // proxy实际是定义一个get与set，然后利用defineProperty，对target的key，进行get，set包装
-// target就是vm，
+// target就是vm，sourceKey：_data, key：data上定义的key
+// 比如我们在data上定义了一个值test，vm.test可以取到值，是因为此proxy做了代理，当调用时，实际是获取this._data.test
 export function proxy (target: Object, sourceKey: string, key: string) {
   sharedPropertyDefinition.get = function proxyGetter () {
     return this[sourceKey][key]

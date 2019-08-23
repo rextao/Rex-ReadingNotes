@@ -65,8 +65,10 @@ export function initMixin (Vue: Class<Component>) {
       measure(`vue ${vm._name} init`, startTag, endTag)
     }
 
+    // 判断是否传入要挂载的el
     if (vm.$options.el) {
       // 挂载的关键代码，当代码执行vm.$mount才会挂载到dom上
+      // 这个函数实际是在./runtime/index中定义的
       vm.$mount(vm.$options.el)
     }
   }

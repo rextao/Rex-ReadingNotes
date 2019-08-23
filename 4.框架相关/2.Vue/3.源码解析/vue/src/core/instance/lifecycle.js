@@ -144,6 +144,8 @@ export function mountComponent (
   hydrating?: boolean
 ): Component {
   vm.$el = el
+  // TODO 前面的处理过程，会将template挂载在$opionts上吗？
+  // 即，解析失败的处理
   if (!vm.$options.render) {
     vm.$options.render = createEmptyVNode
     if (process.env.NODE_ENV !== 'production') {

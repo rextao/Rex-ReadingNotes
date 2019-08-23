@@ -13,15 +13,17 @@ const idToTemplate = cached(id => {
   const el = query(id)
   return el && el.innerHTML
 })
-
+// 先缓存了Vue.prototype.$mount方法，然后又定义了此方法
+// 在./runtime/index定义了此方法，因为runtime的版本并没有此处逻辑，为了复用
 const mount = Vue.prototype.$mount
 Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
 ): Component {
+  // 如果el是字符串，则返回查询到的dom
   el = el && query(el)
 
-  /* istanbul ignore if */
+  // vue不能挂载在body或documentElement上，vue会覆盖挂载元素
   if (el === document.body || el === document.documentElement) {
     process.env.NODE_ENV !== 'production' && warn(
       `Do not mount Vue to <html> or <body> - mount to normal elements instead.`
@@ -30,7 +32,7 @@ Vue.prototype.$mount = function (
   }
 
   const options = this.$options
-  // resolve template/el and convert to render function
+  // 将template转换为render函数
   if (!options.render) {
     let template = options.template
     if (template) {
@@ -56,6 +58,7 @@ Vue.prototype.$mount = function (
     } else if (el) {
       template = getOuterHTML(el)
     }
+    // 与编译相关
     if (template) {
       /* istanbul ignore if */
       if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
@@ -79,6 +82,7 @@ Vue.prototype.$mount = function (
       }
     }
   }
+  // 因此，实际最后vue只认render函数
   return mount.call(this, el, hydrating)
 }
 

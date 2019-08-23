@@ -502,7 +502,7 @@ if (inBrowser) {
     Object.defineProperty(opts, 'passive', ({
       get: function get () {
         /* istanbul ignore next */
-        
+
       }
     })); // https://github.com/facebook/flow/issues/285
     window.addEventListener('test-passive', null, opts);
@@ -4205,7 +4205,6 @@ function updateVirtualComponent (vnode) {
   }
   vm._vnode = vnode;
   if (vm._isMounted && componentId) {
-    // TODO: data should be filtered and without bindings
     var data = Object.assign({}, vm._data);
     updateComponentData(componentId, data, function () {
       callHook(vm, 'updated');
@@ -4225,7 +4224,6 @@ function resolveVirtualComponent (vnode) {
     beforeCreate: function beforeCreate () {
       // const vm: Component = this
 
-      // TODO: listen on all events and dispatch them to the
       // corresponding virtual components according to the componentId.
       // vm._virtualComponents = {}
       var createVirtualComponent = function (componentId, propsData) {
@@ -6659,12 +6657,12 @@ if (hasTransition) {
   if (window.ontransitionend === undefined &&
     window.onwebkittransitionend !== undefined
   ) {
-    
+
   }
   if (window.onanimationend === undefined &&
     window.onwebkitanimationend !== undefined
   ) {
-    
+
   }
 }
 
@@ -7295,7 +7293,6 @@ var TransitionGroup = {
       prevChildren.forEach(function (c) {
         c.data.transition = transitionData;
 
-        // TODO: record before patch positions
 
         if (map[c.key]) {
           kept.push(c);
@@ -7329,7 +7326,6 @@ var TransitionGroup = {
       return
     }
 
-    // TODO: finish implementing move animations once
     // we have access to sync getComponentRect()
 
     // children.forEach(callPendingCbs)

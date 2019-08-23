@@ -91,7 +91,6 @@ function updateVirtualComponent (vnode?: VNode) {
   }
   vm._vnode = vnode
   if (vm._isMounted && componentId) {
-    // TODO: data should be filtered and without bindings
     const data = Object.assign({}, vm._data)
     updateComponentData(componentId, data, () => {
       callHook(vm, 'updated')
@@ -111,7 +110,6 @@ export function resolveVirtualComponent (vnode: MountedComponentVNode): VNode {
     beforeCreate () {
       // const vm: Component = this
 
-      // TODO: listen on all events and dispatch them to the
       // corresponding virtual components according to the componentId.
       // vm._virtualComponents = {}
       const createVirtualComponent = (componentId, propsData) => {

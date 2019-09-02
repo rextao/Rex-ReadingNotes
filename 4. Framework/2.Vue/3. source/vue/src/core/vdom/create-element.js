@@ -25,14 +25,16 @@ const ALWAYS_NORMALIZE = 2
 
 // wrapper function for providing a more flexible interface
 // without getting yelled at by flow
+// 实际是先对参数进行处理，之后调用_createElement
 export function createElement (
-  context: Component,
+  context: Component, // vm 实例
   tag: any,
   data: any,
   children: any,
   normalizationType: any,
   alwaysNormalize: boolean
 ): VNode | Array<VNode> {
+  // 如果没有传data，对参数不一致的处理
   if (Array.isArray(data) || isPrimitive(data)) {
     normalizationType = children
     children = data
@@ -51,15 +53,18 @@ export function _createElement (
   children?: any,
   normalizationType?: number
 ): VNode | Array<VNode> {
+  // Todo data数据不能是响应式
   if (isDef(data) && isDef((data: any).__ob__)) {
     process.env.NODE_ENV !== 'production' && warn(
       `Avoid using observed data object as vnode data: ${JSON.stringify(data)}\n` +
       'Always create fresh vnode data objects in each render!',
       context
     )
+    // 可以理解为创建一个空的注释vnode
     return createEmptyVNode()
   }
   // object syntax in v-bind
+  // Todo component.is 时，data会有is属性
   if (isDef(data) && isDef(data.is)) {
     tag = data.is
   }
@@ -87,15 +92,19 @@ export function _createElement (
     data.scopedSlots = { default: children[0] }
     children.length = 0
   }
+  // 1、对children做normalize，主要为了返回一维数组的chilren，保证每一个数据项都是vnode
   if (normalizationType === ALWAYS_NORMALIZE) {
+    // 递归扁平数据
     children = normalizeChildren(children)
   } else if (normalizationType === SIMPLE_NORMALIZE) {
     children = simpleNormalizeChildren(children)
   }
   let vnode, ns
+  // tag可以是string，也可以是组件
   if (typeof tag === 'string') {
     let Ctor
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag)
+    // 判断tag是否为html原生标签
     if (config.isReservedTag(tag)) {
       // platform built-in elements
       if (process.env.NODE_ENV !== 'production' && isDef(data) && isDef(data.nativeOn)) {
@@ -108,6 +117,7 @@ export function _createElement (
         config.parsePlatformTagName(tag), data, children,
         undefined, undefined, context
       )
+      // Todo： 组件相关
     } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
       // component
       vnode = createComponent(Ctor, data, context, children, tag)
@@ -115,6 +125,7 @@ export function _createElement (
       // unknown or unlisted namespaced elements
       // check at runtime because it may get assigned a namespace when its
       // parent normalizes children
+      // 处理不认识的一些标签
       vnode = new VNode(
         tag, data, children,
         undefined, undefined, context

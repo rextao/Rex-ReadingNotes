@@ -1,10 +1,12 @@
 /* @flow */
-
+// 参照snabbdom实现
 export default class VNode {
   tag: string | void;
+  // 在flow/vnode.js有定义
   data: VNodeData | void;
   children: ?Array<VNode>;
   text: string | void;
+  // dom对象的持有
   elm: Node | void;
   ns: string | void;
   context: Component | void; // rendered in this component's scope
@@ -70,7 +72,7 @@ export default class VNode {
     return this.componentInstance
   }
 }
-
+ // 可以理解为一个空的注释vnode
 export const createEmptyVNode = (text: string = '') => {
   const node = new VNode()
   node.text = text

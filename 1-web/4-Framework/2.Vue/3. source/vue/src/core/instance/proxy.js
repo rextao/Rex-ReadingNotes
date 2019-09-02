@@ -53,6 +53,7 @@ if (process.env.NODE_ENV !== 'production') {
   }
 
   const hasHandler = {
+    // 拦截propKey in proxy的操作，返回一个布尔值。
     has (target, key) {
       const has = key in target
       const isAllowed = allowedGlobals(key) ||
@@ -66,6 +67,7 @@ if (process.env.NODE_ENV !== 'production') {
   }
 
   const getHandler = {
+    // 拦截对象属性的读取
     get (target, key) {
       if (typeof key === 'string' && !(key in target)) {
         if (key in target.$data) warnReservedPrefix(target, key)
@@ -76,9 +78,11 @@ if (process.env.NODE_ENV !== 'production') {
   }
 
   initProxy = function initProxy (vm) {
+    // 是否存在原生的Proxy对象，对vm进行代理
     if (hasProxy) {
       // determine which proxy handler to use
       const options = vm.$options
+      // todo: _withStripped 未找到赋值地方
       const handlers = options.render && options.render._withStripped
         ? getHandler
         : hasHandler

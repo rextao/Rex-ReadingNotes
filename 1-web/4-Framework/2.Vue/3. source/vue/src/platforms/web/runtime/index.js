@@ -30,7 +30,8 @@ Vue.config.isUnknownElement = isUnknownElement
 extend(Vue.options.directives, platformDirectives)
 extend(Vue.options.components, platformComponents)
 
-// install platform patch function
+// 安装平台的patch函数
+// 如果在浏览器端，则赋值为patch，node端无法触及dom，故赋值为noop
 Vue.prototype.__patch__ = inBrowser ? patch : noop
 
 // public mount method

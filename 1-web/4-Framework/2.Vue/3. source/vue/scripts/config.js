@@ -24,7 +24,7 @@ const weexFactoryPlugin = {
     return '}'
   }
 }
-
+// 对文件路径进行映射
 const aliases = require('./alias')
 const resolve = p => {
   const base = p.split('/')[0]

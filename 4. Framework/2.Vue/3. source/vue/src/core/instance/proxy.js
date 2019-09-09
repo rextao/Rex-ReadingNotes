@@ -82,7 +82,7 @@ if (process.env.NODE_ENV !== 'production') {
     if (hasProxy) {
       // determine which proxy handler to use
       const options = vm.$options
-      // todo: _withStripped 未找到赋值地方
+      // todo _withStripped 未找到赋值地方
       const handlers = options.render && options.render._withStripped
         ? getHandler
         : hasHandler

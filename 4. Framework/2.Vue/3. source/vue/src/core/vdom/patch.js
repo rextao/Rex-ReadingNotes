@@ -188,6 +188,7 @@ export function createPatchFunction (backend) {
           insert(parentElm, vnode.elm, refElm)
         }
       } else {
+        // 如vnode存在子节点，先创建子节点，递归调用，然后再insert
         createChildren(vnode, children, insertedVnodeQueue)
         if (isDef(data)) {
           invokeCreateHooks(vnode, insertedVnodeQueue)
@@ -696,7 +697,7 @@ export function createPatchFunction (backend) {
       return node.nodeType === (vnode.isComment ? 8 : 3)
     }
   }
-
+  // 首次调用时，oldVnode实际是vue要挂载的真实dom节点
   return function patch (oldVnode, vnode, hydrating, removeOnly) {
     if (isUndef(vnode)) {
       if (isDef(oldVnode)) invokeDestroyHook(oldVnode)
@@ -724,6 +725,7 @@ export function createPatchFunction (backend) {
             oldVnode.removeAttribute(SSR_ATTR)
             hydrating = true
           }
+          // Todo hydrating 干嘛用的？
           if (isTrue(hydrating)) {
             if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
               invokeInsertHook(vnode, insertedVnodeQueue, true)
@@ -738,16 +740,17 @@ export function createPatchFunction (backend) {
               )
             }
           }
-          // either not server-rendered, or hydration failed.
-          // create an empty node and replace it
+          // 如果不是服务器渲染，hydration为false
+          // 创建一个空的vNode，即将挂载的普通dom转换为空的vNode
           oldVnode = emptyNodeAt(oldVnode)
         }
 
         // replacing existing element
         const oldElm = oldVnode.elm
+        // 获取挂载的父级Dom元素
         const parentElm = nodeOps.parentNode(oldElm)
 
-        // create new node
+        // 根据vnode，挂载到真实dom节点上
         createElm(
           vnode,
           insertedVnodeQueue,
@@ -788,7 +791,8 @@ export function createPatchFunction (backend) {
           }
         }
 
-        // destroy old node
+        // 删除旧节点
+        // 根据断电调试，可以看到此时页面会有两个id=app的div
         if (isDef(parentElm)) {
           removeVnodes([oldVnode], 0, 0)
         } else if (isDef(oldVnode.tag)) {

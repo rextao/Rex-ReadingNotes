@@ -1,0 +1,41 @@
+<style>
+    body{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+	.bg{
+		background-image: url('demo1-1.jpg');
+		background-size: cover;
+		position: fixed;
+		top:0;
+		left:0;
+		bottom: 0;
+		right:0;
+        filter: blur(10px);
+  		z-index: -1;
+	}
+    .mask{
+        width: 200px;
+        height: 95px;
+        /*注意需要为mask增加一个背景，否则无效果*/
+        background-image: url('demo1-1.jpg');
+        background-size: cover;
+        -webkit-mask: url("demo1-2.svg");
+        -webkit-mask-size: cover;
+        -webkit-animation: move 40s infinite;
+        -o-animation: move 40s infinite;
+        animation: move 40s infinite;
+    }
+    @keyframes move {
+        0%{
+            background-position: 0 0;
+        }
+        50%{
+            background-position: 100% 0;
+        }
+    }
+</style>
+<div class="bg"></div>
+<div class="mask"></div>

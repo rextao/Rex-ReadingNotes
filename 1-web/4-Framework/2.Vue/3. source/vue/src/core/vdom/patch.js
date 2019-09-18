@@ -212,6 +212,8 @@ export function createPatchFunction (backend) {
     let i = vnode.data
     if (isDef(i)) {
       const isReactivated = isDef(vnode.componentInstance) && i.keepAlive
+      // 由于组件createComponent中会调用installComponentHooks安装hooks，因此会执行init方法
+      // src/core/vdom/create-component.js componentVNodeHooks.init
       if (isDef(i = i.hook) && isDef(i = i.init)) {
         i(vnode, false /* hydrating */)
       }

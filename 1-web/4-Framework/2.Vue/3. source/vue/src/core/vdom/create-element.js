@@ -119,7 +119,7 @@ export function _createElement (
       )
       // Todo： 组件相关
     } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
-      // component
+      // component-跳转到create-component.js
       vnode = createComponent(Ctor, data, context, children, tag)
     } else {
       // unknown or unlisted namespaced elements

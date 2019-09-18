@@ -108,3 +108,21 @@
 3. initState，告诉我们，会依次初始化props，methods，data，computed，watch
 4. 最后通过proxy，将data挂载在vm实例上
 
+## render函数
+
+## 虚拟Dom
+1. 可以在控制台打印dom节点
+  ```javascript
+    const div = document.createElement('div');
+    let str = ''
+    for(var key in div){
+        str += key;
+    }
+  ```
+  - 可以看到实际的dom会包含很多内容
+2. virtual DOM实际是用原生js对象去描述一个DOM节点，比创建一个DOM的代价小的多
+  - 不需要包含操作dom的方法
+  - 映射到真实DOM实际要经历VNode的create、diff、patch等过程
+
+# 问题汇总
+1. src/core/vdom/create-element.js的_createElement何种情况会传入data和children

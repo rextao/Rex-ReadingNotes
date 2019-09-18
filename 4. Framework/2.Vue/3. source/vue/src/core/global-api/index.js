@@ -55,6 +55,7 @@ export function initGlobalAPI (Vue: GlobalAPI) {
     Vue.options[type + 's'] = Object.create(null)
   })
 
+  // 用于标示基本构造函数，用于在weex多场景扩展所有纯对象组件
   // this is used to identify the "base" constructor to extend all plain-object
   // components with in Weex's multi-instance scenarios.
   Vue.options._base = Vue

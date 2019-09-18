@@ -11,9 +11,11 @@ if (!fs.existsSync('dist')) {
 // 拿构建需要的依赖
 let builds = require('./config').getAllBuilds()
 
-// 将配置进行过滤
+// 处理命令行参数
+// 接收通过命令执行node程序时候所传入的参数。
 // packages.json中scripts命令行的参数，即如使用了参数，会根据参数进行过滤
 // 否则会过滤weex
+console.log(process.argv)
 if (process.argv[2]) {
   const filters = process.argv[2].split(',')
   builds = builds.filter(b => {

@@ -97,7 +97,9 @@ const componentVNodeHooks = {
 }
 
 const hooksToMerge = Object.keys(componentVNodeHooks)
-
+// 1、组件构造器生成，继承Vue的，
+// 2、组件会具有一些hook
+// 3、组件vnode与普通vnode有区别，没有children
 export function createComponent (
   Ctor: Class<Component> | Function | Object | void,
   data: ?VNodeData,
@@ -108,10 +110,10 @@ export function createComponent (
   if (isUndef(Ctor)) {
     return
   }
-
+  // src/core/global-api/index.js，init.js中有对options的合并，实际就是Vue，
   const baseCtor = context.$options._base
 
-  // plain options object: turn it into a constructor
+  // 如传入的是对象，则转换为构造器
   if (isObject(Ctor)) {
     Ctor = baseCtor.extend(Ctor)
   }

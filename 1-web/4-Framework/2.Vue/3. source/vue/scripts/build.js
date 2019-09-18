@@ -72,7 +72,7 @@ function buildEntry (config) {
       }
     })
 }
-
+// 将fs.write封装为promise
 function write (dest, code, zip) {
   return new Promise((resolve, reject) => {
     function report (extra) {

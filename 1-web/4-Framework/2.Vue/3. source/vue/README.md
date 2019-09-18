@@ -1,7 +1,33 @@
 # 学习
-1. 如何分析源码
- - 没必要像jQuery一样，进行深度遍历的看，这样是比较累的，可以先跳过一些部分，如vue，可先跳过响应式原理、生命周期
- - 等到要看生命周期时再自己阅读
+
+## 如何分析源码
+
+1. 没必要像jQuery一样，进行深度遍历的看，这样是比较累的，并且不容易整体把握
+2. 可以先跳过一些部分，如响应式原理，等看到响应式原理时，再看这部分代码
+
+
+
+# 源码阅读
+
+##  代码构建过程
+1. 如何将fs.write封装为promise
+   
+   - 在`scripts/build.js`的write函数
+   
+1. 利用\x1b[1m\x1等字符，可以将console的颜色进行更改
+   
+   - 在`scripts/build.js`的blue，可以使用chalk对console文件进行颜色美化
+   
+1. 流程图
+
+   ![vue构建过程](README.assets/vue构建过程.svg)
+## new Vue阶段
+1. 根据构建需要的配置入口文件`scripts/config.js`的builds中的entry，找到`web/entry-runtime.js`，可以逐步向上查找Vue的定义
+2. 最终在`src/core/instance/index.js `找到`function Vue(){}`定义
+3. 
+
+
+1. 
 # 内容概述
 
 1. 核心
@@ -126,3 +152,11 @@
 
 # 问题汇总
 1. src/core/vdom/create-element.js的_createElement何种情况会传入data和children
+
+# 23日
+1. 根据`src/core/instance/init.js`可以看出，beforeCreate与create之间主要区别是，会初始化inject，state与provide
+1. https://github.com/vuejs/vue/tree/2.6/dist，有各个构建版本含义的介绍
+1. 根据`scripts/config.js`，主要是用`src/platforms/web/entry-runtime.js`构建runtime版本，用`src/platforms/web/entry-runtime-with-compiler.js`构建运行与编译版本
+# 24日
+1. 这两个文件引用的vue文件都来源于`src/platforms/web/runtime/index.js`
+1. 而compiler版本多出的代码内容实际是重定义了Vue.prototype.$mount函数

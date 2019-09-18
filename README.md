@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # 概述
 
 <<<<<<< HEAD
@@ -7,18 +8,25 @@
 2. 整合了之前jquery源码和jsNote（es5）两个github库，并提交一些本地存储的文档
 3. 使用Typora这个markdown软件编辑
 4. pdf由于过大未上传，本地存储
+=======
+# 阅读与学习积累的知识
 
-# 主要内容
+## web
+1. 主要是前端相关知识
 
-## 1.JavaScript
+### 
+>>>>>>> 7d7bef3... vue 源码
 
-1. ES5
-2. ES6
-3. source
-	- jQuery源码阅读
-	- snabbdomSource源码阅读
-4. TypeScript
+## foundation
+1. 主要是计算基础
 
+## tools
+1. 主要是git、webpack、eslint、npm等使用记录
+
+## python
+1. 简单python学习
+
+<<<<<<< HEAD
 ## 2.HTML
 
 1. 主要是html的一些标签，或者某些语法（尤其是html5）
@@ -71,3 +79,5 @@
 
 1. idea、webstorm使用
 >>>>>>> 6e86833... 丰富readme
+=======
+>>>>>>> 7d7bef3... vue 源码

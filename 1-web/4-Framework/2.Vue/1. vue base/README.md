@@ -99,6 +99,10 @@
 
 
 ## v-bind
+### v-bind="$props"
+1. `<child-component v-bind="$props"></child-component>`
+2. 通过 $props 将父组件的 props 一起传给子组件
+
 
 ### 缩写
 

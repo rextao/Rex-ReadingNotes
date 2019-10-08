@@ -11,23 +11,37 @@
 
 ##  代码构建过程
 1. 如何将fs.write封装为promise
-   
+  
    - 在`scripts/build.js`的write函数
    
 1. 利用\x1b[1m\x1等字符，可以将console的颜色进行更改
-   
+  
    - 在`scripts/build.js`的blue，可以使用chalk对console文件进行颜色美化
    
+1. 注意：
+
+   - config.js中的config里面的各种不同编译版本，在vue官网有介绍
+
 1. 流程图
 
    ![vue构建过程](README.assets/vue构建过程.svg)
+
 ## new Vue阶段
 1. 根据构建需要的配置入口文件`scripts/config.js`的builds中的entry，找到`web/entry-runtime.js`，可以逐步向上查找Vue的定义
+
 2. 最终在`src/core/instance/index.js `找到`function Vue(){}`定义
-3. 
 
+3. 因此，实际调用new Vue，是会执行`Vue.prototype._init`，最终运行`vm.$mount(vm.$options.el)`方法
 
-1. 
+4. 流程图
+
+   ![2-new vue](README.assets/2-new vue.svg)
+
+## vm挂载
+
+1. 由于`Vue.prototype._init()`最后是调用vm.$mount方法；这个方法在`src/platforms/web/runtime/index.js`与`src/platforms/web/entry-runtime-with-compiler.js`中都有定义
+2. 
+
 # 内容概述
 
 1. 核心

@@ -2,10 +2,5 @@
 .cache
 *.pdf
 node_modules
-<<<<<<< HEAD
 .DS_Store
 test*.*
-=======
-test.html
-test*.js
->>>>>>> be9acc7... 人工智能、机器学习等关系

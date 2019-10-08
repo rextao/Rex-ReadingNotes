@@ -29,6 +29,8 @@ const branchCache = {
         if(isDelete) {
             await deleteRemoteTracking();  // 确定删除本地分支
         }
+    }catch (e) {
+        console.log(chalk.red(e));
     }finally {
         await co(branchCache.current);
     }
@@ -152,6 +154,9 @@ async function getMergedBranches() {
     // 远程分支是以origin/开头,
     const reg = new RegExp(`(?<=origin\\/).*(${config.branchAlias.join('|')}).*`, 'g');
     branchCache.merged = branches.match(reg);
+    if(!branchCache.merged) {
+        throw new Error('远程无已合并分支')
+    }
 }
 
 // 工具函数

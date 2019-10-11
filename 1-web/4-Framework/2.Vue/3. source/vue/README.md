@@ -40,7 +40,14 @@
 ## vm挂载
 
 1. 由于`Vue.prototype._init()`最后是调用vm.$mount方法；这个方法在`src/platforms/web/runtime/index.js`与`src/platforms/web/entry-runtime-with-compiler.js`中都有定义
-2. 
+
+2. 而编译版本js主要是对template进行处理，编译为render函数，然后进行后续操作
+
+3. 流程图
+
+   ![3-vm挂载](README.assets/3-vm挂载.svg)
+
+4. 根据流程图可以看出，最终会调用`vm._update(vm._render(),hydrating)`
 
 # 内容概述
 

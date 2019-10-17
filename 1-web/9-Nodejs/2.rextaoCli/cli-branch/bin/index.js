@@ -2,7 +2,12 @@
 const prompts = require('prompts');
 const chalk = require('chalk');
 const open = require('open');
-const config = require('./config');
+
+
+const config = {
+    workSpace: process.cwd(), //process.cwd(), // 获取node命令启动路径，其值与代码所在位置无关
+    branchAlias: ['wt-','wangtao-']
+};
 
 let searchUrl = '' ; // 类似于：xxxxxxxadmin/-/branches/all?utf8=✓&search=wt-  地址
 let isOpenUrl = false;
@@ -24,35 +29,39 @@ const branchCache = {
         await getMergedBranches();  // 获取merged分支
         await confirmModeSelect();  // 选择删除模式
         await confirmOpenUrl();     // 选择是否打开网页，确定分支已经合并，避免误删
-        const isDelete = await confirmDeleteBranches();  // 确定删除远程分支
-        // 如确定要删除
-        if(isDelete) {
-            await deleteRemoteTracking();  // 确定删除本地分支
-        }
+        await deleteBranch();       // 删除分支
     }catch (e) {
         console.log(chalk.red(e));
     }finally {
         await co(branchCache.current);
     }
-})()
+})();
 
-
-
-// 删除远程分支tracking
-async function deleteRemoteTracking(){
+async function deleteBranch() {
     const readyDelete = branchCache.readyDelete;
-    for (let i = 0; i < readyDelete; i ++) {
+    for (let i = 0; i < readyDelete.length; i++) {
         const item = readyDelete[i];
-        try {
-            await simpleGit.raw(['branch','-r','-d',`origin/${item}`]);
-            await simpleGit.push('origin', `:${item}`);
-            console.log(chalk.green(`${item}远程分支删除成功`));
+        const isDelete = await confirmDeleteBranches(item);  // 确定删除远程分支
+        // 如确定要删除
+        if(isDelete) {
+            await deleteRemoteTracking(item);  // 确定删除本地分支
             await confirmDeleteLocalBranch(item);
-        } catch (e) {
-            console.log(e);
+        } else {
+            console.log(chalk.green(`${item}并未删除`));
         }
     }
+}
 
+// 删除远程分支tracking
+async function deleteRemoteTracking(item){
+    try {
+        await simpleGit.raw(['branch','-r','-d',`origin/${item}`]);
+        await simpleGit.push('origin', `:${item}`);
+        console.log(chalk.green(`${item}远程分支删除成功`));
+    } catch (e) {
+        console.log(e);
+        throw new Error(e);
+    }
 }
 // 获取branch查询地址，查看当前分支是否已经合并到develop，避免删错
 async function getSearchUrl(){
@@ -62,8 +71,8 @@ async function getSearchUrl(){
 }
 // 拉取develop分支最新内容
 async function developPull(){
-    await co(); // 切换到develop分支
-    const a =await simpleGit.pull();
+    await coMaster(); // 切换到develop分支
+    await simpleGit.pull();
 }
 // 是否删除本地分支
 async function confirmDeleteLocalBranch(item){
@@ -80,6 +89,7 @@ async function confirmDeleteLocalBranch(item){
             console.log(chalk.green(`本地分支删除成功`));
         } catch (e) {
             console.log(e);
+            throw new Error(e);
         }
     }
 }
@@ -117,19 +127,16 @@ async function confirmOpenUrl(){
 }
 
 // 确定删除
-async function confirmDeleteBranches() {
-    const msgArr = branchCache.readyDelete.map((item) => {
-        const url = `http://${searchUrl}/-/branches/all?search=${item}`;
-        // 避免打开网页过多
-        if(isOpenUrl && branchCache.readyDelete.length <= 10){
-            open(url);
-        }
-        return `${chalk.magenta(item)}: ${url}`;
-    });
+async function confirmDeleteBranches(item) {
+    const url = `http://${searchUrl}/-/branches/all?search=${item}`;
+    if(isOpenUrl){
+        open(url);
+    }
+    const msgArr = `${chalk.magenta(item)}: ${url}`;
     const { value } = await prompts({
         type: 'toggle',
         name: 'value',
-        message: `是否要删除这些分支?\n${msgArr.join('\n')}\n`,
+        message: `是否要删除这些分支?\n${msgArr}`,
         active: 'YES',
         inactive: 'NO'
     });
@@ -144,9 +151,23 @@ async function getLocalBranches() {
 
 
 // 切换分支
-async function co(branchName = 'develop') {
+async function co(branchName) {
     await simpleGit.checkout(branchName);
 }
+async function coMaster(){
+    try {
+        await co('develop') ;// 先切换到develop，如果不存在
+    } catch (e) {
+       try {
+           console.log('error: pathspec \'develop\'已被catch');
+           await co('master') ;// 再切换master
+       }catch (e) {
+           // Todo 理论上，如果不是这两分支，需要用户输入-。-，但一般主分支都是这俩
+           throw new Error('此项目主分支不是master或develop，目前不支持-。-')
+       }
+    }
+}
+
 
 // 根据branchAlias，获取远程已合并分支
 async function getMergedBranches() {

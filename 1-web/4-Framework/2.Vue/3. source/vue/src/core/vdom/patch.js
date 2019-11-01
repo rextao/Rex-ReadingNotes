@@ -153,6 +153,7 @@ export function createPatchFunction (backend) {
         if (data && data.pre) {
           creatingElmInVPre++
         }
+        // 写的组件没有全局注册或局部注册，会报此错误
         if (isUnknownElement(vnode, creatingElmInVPre)) {
           warn(
             'Unknown custom element: <' + tag + '> - did you ' +
@@ -189,6 +190,7 @@ export function createPatchFunction (backend) {
         }
       } else {
         // 如vnode存在子节点，先创建子节点，递归调用，然后再insert
+        // 故先插入子节点后才插入父节点，父最终挂载真实的dom上
         createChildren(vnode, children, insertedVnodeQueue)
         if (isDef(data)) {
           invokeCreateHooks(vnode, insertedVnodeQueue)
@@ -701,6 +703,7 @@ export function createPatchFunction (backend) {
   }
   // 首次调用时，oldVnode实际是vue要挂载的真实dom节点
   return function patch (oldVnode, vnode, hydrating, removeOnly) {
+    // 删除逻辑，会走到这
     if (isUndef(vnode)) {
       if (isDef(oldVnode)) invokeDestroyHook(oldVnode)
       return
@@ -727,7 +730,7 @@ export function createPatchFunction (backend) {
             oldVnode.removeAttribute(SSR_ATTR)
             hydrating = true
           }
-          // Todo hydrating 干嘛用的？
+          // hydrating：服务器渲染
           if (isTrue(hydrating)) {
             if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
               invokeInsertHook(vnode, insertedVnodeQueue, true)
@@ -764,6 +767,7 @@ export function createPatchFunction (backend) {
         )
 
         // update parent placeholder node element, recursively
+        // 与组件相关
         if (isDef(vnode.parent)) {
           let ancestor = vnode.parent
           const patchable = isPatchable(vnode)

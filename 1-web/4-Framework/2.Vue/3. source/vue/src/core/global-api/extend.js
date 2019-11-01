@@ -14,7 +14,7 @@ export function initExtend (Vue: GlobalAPI) {
   let cid = 1
 
   /**
-   * Class inheritance
+   * 非常经典的原型继承的方式把一个纯对象Ctor转换一个继承于 Vue 的构造器 Sub 并返回
    */
   Vue.extend = function (extendOptions: Object): Function {
     extendOptions = extendOptions || {}
@@ -30,7 +30,7 @@ export function initExtend (Vue: GlobalAPI) {
     if (process.env.NODE_ENV !== 'production' && name) {
       validateComponentName(name)
     }
-
+    // sub继承
     const Sub = function VueComponent (options) {
       this._init(options)
     }

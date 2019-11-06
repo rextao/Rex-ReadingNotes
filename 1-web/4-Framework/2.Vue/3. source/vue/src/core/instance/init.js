@@ -94,9 +94,10 @@ export function initInternalComponent (vm: Component, options: InternalComponent
     opts.staticRenderFns = options.staticRenderFns
   }
 }
-
-export function resolveConstructorOptions (Ctor: Class<Component>) {
+// 函数主要是解决全局mixin和组件初始化的前期工作
+  export function resolveConstructorOptions (Ctor: Class<Component>) {
   let options = Ctor.options
+  // 最开始传入的Ctor为Vue，不存在super，故返回的就是Vue.options
   if (Ctor.super) {
     const superOptions = resolveConstructorOptions(Ctor.super)
     const cachedSuperOptions = Ctor.superOptions

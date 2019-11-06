@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="-304 140 1292 1507" width="1292" height="1507">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="-304 140 1570 1507" width="1570" height="1507">
   <defs>
     <font-face font-family="Times" font-size="20" panose-1="0 0 5 0 0 0 0 2 0 0" units-per-em="1000" underline-position="-75.68359" underline-thickness="49.316406" slope="0" x-height="453.6133" cap-height="661.6211" ascent="750" descent="-250" font-weight="400">
       <font-face-src>
@@ -22,18 +22,23 @@
         <font-face-name name="PingFangSC-Regular"/>
       </font-face-src>
     </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
     <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
       <g>
         <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
       </g>
     </marker>
   </defs>
-  <metadata> Produced by OmniGraffle 7.11.3 
-    <dc:date>2019-10-11 01:01:36 +0000</dc:date>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2019-11-03 07:11:07 +0000</dc:date>
   </metadata>
-  <g id="Canvas_1" fill="none" stroke="none" fill-opacity="1" stroke-dasharray="none" stroke-opacity="1">
+  <g id="Canvas_1" stroke-opacity="1" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none">
     <title>Canvas 1</title>
-    <rect fill="white" x="-304" y="140" width="1292" height="1507"/>
+    <rect fill="white" x="-304" y="140" width="1570" height="1507"/>
     <g id="Canvas_1: Layer 1">
       <title>Layer 1</title>
       <g id="Graphic_2">
@@ -319,7 +324,7 @@
         </text>
       </g>
       <g id="Line_83">
-        <line x1="153" y1="744" x2="78.9" y2="744" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="153" y1="744" x2="78.9" y2="744" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_84">
         <path d="M -155 843 L 44 843 C 57.254834 843 68 853.7452 68 867 L 68 887 C 68 900.2548 57.254834 911 44 911 L -155 911 C -168.25483 911 -179 900.2548 -179 887 L -179 867 C -179 853.7452 -168.25483 843 -155 843 Z" fill="white"/>
@@ -339,10 +344,10 @@
         </text>
       </g>
       <g id="Line_86">
-        <line x1="153" y1="877" x2="78.9" y2="877" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="153" y1="877" x2="78.9" y2="877" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_87">
-        <line x1="153" y1="1010" x2="78.9" y2="1010" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="153" y1="1010" x2="78.9" y2="1010" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_88">
         <path d="M -155 1109 L 44 1109 C 57.254834 1109 68 1119.7452 68 1133 L 68 1153 C 68 1166.2548 57.254834 1177 44 1177 L -155 1177 C -168.25483 1177 -179 1166.2548 -179 1153 L -179 1133 C -179 1119.7452 -168.25483 1109 -155 1109 Z" fill="white"/>
@@ -353,7 +358,18 @@
         </text>
       </g>
       <g id="Line_89">
-        <line x1="153" y1="1143" x2="78.9" y2="1143" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="153" y1="1143" x2="78.9" y2="1143" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_90">
+        <path d="M 1117 388.75 L 1241 388.75 C 1254.2548 388.75 1265 399.49517 1265 412.75 L 1265 437.25 C 1265 450.50483 1254.2548 461.25 1241 461.25 L 1117 461.25 C 1103.7452 461.25 1093 450.50483 1093 437.25 L 1093 412.75 C 1093 399.49517 1103.7452 388.75 1117 388.75 Z" fill="white"/>
+        <path d="M 1117 388.75 L 1241 388.75 C 1254.2548 388.75 1265 399.49517 1265 412.75 L 1265 437.25 C 1265 450.50483 1254.2548 461.25 1241 461.25 L 1117 461.25 C 1103.7452 461.25 1093 450.50483 1093 437.25 L 1093 412.75 C 1093 399.49517 1103.7452 388.75 1117 388.75 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1098 403)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="1" y="17">合并配置详细，请参见</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="39.36" y="39">8-合并配置</tspan>
+        </text>
+      </g>
+      <g id="Line_91">
+        <line x1="985" y1="425" x2="1082.1" y2="425" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
     </g>
   </g>

@@ -293,7 +293,50 @@ const main = new Vue({
 
 
 
+## 合并配置
 
+1. vue合并配置分为如下两种情况
+   - 外部调用场景的配置合并
+   - 组件场景的配置合并
+2. 参见 2-new vue 流程图，可以得知在Vue.prototype._init()会进行配置合并，即合并options
+
+### 举例说明
+
+```javascript
+import Vue from 'vue'
+let child = {
+    template: '<div>{{msg}}</div>',
+    created() {
+        console.log('child created')
+    },
+    mounted() {
+        console.log('child mounted')
+    },
+    data() {
+        return {
+            msg: 'hello'
+        }
+    }
+};
+Vue.mixin({
+    created() {
+        console.log('parent created')
+    }
+});
+new Vue({
+    el: '#app',
+    render: h => h(child)
+});
+```
+
+1. 首先，会执行Vue.mixin函数，此函数定义在src/core/global-api/mixin.js中，实际就是利用mergeOptions，将options合并到Vue.options上
+2. 调用Vue.mixin时，由于在Vue初始化时，会调用initGlobalAPI将components，directives，filters与_base定义在Vue.options，由于传入参数是created，故将此合并到Vue.options上
+   - 注意：由于父（Vue.options）不存在created，子存在，故将created转换为数组返回
+
+### 总结
+
+1. 外部调用场景下的合并配置是通过mergeOptions，并遵循一定的合并策略，如对于某些options，如created，computed等不知如何合并的，可以通过查看mergeOptions的合并策略
+2. 组件合并是通过initInternalComponent，它的合并更快
 
 # 问题汇总
 

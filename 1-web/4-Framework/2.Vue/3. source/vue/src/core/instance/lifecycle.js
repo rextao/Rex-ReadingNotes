@@ -126,6 +126,7 @@ export function lifecycleMixin (Vue: Class<Component>) {
     // call the last hook...
     vm._isDestroyed = true
     // invoke destroy hooks on current rendered tree
+    // 递归完成子组件的销毁
     vm.__patch__(vm._vnode, null)
     // fire destroyed hook
     callHook(vm, 'destroyed')
@@ -345,6 +346,7 @@ export function deactivateChildComponent (vm: Component, direct?: boolean) {
 export function callHook (vm: Component, hook: string) {
   // #7573 disable dep collection when invoking lifecycle hooks
   pushTarget()
+  // 之前配置合并时讲到了生命周期如何合并，这个地方是一个数组
   const handlers = vm.$options[hook]
   const info = `${hook} hook`
   if (handlers) {

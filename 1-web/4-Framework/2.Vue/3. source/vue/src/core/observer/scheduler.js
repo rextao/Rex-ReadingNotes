@@ -132,6 +132,8 @@ function callUpdatedHooks (queue) {
   while (i--) {
     const watcher = queue[i]
     const vm = watcher.vm
+    // 如果当前是渲染watcher，vm._watcher在src/core/observer/watcher.js，如isRenderWatcher为true
+    // 则会把当前this赋值给_watcher
     if (vm._watcher === watcher && vm._isMounted && !vm._isDestroyed) {
       callHook(vm, 'updated')
     }

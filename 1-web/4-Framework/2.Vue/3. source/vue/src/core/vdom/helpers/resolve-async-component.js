@@ -115,10 +115,11 @@ export function resolveAsyncComponent (
 
     if (isObject(res)) {
       if (isPromise(res)) {
-        // () => Promise
+        // () => Promise 处理promise形式
         if (isUndef(factory.resolved)) {
           res.then(resolve, reject)
         }
+        // 异步组件的高级形式 2.3.0+ 新增
       } else if (isPromise(res.component)) {
         res.component.then(resolve, reject)
 
@@ -128,6 +129,7 @@ export function resolveAsyncComponent (
 
         if (isDef(res.loading)) {
           factory.loadingComp = ensureCtor(res.loading, baseCtor)
+          // 渲染加载中组件前等待时间，注意一点，如res.delay为0 ，则最终return 会直接返回factory.loadingComp组件
           if (res.delay === 0) {
             factory.loading = true
           } else {
@@ -135,12 +137,13 @@ export function resolveAsyncComponent (
               timerLoading = null
               if (isUndef(factory.resolved) && isUndef(factory.error)) {
                 factory.loading = true
+                // 参数为renderCompleted = false，不会清空timerLoading等，表示未渲染完
                 forceRender(false)
               }
             }, res.delay || 200)
           }
         }
-
+        // 最长等待时间，超时，则渲染错误组件
         if (isDef(res.timeout)) {
           timerTimeout = setTimeout(() => {
             timerTimeout = null

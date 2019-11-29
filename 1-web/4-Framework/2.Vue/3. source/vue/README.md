@@ -287,7 +287,7 @@ const main = new Vue({
 2. activeInstance为当前激活vm实例；vm.$vnode为组件占位符vnode；vm._vnode为组件渲染vnode
 3. 嵌套组件的插入顺序是先子后父
 
-## 组件挂载流程分析图
+### 组件挂载流程分析图
 
 ![7-组件createEl-createComponent](../源码流程图/7-1组件patch.svg)
 
@@ -332,11 +332,51 @@ new Vue({
 1. 首先，会执行Vue.mixin函数，此函数定义在src/core/global-api/mixin.js中，实际就是利用mergeOptions，将options合并到Vue.options上
 2. 调用Vue.mixin时，由于在Vue初始化时，会调用initGlobalAPI将components，directives，filters与_base定义在Vue.options，由于传入参数是created，故将此合并到Vue.options上
    - 注意：由于父（Vue.options）不存在created，子存在，故将created转换为数组返回
+3. 然后执行new Vue函数，执行mergeOptions(resolveConstructorOptions(vm.constructor),options || {}, vm)，由于此时vm为Vue，故传入mergeOptions是Vue的opitons，第二个参数是外部new Vue传入的{el: '#app',render}，合并之后实际是将Vue的options与new Vue传入的options全部合并
+4.  然后进行组件child的初始化，执行src/core/global-api/extend.js中的extend函数，会有一步通过mergeOptions将父级与当前的options进行合并，此时created是一个数组；由于此时的chid父就是Vue，故会将Vue的options全部合并进来
+5. 然后调用initInternalComponent，注意此时的vm实例的proto.constructor挂在了刚刚child的options，而传入的options实际是src/core/vdom/create-component.js中在createComponentInstanceForVnode构建的options，实际此函数主要是将options的某些藏得比较深的属性挂在vm上
+
+### 流程图
+
+![8-合并配置](../源码流程图/8-合并配置.svg)
 
 ### 总结
 
 1. 外部调用场景下的合并配置是通过mergeOptions，并遵循一定的合并策略，如对于某些options，如created，computed等不知如何合并的，可以通过查看mergeOptions的合并策略
 2. 组件合并是通过initInternalComponent，它的合并更快
+
+## 生命周期
+
+### callHook
+
+1. src/core/instance/lifecycle.js，主要通过这个函数对生命周期进行调用
+
+### 流程图
+
+![9-生命周期](../源码流程图/9-生命周期.svg)
+
+
+
+## 组件注册
+
+![10-组件注册](../源码流程图/10-组件注册.svg)
+
+## 异步组件
+
+### 流程图
+
+![11-异步组件](../源码流程图/11-异步组件.svg)
+
+### 总结
+
+1. 异步组件一般是渲染2次以上，第一次是渲染注释节点，当组件加载成功后利用forceRender重新渲染
+2. 高级异步组件设计非常巧妙，通过简单配置，实现error，loading，resolve，reject，4种状态
+
+## 深入响应式原理
+
+### 响应式对象
+
+1. 
 
 # 问题汇总
 

@@ -50,6 +50,7 @@ export default class Watcher {
     isRenderWatcher?: boolean
   ) {
     this.vm = vm
+    // 是否为渲染watcher，即非用户自己设置的watcher
     if (isRenderWatcher) {
       vm._watcher = this
     }
@@ -116,7 +117,9 @@ export default class Watcher {
       if (this.deep) {
         traverse(value)
       }
+      // 恢复上一次的target
       popTarget()
+      // 清除依赖收集，why
       this.cleanupDeps()
     }
     return value
@@ -124,9 +127,11 @@ export default class Watcher {
 
   /**
    * Add a dependency to this directive.
+   * 添加一个依赖关系到Deps集合中
    */
   addDep (dep: Dep) {
     const id = dep.id
+    // 这个只能保证不会重复添加已有的，cleanupDeps则是避免不在试图上显示的数据，被响应式的处理
     if (!this.newDepIds.has(id)) {
       this.newDepIds.add(id)
       this.newDeps.push(dep)
@@ -143,10 +148,15 @@ export default class Watcher {
     let i = this.deps.length
     while (i--) {
       const dep = this.deps[i]
+      // 删除旧数据dep中报错的watcher，比如利用flag切换msg与msg1的显示
+      // 开始deps存储的是msg与flag，id为6，8
+      // 切换msg1显示时，deps存储是msg1与flag，id为7，8，故需要将msg的此watcher删除
+      // 如果不删除msg的watcher，会造成，当页面为msg显示时，msg1变化也会触发此watcher改变
       if (!this.newDepIds.has(dep.id)) {
         dep.removeSub(this)
       }
     }
+    // 新旧数据进行交换，将new的数据保存在dep上
     let tmp = this.depIds
     this.depIds = this.newDepIds
     this.newDepIds = tmp
@@ -178,7 +188,9 @@ export default class Watcher {
    */
   run () {
     if (this.active) {
+      // 再求新值,并更新新的依赖
       const value = this.get()
+      // 如新值与之前不一致，或value是Object
       if (
         value !== this.value ||
         // Deep watchers and watchers on Object/Arrays should fire even

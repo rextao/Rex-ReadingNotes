@@ -14,13 +14,13 @@ import {
 
 export const MAX_UPDATE_COUNT = 100
 
-const queue: Array<Watcher> = []
-const activatedChildren: Array<Component> = []
-let has: { [key: number]: ?true } = {}
-let circular: { [key: number]: number } = {}
+const queue: Array<Watcher> = [] // watcher的数组
+const activatedChildren: Array<Component> = [] // 激活的children
+let has: { [key: number]: ?true } = {}  // 判断watcher不能重复添加
+let circular: { [key: number]: number } = {} // 循环更新使用
 let waiting = false
 let flushing = false
-let index = 0
+let index = 0 // 当前watcher的索引
 
 /**
  * Reset the scheduler's state.
@@ -85,6 +85,7 @@ function flushSchedulerQueue () {
 
   // do not cache length because more watchers might be pushed
   // as we run existing watchers
+  //
   for (index = 0; index < queue.length; index++) {
     watcher = queue[index]
     if (watcher.before) {
@@ -94,6 +95,7 @@ function flushSchedulerQueue () {
     has[id] = null
     watcher.run()
     // in dev build, check and stop circular updates.
+    // 检测是否有无限循环的问题
     if (process.env.NODE_ENV !== 'production' && has[id] != null) {
       circular[id] = (circular[id] || 0) + 1
       if (circular[id] > MAX_UPDATE_COUNT) {
@@ -165,6 +167,8 @@ function callActivatedHooks (queue) {
  */
 export function queueWatcher (watcher: Watcher) {
   const id = watcher.id
+  // 如watcher不在队列中，才继续后续逻辑，
+  // 主要是，如果多个数据的订阅者都是一个，避免重复添加
   if (has[id] == null) {
     has[id] = true
     if (!flushing) {

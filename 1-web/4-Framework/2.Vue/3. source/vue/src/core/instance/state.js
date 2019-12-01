@@ -27,6 +27,7 @@ import {
   isServerRendering,
   isReservedAttribute
 } from '../util/index'
+import {initRender} from "./render";
 
 const sharedPropertyDefinition = {
   enumerable: true,
@@ -56,6 +57,9 @@ export function initState (vm: Component) {
   if (opts.data) {
     initData(vm)
   } else {
+    // 通常在main.js调用new Vue时，传入的options并不具有data属性
+    // 此时将此作为根data，此时dep.id = 2，因为在开发环境下，initRender会监听$attrs，$listeners
+    // 由于_data是空对象，故实际只是给vm._data.__ob__属性
     observe(vm._data = {}, true /* asRootData */)
   }
   if (opts.computed) initComputed(vm, opts.computed)
@@ -65,6 +69,7 @@ export function initState (vm: Component) {
 }
 
 function initProps (vm: Component, propsOptions: Object) {
+  // 拿到options的props定义
   const propsData = vm.$options.propsData || {}
   const props = vm._props = {}
   // cache prop keys so that future props updates can iterate using Array
@@ -75,6 +80,7 @@ function initProps (vm: Component, propsOptions: Object) {
   if (!isRoot) {
     toggleObserving(false)
   }
+  // 对props进行校验
   for (const key in propsOptions) {
     keys.push(key)
     const value = validateProp(key, propsOptions, propsData, vm)
@@ -88,6 +94,7 @@ function initProps (vm: Component, propsOptions: Object) {
           vm
         )
       }
+      // 把props中的key变为响应式的
       defineReactive(props, key, value, () => {
         if (!isRoot && !isUpdatingChildComponent) {
           warn(
@@ -157,6 +164,7 @@ function initData (vm: Component) {
     }
   }
   // observe data
+  // 观测data
   observe(data, true /* asRootData */)
 }
 

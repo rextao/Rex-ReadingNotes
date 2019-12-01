@@ -376,7 +376,74 @@ new Vue({
 
 ### 响应式对象
 
-1. 
+#### 学习
+
+1. 如何将data与props中的属性转为响应式对象的
+   - 主要是调用了observe与defineReactive函数
+2. data与props属性，设置响应式时，会自动递归调用对象，故即使是嵌套层级的，依旧会被设为响应式
+3. 关键的observe与defineReactive方法，学习如何将props与data数据转换为响应式的
+
+#### 流程图
+
+![12-1-响应式原理-响应式对象](../源码流程图/12-1-响应式原理-响应式对象.svg)
+
+
+
+### 依赖收集与派发更新
+
+1. 每个响应式的值都具有一个dep.id,并且dep.subs存储此值的watcher
+2. 而每个watcher.deps存储了，哪些值监听了此watcher
+
+#### 问题
+
+1. src/core/observer/scheduler.js 中flushSchedulerQueue会有一个检测循环更新的warning
+
+2. 根据代码逻辑，前面有`has[id]=null`，为何还会出现`has[id]!=null`的情况呢？
+
+   ```html
+   <template>
+     <div>
+       <div>{{msg}}</div>
+       <button @click="change">change</button>
+     </div>
+   </template>
+   
+   <script>
+   export default {
+     name: 'hellow-world',
+     data() {
+       return {
+         msg: '123',
+       }
+     },
+     methods: {
+       change() {
+         this.msg = Math.random();
+       }
+     },
+     watch: {
+       msg() {
+         this.msg = Math.random();
+       }
+     }
+   }
+   </script>
+   
+   ```
+
+   - 可以在queueWatcher与flushSchedulerQueue增加断点
+
+3. 开始运行，在queue添加的是user Watcher，可以看到此时的watcher.expression=msg，第二次进入时，增加的是vue内部创建的渲染watcher，`watcher.expression="function () {      vm._update(vm._render(), hydrating);    }"`
+
+4. 执行完后，会进入flushSchedulerQueue，循环遍历queue，一个watcher是user watcher，执行watcher.run函数，由于是user watcher，故会执行`this.cb.call(this.vm, value, oldValue)`,`this.msg = Math.random()`，对msg进行赋值操作，故有会调用queueWatcher（加入user watcher与渲染watcher）；由于flushSchedulerQueue会将has[id] =null，flashing=true，故又会往queue插入一个新的user watcher，此时queue.length = 3；而渲染watcher的`has[id]!=null`，不会再加入渲染watcher
+
+5. 由于新的user watcher会插入到queue中，故`if (process.env.NODE_ENV !== 'production' && has[id] != null) `，故`has[id]`不为null，circular[id]++
+
+6. 当queue执行第二次循环时，执行的watcher还是user watcher，即上面插入的watcher，故又重复上面的过程，造成死循环，circular就是避免循环过多次，卡死浏览器
+
+#### 流程图
+
+![12-2-响应式原理-依赖收集](../源码流程图/12-2-响应式原理-依赖收集.svg)
 
 # 问题汇总
 

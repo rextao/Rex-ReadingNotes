@@ -38,16 +38,20 @@ const branchCache = {
 })();
 
 async function deleteBranch() {
-    const readyDelete = branchCache.readyDelete;
+    const { readyDelete, local } = branchCache;
+    const localBranch = Object.keys(local);
     for (let i = 0; i < readyDelete.length; i++) {
         const item = readyDelete[i];
-        const isDelete = await confirmDeleteBranches(item);  // 确定删除远程分支
-        // 如确定要删除
-        if(isDelete) {
-            await deleteRemoteTracking(item);  // 确定删除本地分支
-            await confirmDeleteLocalBranch(item);
-        } else {
-            console.log(chalk.green(`${item}并未删除`));
+        // 只有在本地分支里面的分支进行删除
+        if(localBranch.includes(item)) {
+            const isDelete = await confirmDeleteBranches(item);  // 确定删除远程分支
+            // 如确定要删除
+            if(isDelete) {
+                await deleteRemoteTracking(item);  // 确定删除本地分支
+                await confirmDeleteLocalBranch(item);
+            } else {
+                console.log(chalk.green(`${item}并未删除`));
+            }
         }
     }
 }
@@ -67,7 +71,12 @@ async function deleteRemoteTracking(item){
 async function getSearchUrl(){
     const remotes = await simpleGit.getRemotes(true);
     const { refs } = remotes.filter(item => item.name === 'origin')[0];
-    searchUrl =  refs.fetch.match(/git@(.*)\.git/)[1].replace(':','/');
+    // 通过refs中的fetch参数，获取searchUrl的域名
+    const matches = refs.fetch.match(/git@(.*)\.git/);
+    if(!matches) {
+        throw new Error('fetch地址有误，无法获取branch的查询地址！可能是当前git参考非公司仓库');
+    }
+    searchUrl =  matches && matches[1].replace(':','/');
 }
 // 拉取develop分支最新内容
 async function developPull(){

@@ -41,6 +41,7 @@ export function initGlobalAPI (Vue: GlobalAPI) {
   }
 
   Vue.set = set
+  // 删除对象的属性。如果对象是响应式的，确保删除能触发更新视图
   Vue.delete = del
   Vue.nextTick = nextTick
 

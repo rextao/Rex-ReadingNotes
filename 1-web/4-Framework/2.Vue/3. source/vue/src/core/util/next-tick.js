@@ -87,6 +87,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
 export function nextTick (cb?: Function, ctx?: Object) {
   let _resolve
   callbacks.push(() => {
+    // 利用try-catch对cb进行包裹，避免cb执行失败导致整个程序崩溃
     if (cb) {
       try {
         cb.call(ctx)

@@ -40,7 +40,7 @@ export class Observer {
   dep: Dep;
   vmCount: number; // number of vms that have this object as root $data
 
-  constructor (value: any) {
+   constructor (value: any) {
     this.value = value
     this.dep = new Dep()
     this.vmCount = 0
@@ -49,6 +49,7 @@ export class Observer {
     // 如果是array，则递归调用observe进行观察
     if (Array.isArray(value)) {
       if (hasProto) {
+        // 如存在__proto__，现在大部分浏览器都可以使用__proto__
         protoAugment(value, arrayMethods)
       } else {
         copyAugment(value, arrayMethods, arrayKeys)
@@ -147,6 +148,8 @@ export function defineReactive (
   customSetter?: ?Function,
   shallow?: boolean
 ) {
+  // dep是一个纽带，连接watcher和数据
+  // 这个是针对某个值的观察者序列
   const dep = new Dep()
 
   const property = Object.getOwnPropertyDescriptor(obj, key)
@@ -173,6 +176,23 @@ export function defineReactive (
       // Dep.target可以暂时理解为某个使用此数据的一个watcher，依赖收集就是要收集这个watcher
       if (Dep.target) {
         dep.depend()
+        // 为Vue.set 量身定制的。。首先为对象添加属性，是无法触发getter的
+        // 如下数据结构 data () {
+        //    return {
+        //      msg: {a: 1}
+        //    }
+        // }
+        // Observe过后，会形成
+        //            { __ob__: {dep.id: 5}
+        //              msg: {
+        //                a: 1,
+        //                __ob__: {dep.id: 7}
+        //              }
+        //            }
+        // 实际上对于访问msg.a 在defineReactive中，会为a定义一个dep，依赖收集时，会收集到
+        // 而vue，为了避免手动为msg添加属性，而无法自动触发getter
+        // vue利用如下方式，将wather，加入到dep.id:7中。实际childOb就是dep.id:7这个
+        // 有种这个__ob__实际是一个存储当前对象watcher的，然后Vue.set手动触发这个dep.notify
         if (childOb) {
           childOb.dep.depend()
           if (Array.isArray(value)) {
@@ -211,8 +231,10 @@ export function defineReactive (
  * Set a property on an object. Adds the new property and
  * triggers change notification if the property doesn't
  * already exist.
+ * Vue.set本质就是内部调用手动ob.dep.notify()，通过手动调用解决不能触发setter的问题（如数组push等）
  */
 export function set (target: Array<any> | Object, key: any, val: any): any {
+  // 在开发模式下，对undefined和基本类型，使用Vue.set报warning
   if (process.env.NODE_ENV !== 'production' &&
     (isUndef(target) || isPrimitive(target))
   ) {
@@ -220,6 +242,7 @@ export function set (target: Array<any> | Object, key: any, val: any): any {
   }
   if (Array.isArray(target) && isValidArrayIndex(key)) {
     target.length = Math.max(target.length, key)
+    // 为何调用splice，就能进行重新渲染了呢？因为Observe的constructor对array做了特别处理
     target.splice(key, 1, val)
     return val
   }
@@ -227,6 +250,7 @@ export function set (target: Array<any> | Object, key: any, val: any): any {
     target[key] = val
     return val
   }
+  // 如果一个对象是响应式的，则对象具有__ob__这个属性
   const ob = (target: any).__ob__
   if (target._isVue || (ob && ob.vmCount)) {
     process.env.NODE_ENV !== 'production' && warn(
@@ -240,12 +264,15 @@ export function set (target: Array<any> | Object, key: any, val: any): any {
     return val
   }
   defineReactive(ob.value, key, val)
+  // 对象最终是调用notify进行重新渲染
   ob.dep.notify()
   return val
 }
 
 /**
  * Delete a property and trigger change if necessary.
+ * 删除对象的属性。如果对象是响应式的，确保删除能触发更新视图
+ * 避开vue无法检测的情况，应该很少使用
  */
 export function del (target: Array<any> | Object, key: any) {
   if (process.env.NODE_ENV !== 'production' &&
@@ -278,6 +305,7 @@ export function del (target: Array<any> | Object, key: any) {
 /**
  * Collect dependencies on array elements when the array is touched, since
  * we cannot intercept array element access like property getters.
+ * 在访问数组时收集对数组元素的依赖关系，因为我们不能像属性getter那样拦截数组元素访问。
  */
 function dependArray (value: Array<any>) {
   for (let e, i = 0, l = value.length; i < l; i++) {

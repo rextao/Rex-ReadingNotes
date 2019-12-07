@@ -445,6 +445,28 @@ new Vue({
 
 ![12-2-响应式原理-依赖收集](../源码流程图/12-2-响应式原理-依赖收集.svg)
 
+### nextTick
+
+1. 目前处理单独文件src/core/util/next-tick.js中
+2. 对外暴露的
+   - renderMixin中会将nextTick定义在Vue.prototype上
+   - Global-api中也将next作为静态方法绑定在Vue上
+
+### Vue.set,Vue.delete数组
+
+#### 概述
+
+1. 实现的基本原理是，对于数组，对象添加属性等，无法自动触发对象的setter方法时，通过手动触发`ob.dep.notify()`来手动触发
+2. Vue.delete的逻辑基本与Vue.set类似，最终都是通过`ob.dep.notify()`进行手动派发更新
+
+#### 流程图
+
+![12-3-Vue.set](../源码流程图/12-3-Vue.set.svg)
+
+### 计算属性
+
+
+
 # 问题汇总
 
 1. src/core/vdom/create-element.js的_createElement何种情况会传入data和children

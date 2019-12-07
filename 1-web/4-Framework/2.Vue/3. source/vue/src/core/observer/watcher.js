@@ -59,7 +59,7 @@ export default class Watcher {
     if (options) {
       this.deep = !!options.deep
       this.user = !!options.user
-      this.lazy = !!options.lazy
+      this.lazy = !!options.lazy // 计算属性，lazy为true
       this.sync = !!options.sync
       this.before = options.before
     } else {
@@ -68,7 +68,7 @@ export default class Watcher {
     this.cb = cb
     this.id = ++uid // uid for batching
     this.active = true
-    this.dirty = this.lazy // for lazy watchers
+    this.dirty = this.lazy // for lazy watchers，computed属性是一个
     this.deps = []
     this.newDeps = []
     this.depIds = new Set()
@@ -91,6 +91,7 @@ export default class Watcher {
         )
       }
     }
+    // 如果lazy为true，不会立即执行this.get()求值
     this.value = this.lazy
       ? undefined
       : this.get()

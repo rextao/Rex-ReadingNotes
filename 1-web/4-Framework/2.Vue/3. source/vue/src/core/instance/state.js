@@ -188,9 +188,10 @@ function initComputed (vm: Component, computed: Object) {
   const watchers = vm._computedWatchers = Object.create(null)
   // computed properties are just getters during SSR
   const isSSR = isServerRendering()
-
+  // 拿到定义的计算属性的每一个key
   for (const key in computed) {
     const userDef = computed[key]
+    // 计算属性可以是一个函数或者一个对象（但需要具有get方法）
     const getter = typeof userDef === 'function' ? userDef : userDef.get
     if (process.env.NODE_ENV !== 'production' && getter == null) {
       warn(
@@ -204,14 +205,16 @@ function initComputed (vm: Component, computed: Object) {
       watchers[key] = new Watcher(
         vm,
         getter || noop,
-        noop,
-        computedWatcherOptions
+        noop, // 计算属性的回调函数是nopp
+        computedWatcherOptions, // lazy:true
       )
     }
 
     // component-defined computed properties are already defined on the
     // component prototype. We only need to define computed properties defined
     // at instantiation here.
+    // 如果key在vim中，则表示这个key可能会已经被data或props使用，需要报warning
+    // 对于计算属性，并不是在watcher中求值的，而是在defineComputed中利用createComputedGetter求值的
     if (!(key in vm)) {
       defineComputed(vm, key, userDef)
     } else if (process.env.NODE_ENV !== 'production') {
@@ -229,6 +232,7 @@ export function defineComputed (
   key: string,
   userDef: Object | Function
 ) {
+  // 浏览器环境下shouldCache是true
   const shouldCache = !isServerRendering()
   if (typeof userDef === 'function') {
     sharedPropertyDefinition.get = shouldCache

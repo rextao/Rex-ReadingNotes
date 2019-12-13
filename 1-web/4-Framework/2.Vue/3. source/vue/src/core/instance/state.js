@@ -202,6 +202,7 @@ function initComputed (vm: Component, computed: Object) {
 
     if (!isSSR) {
       // create internal watcher for the computed property.
+      // 非ssr环境，会实例化一个watcher
       watchers[key] = new Watcher(
         vm,
         getter || noop,
@@ -213,7 +214,7 @@ function initComputed (vm: Component, computed: Object) {
     // component-defined computed properties are already defined on the
     // component prototype. We only need to define computed properties defined
     // at instantiation here.
-    // 如果key在vim中，则表示这个key可能会已经被data或props使用，需要报warning
+    // 如果key在vm中，则表示这个key可能会已经被data或props使用，需要报warning
     // 对于计算属性，并不是在watcher中求值的，而是在defineComputed中利用createComputedGetter求值的
     if (!(key in vm)) {
       defineComputed(vm, key, userDef)
@@ -234,8 +235,10 @@ export function defineComputed (
 ) {
   // 浏览器环境下shouldCache是true
   const shouldCache = !isServerRendering()
+  // 计算属性可以是一个函数，或者一个对象，如果是对象的话，需要具有getter
   if (typeof userDef === 'function') {
     sharedPropertyDefinition.get = shouldCache
+      // 因此，此getter，则是访问computed值时，访问的函数
       ? createComputedGetter(key)
       : createGetterInvoker(userDef)
     sharedPropertyDefinition.set = noop
@@ -245,6 +248,7 @@ export function defineComputed (
         ? createComputedGetter(key)
         : createGetterInvoker(userDef.get)
       : noop
+    // computed一般是计算而来的，故很少会配置setter
     sharedPropertyDefinition.set = userDef.set || noop
   }
   if (process.env.NODE_ENV !== 'production' &&
@@ -263,9 +267,16 @@ function createComputedGetter (key) {
   return function computedGetter () {
     const watcher = this._computedWatchers && this._computedWatchers[key]
     if (watcher) {
+      // 对于第一次执行，dirty为true，故会进行watcher求值
+      // dirty可以理解为缓存标识位，如果为true，标识值发生了变化，需要重新计算
       if (watcher.dirty) {
         watcher.evaluate()
       }
+      // 让当前watcher的所有deps，收集Dep.target（页面渲染watcher）依赖
+      // 通俗理解，下面代码就是让d与p进行联系
+      // 1、P 引用了 C，C 引用了 D
+      // 2、理论上 D 改变时， C 就会改变，C 则通知 P 更新。
+      // 3、实际上 C 让 D 和 P 建立联系，让 D 改变时直接通知 P
       if (Dep.target) {
         watcher.depend()
       }
@@ -320,10 +331,10 @@ function initWatch (vm: Component, watch: Object) {
     }
   }
 }
-
+// createWatcher是做了一些数据规范化，即对不同形式的传入参数进行处理
 function createWatcher (
   vm: Component,
-  expOrFn: string | Function,
+  expOrFn: string | Function, // watcher的key
   handler: any,
   options?: Object
 ) {
@@ -369,12 +380,14 @@ export function stateMixin (Vue: Class<Component>) {
     options?: Object
   ): Function {
     const vm: Component = this
+    // 由于$watch是暴露给外面的方法，故也可能是一个对象，故通过createWatcher进行转换
     if (isPlainObject(cb)) {
       return createWatcher(vm, expOrFn, cb, options)
     }
     options = options || {}
-    options.user = true
+    options.user = true // 此为user watcher
     const watcher = new Watcher(vm, expOrFn, cb, options)
+    // 如果设置了immediate，则会立即执行回调函数一次
     if (options.immediate) {
       try {
         cb.call(vm, watcher.value)

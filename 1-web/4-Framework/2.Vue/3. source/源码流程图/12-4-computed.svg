@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="-573 162 2495 1579" width="2495" height="1579">
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="Menlo" font-size="20" panose-1="2 11 6 9 3 8 4 2 2 4" units-per-em="1000" underline-position="-63.47656" underline-thickness="43.94531" slope="0" x-height="546.875" cap-height="729.0039" ascent="928.2227" descent="-235.83984" font-weight="400">
+      <font-face-src>
+        <font-face-name name="Menlo-Regular"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2019-12-11 00:33:21 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" stroke="none" stroke-dasharray="none" fill-opacity="1" stroke-opacity="1" fill="none">
+    <title>Canvas 1</title>
+    <rect fill="white" x="-573" y="162" width="2495" height="1579"/>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Graphic_2">
+        <rect x="156" y="162.5" width="1108" height="44" fill="white"/>
+        <rect x="156" y="162.5" width="1108" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 175.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="458.776" y="15">src/core/instance/state.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_3">
+        <rect x="156" y="238.5" width="241" height="44" fill="white"/>
+        <rect x="156" y="238.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 251.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="86.164" y="15">initState</tspan>
+        </text>
+      </g>
+      <g id="Graphic_5">
+        <rect x="156" y="314.5" width="241" height="44" fill="white"/>
+        <rect x="156" y="314.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 314.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.036" y="17">如果</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">computed</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">存在，则会调用</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="65.604" y="39">initComputed</tspan>
+        </text>
+      </g>
+      <g id="Graphic_6">
+        <rect x="443.5" y="238.5" width="258.5" height="44" fill="white"/>
+        <rect x="443.5" y="238.5" width="258.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(448.5 251.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="75.786" y="15">initComputed</tspan>
+        </text>
+      </g>
+      <g id="Graphic_7">
+        <rect x="443.5" y="314.5" width="258.5" height="44" fill="white"/>
+        <rect x="443.5" y="314.5" width="258.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(448.5 316.276)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="84.25" y="17">创建空对象</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="3.722" y="37">watcher=vm._computedWatchers</tspan>
+        </text>
+      </g>
+      <g id="Graphic_8">
+        <rect x="443.5" y="390.5" width="258.5" height="44" fill="white"/>
+        <rect x="443.5" y="390.5" width="258.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(448.5 401.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="2.57" y="17">循环遍历computed中的每一个key</tspan>
+        </text>
+      </g>
+      <g id="Graphic_9">
+        <rect x="443.5" y="466.5" width="258.5" height="44" fill="white"/>
+        <rect x="443.5" y="466.5" width="258.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(448.5 477.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="23.034" y="17">获取computed[key]的getter</tspan>
+        </text>
+      </g>
+      <g id="Graphic_10">
+        <rect x="443.5" y="542.5" width="258.5" height="44" fill="white"/>
+        <rect x="443.5" y="542.5" width="258.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(448.5 542.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="1.33" y="17">如果开发环境，getter为null，报警</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="116.25" y="39">告</tspan>
+        </text>
+      </g>
+      <g id="Graphic_11">
+        <rect x="443.5" y="618.5" width="258.5" height="44" fill="white"/>
+        <rect x="443.5" y="618.5" width="258.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(448.5 618.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.714" y="17">非ssr环境，创建新的watcher，并</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="52.746" y="39">赋值给watcher[key]</tspan>
+        </text>
+      </g>
+      <g id="Graphic_12">
+        <rect x="443.5" y="694.5" width="258.5" height="75" fill="white"/>
+        <rect x="443.5" y="694.5" width="258.5" height="75" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(448.5 699)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="12.914" y="17">如果key不在vm实例中，则调用</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="4.162" y="39">defineComputed，在vm实例中，</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="14.754" y="61">则可能在props或data中已定义</tspan>
+        </text>
+      </g>
+      <g id="Graphic_13">
+        <rect x="742" y="238.5" width="241" height="44" fill="white"/>
+        <rect x="742" y="238.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(747 251.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="55.628" y="15">defineComputed</tspan>
+        </text>
+      </g>
+      <g id="Graphic_14">
+        <rect x="742" y="314.5" width="241" height="44" fill="white"/>
+        <rect x="742" y="314.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(747 325.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="2.868" y="17">非</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">ssr</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">环境，shouldCache= true</tspan>
+        </text>
+      </g>
+      <g id="Graphic_15">
+        <rect x="742" y="390.5" width="241" height="44" fill="white"/>
+        <rect x="742" y="390.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(747 390.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.06" y="17">定义createComputedGetter方</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="107.5" y="39">法</tspan>
+        </text>
+      </g>
+      <g id="Graphic_17">
+        <rect x="1023" y="238.5" width="241" height="44" fill="white"/>
+        <rect x="1023" y="238.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1028 249.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="30.06" y="17">createComputedGetter</tspan>
+        </text>
+      </g>
+      <g id="Graphic_18">
+        <rect x="1023" y="314.5" width="241" height="44" fill="white"/>
+        <rect x="1023" y="314.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1028 314.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.484" y="17">从_computedWatchers获取当</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="57.324" y="39">前key的watcher</tspan>
+        </text>
+      </g>
+      <g id="Graphic_19">
+        <rect x="1023" y="390.5" width="241" height="44" fill="white"/>
+        <rect x="1023" y="390.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1028 390.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="51.388" y="17">watcher.dirty存在</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="47.644" y="39">watcher.evaluate()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_20">
+        <rect x="1023" y="466.5" width="241" height="44" fill="white"/>
+        <rect x="1023" y="466.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1028 466.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="60.372" y="17">Dep.target存在</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="51.108" y="39">watcher.depend()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_21">
+        <rect x="1328" y="162.5" width="258.5" height="44" fill="white"/>
+        <rect x="1328" y="162.5" width="258.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1333 173.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="14.674" y="17">src/core/observer/watcher.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_22">
+        <rect x="1328" y="238.5" width="258.5" height="44" fill="white"/>
+        <rect x="1328" y="238.5" width="258.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1333 249.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="71.842" y="17">class Watcher</tspan>
+        </text>
+      </g>
+      <g id="Graphic_23">
+        <path d="M 1663.5 238.5 L 1776.5 238.5 C 1788.6503 238.5 1798.5 248.34974 1798.5 260.5 L 1798.5 260.5 C 1798.5 272.65026 1788.6503 282.5 1776.5 282.5 L 1663.5 282.5 C 1651.3497 282.5 1641.5 272.65026 1641.5 260.5 L 1641.5 260.5 C 1641.5 248.34974 1651.3497 238.5 1663.5 238.5 Z" fill="white"/>
+        <path d="M 1663.5 238.5 L 1776.5 238.5 C 1788.6503 238.5 1798.5 248.34974 1798.5 260.5 L 1798.5 260.5 C 1798.5 272.65026 1788.6503 282.5 1776.5 282.5 L 1663.5 282.5 C 1651.3497 282.5 1641.5 272.65026 1641.5 260.5 L 1641.5 260.5 C 1641.5 248.34974 1651.3497 238.5 1663.5 238.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1646.5 238.5)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="17.5" y="17">主要注意与普通</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="11.18" y="39">watcher有何不同</tspan>
+        </text>
+      </g>
+      <g id="Graphic_24">
+        <rect x="1328" y="299" width="258.5" height="75" fill="white"/>
+        <rect x="1328" y="299" width="258.5" height="75" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1333 303.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="57.554" y="17">传入参数为：vm，</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="36.762" y="39">expOrFn=getter || noop, </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="18.394" y="61">cb=noop ,options={lazy:true}</tspan>
+        </text>
+      </g>
+      <g id="Graphic_25">
+        <path d="M 1663.5 314.5 L 1776.5 314.5 C 1788.6503 314.5 1798.5 324.34974 1798.5 336.5 L 1798.5 336.5 C 1798.5 348.65026 1788.6503 358.5 1776.5 358.5 L 1663.5 358.5 C 1651.3497 358.5 1641.5 348.65026 1641.5 336.5 L 1641.5 336.5 C 1641.5 324.34974 1651.3497 314.5 1663.5 314.5 Z" fill="white"/>
+        <path d="M 1663.5 314.5 L 1776.5 314.5 C 1788.6503 314.5 1798.5 324.34974 1798.5 336.5 L 1798.5 336.5 C 1798.5 348.65026 1788.6503 358.5 1776.5 358.5 L 1663.5 358.5 C 1651.3497 358.5 1641.5 348.65026 1641.5 336.5 L 1641.5 336.5 C 1641.5 324.34974 1651.3497 314.5 1663.5 314.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1646.5 314.5)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="2.308" y="17">computed的dirty与</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="35.556" y="39">lazy为true</tspan>
+        </text>
+      </g>
+      <g id="Graphic_26">
+        <rect x="1328" y="390.5" width="258.5" height="44" fill="white"/>
+        <rect x="1328" y="390.5" width="258.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1333 390.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.466" y="17">computed的getter会作为watcher</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="94.042" y="39">的getter</tspan>
+        </text>
+      </g>
+      <g id="Graphic_27">
+        <rect x="1328" y="451" width="258.5" height="75" fill="white"/>
+        <rect x="1328" y="451" width="258.5" height="75" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1333 455.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="23.866" y="17">最后，由于this.lazy为true，</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="32.25" y="39">this.value=undefined，故</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="1.674" y="61">computed的watcher不会立即求值</tspan>
+        </text>
+      </g>
+      <g id="Graphic_28">
+        <path d="M 465.5 801.5 L 680 801.5 C 692.1503 801.5 702 811.3497 702 823.5 L 702 823.5 C 702 835.6503 692.1503 845.5 680 845.5 L 465.5 845.5 C 453.34974 845.5 443.5 835.6503 443.5 823.5 L 443.5 823.5 C 443.5 811.3497 453.34974 801.5 465.5 801.5 Z" fill="white"/>
+        <path d="M 465.5 801.5 L 680 801.5 C 692.1503 801.5 702 811.3497 702 823.5 L 702 823.5 C 702 835.6503 692.1503 845.5 680 845.5 L 465.5 845.5 C 453.34974 845.5 443.5 835.6503 443.5 823.5 L 443.5 823.5 C 443.5 811.3497 453.34974 801.5 465.5 801.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(448.5 801.5)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="6.17" y="17">注意：组件的computed并不在此</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="76.25" y="39">定义，而是在</tspan>
+        </text>
+      </g>
+      <g id="Graphic_29">
+        <rect x="156" y="801.5" width="241" height="44" fill="white"/>
+        <rect x="156" y="801.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 812.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="4.116" y="17">src/core/global-api/extend.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_30">
+        <rect x="156" y="875.5" width="241" height="75" fill="white"/>
+        <rect x="156" y="875.5" width="241" height="75" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 880)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.5" y="17">在初始化子组件时，会判断如果</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="30.46" y="39">computed存在，则调用</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="65.604" y="61">initComputed</tspan>
+        </text>
+      </g>
+      <g id="Line_31">
+        <line x1="442.5" y1="823.5" x2="406.9" y2="823.5" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_32">
+        <line x1="276.5" y1="845.5" x2="276.5" y2="865.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_33">
+        <line x1="572.75" y1="769.5" x2="572.75" y2="790.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_34">
+        <line x1="276.5" y1="282.5" x2="276.5" y2="304.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_35">
+        <line x1="362.2566" y1="314.5" x2="477.40395" y2="284.9601" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_36">
+        <line x1="572.75" y1="282.5" x2="572.75" y2="304.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_37">
+        <line x1="572.75" y1="358.5" x2="572.75" y2="380.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_38">
+        <line x1="572.75" y1="434.5" x2="572.75" y2="456.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_39">
+        <line x1="572.75" y1="510.5" x2="572.75" y2="532.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_40">
+        <line x1="572.75" y1="586.5" x2="572.75" y2="608.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_41">
+        <line x1="572.75" y1="662.5" x2="572.75" y2="684.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_42">
+        <path d="M 702 732.2864 L 727.8633 732.34375 L 723.97266 263.8164 L 732.1028 263.62177" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_43">
+        <line x1="862.5" y1="282.5" x2="862.5" y2="304.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_44">
+        <line x1="862.5" y1="358.5" x2="862.5" y2="380.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_45">
+        <path d="M 983 409.88407 L 1003.2109 409.4453 L 999.2773 259.47266 L 1013.1003 259.57112" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_46">
+        <line x1="1143.5" y1="282.5" x2="1143.5" y2="304.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_47">
+        <line x1="1143.5" y1="358.5" x2="1143.5" y2="380.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_48">
+        <line x1="1143.5" y1="434.5" x2="1143.5" y2="456.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_49">
+        <path d="M 702 640.58456 L 1289.2461 640.96875 L 1285.9805 256.23047 L 1318.103 257.03124" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_50">
+        <line x1="1457.25" y1="206.5" x2="1457.25" y2="228.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_51">
+        <line x1="1457.25" y1="282.5" x2="1457.25" y2="289.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_52">
+        <line x1="1457.25" y1="374" x2="1457.25" y2="380.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_53">
+        <line x1="1457.25" y1="434.5" x2="1457.25" y2="441.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_54">
+        <line x1="1640.5" y1="336.5" x2="1596.4" y2="336.5" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_55">
+        <line x1="1640.5" y1="260.5" x2="1596.4" y2="260.5" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_57">
+        <line x1="835.4868" y1="206.5" x2="1013.2487" y2="237.6647" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_58">
+        <line x1="754.1447" y1="206.5" x2="809.4946" y2="234.0842" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_59">
+        <line x1="670.2697" y1="206.5" x2="621.1411" y2="233.7042" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_60">
+        <line x1="584.51316" y1="206.5" x2="406.7513" y2="237.6647" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_63">
+        <rect x="156" y="980.5" width="241" height="94" fill="white"/>
+        <rect x="156" y="980.5" width="241" height="94" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 983.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.46" y="17">还是循环遍历computed，然后</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.108" y="39">调用defineComputed，只是传</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="5.724" y="61">入的是sub.prototype而不是vm</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="99.5" y="83">实例</tspan>
+        </text>
+      </g>
+      <g id="Line_64">
+        <line x1="276.5" y1="950.5" x2="276.5" y2="970.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_65">
+        <rect x="156" y="1134" width="241" height="44" fill="white"/>
+        <rect x="156" y="1134" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 1145)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="32.252" y="17">computed的getter过程</tspan>
+        </text>
+      </g>
+      <g id="Line_66">
+        <path d="M 1023 337.3994 L 1010.5664 337.4922 L 1014.5547 1087.9688 L 430 1088 L 335.21336 1129.9902" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_67">
+        <rect x="156" y="1209.5" width="241" height="75" fill="white"/>
+        <rect x="156" y="1209.5" width="241" height="75" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 1214)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.276" y="17">由于页面中使用了name为渲染</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.62" y="39">属性，故在第一次render时，会</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="77.292" y="61">调用getter</tspan>
+        </text>
+      </g>
+      <g id="Graphic_68">
+        <text transform="translate(-567.5 823.5)" fill="#c1c7dd">
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" x="0" y="19">&lt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="19">template</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="19">&gt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" x="0" y="43">  &lt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="43">div</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="43">&gt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" x="0" y="67">    &lt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="67">div</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="67">&gt;{{name}}&lt;/</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="67">div</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="67">&gt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" x="0" y="91">    &lt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="91">button </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="91">@click</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="91">=&quot;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#7bc65a" y="91">change</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="91">&quot;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="91">&gt;change&lt;/</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="91">button</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="91">&gt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" x="0" y="115">    &lt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="115">button </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="115">@click</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="115">=&quot;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#7bc65a" y="115">changeB</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="115">&quot;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="115">&gt;changeBBBBBB&lt;/</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="115">button</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="115">&gt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" x="0" y="139">  &lt;/</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="139">div</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="139">&gt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" x="0" y="163">&lt;/</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="163">template</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="163">&gt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" x="0" y="211">&lt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="211">script</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="211">&gt;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" x="0" y="235">export default </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="235">{</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="259">  </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="259">name</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="259">: </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="259">&apos;hellow-world&apos;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="259">,</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" x="0" y="283">  </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#7bc65a" y="283">data</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="283">() {</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="307">    </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" y="307">return </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="307">{</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="331">      </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="331">useless</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="331">: </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#b58ae3" y="331">0</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="331">,</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" x="0" y="355">      </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="355">a</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="355">: </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="355">&apos;hello&apos;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="355">,</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" x="0" y="379">      </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="379">b</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="379">: </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="379">&apos;world&apos;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" x="0" y="403">    </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="403">}</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="427">  }</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="427">,</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" x="0" y="451">  </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="451">computed</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="451">: </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="451">{</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="475">    </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#7bc65a" y="475">name</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="475">() {</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="499">      </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" y="499">if </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="499">(</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" y="499">this</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="499">.</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="499">useless </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="499">&gt; </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#b58ae3" y="499">0</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="499">) {</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="523">        </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" y="523">return  </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="523">`</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="523">$</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="523">{</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" y="523">this</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="523">.</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="523">a</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="523">}</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="523">,</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="523">$</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="523">{</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" y="523">this</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="523">.</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="523">b</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="523">}</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="523">`</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" x="0" y="547">      </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="547">}</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="571">      </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" y="571">return </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="571">&apos;2333&apos;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="571">;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" x="0" y="595">    </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="595">}</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="595">,</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" x="0" y="619">  </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="619">}</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="619">,</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" x="0" y="643">  </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="643">methods</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="643">: </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="643">{</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="667">    </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#7bc65a" y="667">change</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="667">() {</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="691">      </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" y="691">this</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="691">.</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="691">useless</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="691">++</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="691">;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" x="0" y="715">    </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="715">}</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="715">,</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" x="0" y="739">    </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#7bc65a" y="739">changeB</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="739">() {</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="763">      </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#58b9ec" y="763">this</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="763">.</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#51baf0" y="763">b </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="763">= </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" y="763">&apos;rextao&apos;</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#d1b46d" x="0" y="787">    </tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" y="787">}</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="811">  }</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e49d37" y="811">,</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#858ba1" x="0" y="835">}</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" x="0" y="859">&lt;/</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#e14c61" y="859">script</tspan>
+          <tspan font-family="Menlo" font-size="20" font-weight="400" fill="#c1c7dd" y="859">&gt;</tspan>
+        </text>
+      </g>
+      <g id="Line_69">
+        <line x1="39.55078" y1="1209.8943" x2="170.12233" y2="1180.1957" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_70">
+        <rect x="156" y="1316" width="241" height="44" fill="white"/>
+        <rect x="156" y="1316" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 1327)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="17.66" y="17">src/core/instance/state.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_71">
+        <rect x="156" y="1391.5" width="241" height="44" fill="white"/>
+        <rect x="156" y="1391.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 1391.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="67.5" y="17">首先进入的是</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="14.06" y="39">createComputedGetter函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_72">
+        <rect x="156" y="1467" width="241" height="44" fill="white"/>
+        <rect x="156" y="1467" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 1478)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="12.356" y="17">由于第一次进入，dirty为true</tspan>
+        </text>
+      </g>
+      <g id="Graphic_73">
+        <rect x="156" y="1542.5" width="241" height="44" fill="white"/>
+        <rect x="156" y="1542.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 1553.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="29.532" y="17">执行watcher.evaluate();</tspan>
+        </text>
+      </g>
+      <g id="Graphic_74">
+        <rect x="453" y="1316" width="241" height="44" fill="white"/>
+        <rect x="453" y="1316" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(458 1327)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="5.924" y="17">src/core/observer/watcher.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_75">
+        <rect x="453" y="1391.5" width="241" height="44" fill="white"/>
+        <rect x="453" y="1391.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(458 1402.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="79.292" y="17">evaluate()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_76">
+        <rect x="453" y="1467" width="241" height="44" fill="white"/>
+        <rect x="453" y="1467" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(458 1478)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="37.892" y="17">this.value = this.get()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_77">
+        <rect x="453" y="1542.5" width="241" height="44" fill="white"/>
+        <rect x="453" y="1542.5" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(458 1542.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.548" y="17">只要执行一次，则设置this.dirty </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="90.18" y="39">= false</tspan>
+        </text>
+      </g>
+      <g id="Graphic_78">
+        <rect x="745" y="1316" width="241" height="195" fill="white"/>
+        <rect x="745" y="1316" width="241" height="195" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(750 1336.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.268" y="17">此时执行get进行求值，即name</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.5" y="39">这个函数进行求值，由于需要访</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="5.292" y="61">问this.useless，故会对useless</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="27.5" y="83">值进行依赖收集，此时的</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="36.372" y="105">Dep.target实际是这个</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="2.9" y="127">computed watcher，故useless</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="32.148" y="149">的dep会有这个watcher</tspan>
+        </text>
+      </g>
+      <g id="Graphic_79">
+        <rect x="156" y="1618" width="241" height="44" fill="white"/>
+        <rect x="156" y="1618" width="241" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(161 1618)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="28.372" y="17">如Dep.target存在，执行</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="51.108" y="39">watcher.depend()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_80">
+        <path d="M 1085 1134 L 1295.5 1134 C 1308.7548 1134 1319.5 1144.7452 1319.5 1158 L 1319.5 1216 C 1319.5 1229.2548 1308.7548 1240 1295.5 1240 L 1085 1240 C 1071.7452 1240 1061 1229.2548 1061 1216 L 1061 1158 C 1061 1144.7452 1071.7452 1134 1085 1134 Z" fill="white"/>
+        <path d="M 1085 1134 L 1295.5 1134 C 1308.7548 1134 1319.5 1144.7452 1319.5 1158 L 1319.5 1216 C 1319.5 1229.2548 1308.7548 1240 1295.5 1240 L 1085 1240 C 1071.7452 1240 1061 1229.2548 1061 1216 L 1061 1158 C 1061 1144.7452 1071.7452 1134 1085 1134 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1066 1143)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="8.57" y="17">第一次运行之后，点击change按</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="6.458" y="39">钮，由于usesless&gt;0，故会对a,b</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="19.17" y="61">进行get操作，会将name这个</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="28.17" y="83">watcher增加到a,b的dep中</tspan>
+        </text>
+      </g>
+      <g id="Line_81">
+        <line x1="276.5" y1="1178" x2="276.5" y2="1199.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_82">
+        <line x1="276.5" y1="1284.5" x2="276.5" y2="1306.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_83">
+        <line x1="276.5" y1="1360" x2="276.5" y2="1381.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_84">
+        <line x1="276.5" y1="1435.5" x2="276.5" y2="1457.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_85">
+        <line x1="276.5" y1="1511" x2="276.5" y2="1532.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_86">
+        <line x1="276.5" y1="1586.5" x2="276.5" y2="1608.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_87">
+        <path d="M 397 1563.9063 L 427.9219 1563.7539 L 428.58984 1415.3398 L 443.1008 1415.1556" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_88">
+        <line x1="573.5" y1="1360" x2="573.5" y2="1381.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_89">
+        <line x1="573.5" y1="1435.5" x2="573.5" y2="1457.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_90">
+        <line x1="573.5" y1="1511" x2="573.5" y2="1532.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_92">
+        <line x1="658.5861" y1="1467" x2="735.4152" y2="1447.135" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_93">
+        <path d="M 1083 1271.5 L 1297.5 1271.5 C 1309.6503 1271.5 1319.5 1281.3497 1319.5 1293.5 L 1319.5 1293.5 C 1319.5 1305.6503 1309.6503 1315.5 1297.5 1315.5 L 1083 1315.5 C 1070.8497 1315.5 1061 1305.6503 1061 1293.5 L 1061 1293.5 C 1061 1281.3497 1070.8497 1271.5 1083 1271.5 Z" fill="white"/>
+        <path d="M 1083 1271.5 L 1297.5 1271.5 C 1309.6503 1271.5 1319.5 1281.3497 1319.5 1293.5 L 1319.5 1293.5 C 1319.5 1305.6503 1309.6503 1315.5 1297.5 1315.5 L 1083 1315.5 C 1070.8497 1315.5 1061 1305.6503 1061 1293.5 L 1061 1293.5 C 1061 1281.3497 1070.8497 1271.5 1083 1271.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1066 1282.5)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="72.57" y="17">再点击change</tspan>
+        </text>
+      </g>
+      <g id="Graphic_95">
+        <rect x="1069.75" y="1347" width="241" height="106" fill="white"/>
+        <rect x="1069.75" y="1347" width="241" height="106" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1074.75 1356)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.196" y="17">在defineReactive的setter中打</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="24.564" y="39">断点，点击change会触发</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x=".988" y="61">useless++,进行useless赋值，触</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="75.5" y="83">发派发更新</tspan>
+        </text>
+      </g>
+      <g id="Graphic_96">
+        <rect x="1069.75" y="1484.5" width="241" height="79" fill="white"/>
+        <rect x="1069.75" y="1484.5" width="241" height="79" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1074.75 1491)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="19.916" y="17">依赖useless一个是name的</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.26" y="39">computed watcher，一个是渲</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="77.964" y="61">染watcher</tspan>
+        </text>
+      </g>
+      <g id="Graphic_97">
+        <rect x="1069.75" y="1590.25" width="241" height="88.5" fill="white"/>
+        <rect x="1069.75" y="1590.25" width="241" height="88.5" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1074.75 1590.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="17.74" y="17">name这个watcher不会触发</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="47.132" y="39">dep.notify();里面的</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="5.572" y="61">queueWatcher，但会将dirty设</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="92.82" y="83">为true</tspan>
+        </text>
+      </g>
+      <g id="Graphic_98">
+        <rect x="1365.75" y="1373" width="241" height="54" fill="white"/>
+        <rect x="1365.75" y="1373" width="241" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1370.75 1378)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="4.964" y="17">flushSchedulerQueue调用，进</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="26.092" y="39">行渲染watcher的run方法</tspan>
+        </text>
+      </g>
+      <g id="Graphic_99">
+        <rect x="1365.75" y="1497" width="241" height="54" fill="white"/>
+        <rect x="1365.75" y="1497" width="241" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1370.75 1502)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="2.676" y="17">先调用this.get()进行求值，实际</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="27.62" y="39">就是render函数调用一次</tspan>
+        </text>
+      </g>
+      <g id="Graphic_100">
+        <rect x="1365.75" y="1595" width="241" height="79" fill="white"/>
+        <rect x="1365.75" y="1595" width="241" height="79" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1370.75 1601.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="17.132" y="17">Render调用过程中，页面有</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="4.62" y="39">{{name}}会访问计算属性，重新</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="99.5" y="61">求值</tspan>
+        </text>
+      </g>
+      <g id="Graphic_101">
+        <path d="M 1685.75 1484.5 L 1896.25 1484.5 C 1909.5048 1484.5 1920.25 1495.2452 1920.25 1508.5 L 1920.25 1539.5 C 1920.25 1552.7548 1909.5048 1563.5 1896.25 1563.5 L 1685.75 1563.5 C 1672.4952 1563.5 1661.75 1552.7548 1661.75 1539.5 L 1661.75 1508.5 C 1661.75 1495.2452 1672.4952 1484.5 1685.75 1484.5 Z" fill="white"/>
+        <path d="M 1685.75 1484.5 L 1896.25 1484.5 C 1909.5048 1484.5 1920.25 1495.2452 1920.25 1508.5 L 1920.25 1539.5 C 1920.25 1552.7548 1909.5048 1563.5 1896.25 1563.5 L 1685.75 1563.5 C 1672.4952 1563.5 1661.75 1552.7548 1661.75 1539.5 L 1661.75 1508.5 C 1661.75 1495.2452 1672.4952 1484.5 1685.75 1484.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1666.75 1491)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="7.01" y="17">注意：此版本vue，计算属性返回</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="3.73" y="39">相同值，也会重新render，即重新</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="21.882" y="61">调用updateComponent方法</tspan>
+        </text>
+      </g>
+      <g id="Graphic_103">
+        <path d="M 1685.75 1360.5 L 1896.25 1360.5 C 1909.5048 1360.5 1920.25 1371.2452 1920.25 1384.5 L 1920.25 1415.5 C 1920.25 1428.7548 1909.5048 1439.5 1896.25 1439.5 L 1685.75 1439.5 C 1672.4952 1439.5 1661.75 1428.7548 1661.75 1415.5 L 1661.75 1384.5 C 1661.75 1371.2452 1672.4952 1360.5 1685.75 1360.5 Z" fill="white"/>
+        <path d="M 1685.75 1360.5 L 1896.25 1360.5 C 1909.5048 1360.5 1920.25 1371.2452 1920.25 1384.5 L 1920.25 1415.5 C 1920.25 1428.7548 1909.5048 1439.5 1896.25 1439.5 L 1685.75 1439.5 C 1672.4952 1439.5 1661.75 1428.7548 1661.75 1415.5 L 1661.75 1384.5 C 1661.75 1371.2452 1672.4952 1360.5 1685.75 1360.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1666.75 1378)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="4.25" y="17">计算属性，有依赖发生变化，就会</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="76.25" y="39">进行重新求值</tspan>
+        </text>
+      </g>
+      <g id="Line_105">
+        <line x1="1190.25" y1="1241" x2="1190.25" y2="1260.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_106">
+        <line x1="1190.25" y1="1316.5" x2="1190.25" y2="1337.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_107">
+        <line x1="1190.25" y1="1453" x2="1190.25" y2="1474.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_108">
+        <line x1="1190.25" y1="1563.5" x2="1190.25" y2="1580.35" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_109">
+        <path d="M 1310.75 1637.436 L 1341.5938 1638.1875 L 1340.5078 1401.9766 L 1355.8509 1401.7685" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_110">
+        <line x1="1486.25" y1="1427" x2="1486.25" y2="1487.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_111">
+        <line x1="1486.25" y1="1551" x2="1486.25" y2="1585.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_113">
+        <line x1="1606.75" y1="1400" x2="1650.85" y2="1400" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_114">
+        <line x1="1791" y1="1440.5" x2="1791" y2="1473.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_115">
+        <path d="M 397 1640.3494 L 1023 1642.1645 L 1023 1183.272 L 1050.1025 1183.8762" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

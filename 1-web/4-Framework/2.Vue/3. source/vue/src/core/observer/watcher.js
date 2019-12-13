@@ -41,7 +41,7 @@ export default class Watcher {
   before: ?Function;
   getter: Function;
   value: any;
-
+  // 对于computed，vm，expOrFn=getter || noop, cb=noop ,options={lazy:true}
   constructor (
     vm: Component,
     expOrFn: string | Function,
@@ -58,7 +58,7 @@ export default class Watcher {
     // options
     if (options) {
       this.deep = !!options.deep
-      this.user = !!options.user
+      this.user = !!options.user // user watcher使用
       this.lazy = !!options.lazy // 计算属性，lazy为true
       this.sync = !!options.sync
       this.before = options.before
@@ -77,9 +77,10 @@ export default class Watcher {
       ? expOrFn.toString()
       : ''
     // parse expression for getter
+    // 渲染watcher与computed watcher
     if (typeof expOrFn === 'function') {
       this.getter = expOrFn
-    } else {
+    } else { // user watcher是字符串
       this.getter = parsePath(expOrFn)
       if (!this.getter) {
         this.getter = noop
@@ -174,6 +175,7 @@ export default class Watcher {
    */
   update () {
     /* istanbul ignore else */
+    // this.lazy为true，表示计算属性定义的watcher，设置this.dirty = true
     if (this.lazy) {
       this.dirty = true
     } else if (this.sync) {
@@ -221,6 +223,7 @@ export default class Watcher {
    * This only gets called for lazy watchers.
    */
   evaluate () {
+    // 通过get获取值，然后dirty置为false
     this.value = this.get()
     this.dirty = false
   }

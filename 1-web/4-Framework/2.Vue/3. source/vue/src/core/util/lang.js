@@ -36,6 +36,8 @@ export function parsePath (path: string): any {
   if (bailRE.test(path)) {
     return
   }
+  // 如user watch时调用，watch可能会添加a.b.c这样的key，将这样的key split
+  // 然后从obj中获取，obj可能是vm实例
   const segments = path.split('.')
   return function (obj) {
     for (let i = 0; i < segments.length; i++) {

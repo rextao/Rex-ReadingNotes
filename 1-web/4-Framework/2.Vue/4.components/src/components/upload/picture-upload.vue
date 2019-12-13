@@ -109,6 +109,7 @@ export default {
     },
     watch: {
         imgUrl() {
+            // Todo，如果外面没有使用到
             if (this.imgUrl) {
                 // 避免imgUrl是对象，导致新建时图片不显示
                 if (this.imgUrl !== 'string') {

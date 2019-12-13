@@ -447,10 +447,20 @@ new Vue({
 
 ### nextTick
 
+### 概述
+
 1. 目前处理单独文件src/core/util/next-tick.js中
 2. 对外暴露的
    - renderMixin中会将nextTick定义在Vue.prototype上
    - Global-api中也将next作为静态方法绑定在Vue上
+
+#### 2.4版本
+
+1. https://github.com/vuejs/vue/blob/v2.4.4/src/core/util/env.js
+
+#### 2.6版本
+
+1. 此版本实现方式Promise->MutationObserver->setImmediate->setTimeout
 
 ### Vue.set,Vue.delete数组
 
@@ -465,7 +475,74 @@ new Vue({
 
 ### 计算属性
 
+#### 概述
 
+1. 注意：此版本的计算属性，并不会在求值结果一致就不再进行render操作（之前尤大优化过这个问题，后由于bug又revert了）
+2. 现在的计算属性是，只要计算属性依赖的值发生变化，会将计算属性的lazy设置为true，然后调用渲染watcher进行渲染，对计算属性重新求值
+3. 计算属性就是一个watcher，只是在watcher阶段没有求值，在使用时才进行求值；并会根据lazy标识判断是否依赖有更新，再更新计算属性
+
+
+
+#### 流程图
+
+![12-4-computed](../源码流程图/12-4-computed.svg)
+
+
+
+### watcher 监听器
+
+#### 概述
+
+1. 主要区别在于，new Watcher阶段
+
+2. 对于watch的通常定义方式，new watcher传入的expOrFn实际是watch的key，即字符串
+
+   ```
+     watch: {
+       useless(newVal) {
+         console.log(newVal);
+       },
+       a.b.c(newVal) {    
+         console.log(newVal);
+       },
+       nest: {
+         deep: true,
+         handler(newVal) {
+           console.log(newVal);
+         }
+       }
+     },
+   ```
+
+3. 故会执行`this.getter = parsePath(expOrFn)`  而parsePath实际返回的是一个函数，主要是处理a.b.c这样的watch，但要注意的是，即使创建一个这样的watcher：a.b.c，a与b的改变，同样会通知这个watcher，就是由于parsePath这个函数
+
+   ```
+   export function parsePath (path: string): any {
+     if (bailRE.test(path)) {
+       return
+     }
+     // 如user watch时调用，watch可能会添加a.b.c这样的key，将这样的key split
+     // 然后从obj中获取，obj可能是vm实例
+     const segments = path.split('.')
+     return function (obj) {
+       for (let i = 0; i < segments.length; i++) {
+         if (!obj) return
+         obj = obj[segments[i]]
+       }
+       return obj
+     }
+   }
+   ```
+
+4. watcher阶段的最后，会调用get方法，先将当前的user watcher推到Dep.target上，然后调用` value = this.getter.call(vm, vm);` 调用3中定义的返回函数，然后获取vm上的值，如对于useless，就是获取 vm.useless 
+
+5. **特别注意：**由于进行了取值操作vm.useless，会触发useless的getter操作进行依赖收集，将user watcher加入到useless的dep中，这样useless发生变化，就会通知到此user getter
+
+6. 因此，当有useless值发生改变时，会触发setter进行派发更改，故会通知到这个user watcher
+
+#### 流程图
+
+![12-5-watch](../源码流程图/12-5-watch.svg)
 
 # 问题汇总
 

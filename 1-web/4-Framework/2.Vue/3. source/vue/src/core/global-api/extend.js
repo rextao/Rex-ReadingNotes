@@ -89,6 +89,8 @@ function initProps (Comp) {
 }
 
 function initComputed (Comp) {
+  // 注意，为何要在prototype定义，主要是为了多组件共享的
+  // 这样组件初始化，就无需每次实例化都给实例创建一个getter了
   const computed = Comp.options.computed
   for (const key in computed) {
     defineComputed(Comp.prototype, key, computed[key])

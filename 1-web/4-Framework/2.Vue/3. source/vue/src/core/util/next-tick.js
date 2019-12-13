@@ -12,7 +12,7 @@ let pending = false
 
 function flushCallbacks () {
   pending = false
-  const copies = callbacks.slice(0)
+  const copies = callbacks.slice(0)// 返回一个新数组
   callbacks.length = 0
   for (let i = 0; i < copies.length; i++) {
     copies[i]()
@@ -32,12 +32,11 @@ function flushCallbacks () {
 // or even between bubbling of the same event (#6566).
 let timerFunc
 
-// The nextTick behavior leverages the microtask queue, which can be accessed
-// via either native Promise.then or MutationObserver.
-// MutationObserver has wider support, however it is seriously bugged in
-// UIWebView in iOS >= 9.3.3 when triggered in touch event handlers. It
-// completely stops working after triggering a few times... so, if native
-// Promise is available, we will use it:
+/**
+ * nextTick 行为类似微任务队列，类似于Promise.then 或 MutationObserver
+ * MutationObserver 具有广泛支持，但iOS >= 9.3.3，touch事件，在UIWebView会产生严重的bug，
+ * 当touch触发多次后，MutationObserver会完全停止工作，故，如果promise存在，则使用
+ */
 /* istanbul ignore next, $flow-disable-line */
 if (typeof Promise !== 'undefined' && isNative(Promise)) {
   const p = Promise.resolve()
@@ -72,7 +71,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
   isUsingMicroTask = true
 } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   // Fallback to setImmediate.
-  // Techinically it leverages the (macro) task queue,
+  // 从技术上讲，他利用了宏任务队列
   // but it is still a better choice than setTimeout.
   timerFunc = () => {
     setImmediate(flushCallbacks)

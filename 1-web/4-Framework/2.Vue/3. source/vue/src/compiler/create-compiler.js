@@ -5,6 +5,7 @@ import { detectErrors } from './error-detector'
 import { createCompileToFunctionFn } from './to-function'
 
 export function createCompilerCreator (baseCompile: Function): Function {
+  // 对于web，baseOptions是src/platforms/web/compiler/index.js传入的baseOptions
   return function createCompiler (baseOptions: CompilerOptions) {
     function compile (
       template: string,
@@ -57,7 +58,7 @@ export function createCompilerCreator (baseCompile: Function): Function {
       }
 
       finalOptions.warn = warn
-
+      // 真正的编译
       const compiled = baseCompile(template.trim(), finalOptions)
       if (process.env.NODE_ENV !== 'production') {
         detectErrors(compiled.ast, warn)

@@ -447,7 +447,7 @@ new Vue({
 
 ### nextTick
 
-### 概述
+#### 概述
 
 1. 目前处理单独文件src/core/util/next-tick.js中
 2. 对外暴露的
@@ -457,10 +457,31 @@ new Vue({
 #### 2.4版本
 
 1. https://github.com/vuejs/vue/blob/v2.4.4/src/core/util/env.js
+2. Promise -> MutationObserver -> setTimeout
+
+#### 2.5.0 ~ 2.5.1 版本
+
+1. setImmediate -> MessageChannel -> Promise -> setTimeout
+2. vue有注释：在 Vue 2.4 之前的版本，nextTick 几乎都是基于 micro task 实现的，但由于 micro task 的执行优先级非常高，在某些场景下它甚至要比事件冒泡还要快，就会导致一些诡异的问题，如 issue [#4521](https://github.com/vuejs/vue/issues/4521)、[#6690](https://github.com/vuejs/vue/issues/6690)、[#6566](https://github.com/vuejs/vue/issues/6566)；但是如果全部都改成 macro task，对一些有重绘和动画的场景也会有性能影响，如 issue [#6813](https://github.com/vuejs/vue/issues/6813)。所以最终 nextTick 采取的策略是默认走 micro task，对于一些 DOM 交互事件，如 v-on 绑定的事件回调函数的处理，会强制走 macro task。
+3. https://github.com/vuejs/vue/blob/v2.5.1/src/core/util/env.js
+
+#### 2.5.2 ~ 2.5.final 版本
+
+1. 搞了个microTimerFunc与macroTimerFunc
+2. Promise->setImmediate -> MessageChannel > setTimeout
+3. 暴露 withMacroTask API, 用于在一些特别场景下强制使用 macroTask
+4. https://github.com/vuejs/vue/blob/v2.5.2/src/core/util/next-tick.js
 
 #### 2.6版本
 
 1. 此版本实现方式Promise->MutationObserver->setImmediate->setTimeout
+
+#### 小结
+
+1. 没有任何一种方案是银弹
+2. 实际每种方案都有细微的bug
+3. 需要进行一些取舍
+4. 补充：如发现是由于nextTick引起的错误，可以利用类似`window.MessageChannel = noop`的方式进行回退，以避免vue使用MessageChannel
 
 ### Vue.set,Vue.delete数组
 
@@ -480,6 +501,7 @@ new Vue({
 1. 注意：此版本的计算属性，并不会在求值结果一致就不再进行render操作（之前尤大优化过这个问题，后由于bug又revert了）
 2. 现在的计算属性是，只要计算属性依赖的值发生变化，会将计算属性的lazy设置为true，然后调用渲染watcher进行渲染，对计算属性重新求值
 3. 计算属性就是一个watcher，只是在watcher阶段没有求值，在使用时才进行求值；并会根据lazy标识判断是否依赖有更新，再更新计算属性
+4. 由于触发`watcer.evaluate`需要`watcher.dirty`为true，但每次`watcer.evaluate`完都会设置dirty为false，只要页面不重新渲染，每次调用计算属性就不会重新求值
 
 
 
@@ -544,11 +566,199 @@ new Vue({
 
 ![12-5-watch](../源码流程图/12-5-watch.svg)
 
+
+
+### 组件更新
+
+#### 基本事例
+
+```vue
+<template>
+  <div>
+    <hello-world :flag="flag" ></hello-world>
+    <button @click="change">change</button>
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld'
+export default {
+  name: 'app',
+  components: {
+    HelloWorld,
+  },
+  data() {
+    return {
+      flag: true,
+    }
+  },
+  methods: {
+    change() {
+      this.flag = !this.flag;
+    },
+  },
+}
+</script>
+```
+
+```vue
+<template>
+  <div>
+    <hello-world :flag="flag" ></hello-world>
+    <button @click="change">change</button>
+  </div>
+</template>
+<script>
+import HelloWorld from './components/HelloWorld'
+export default {
+  name: 'app',
+  components: {
+    HelloWorld,
+  },
+  data() {
+    return {
+      flag: true,
+    }
+  },
+  methods: {
+    change() {
+      this.flag = !this.flag;
+    },
+  },
+}
+</script>
+```
+
+1. 组件更新，会进入src/core/vdom/patch.js里面的patch函数
+2. 当点击change时，由于app组件的数据更新，故先会执行app组件的更新操作
+3. oldVnode与vnode是sameVnode，故执行patchVnode方法，获取oldVnode与vnode的children，都是helloworld与btn，但由于两者并不相同（flag）有改变，会执行updateChildren方法
+4. updateChildren之后详解（涉及了diff算法）
+   - 此方法会递归调用patchVnode方法，然后一层层的比对children
+5. 进入updateChildren方法后，由于第一个HelloWorld组件，又会进入patchVnode方法，此时HelloWorld是一个组件，故`isDef(data) && isDef(i = data.hook) && isDef(i = i.prepatch`为true，会执行prepatch方法
+6. prepatch方法，最终执行updateChildComponent，此函数内会更新props操作，更新props会进行赋值操作，故会执行setter，进行派发更新，渲染子组件，又会执行updateComponent函数，进入patch函数
+7. 此时会更改hellowold组件，oldvnode是div，vnode为ul，不是相同vnode，会创建新节点，
+
+#### updateChildren详解(vue diff算法)
+
+1. 开始情况，未改变数据时的vnode为oldVnode，点击change后，更新后为vnode
+
+  | DOM      | 1           | 2    | 3    | 4    | 7    | 8    | 9    | 10        |
+  | -------- | ----------- | ---- | ---- | ---- | ---- | ---- | ---- | --------- |
+  |          | oldStartIdx |      |      |      |      |      |      | oldEndIdx |
+  | oldVnode | 1           | 2    | 3    | 4    | 7    | 8    | 9    | 10        |
+  | vnode    | 1           | 9    | 11   | 7    | 3    | 4    | 2    | 10        |
+  |          | newStartIdx |      |      |      |      |      |      | newEndIdx |
+
+1. 第一次循环，由于首首相同，尾尾相同，故只挪动号，dom不变化
+	  | DOM      | 1    | 2           | 3    | 4    | 7    | 8    | 9         | 10   |
+  | -------- | ---- | ----------- | ---- | ---- | ---- | ---- | --------- | ---- |
+  |          |      | oldStartIdx |      |      |      |      | oldEndIdx |      |
+  | oldVnode | 1    | 2           | 3    | 4    | 7    | 8    | 9         | 10   |
+  | vnode    | 1    | 9           | 11   | 7    | 3    | 4    | 2         | 10   |
+  |          |      | newStartIdx |      |      |      |      | newEndIdx |      |
+  
+1. 下一次循环，先比较`sameVnode(oldStartVnode, newEndVnode)`为true，故将新元素插入到OldEndVnode后面
+	| DOM      | 1    | 3           | 4           | 7    | 8    | 9         | 2         | 10   |
+  | -------- | ---- | ----------- | ----------- | ---- | ---- | --------- | --------- | ---- |
+  |          |      |             | oldStartIdx |      |      |           | oldEndIdx |      |
+  | oldVnode | 1    | 2           | 3           | 4    | 7    | 8         | 9         | 10   |
+  | vnode    | 1    | 9           | 11          | 7    | 3    | 4         | 2         | 10   |
+  |          |      | newStartIdx |             |      |      | newEndIdx |           |      |
+  
+1. 然后比较，`sameVnode(oldEndVnode, newStartVnode)`为true，故将新元素插入到OldStartVnode后面
+		| DOM      | 1    | 9    | 3           | 4    | 7    | 8         | 2    | 10   |
+  | -------- | ---- | ---- | ----------- | ---- | ---- | --------- | ---- | ---- |
+  |          |      |      | oldStartIdx |      |      | oldEndIdx |      |      |
+  | oldVnode | 1    | 2    | 3           | 4    | 7    | 8         | 9    | 10   |
+  | vnode    | 1    | 9    | 11          | 7    | 3    | 4         | 2    | 10   |
+  |          |      |      | newStartIdx |      |      | newEndIdx |      |      |
+  
+1. 下一次循环，发现所有比对都不是sameVnode，故newStartVnode会在old序列中查找，发现未找到，则表示11，是一个新节点，直接调用createElm在当前位置创建节点
+			| DOM      | 1    | 9    | 11   | 3           | 4           | 7    | 8         | 2    | 10   |
+  | -------- | ---- | ---- | ---- | ----------- | ----------- | ---- | --------- | ---- | ---- |
+  |          |      |      |      | oldStartIdx |             |      | oldEndIdx |      |      |
+  | oldVnode | 1    | 2    |      | 3           | 4           | 7    | 8         | 9    | 10   |
+  | vnode    | 1    | 9    |      | 11          | 7           | 3    | 4         | 2    | 10   |
+  |          |      |      |      |             | newStartIdx |      | newEndIdx |      |      |
+  
+1. 下一次循环，比对7，发现7在old序列中有值，实际是挪动位置，本质是将7插入此位置，oldVnode的7的位置设为undefined（但dom并没有被删除）
+				| DOM      | 1    | 9    | 11->7 | 3           | 4    | 7           | 8         | 2    | 10   |
+  | -------- | ---- | ---- | ----- | ----------- | ---- | ----------- | --------- | ---- | ---- |
+  |          |      |      |       | oldStartIdx |      |             | oldEndIdx |      |      |
+  | oldVnode | 1    | 2    |       | 3           | 4    | undefined   | 8         | 9    | 10   |
+  | vnode    | 1    | 9    |       | 11          | 7    | 3           | 4         | 2    | 10   |
+  |          |      |      |       |             |      | newStartIdx | newEndIdx |      |      |
+	
+1. 下次循环，发现头头相同，即3，4相同，不需要挪动dom得到
+					| DOM      | 1    | 9    | 11->7 | 3    | 4    | 7           | 8         | 2           | 10   |
+  | -------- | ---- | ---- | ----- | ---- | ---- | ----------- | --------- | ----------- | ---- |
+  |          |      |      |       |      |      | oldStartIdx | oldEndIdx |             |      |
+  | oldVnode | 1    | 2    |       | 3    | 4    | undefined   | 8         | 9           | 10   |
+  | vnode    | 1    | 9    |       | 11   | 7    | 3           | 4         | 2           | 10   |
+  |          |      |      |       |      |      |             | newEndIdx | newStartIdx |      |
+  
+1. 循环结束，发现newStartIdx>newEndIdx，故需要删除7，8这两个dom，得到最终结果：1>9>11>7>3>4>2>10
+
+
+
+
+## 编译
+
+### 编译入口
+
+1. vue 使用createCompiler，根据不同的options可以构建不同的compier，处理不同环境问题
+2. 将baseCompile编译函数传入，只处理核心编译步骤
+3. 而createCompiler 是由createCompilerCreator生成的，用于处理编译相关问题，如对options进行判断显示warning
+4. 而最终需要执行的函数是compileToFunctions，只用处理模板到render函数涉及的问题
+
+
+
+### parse
+
+1. 主要是理解编译的基本逻辑
+2. `src/compiler/index.js`中的parse，将template字符串传入，创建一些钩子函数（将parseHTML提取出来的内容生成AST）后，调用parseHtml
+3. 而parseHtml的逻辑主要是循环遍历html，通过匹配`textEnd = html.indexOf('<')`，>0时，表示可能元素前有文本，=0时，对标签进行判断，<0时，都是文本
+   - `=0`时：分别处理comment、ie注释节点、doctype，解析开始标签和结束标签
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 问题汇总
 
 1. src/core/vdom/create-element.js的_createElement何种情况会传入data和children
 
-### 问题：为何mounted等可以访问data中定义的数据
+## 问题：为何mounted等可以访问data中定义的数据
 
 1. 这个src/core/instance/init.js的57行，有个initState
 2. 进入这个文件`src/core/instance/state.js`

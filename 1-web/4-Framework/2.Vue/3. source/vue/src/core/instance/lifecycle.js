@@ -62,6 +62,8 @@ export function lifecycleMixin (Vue: Class<Component>) {
     // 这几个常量与更新时有关
     const vm: Component = this
     const prevEl = vm.$el
+    // 由于下面有vm._vnode = vnode，第一次执行时，会将vnode保存在_vnode中
+    // 第二执行时，就会存在prevVnode
     const prevVnode = vm._vnode
     const restoreActiveInstance = setActiveInstance(vm)
     vm._vnode = vnode
@@ -72,7 +74,7 @@ export function lifecycleMixin (Vue: Class<Component>) {
       // initial render
       vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */)
     } else {
-      // updates
+      // updates 参见12-6-组件更新
       vm.$el = vm.__patch__(prevVnode, vnode)
     }
     restoreActiveInstance()

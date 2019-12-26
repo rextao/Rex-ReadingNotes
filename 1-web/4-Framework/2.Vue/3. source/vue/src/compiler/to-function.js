@@ -20,7 +20,7 @@ function createFunction (code, errors) {
 
 export function createCompileToFunctionFn (compile: Function): Function {
   const cache = Object.create(null)
-
+  // 实际入口
   return function compileToFunctions (
     template: string,
     options?: CompilerOptions,
@@ -49,6 +49,7 @@ export function createCompileToFunctionFn (compile: Function): Function {
     }
 
     // check cache
+    // 同一个模板不应该反复编译
     const key = options.delimiters
       ? String(options.delimiters) + template
       : template
@@ -96,6 +97,7 @@ export function createCompileToFunctionFn (compile: Function): Function {
     })
 
     // check function generation errors.
+    // 检查字符串转换为函数错误
     // this should only happen if there is a bug in the compiler itself.
     // mostly for codegen development use
     /* istanbul ignore if */
@@ -108,7 +110,7 @@ export function createCompileToFunctionFn (compile: Function): Function {
         )
       }
     }
-
+    // 返回编译结果，并保持在缓存中
     return (cache[key] = res)
   }
 }

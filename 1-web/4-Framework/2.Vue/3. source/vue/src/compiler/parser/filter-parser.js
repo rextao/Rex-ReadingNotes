@@ -83,7 +83,7 @@ export function parseFilters (exp: string): string {
 
   return expression
 }
-
+// 最终生成的函数，如{{msg | testFilter}}  会被解析为 _f("testFilter")(msg)
 function wrapFilter (exp: string, filter: string): string {
   const i = filter.indexOf('(')
   if (i < 0) {

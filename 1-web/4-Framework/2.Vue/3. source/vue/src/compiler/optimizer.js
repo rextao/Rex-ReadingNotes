@@ -23,8 +23,10 @@ export function optimize (root: ?ASTElement, options: CompilerOptions) {
   isStaticKey = genStaticKeysCached(options.staticKeys || '')
   isPlatformReservedTag = options.isReservedTag || no
   // first pass: mark all non-static nodes.
+  // 标记静态节点
   markStatic(root)
   // second pass: mark static roots.
+  // 标记静态根
   markStaticRoots(root, false)
 }
 
@@ -67,6 +69,7 @@ function markStatic (node: ASTNode) {
   }
 }
 
+// isInFor是否在v-for中
 function markStaticRoots (node: ASTNode, isInFor: boolean) {
   if (node.type === 1) {
     if (node.static || node.once) {
@@ -75,13 +78,14 @@ function markStaticRoots (node: ASTNode, isInFor: boolean) {
     // For a node to qualify as a static root, it should have children that
     // are not just static text. Otherwise the cost of hoisting out will
     // outweigh the benefits and it's better off to just always render it fresh.
+    // 在markStatic执行阶段，只有children为static，此节点才会标记为static
     if (node.static && node.children.length && !(
       node.children.length === 1 &&
       node.children[0].type === 3
     )) {
       node.staticRoot = true
       return
-    } else {
+    } else { // 即children.length===1 && 为文本节点，会设置为false，可能是通过性能测试测出来的
       node.staticRoot = false
     }
     if (node.children) {
@@ -109,7 +113,7 @@ function isStatic (node: ASTNode): boolean {
     !node.if && !node.for && // not v-if or v-for or v-else
     !isBuiltInTag(node.tag) && // not a built-in
     isPlatformReservedTag(node.tag) && // not a component
-    !isDirectChildOfTemplateFor(node) &&
+    !isDirectChildOfTemplateFor(node) && // 不能是v-for的子节点
     Object.keys(node).every(isStaticKey)
   ))
 }

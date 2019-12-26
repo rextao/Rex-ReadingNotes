@@ -241,6 +241,7 @@ export function defineComputed (
       // 因此，此getter，则是访问computed值时，访问的函数
       ? createComputedGetter(key)
       : createGetterInvoker(userDef)
+    // 默认使用函数方式是计算属性，并没有getter
     sharedPropertyDefinition.set = noop
   } else {
     sharedPropertyDefinition.get = userDef.get

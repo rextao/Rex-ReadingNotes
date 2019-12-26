@@ -61,8 +61,10 @@ export function parseHTML (html, options) {
   while (html) {
     last = html
     // Make sure we're not in a plaintext content element like script/style
+    // 确保模板中没有script与style
     if (!lastTag || !isPlainTextElement(lastTag)) {
       let textEnd = html.indexOf('<')
+      // 如果第一个字符为< (匹配到了会用advance对html截取)
       if (textEnd === 0) {
         // Comment:
         if (comment.test(html)) {
@@ -78,6 +80,7 @@ export function parseHTML (html, options) {
         }
 
         // http://en.wikipedia.org/wiki/Conditional_comment#Downlevel-revealed_conditional_comment
+        // <![if !IE]>这样的ie注释节点
         if (conditionalComment.test(html)) {
           const conditionalEnd = html.indexOf(']>')
 
@@ -94,7 +97,8 @@ export function parseHTML (html, options) {
           continue
         }
 
-        // End tag:
+        // End tag: 匹配结束标签
+        // 如<div></div> ,如匹配到结束标签</div>
         const endTagMatch = html.match(endTag)
         if (endTagMatch) {
           const curIndex = index
@@ -103,10 +107,13 @@ export function parseHTML (html, options) {
           continue
         }
 
-        // Start tag:
+        // Start tag:  判断是否匹配开始，解析出html的属性
+        // 此函数是利用正则将对html进行匹配，生成match数组
         const startTagMatch = parseStartTag()
+        // 如果存在开始标签
         if (startTagMatch) {
           handleStartTag(startTagMatch)
+          // 处理空行
           if (shouldIgnoreFirstNewline(startTagMatch.tagName, html)) {
             advance(1)
           }
@@ -115,8 +122,12 @@ export function parseHTML (html, options) {
       }
 
       let text, rest, next
+      // 处理文本
+      // 如<div>asdfasdf</div>，第一个<处理完，
+      // 再匹配时，会匹配到</div>的<，但此时textEnd不为0
       if (textEnd >= 0) {
         rest = html.slice(textEnd)
+        // 处理文本中出现的<括号，主要是找到文本结束位置
         while (
           !endTag.test(rest) &&
           !startTagOpen.test(rest) &&
@@ -131,7 +142,7 @@ export function parseHTML (html, options) {
         }
         text = html.substring(0, textEnd)
       }
-
+      // 如找不到<，则把html赋给text
       if (textEnd < 0) {
         text = html
       }
@@ -143,7 +154,7 @@ export function parseHTML (html, options) {
       if (options.chars && text) {
         options.chars(text, index - text.length, index)
       }
-    } else {
+    } else { // 实际是对script,style,textarea做特殊处理，这几个标签内可以为任何内容
       let endTagLength = 0
       const stackedTag = lastTag.toLowerCase()
       const reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'))
@@ -178,12 +189,14 @@ export function parseHTML (html, options) {
 
   // Clean up any remaining tags
   parseEndTag()
-
+  // 此方法是将index向前进n，并对html进行截断
+  // 如 <div class='text'>123</div> 如advance(4) 则html会变成 class='text'>123</div>
   function advance (n) {
     index += n
     html = html.substring(n)
   }
-
+  // 如 <div class='text'>123</div>
+  // 此函数用于解析<div className='text'>这个头部标签，返回match对象
   function parseStartTag () {
     const start = html.match(startTagOpen)
     if (start) {
@@ -194,6 +207,7 @@ export function parseHTML (html, options) {
       }
       advance(start[0].length)
       let end, attr
+      // 循环匹配标签的属性
       while (!(end = html.match(startTagClose)) && (attr = html.match(dynamicArgAttribute) || html.match(attribute))) {
         attr.start = index
         advance(attr[0].length)
@@ -201,6 +215,7 @@ export function parseHTML (html, options) {
         match.attrs.push(attr)
       }
       if (end) {
+        // unarySlash记录一元字符的结束标签
         match.unarySlash = end[1]
         advance(end[0].length)
         match.end = index
@@ -208,20 +223,26 @@ export function parseHTML (html, options) {
       }
     }
   }
-
+  // 对match数组进行处理，如将attr进行转换，对a或href的文本进行编码
   function handleStartTag (match) {
     const tagName = match.tagName
     const unarySlash = match.unarySlash
-
+    // 这段逻辑，主要是让vue解析与浏览器的解析保持一致
     if (expectHTML) {
+      // isNonPhrasingTag  不能放在p标签的元素，
+      // html5对于如，<p><div></div></p>，浏览器会被解析为<p></p><div></div><p></p>
+      // vue需要处理逻辑与浏览器保持一致
+      // vue对于<p><div></div></p> 执行到此句时，会创建一个p的闭合标签<p></p><div></div></p>
+      // 到解析</p>时，在stack中并无p，故pos< 0 会有特殊逻辑处理
       if (lastTag === 'p' && isNonPhrasingTag(tagName)) {
         parseEndTag(lastTag)
       }
+      // canBeLeftOpenTag这些标签可以不闭合，浏览器会默认增加闭合标签
       if (canBeLeftOpenTag(tagName) && lastTag === tagName) {
         parseEndTag(tagName)
       }
     }
-
+    // unarySlash: 一元斜杠
     const unary = isUnaryTag(tagName) || !!unarySlash
 
     const l = match.attrs.length
@@ -241,8 +262,9 @@ export function parseHTML (html, options) {
         attrs[i].end = args.end
       }
     }
-
+    // 如不是一元的html（如<img/> 为一元的），需要将标签加入stack中，主要是为了配对
     if (!unary) {
+      // stack数组是为了保证html开闭标签全部存在
       stack.push({ tag: tagName, lowerCasedTag: tagName.toLowerCase(), attrs: attrs, start: match.start, end: match.end })
       lastTag = tagName
     }
@@ -277,11 +299,13 @@ export function parseHTML (html, options) {
           (i > pos || !tagName) &&
           options.warn
         ) {
+          // 避免用户<div><span></div>这样的
           options.warn(
             `tag <${stack[i].tag}> has no matching end tag.`,
             { start: stack[i].start, end: stack[i].end }
           )
         }
+        // 如在stack获取了配对的start标签，则调用end方法
         if (options.end) {
           options.end(stack[i].tag, start, end)
         }
@@ -291,6 +315,7 @@ export function parseHTML (html, options) {
       stack.length = pos
       lastTag = pos && stack[pos - 1].tag
     } else if (lowerCasedTagName === 'br') {
+      // 由于br是自闭合标签，故unary为true
       if (options.start) {
         options.start(tagName, [], true, start, end)
       }

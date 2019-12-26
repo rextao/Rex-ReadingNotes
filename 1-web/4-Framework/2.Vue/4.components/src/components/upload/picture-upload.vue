@@ -17,16 +17,14 @@
             <i class="el-icon-upload"></i>
         </el-upload>
         <div class="el-upload__tip">
-            <slot>
-                只能上传jpg/png文件，且不超过500kb
-            </slot>
+            <slot></slot>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'picuter-upload',
+    name: 'picture-upload',
     props: {
         imgUrl: {
             type: String,
@@ -62,6 +60,7 @@ export default {
     methods: {
         handleUploadSuccess(res) {
             const { url } = res.data;
+            this.uploadClass = 'fill-upload';
             this.$emit('update:imgUrl', url);
         },
         handleBeforeUpload(file) {

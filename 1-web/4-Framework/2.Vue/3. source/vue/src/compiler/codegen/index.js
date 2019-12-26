@@ -25,6 +25,9 @@ export class CodegenState {
     this.options = options
     this.warn = options.warn || baseWarn
     this.transforms = pluckModuleFunction(options.modules, 'transformCode')
+    // src/platforms/web/compiler/modules/class.js
+    // src/platforms/web/compiler/modules/style.js
+    // 因此dataGenFns为数组
     this.dataGenFns = pluckModuleFunction(options.modules, 'genData')
     this.directives = extend(extend({}, baseDirectives), options.directives)
     const isReservedTag = options.isReservedTag || no
@@ -45,13 +48,14 @@ export function generate (
   options: CompilerOptions
 ): CodegenResult {
   const state = new CodegenState(options)
+  // 利用genElement对ast生成code
   const code = ast ? genElement(ast, state) : '_c("div")'
   return {
     render: `with(this){return ${code}}`,
     staticRenderFns: state.staticRenderFns
   }
 }
-
+// 就是判断当前 AST 元素节点的属性执行不同的代码生成函数
 export function genElement (el: ASTElement, state: CodegenState): string {
   if (el.parent) {
     el.pre = el.pre || el.parent.pre
@@ -81,6 +85,7 @@ export function genElement (el: ASTElement, state: CodegenState): string {
       }
 
       const children = el.inlineTemplate ? null : genChildren(el, state, true)
+      // 最终生成的_c是在vm初始化时vm._c ，即渲染render函数
       code = `_c('${el.tag}'${
         data ? `,${data}` : '' // data
       }${
@@ -159,14 +164,20 @@ function genIfConditions (
   altEmpty?: string
 ): string {
   if (!conditions.length) {
+    // _e = createEmptyVNode
     return altEmpty || '_e()'
   }
-
+  // 如无v-once，v-if="isShow"生成的代码
+  // (isShow) ? genElement(el, state) : _e()
   const condition = conditions.shift()
+  // condition.exp 可以理解为 v-if="show" 后面的show
   if (condition.exp) {
     return `(${condition.exp})?${
+      // 执行到此，会去执行genElement（递归），此时并未返回字符串
       genTernaryExp(condition.block)
     }:${
+      // 由于此处是递归操作，故如果conditions有多个元素，那么会生成嵌套结构的三元函数
+      // 如果不考虑genElement
       genIfConditions(conditions, state, altGen, altEmpty)
     }`
   } else {
@@ -175,6 +186,7 @@ function genIfConditions (
 
   // v-if with v-once should generate code like (a)?_m(0):_m(1)
   function genTernaryExp (el) {
+    // 初始进来altGen为false
     return altGen
       ? altGen(el, state)
       : el.once
@@ -210,12 +222,17 @@ export function genFor (
   }
 
   el.forProcessed = true // avoid recursion
+  // 对于v-for="item,index in data" 生成的代码
+  //  _l((data), function(item, index) {
+  //    return genElememt(el, state)
+  //  })
+  // _l  => src/core/instance/render-helpers/render-list.js
   return `${altHelper || '_l'}((${exp}),` +
     `function(${alias}${iterator1}${iterator2}){` +
       `return ${(altGen || genElement)(el, state)}` +
     '})'
 }
-
+// 实际是拼接一个字符串的obj
 export function genData (el: ASTElement, state: CodegenState): string {
   let data = '{'
 
@@ -244,6 +261,9 @@ export function genData (el: ASTElement, state: CodegenState): string {
     data += `tag:"${el.tag}",`
   }
   // module data generation functions
+  // 主要处理data中的class与style
+  // 对于class，对于静态class： 'staticClass:xxx,'  动态class： 'class:xxxx,'
+  // 对于style，同理得到 staticStyle: '',  style: '',
   for (let i = 0; i < state.dataGenFns.length; i++) {
     data += state.dataGenFns[i](el)
   }
@@ -476,13 +496,17 @@ export function genChildren (
       el.tag !== 'slot'
     ) {
       const normalizationType = checkSkip
+        // state.maybeComponent = (el) => !!el.component || !isReservedTag(el.tag)
         ? state.maybeComponent(el) ? `,1` : `,0`
         : ``
+      // 把v-for的第一个子元素传入genElement
       return `${(altGenElement || genElement)(el, state)}${normalizationType}`
     }
+    // 对于非v-for节点
     const normalizationType = checkSkip
       ? getNormalizationType(children, state.maybeComponent)
       : 0
+    // genNode => 对于type=1会调用genElement，3  genComment  其他： genText
     const gen = altGenNode || genNode
     return `[${children.map(c => gen(c, state)).join(',')}]${
       normalizationType ? `,${normalizationType}` : ''
@@ -530,14 +554,15 @@ function genNode (node: ASTNode, state: CodegenState): string {
     return genText(node)
   }
 }
-
+// _v = createTextVNode
 export function genText (text: ASTText | ASTExpression): string {
   return `_v(${text.type === 2
+    // 此时插值等已经被处理转为_s函数了
     ? text.expression // no need for () because already wrapped in _s()
     : transformSpecialNewlines(JSON.stringify(text.text))
   })`
 }
-
+// _e = createEmptyVNode:空的注释vnode
 export function genComment (comment: ASTText): string {
   return `_e(${JSON.stringify(comment.text)})`
 }

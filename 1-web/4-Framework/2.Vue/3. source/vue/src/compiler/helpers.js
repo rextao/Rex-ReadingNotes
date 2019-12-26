@@ -10,7 +10,7 @@ export function baseWarn (msg: string, range?: Range) {
   console.error(`[Vue compiler]: ${msg}`)
 }
 /* eslint-enable no-unused-vars */
-
+// 获取m[key],并用filter，过滤undefined值
 export function pluckModuleFunction<F: Function> (
   modules: ?Array<Object>,
   key: string
@@ -180,6 +180,8 @@ export function getBindingAttr (
 // doesn't get processed by processAttrs.
 // By default it does NOT remove it from the map (attrsMap) because the map is
 // needed during codegen.
+// 默认情况下，此方法只会删除attrsList的，不会删除attrsMap上的
+// 返回值就是指令后面的值，如v-if = '123'，则return 123
 export function getAndRemoveAttr (
   el: ASTElement,
   name: string,

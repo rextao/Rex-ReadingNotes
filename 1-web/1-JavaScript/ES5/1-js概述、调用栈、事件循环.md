@@ -455,16 +455,19 @@
 
 1. 是严格按照时间顺序压栈和执行的
 2. 可以理解为事件循环中的每个正常事件（task）
-3. 常见的macrotask：setTimeout、setInterval、 setImmediate、script（整体代码）、 I/O 操作、UI 渲染等。
+3. 常见的macrotask：
+   - DOM操作任务源
+   - 用户交互任务源：键盘或鼠标输入
+   - 网络任务源：被用来响应网络活动
+   - 总结：setTimeout、setInterval、postMessage、MessageChannel、 setImmediate、script（整体代码）、 I/O 操作、UI 渲染等。
 
 ## microtask（jobs）
 
-1. ES6引入新的“Job 队列”，即任务队列，主要是为了处理promise，当js主线程空时，会优先从任务队列拿回调函数执行，故优先级会高于事件队列，类似于插队效果
-2. microtask：通常来说就是需要在当前 task 执行结束后立即执行的任务
+1. 注意：ES6引入新的“Job 队列”，即任务队列（Promise的定义在 ECMAScript规范而不是在HTML规范），主要是为了处理promise，当js主线程空时，会优先从任务队列拿回调函数执行，故优先级会高于事件队列，类似于插队效果
+2. **[在Promises/A+规范的Notes 3.1](https://promisesaplus.com/#notes)**中提及了promise的then方法可以采用“宏任务（macro-task）”机制或者“微任务（micro-task）”机制来实现，因为这个原因导致有些浏览器then方法表现不一致，但普遍认为是微任务
 3. microtask 任务队列是一个与 task 任务队列相互独立的队列，microtask 任务将会在每一个 task 任务执行结束之后执行。
 4. 每一个 task 中产生的 microtask 都将会添加到 microtask 队列中，microtask 中产生的 microtask 将会添加至当前队列的尾部，并且 microtask 会按序的处理完队列中的所有任务。
-5. microtask 类型的任务目前包括了 MutationObserver (DOM3 Events，会在指定的DOM发生变化时被调用 )以及 Promise 的回调函数。
-6. 常见的microtask：process.nextTick、new Promise().then(回调)、MutationObserver(html5 新特性，提供了监视对DOM树所做更改的能力)
+5. 常见的microtask：process.nextTick、new Promise().then(回调)、MutationObserver(html5 新特性，提供了监视对DOM树所做更改的能力)
 
 ## task与microtask运行机制
 

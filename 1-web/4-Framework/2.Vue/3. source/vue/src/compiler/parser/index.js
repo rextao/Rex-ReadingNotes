@@ -116,7 +116,7 @@ export function parse (
   function closeElement (element) {
     trimEndingWhitespace(element)
     if (!inVPre && !element.processed) {
-      // 处理slot，ref
+      // 处理属性值attrList，slot等
       element = processElement(element, options)
     }
     // tree management
@@ -143,7 +143,7 @@ export function parse (
       }
     }
     if (currentParent && !element.forbidden) {
-      // 处理 elseif 与else ToDo，为何close还有对else的处理
+      // 处理 elseif 与else，
       if (element.elseif || element.else) {
         processIfConditions(element, currentParent)
       } else {
@@ -349,7 +349,7 @@ export function parse (
         }
         return
       }
-      // 2、处理IEbugs
+      // 2、
       // IE textarea placeholder bug
       /* istanbul ignore if */
       if (isIE &&
@@ -473,6 +473,9 @@ export function processElement (
   processSlotContent(element)
   processSlotOutlet(element)
   processComponent(element)
+  // 会执行src/platforms/web/compiler/modules 中的class与style的transformNode
+  // 会将属性值根据不同情况，将class与style绑定到el.staticClass与 el.classBinding
+  // 同时从attrList删除处理好的element
   for (let i = 0; i < transforms.length; i++) {
     element = transforms[i](element, options) || element
   }
@@ -563,7 +566,7 @@ function processIf (el) {
   const exp = getAndRemoveAttr(el, 'v-if')
   if (exp) {
     el.if = exp
-    // ToDo 为何使用数组存储
+    // 使用数组方式主要是处理v-else-if， v-else
     addIfCondition(el, {
       exp: exp,
       block: el
@@ -630,6 +633,7 @@ function processOnce (el) {
 
 // handle content being passed to a component as slot,
 // e.g. <template slot="xxx">, <div slot-scope="xxx">
+// 为el增加rawAttrsMap.scope或rawAttrsMap。slot-scope或el.slotTarget等
 function processSlotContent (el) {
   let slotScope
   if (el.tag === 'template') {
@@ -660,7 +664,9 @@ function processSlotContent (el) {
     el.slotScope = slotScope
   }
 
-  // slot="xxx"
+  // slot="xxx" 主要是为el添加slotTarget等属性
+  // 之后此语法会被废弃，代替为v-slot:xxxx
+  // slot-scope="slotProps"   被替换为 v-slot:xxx="" 或#xxx=""
   const slotTarget = getBindingAttr(el, 'slot')
   if (slotTarget) {
     el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget
@@ -792,14 +798,16 @@ function processComponent (el) {
 function processAttrs (el) {
   const list = el.attrsList
   let i, l, name, rawName, value, modifiers, syncGen, isDynamic
+  // 此时attrList中已不再有class与style等processElement处理过的值
   for (i = 0, l = list.length; i < l; i++) {
     name = rawName = list[i].name
     value = list[i].value
-    // 解析指令
+    // 解析指令 v- : @ 等
     if (dirRE.test(name)) {
       // mark element as dynamic
+      // 标注当前节点为动态节点
       el.hasBindings = true
-      // modifiers 解析出修饰符
+      // modifiers 解析出修饰符，如@click.native.prevent 主要是找到.native.prevent
       modifiers = parseModifiers(name.replace(dirRE, ''))
       // support .foo shorthand syntax for the .prop modifier
       if (process.env.VBIND_PROP_SHORTHAND && propBindRE.test(name)) {
@@ -808,7 +816,8 @@ function processAttrs (el) {
       } else if (modifiers) {
         name = name.replace(modifierRE, '')
       }
-      if (bindRE.test(name)) { // v-bind
+      // v-bind
+      if (bindRE.test(name)) {
         name = name.replace(bindRE, '')
         value = parseFilters(value)
         isDynamic = dynamicArgRE.test(name)
@@ -878,12 +887,16 @@ function processAttrs (el) {
         }
       } else if (onRE.test(name)) { // v-on
         name = name.replace(onRE, '')
+        // 用于支持动态参数的，<a v-on:[eventName.xxxx]="doSomething"> ... </a>
         isDynamic = dynamicArgRE.test(name)
         if (isDynamic) {
+          // 如果是动态参数，则删除前后[]，得到  eventName.xxxx
           name = name.slice(1, -1)
         }
+        // v-on 主要调用addHandler方法
         addHandler(el, name, value, modifiers, false, warn, list[i], isDynamic)
-      } else { // normal directives
+      } else { // normal directives，普通指令
+        // v-model会走到这，获取v-model 后面的model
         name = name.replace(dirRE, '')
         // parse arg
         const argMatch = name.match(argRE)
@@ -896,8 +909,10 @@ function processAttrs (el) {
             isDynamic = true
           }
         }
+        // 为el.directives 添加当前v-model解析值
         addDirective(el, name, rawName, value, arg, isDynamic, modifiers, list[i])
         if (process.env.NODE_ENV !== 'production' && name === 'model') {
+          // 检测v-model没有和v-for同时使用
           checkForAliasModel(el, value)
         }
       }
@@ -937,7 +952,8 @@ function checkInFor (el: ASTElement): boolean {
   }
   return false
 }
-
+// 传入name已经将@select前面的指令替换为''
+// 主要是解析事件修饰符
 function parseModifiers (name: string): Object | void {
   const match = name.match(modifierRE)
   if (match) {
@@ -991,7 +1007,7 @@ function guardIESVGBug (attrs) {
   }
   return res
 }
-
+// 检测v-model没有和v-for同时使用
 function checkForAliasModel (el, value) {
   let _el = el
   while (_el) {

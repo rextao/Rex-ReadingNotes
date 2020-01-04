@@ -699,10 +699,15 @@ export default {
   
 1. 循环结束，发现newStartIdx>newEndIdx，故需要删除7，8这两个dom，得到最终结果：1>9>11>7>3>4>2>10
 
+#### 流程图
 
-
+![12-6-组件更新](../源码流程图/12-6-组件更新.svg)
 
 ## 编译
+
+### 特别注意
+
+1. 编译是先编译父级，然后再编译子，其实可以在generate打断点看出
 
 ### 编译入口
 
@@ -711,32 +716,143 @@ export default {
 3. 而createCompiler 是由createCompilerCreator生成的，用于处理编译相关问题，如对options进行判断显示warning
 4. 而最终需要执行的函数是compileToFunctions，只用处理模板到render函数涉及的问题
 
+#### 流程图
+
+![13-编译-入口](../源码流程图/13-编译-入口.svg)
+
 
 
 ### parse
 
-1. 主要是理解编译的基本逻辑
-2. `src/compiler/index.js`中的parse，将template字符串传入，创建一些钩子函数（将parseHTML提取出来的内容生成AST）后，调用parseHtml
-3. 而parseHtml的逻辑主要是循环遍历html，通过匹配`textEnd = html.indexOf('<')`，>0时，表示可能元素前有文本，=0时，对标签进行判断，<0时，都是文本
-   - `=0`时：分别处理comment、ie注释节点、doctype，解析开始标签和结束标签
+1. 主要是理解编译的基本逻辑，针对v-model，v-for等可以具体再看
+
+#### 流程图
+
+![14-编译-parse](../源码流程图/14-编译-parse.svg)
+
+### optimize
+
+1. 并不是所有数据都是响应式的，很多数据是首次渲染后就永远不会变化的，那么这部分数据生成的 DOM 也不会变化，可以在 patch 的过程跳过对他们的比对
+2. optimize的过程可以分为两步
+   - 利用markStatic函数，标记静态节点
+   - 利用markStaticRoots函数，标记静态根
+
+### generate
+
+1. generate的过程，是通过ast树转换为字符串代码
+
+2. 主要是通过一个例子，利用debugger方式走完一遍流程
+
+   ```html
+   <ul :class="bindCls" class="list" v-if="isShow">
+       <li v-for="(item,index) in data" @click="clickItem(index)">{{item}}:{{index}}</li>
+   </ul>
+   ```
+
+3. 这个例子，主要包含了v-if与v-for的代码生成
+
+
+
+## event
+
+1. 为了理解源码，最好要对着vue-event文档
+2. 驼峰转-的正则：'/\B([A-Z])/g'
+3. 注意：
+   - 组件上使用原生事件，需要加 `.native` 修饰符，普通元素上使用 `.native` 修饰符无效
+   - 组件添加的普通事件，回调函数会添加到子组件vm._events上
+   - 分为编译阶段与运行阶段，运行阶段处理普通DOM与组件的自定义事件的逻辑是有差异的
+
+### 流程图
+
+1. 编译阶段
+
+   ![15-1-event编译阶段](../源码流程图/15-1-event编译阶段.svg)
+
+2. 运行阶段
+
+![15-2-event运行阶段](../源码流程图/15-2-event运行阶段.svg)
 
 
 
 
 
+## v-model
+
+### 概述
+
+1. parse阶段，在html-parser中，在处理end逻辑时，会调用closeElement，processElement，processAttrs
+
+2. 走到最后一个else  ，addDirective，实际就是增加一个el.directives，将el，push到这个里面；el.plain = false
+
+3. generate中调用genElement， genData，genDirectives
+
+4. ```
+   const gen: DirectiveFunction = state.directives[dir.name]
+   ```
+
+5. state.directives   state是CodegenState的一个实例，this.directives = extend(extend({}, baseDirectives), options.directives)   
+
+6. options.directives  options是最开始传入的src/platforms/web/compiler/options.js
+
+7. 实际，src/platforms/web/compiler/directives/model.js
+
+8. 进入 genDefaultModel
+
+9. 一种简单的方式(el.props || (el.props = [])).push(xxxx)
+
+10. 然后返回src/compiler/codegen/index.js，继续执行genDirecitves
+
+执行阶段
+
+1. 还是会执行updateDOMListeners，并不是会处理data.directives
+
+组件
+
+1. 实际，src/platforms/web/compiler/directives/model.js
+
+2. config.isReservedTag，在src/platforms/web/runtime/index.js中会Vue.config.isReservedTag = isReservedTag，这个函数在src/platforms/web/util/element.js
+
+3. 注意，组件的v-model，会为添加el.model，注意genDirectives并无字符串返回
+
+4. 之后，继续执行src/compiler/codegen/index.js的genData，执行el.model的if，会得到 {model:{value:(message),callback:function ($$v) {message=$$v},expression:"message"},  
+
+5. 父组件最终生成的 `render` 代码
+
+   ```
+   (function anonymous() {
+       with(this) {
+           return _c('div', [_c('child', {
+               model: {
+                   value: (message),
+                   callback: function ($$v) {
+                       message = $$v
+                   },
+                   expression: "message"
+               }
+           }), _c('p', [_v("Message is: " + _s(message))])], 1)
+       }
+   })
+   ```
+
+6. createElement-》createComponent   isDef(data.model)   transformModel
+
+7. 默认是添加了:value 与input，故需要在子组件使用value获取值，然后利用$emit
 
 
 
+## slot
+
+1.  parseHTML   end    closeElement  processElement 
+2.  为el增加rawAttrsMap.scope或rawAttrsMap。slot-scope或el.slotTarget等
+3.  genElement   genSlot
 
 
 
+##  keep-alive
 
-
-
-
-
-
-
+1. src/core/components/keep-alive.js。keep-alive定义
+2. 首次渲染
+3. c/core/vdom/patch.js     createComponent  vnode.componentInstance 为undefined，首次执行都是undefined
 
 
 

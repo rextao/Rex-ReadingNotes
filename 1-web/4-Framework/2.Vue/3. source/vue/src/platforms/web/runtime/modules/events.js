@@ -28,7 +28,7 @@ function normalizeEvents (on) {
 }
 
 let target: any
-
+// 处理v-once，once实际就是，触发后，remove了listener
 function createOnceHandler (event, handler, capture) {
   const _target = target // save current target element in closure
   return function onceHandler () {
@@ -42,6 +42,7 @@ function createOnceHandler (event, handler, capture) {
 // #9446: Firefox <= 53 (in particular, ESR 52) has incorrect Event.timeStamp
 // implementation and does not fire microtasks in between event propagation, so
 // safe to exclude.
+//
 const useMicrotaskFix = isUsingMicroTask && !(isFF && Number(isFF[1]) <= 53)
 
 function add (
@@ -66,6 +67,7 @@ function add (
         // certain weird environments...
         e.target === e.currentTarget ||
         // event is fired after handler attachment
+        // 返回事件发生时的时间戳, flushSchedulerQueue时，会为currentFlushTimestamp赋值
         e.timeStamp >= attachedTimestamp ||
         // bail for environments that have buggy event.timeStamp implementations
         // #9462 iOS 9 bug: event.timeStamp is 0 after history.pushState
@@ -109,6 +111,7 @@ function updateDOMListeners (oldVnode: VNodeWithData, vnode: VNodeWithData) {
   const on = vnode.data.on || {}
   const oldOn = oldVnode.data.on || {}
   target = vnode.elm
+  // normalizeEvents 主要是对 v-model 相关的处理
   normalizeEvents(on)
   updateListeners(on, oldOn, add, remove, createOnceHandler, vnode.context)
   target = undefined

@@ -14,6 +14,7 @@ export function initEvents (vm: Component) {
   vm._hasHookEvent = false
   // init parent attached events
   const listeners = vm.$options._parentListeners
+  // 注意listeners是父级的
   if (listeners) {
     updateComponentListeners(vm, listeners)
   }
@@ -48,7 +49,7 @@ export function updateComponentListeners (
   updateListeners(listeners, oldListeners || {}, add, remove, createOnceHandler, vm)
   target = undefined
 }
-
+// Vue 定义的事件中心, 非常经典的实现
 export function eventsMixin (Vue: Class<Component>) {
   const hookRE = /^hook:/
   Vue.prototype.$on = function (event: string | Array<string>, fn: Function): Component {
@@ -81,7 +82,7 @@ export function eventsMixin (Vue: Class<Component>) {
 
   Vue.prototype.$off = function (event?: string | Array<string>, fn?: Function): Component {
     const vm: Component = this
-    // all
+    // all 清空全部
     if (!arguments.length) {
       vm._events = Object.create(null)
       return vm
@@ -116,6 +117,7 @@ export function eventsMixin (Vue: Class<Component>) {
   }
 
   Vue.prototype.$emit = function (event: string): Component {
+    // vm.$emit 是给当前的 vm 上派发的实例
     const vm: Component = this
     if (process.env.NODE_ENV !== 'production') {
       const lowerCaseEvent = event.toLowerCase()
@@ -130,6 +132,7 @@ export function eventsMixin (Vue: Class<Component>) {
       }
     }
     let cbs = vm._events[event]
+    // $emit，会调用vm._events[event]，但实际是cbs是父级定义的listener
     if (cbs) {
       cbs = cbs.length > 1 ? toArray(cbs) : cbs
       const args = toArray(arguments, 1)

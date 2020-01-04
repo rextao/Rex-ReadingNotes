@@ -71,9 +71,9 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
 export function createPatchFunction (backend) {
   let i, j
   const cbs = {}
-
+  // nodeOps: platformModules.concat(baseModules)
   const { modules, nodeOps } = backend
-
+  // 将所有hooks函数都放在cbs中
   for (i = 0; i < hooks.length; ++i) {
     cbs[hooks[i]] = []
     for (j = 0; j < modules.length; ++j) {

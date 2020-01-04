@@ -10,7 +10,8 @@ import {
   isTrue,
   isPlainObject
 } from 'shared/util'
-
+// 区分出这个事件是否有 once、capture、passive 等修饰符。
+// &，~，！等符号
 const normalizeEvent = cached((name: string): {
   name: string,
   once: boolean,
@@ -49,7 +50,7 @@ export function createFnInvoker (fns: Function | Array<Function>, vm: ?Component
   invoker.fns = fns
   return invoker
 }
-
+// 遍历 on 去添加事件监听，遍历 oldOn 去移除事件监听
 export function updateListeners (
   on: Object,
   oldOn: Object,
@@ -62,6 +63,7 @@ export function updateListeners (
   for (name in on) {
     def = cur = on[name]
     old = oldOn[name]
+    // 根据特殊标识符，区分出这个事件是否有 once、capture、passive 等修饰符。
     event = normalizeEvent(name)
     /* istanbul ignore if */
     if (__WEEX__ && isPlainObject(def)) {
@@ -77,18 +79,23 @@ export function updateListeners (
       if (isUndef(cur.fns)) {
         cur = on[name] = createFnInvoker(cur, vm)
       }
+      // 保证了事件回调只添加一次，之后仅仅去修改它的回调函数的引用。
       if (isTrue(event.once)) {
         cur = on[name] = createOnceHandler(event.name, cur, event.capture)
       }
+      // 真正执行事件添加
       add(event.name, cur, event.capture, event.passive, event.params)
     } else if (cur !== old) {
+      // 新旧handler不同，只改变handler
       old.fns = cur
       on[name] = old
     }
   }
+  // old中具有的事件，但new中没有，则调用remove删除
   for (name in oldOn) {
     if (isUndef(on[name])) {
       event = normalizeEvent(name)
+      // 移除旧的事件
       remove(event.name, oldOn[name], event.capture)
     }
   }

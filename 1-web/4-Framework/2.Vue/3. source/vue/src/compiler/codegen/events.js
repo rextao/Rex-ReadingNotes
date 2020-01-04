@@ -1,9 +1,10 @@
 /* @flow */
-
+// 匹配 () =>  或 function( 判断是否为函数表达式
 const fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/
 const fnInvokeRE = /\([^)]*?\);*$/
+// 匹配 dfs.asdf,aasdf['xxxx'],asd["xx"], asd[123], asd[name]
+// handler可能是obj的某个属性值
 const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/
-
 // KeyboardEvent.keyCode aliases
 const keyCodes: { [key: string]: number | Array<number> } = {
   esc: 27,
@@ -60,7 +61,9 @@ export function genHandlers (
   let staticHandlers = ``
   let dynamicHandlers = ``
   for (const name in events) {
+    // 处理handler
     const handlerCode = genHandler(events[name])
+    // 处理动态属性
     if (events[name] && events[name].dynamic) {
       dynamicHandlers += `${name},${handlerCode},`
     } else {
@@ -68,6 +71,7 @@ export function genHandlers (
     }
   }
   staticHandlers = `{${staticHandlers.slice(0, -1)}}`
+  // 最终拼接为： "on : {}"的JSON
   if (dynamicHandlers) {
     return prefix + `_d(${staticHandlers},[${dynamicHandlers.slice(0, -1)}])`
   } else {
@@ -114,21 +118,29 @@ function genHandler (handler: ASTElementHandler | Array<ASTElementHandler>): str
     if (__WEEX__ && handler.params) {
       return genWeexHandler(handler.params, handler.value)
     }
+    // 不存在属性修饰符的event，最终生成的代码，外面会包裹一层function($event){ xxxx }
+    // 故我们可以在handler中使用$event作为参数
+    // 这主要是处理 handler 不是函数，如直接写为 show = false 等情况
     return `function($event){${
       isFunctionInvocation ? `return ${handler.value}` : handler.value
     }}` // inline statement
   } else {
+    // 具有修饰符的，会通过modifierCode 插入相关代码
+    // 处理描述修饰符
     let code = ''
     let genModifierCode = ''
     const keys = []
     for (const key in handler.modifiers) {
       if (modifierCode[key]) {
+        // 将key转换为对应的代码
         genModifierCode += modifierCode[key]
         // left/right
+        // 处理：left与right，只有这两个值同时在modifierCode和keyCodes中
         if (keyCodes[key]) {
           keys.push(key)
         }
       } else if (key === 'exact') {
+        // 有且只有某个系统键被单独按下的时候才触发
         const modifiers: ASTModifiers = (handler.modifiers: any)
         genModifierCode += genGuard(
           ['ctrl', 'shift', 'alt', 'meta']
@@ -140,6 +152,7 @@ function genHandler (handler: ASTElementHandler | Array<ASTElementHandler>): str
         keys.push(key)
       }
     }
+    // 生成一段： if(!$event.type.indexOf('key')&&_k($event.keyCode,"enter",13,$event.key,"Enter") ） return null 的字符串
     if (keys.length) {
       code += genKeyFilter(keys)
     }
@@ -158,6 +171,7 @@ function genHandler (handler: ASTElementHandler | Array<ASTElementHandler>): str
     if (__WEEX__ && handler.params) {
       return genWeexHandler(handler.params, code + handlerCode)
     }
+    // 先执行code，然后是handlerCode，实际上如果在
     return `function($event){${code}${handlerCode}}`
   }
 }
@@ -173,12 +187,14 @@ function genKeyFilter (keys: Array<string>): string {
 }
 
 function genFilterCode (key: string): string {
+  // 处理key为数值，即<input v-on:keyup.13="submit"> 情况
   const keyVal = parseInt(key, 10)
   if (keyVal) {
     return `$event.keyCode!==${keyVal}`
   }
   const keyCode = keyCodes[key]
   const keyName = keyNames[key]
+  // _k($event.keyCode,"enter",13,$event.key,"Enter")
   return (
     `_k($event.keyCode,` +
     `${JSON.stringify(key)},` +

@@ -80,6 +80,7 @@ export function genElement (el: ASTElement, state: CodegenState): string {
       code = genComponent(el.component, el, state)
     } else {
       let data
+      // src/compiler/index.js 中addHandler函数，处理event时，会设置plain为false
       if (!el.plain || (el.pre && state.maybeComponent(el))) {
         data = genData(el, state)
       }
@@ -238,6 +239,8 @@ export function genData (el: ASTElement, state: CodegenState): string {
 
   // directives first.
   // directives may mutate the el's other properties before they are generated.
+  // 指令在生成之前可能会改变el的其他属性
+  // 实际就是，指令的生成阶段，会为el添加props和input或change等事件
   const dirs = genDirectives(el, state)
   if (dirs) data += dirs + ','
 
@@ -335,12 +338,16 @@ function genDirectives (el: ASTElement, state: CodegenState): string | void {
   for (i = 0, l = dirs.length; i < l; i++) {
     dir = dirs[i]
     needRuntime = true
+    // 实际是获取v-model对应的函数，即指令对应的函数
     const gen: DirectiveFunction = state.directives[dir.name]
     if (gen) {
       // compile-time directive that manipulates AST.
       // returns true if it also needs a runtime counterpart.
+      // 实际就是执行gen函数  state.warn : () => {console.error(`[Vue compiler]: ${msg}`)}
+      // gen函数内部，对于组件的genComponentModel，会返回false
       needRuntime = !!gen(el, dir, state.warn)
     }
+    // 对于组件上的v-model会needRuntime=false
     if (needRuntime) {
       hasRuntime = true
       res += `{name:"${dir.name}",rawName:"${dir.rawName}"${
@@ -352,6 +359,8 @@ function genDirectives (el: ASTElement, state: CodegenState): string | void {
       }},`
     }
   }
+  // 最终会返回类似：
+  // "directives:[{name:"model",rawName:"v-model",value:(message),expression:"message"}]"
   if (hasRuntime) {
     return res.slice(0, -1) + ']'
   }

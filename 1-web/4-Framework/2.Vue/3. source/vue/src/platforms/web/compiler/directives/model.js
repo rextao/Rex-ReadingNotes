@@ -3,6 +3,7 @@
 import config from 'core/config'
 import { addHandler, addProp, getBindingAttr } from 'compiler/helpers'
 import { genComponentModel, genAssignmentCode } from 'compiler/directives/model'
+import {isHTMLTag, isSVG} from "../../util";
 
 let warn
 
@@ -22,6 +23,7 @@ export default function model (
   const tag = el.tag
   const type = el.attrsMap.type
 
+  // v-mpdel不支持input type=file
   if (process.env.NODE_ENV !== 'production') {
     // inputs with type="file" are read only and setting the input's
     // value will throw an error.
@@ -46,6 +48,7 @@ export default function model (
     genRadioModel(el, value, modifiers)
   } else if (tag === 'input' || tag === 'textarea') {
     genDefaultModel(el, value, modifiers)
+    // web下： isReservedTag: () => isHTMLTag(tag) || isSVG(tag)
   } else if (!config.isReservedTag(tag)) {
     genComponentModel(el, value, modifiers)
     // component v-model doesn't need extra runtime
@@ -145,7 +148,8 @@ function genDefaultModel (
       )
     }
   }
-
+  // 获取v-model的描述符
+  // lazy: 在“change”时而非“input”时更新
   const { lazy, number, trim } = modifiers || {}
   const needCompositionGuard = !lazy && type !== 'range'
   const event = lazy
@@ -159,15 +163,23 @@ function genDefaultModel (
     valueExpression = `$event.target.value.trim()`
   }
   if (number) {
+    // _n : toNumber
     valueExpression = `_n(${valueExpression})`
   }
-
+  // 对 v-model 对应的 value 做了解析
+  // 对于简单的v-model = "message" 返回： code = "message=$event.target.value"
   let code = genAssignmentCode(value, valueExpression)
   if (needCompositionGuard) {
+    // src/platforms/web/runtime/directives/model.js
+    // 初始化时，上述runtime的model会被extend到Vue.options上
     code = `if($event.target.composing)return;${code}`
   }
-
+  // 这实际上就是 input 实现 v-model 的精髓
+  // 实际是el.props.push，然后绑定事件
+  // 所以v-mode实际就转为
+  // :value="" @input=code类似这样的形式
   addProp(el, 'value', `(${value})`)
+  // 会为el.event添加一个input事件
   addHandler(el, event, code, null, true)
   if (trim || number) {
     addHandler(el, 'blur', '$forceUpdate()')

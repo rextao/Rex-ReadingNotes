@@ -62,10 +62,16 @@ export function addDirective (
 
 function prependModifierMarker (symbol: string, name: string, dynamic?: boolean): string {
   return dynamic
+    // _p => return typeof value === 'string' ? symbol + value : value
     ? `_p(${name},"${symbol}")`
     : symbol + name // mark the event as captured
 }
 
+// 主要工作：1、首先根据 modifier 修饰符对事件名 name 做处理
+// 2、判断是一个纯原生事件还是普通事件
+// 3、最后按照 name 对事件做归类，并把回调函数的字符串保留到对应的事件中
+// important：传入为false
+// 整个处理会将event挂载在el.
 export function addHandler (
   el: ASTElement,
   name: string,
@@ -78,6 +84,7 @@ export function addHandler (
 ) {
   modifiers = modifiers || emptyObject
   // warn prevent and passive modifier
+  // passive与prevent不能同时使用
   /* istanbul ignore if */
   if (
     process.env.NODE_ENV !== 'production' && warn &&
@@ -93,6 +100,7 @@ export function addHandler (
   // normalize click.right and click.middle since they don't actually fire
   // this is technically browser-specific, but at least for now browsers are
   // the only target envs that have right/middle clicks.
+  // right,middle,left=>修饰符会限制处理函数仅响应特定的鼠标按钮。
   if (modifiers.right) {
     if (dynamic) {
       name = `(${name})==='click'?'contextmenu':(${name})`
@@ -109,35 +117,44 @@ export function addHandler (
   }
 
   // check capture modifier
+  // 添加事件监听器时使用事件捕获模式
   if (modifiers.capture) {
     delete modifiers.capture
     name = prependModifierMarker('!', name, dynamic)
   }
+  // 点击事件将只会触发一次
   if (modifiers.once) {
     delete modifiers.once
     name = prependModifierMarker('~', name, dynamic)
   }
   /* istanbul ignore if */
+  // 滚动事件的默认行为 (即滚动行为) 将会立即触发
   if (modifiers.passive) {
     delete modifiers.passive
     name = prependModifierMarker('&', name, dynamic)
   }
 
   let events
+  // 根据是否为native，生成el.nativeEvents或el.events
   if (modifiers.native) {
     delete modifiers.native
     events = el.nativeEvents || (el.nativeEvents = {})
   } else {
     events = el.events || (el.events = {})
   }
-
+  // 实际是把range的start和end，如存在，则赋值到newHandler上
+  // range是el.attrsList的一个item
   const newHandler: any = rangeSetItem({ value: value.trim(), dynamic }, range)
+  // 经过上述处理，modifiers非空，则将剩余修饰符增加到newHandler上
+  // 比如@click.native.prevent，modifiers就会剩下prevent
   if (modifiers !== emptyObject) {
     newHandler.modifiers = modifiers
   }
 
   const handlers = events[name]
   /* istanbul ignore if */
+  // 同一个事件，可以添加多个handler，故，第一次添加直接添加到events[name]，否则构造数组，push到数组里
+  // important参数标识新添加的handler在前还是在后，控制handler的调用顺序
   if (Array.isArray(handlers)) {
     important ? handlers.unshift(newHandler) : handlers.push(newHandler)
   } else if (handlers) {

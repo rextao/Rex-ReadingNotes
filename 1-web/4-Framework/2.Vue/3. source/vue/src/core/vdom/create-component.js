@@ -156,6 +156,8 @@ export function createComponent (
 
   // v-model进行处理，transform component v-model data into props & events
   if (isDef(data.model)) {
+    // 如果对于 <child v-model="message"></child> 这样的模板，经过transformModel
+    // '<child :value="message" @input="($$v) => message = $$v"></child>'
     transformModel(Ctor.options, data)
   }
 
@@ -171,11 +173,12 @@ export function createComponent (
   // 因为这些listeners会被作为子组件DOM listeners的代替
   // since these needs to be treated as
   // child component listeners instead of DOM listeners
+  // src/compiler/codegen/events.js 会将事件转换为 {on: xxxx, nativeOn: xxxx}这样的对象
   const listeners = data.on
   // replace with listeners with .native modifier
   // so it gets processed during parent component patch.
   data.on = data.nativeOn
-  // 抽象组件的处理
+  // 抽象组件的处理，比如keep-alive，会设置abstract为true
   if (isTrue(Ctor.options.abstract)) {
     // abstract components do not keep anything
     // other than props & listeners & slot
@@ -254,7 +257,12 @@ function mergeHook (f1: any, f2: any): Function {
 
 // transform component v-model info (value and callback) into
 // prop and event handler respectively.
+// 转换component的v-model为prop和event
 function transformModel (options, data: any) {
+  // 自定义组件，可以传入 model: {
+  //     prop: 'checked',
+  //     event: 'change'
+  //   },
   const prop = (options.model && options.model.prop) || 'value'
   const event = (options.model && options.model.event) || 'input'
   ;(data.attrs || (data.attrs = {}))[prop] = data.model.value

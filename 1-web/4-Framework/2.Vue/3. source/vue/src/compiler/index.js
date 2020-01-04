@@ -13,7 +13,7 @@ export const createCompiler = createCompilerCreator(function baseCompile (
   options: CompilerOptions
 ): CompiledResult {
   // baseCompile，此为编译的核心3步，生成ast，优化ast，通过ast生成code
-  // 实际此处options是：src/platforms/web/compiler/options.js
+  // 对于web平台实际此处options是：src/platforms/web/compiler/options.js
   const ast = parse(template.trim(), options)
   // ast优化：并不是所有数据都是响应式的，
   // 很多数据是首次渲染后就永远不会变化的，

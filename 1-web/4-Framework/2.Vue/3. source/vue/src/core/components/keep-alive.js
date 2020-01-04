@@ -23,10 +23,12 @@ function matches (pattern: string | RegExp | Array<string>, name: string): boole
 
 function pruneCache (keepAliveInstance: any, filter: Function) {
   const { cache, keys, _vnode } = keepAliveInstance
+  // 遍历缓存
   for (const key in cache) {
     const cachedNode: ?VNode = cache[key]
     if (cachedNode) {
       const name: ?string = getComponentName(cachedNode.componentOptions)
+      // 新name不满足filter，则删除
       if (name && !filter(name)) {
         pruneCacheEntry(cache, key, keys, _vnode)
       }
@@ -41,6 +43,7 @@ function pruneCacheEntry (
   current?: VNode
 ) {
   const cached = cache[key]
+  // 如果要删除的组件tag并不是当前渲染tag，则调用$destroy，销毁组件
   if (cached && (!current || cached.tag !== current.tag)) {
     cached.componentInstance.$destroy()
   }
@@ -52,12 +55,15 @@ const patternTypes: Array<Function> = [String, RegExp, Array]
 
 export default {
   name: 'keep-alive',
+  // 一个抽象组件
+  // src/core/instance/lifecycle.js
+  // abstract来处理：它自身不会渲染一个 DOM 元素，也不会出现在父组件链中。
   abstract: true,
 
   props: {
-    include: patternTypes,
-    exclude: patternTypes,
-    max: [String, Number]
+    include: patternTypes, // 只有名称匹配的组件会被缓存
+    exclude: patternTypes, // 任何名称匹配的组件都不会被缓存。
+    max: [String, Number] // 缓存最大数量
   },
 
   created () {
@@ -72,6 +78,7 @@ export default {
   },
 
   mounted () {
+    // 对include与exclude进行watch
     this.$watch('include', val => {
       pruneCache(this, name => matches(val, name))
     })
@@ -79,9 +86,12 @@ export default {
       pruneCache(this, name => !matches(val, name))
     })
   },
-
+  // 1、获取第一个子元素，2、处理include与exclude，3、处理是否使用缓存，vnode.componentInstance
+  // 4、处理max参数
   render () {
     const slot = this.$slots.default
+    // src/core/vdom/helpers/get-first-component-child.js
+    // 注意：组件只处理第一个子元素，故一般和component 动态组件或者是 router-view
     const vnode: VNode = getFirstComponentChild(slot)
     const componentOptions: ?VNodeComponentOptions = vnode && vnode.componentOptions
     if (componentOptions) {
@@ -106,12 +116,15 @@ export default {
       if (cache[key]) {
         vnode.componentInstance = cache[key].componentInstance
         // make current key freshest
+        // remove: Remove an item from an array.
+        // 重新调整了 key 的顺序放在了最后一个
         remove(keys, key)
         keys.push(key)
       } else {
         cache[key] = vnode
         keys.push(key)
         // prune oldest entry
+        // 如果超过最大缓存数量，则从缓存中删除第一个
         if (this.max && keys.length > parseInt(this.max)) {
           pruneCacheEntry(cache, keys[0], keys, this._vnode)
         }

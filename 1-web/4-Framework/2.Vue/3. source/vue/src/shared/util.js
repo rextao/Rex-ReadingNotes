@@ -175,6 +175,10 @@ export const capitalize = cached((str: string): string => {
 
 /**
  * Hyphenate a camelCase string.
+ * \b 一个词的边界  连续的单词和数字和_组合都是一个单位
+ * \B 非单词边界
+ * '123 abd#fff'.replace(/\b/g, '***') => *123* *abd*#*fff*
+ * \B  => "1*2*3 s*f*_*a*s*d*f#a*s*d*f"
  */
 const hyphenateRE = /\B([A-Z])/g
 export const hyphenate = cached((str: string): string => {

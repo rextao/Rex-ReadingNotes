@@ -21,6 +21,7 @@ export function genComponentModel (
   if (number) {
     valueExpression = `_n(${valueExpression})`
   }
+  // 假设v-model=message，则value为message，对value用parseModel处理
   const assignment = genAssignmentCode(value, valueExpression)
 
   el.model = {

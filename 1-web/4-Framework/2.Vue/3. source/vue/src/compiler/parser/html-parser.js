@@ -319,6 +319,7 @@ export function parseHTML (html, options) {
       if (options.start) {
         options.start(tagName, [], true, start, end)
       }
+      // 结束标签为p，且stack找不到前置p标签，生成<p></p>
     } else if (lowerCasedTagName === 'p') {
       if (options.start) {
         options.start(tagName, [], false, start, end)

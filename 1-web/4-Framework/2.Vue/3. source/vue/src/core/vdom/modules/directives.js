@@ -17,7 +17,7 @@ function updateDirectives (oldVnode: VNodeWithData, vnode: VNodeWithData) {
     _update(oldVnode, vnode)
   }
 }
-
+// 当分析指令时，再详细看
 function _update (oldVnode, vnode) {
   const isCreate = oldVnode === emptyNode
   const isDestroy = vnode === emptyNode
@@ -33,6 +33,7 @@ function _update (oldVnode, vnode) {
     dir = newDirs[key]
     if (!oldDir) {
       // new directive, bind
+      // 获取 fn = dir.def.bind  然后调用
       callHook(dir, 'bind', vnode, oldVnode)
       if (dir.def && dir.def.inserted) {
         dirsWithInsert.push(dir)
@@ -54,7 +55,10 @@ function _update (oldVnode, vnode) {
         callHook(dirsWithInsert[i], 'inserted', vnode, oldVnode)
       }
     }
+    // 如是创建阶段，
     if (isCreate) {
+      // src/core/vdom/helpers/merge-hook.js
+      // 实际可以理解为为vnode.insert添加一个callInsert函数
       mergeVNodeHook(vnode, 'insert', callInsert)
     } else {
       callInsert()
@@ -107,7 +111,7 @@ function normalizeDirectives (
 function getRawDirName (dir: VNodeDirective): string {
   return dir.rawName || `${dir.name}.${Object.keys(dir.modifiers || {}).join('.')}`
 }
-
+// 获取dir.def[hook]，然后调用
 function callHook (dir, hook, vnode, oldVnode, isDestroy) {
   const fn = dir.def && dir.def[hook]
   if (fn) {

@@ -67,7 +67,8 @@ type ModelParseResult = {
   exp: string,
   key: string | null
 }
-
+// 由于v-model='xxxx'，xxxx可以有很多写法
+// 如test , text[key], test[text1[key]]等等，对这些值进行解析
 export function parseModel (val: string): ModelParseResult {
   // Fix https://github.com/vuejs/vue/pull/7730
   // allow v-model="obj.val " (trailing whitespace)

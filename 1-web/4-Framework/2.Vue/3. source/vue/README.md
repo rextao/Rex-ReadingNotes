@@ -780,63 +780,16 @@ export default {
 
 ### 概述
 
-1. parse阶段，在html-parser中，在处理end逻辑时，会调用closeElement，processElement，processAttrs
+1. 注意： v-model与input :value="msg" @input="" 是有区别的，前者输入中文时，不会同步数据，后者会
+   - 主要是因为运行时，vue还做了处理，实际`src/platforms/web/runtime/directives/model.js`对input事件进行了拦截
+   - 创建compositionstart与compositionend事件
+2. 实际v-model，之所以是语法糖，实际就是vue对v-model进行处理，为组件添加value的props和一个input或change等事件
 
-2. 走到最后一个else  ，addDirective，实际就是增加一个el.directives，将el，push到这个里面；el.plain = false
+### 流程图
 
-3. generate中调用genElement， genData，genDirectives
+![16-v-model](../源码流程图/16-v-model.svg)
 
-4. ```
-   const gen: DirectiveFunction = state.directives[dir.name]
-   ```
 
-5. state.directives   state是CodegenState的一个实例，this.directives = extend(extend({}, baseDirectives), options.directives)   
-
-6. options.directives  options是最开始传入的src/platforms/web/compiler/options.js
-
-7. 实际，src/platforms/web/compiler/directives/model.js
-
-8. 进入 genDefaultModel
-
-9. 一种简单的方式(el.props || (el.props = [])).push(xxxx)
-
-10. 然后返回src/compiler/codegen/index.js，继续执行genDirecitves
-
-执行阶段
-
-1. 还是会执行updateDOMListeners，并不是会处理data.directives
-
-组件
-
-1. 实际，src/platforms/web/compiler/directives/model.js
-
-2. config.isReservedTag，在src/platforms/web/runtime/index.js中会Vue.config.isReservedTag = isReservedTag，这个函数在src/platforms/web/util/element.js
-
-3. 注意，组件的v-model，会为添加el.model，注意genDirectives并无字符串返回
-
-4. 之后，继续执行src/compiler/codegen/index.js的genData，执行el.model的if，会得到 {model:{value:(message),callback:function ($$v) {message=$$v},expression:"message"},  
-
-5. 父组件最终生成的 `render` 代码
-
-   ```
-   (function anonymous() {
-       with(this) {
-           return _c('div', [_c('child', {
-               model: {
-                   value: (message),
-                   callback: function ($$v) {
-                       message = $$v
-                   },
-                   expression: "message"
-               }
-           }), _c('p', [_v("Message is: " + _s(message))])], 1)
-       }
-   })
-   ```
-
-6. createElement-》createComponent   isDef(data.model)   transformModel
-
-7. 默认是添加了:value 与input，故需要在子组件使用value获取值，然后利用$emit
 
 
 

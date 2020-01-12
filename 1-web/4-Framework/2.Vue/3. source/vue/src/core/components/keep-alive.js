@@ -96,8 +96,10 @@ export default {
     const componentOptions: ?VNodeComponentOptions = vnode && vnode.componentOptions
     if (componentOptions) {
       // check pattern
+      // 获取组件名
       const name: ?string = getComponentName(componentOptions)
       const { include, exclude } = this
+      // 不需要缓存的，直接返回vnode
       if (
         // not included
         (include && (!name || !matches(include, name))) ||
@@ -108,6 +110,7 @@ export default {
       }
 
       const { cache, keys } = this
+      // 获取要缓存的key
       const key: ?string = vnode.key == null
         // same constructor may get registered as different local components
         // so cid alone is not enough (#3269)
@@ -118,6 +121,8 @@ export default {
         // make current key freshest
         // remove: Remove an item from an array.
         // 重新调整了 key 的顺序放在了最后一个
+        // 利用keys数组实现缓存策略，这样能保证最新使用的都在后面，最前面的一定是最不长用的
+        // 使用LRU算法，选择最近最久未使用的页面予以淘汰。
         remove(keys, key)
         keys.push(key)
       } else {

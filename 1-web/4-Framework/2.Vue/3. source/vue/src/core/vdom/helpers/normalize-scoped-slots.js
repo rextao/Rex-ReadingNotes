@@ -13,6 +13,7 @@ export function normalizeScopedSlots (
   const hasNormalSlots = Object.keys(normalSlots).length > 0
   const isStable = slots ? !!slots.$stable : !hasNormalSlots
   const key = slots && slots.$key
+  // 处理普通插槽
   if (!slots) {
     res = {}
   } else if (slots._normalized) {
@@ -38,7 +39,9 @@ export function normalizeScopedSlots (
     }
   }
   // expose normal slots on scopedSlots
+  // 将普通插槽暴露在vm.$$scopedSlots上
   for (const key in normalSlots) {
+    // res已经有的key则不再赋值
     if (!(key in res)) {
       res[key] = proxyNormalSlot(normalSlots, key)
     }
@@ -48,6 +51,7 @@ export function normalizeScopedSlots (
   if (slots && Object.isExtensible(slots)) {
     (slots: any)._normalized = res
   }
+  // 定义res的3个内置属性值
   def(res, '$stable', isStable)
   def(res, '$key', key)
   def(res, '$hasNormal', hasNormalSlots)

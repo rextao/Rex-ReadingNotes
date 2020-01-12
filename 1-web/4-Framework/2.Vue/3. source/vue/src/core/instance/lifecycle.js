@@ -33,7 +33,7 @@ export function initLifecycle (vm: Component) {
   const options = vm.$options
 
   // locate first non-abstract parent
-  // 抽象组件，如keep-alive ToDo
+  // 抽象组件，如keep-alive，不会绑定在组件父子链中，即不会挂载KeepAlive组件
   let parent = options.parent
   if (parent && !options.abstract) {
     while (parent.$options.abstract && parent.$parent) {

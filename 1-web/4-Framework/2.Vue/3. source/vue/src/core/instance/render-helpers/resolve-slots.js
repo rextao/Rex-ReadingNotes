@@ -22,6 +22,7 @@ export function resolveSlots (
     }
     // named slots should only be respected if the vnode was rendered in the
     // same context.
+    // data.slot 是具名插槽的name
     if ((child.context === context || child.fnContext === context) &&
       data && data.slot != null
     ) {
@@ -37,6 +38,7 @@ export function resolveSlots (
     }
   }
   // ignore slots that contains only whitespace
+  // 如果只包含空白的slot，则忽略
   for (const name in slots) {
     if (slots[name].every(isWhitespace)) {
       delete slots[name]

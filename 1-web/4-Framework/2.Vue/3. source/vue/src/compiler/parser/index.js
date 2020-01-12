@@ -162,6 +162,7 @@ export function parse (
 
     // final children cleanup
     // filter out scoped slots
+    // 特别注意，这会过滤出非slotScope节点，因此，实际带有slot-scope插槽节点不在parent的children中
     element.children = element.children.filter(c => !(c: any).slotScope)
     // remove trailing whitespace node again
     trimEndingWhitespace(element)
@@ -472,6 +473,7 @@ export function processElement (
   processRef(element)
   processSlotContent(element)
   processSlotOutlet(element)
+  // 处理component组件
   processComponent(element)
   // 会执行src/platforms/web/compiler/modules 中的class与style的transformNode
   // 会将属性值根据不同情况，将class与style绑定到el.staticClass与 el.classBinding
@@ -636,6 +638,7 @@ function processOnce (el) {
 // 为el增加rawAttrsMap.scope或rawAttrsMap。slot-scope或el.slotTarget等
 function processSlotContent (el) {
   let slotScope
+  // 处理slot-scope
   if (el.tag === 'template') {
     slotScope = getAndRemoveAttr(el, 'scope')
     /* istanbul ignore if */
@@ -650,6 +653,7 @@ function processSlotContent (el) {
       )
     }
     el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope')
+    // 2.5+版本，slot-scope可以不在template下
   } else if ((slotScope = getAndRemoveAttr(el, 'slot-scope'))) {
     /* istanbul ignore if */
     if (process.env.NODE_ENV !== 'production' && el.attrsMap['v-for']) {
@@ -668,6 +672,8 @@ function processSlotContent (el) {
   // 之后此语法会被废弃，代替为v-slot:xxxx
   // slot-scope="slotProps"   被替换为 v-slot:xxx="" 或#xxx=""
   const slotTarget = getBindingAttr(el, 'slot')
+  // 父节点<h1 slot="header"></h1> 这个header，会放到子组件对应是name=header中，
+  // 是slotTarget
   if (slotTarget) {
     el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget
     el.slotTargetDynamic = !!(el.attrsMap[':slot'] || el.attrsMap['v-bind:slot'])
@@ -771,8 +777,10 @@ function getSlotName (binding) {
 }
 
 // handle <slot/> outlets
+// 由于是处理<slot>标签的，故可以理解为处理的是子组件
 function processSlotOutlet (el) {
   if (el.tag === 'slot') {
+    // 实际是通过slot name ='' 获取slotName
     el.slotName = getBindingAttr(el, 'name')
     if (process.env.NODE_ENV !== 'production' && el.key) {
       warn(
@@ -784,7 +792,7 @@ function processSlotOutlet (el) {
     }
   }
 }
-
+// 处理component组件 is标识
 function processComponent (el) {
   let binding
   if ((binding = getBindingAttr(el, 'is'))) {

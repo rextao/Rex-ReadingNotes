@@ -287,6 +287,7 @@ export function genData (el: ASTElement, state: CodegenState): string {
   }
   // slot target
   // only for non-scoped slots
+  // 处理非作用域插槽
   if (el.slotTarget && !el.slotScope) {
     data += `slot:${el.slotTarget},`
   }
@@ -385,7 +386,7 @@ function genInlineTemplate (el: ASTElement, state: CodegenState): ?string {
     }]}`
   }
 }
-
+// 1、 处理bugs， 2、生成genScopedSlots字符串
 function genScopedSlots (
   el: ASTElement,
   slots: { [key: string]: ASTElement },
@@ -395,6 +396,8 @@ function genScopedSlots (
   // components with only scoped slots to skip forced updates from parent.
   // but in some cases we have to bail-out of this optimization
   // for example if the slot contains dynamic names, has v-if or v-for on them...
+  // 默认情况下，作用域插槽会被认为是stable的，允许子组件跳过父组件的强制更新
+  // 但在slot包含动态name，v-if或v-for等情况时，我们需要放弃这个优化
   let needsForceUpdate = el.for || Object.keys(slots).some(key => {
     const slot = slots[key]
     return (
@@ -435,7 +438,7 @@ function genScopedSlots (
   const generatedSlots = Object.keys(slots)
     .map(key => genScopedSlot(slots[key], state))
     .join(',')
-
+  // 最终：会被_u包裹，得到scopedSlots: _u([{key: 'default', fn: function (props) {xxx}}])
   return `scopedSlots:_u([${generatedSlots}]${
     needsForceUpdate ? `,null,true` : ``
   }${
@@ -485,6 +488,12 @@ function genScopedSlot (
     }}`
   // reverse proxy v-slot without scope on this.$slots
   const reverseProxy = slotScope ? `` : `,proxy:true`
+  // {
+  //     key: "default",
+  //     fn: function (props) {
+  //         return [_c('p', [_v("Hello from parent")]), _c('p', [_v(_s(props.text + props.msg))])]
+  //     }
+  // }
   return `{key:${el.slotTarget || `"default"`},fn:${fn}${reverseProxy}}`
 }
 
@@ -578,7 +587,11 @@ export function genComment (comment: ASTText): string {
 
 function genSlot (el: ASTElement, state: CodegenState): string {
   const slotName = el.slotName || '"default"'
+  // 子组件 slot标签内部可以包含默认内容，<slot>默认内容</slot>
+  // 利用genChildren，获取包含的节点内容
   const children = genChildren(el, state)
+  // src/core/instance/render-helpers/render-slot.js
+  // _t:  renderSlot
   let res = `_t(${slotName}${children ? `,${children}` : ''}`
   const attrs = el.attrs || el.dynamicAttrs
     ? genProps((el.attrs || []).concat(el.dynamicAttrs || []).map(attr => ({
@@ -598,6 +611,8 @@ function genSlot (el: ASTElement, state: CodegenState): string {
   if (bind) {
     res += `${attrs ? '' : ',null'},${bind}`
   }
+  // 对于 <slot name="header">阿斯达四大</slot>
+  // 会生成 "_t("header",[_v("阿斯达四大")])"
   return res + ')'
 }
 

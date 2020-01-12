@@ -11,6 +11,8 @@ export function renderSlot (
   props: ?Object,
   bindObject: ?Object
 ): ?Array<VNode> {
+  // 对于普通插槽，$scopedSlots对应的是函数，且多了$stable，$key，$hasNormal
+  // $slots对应的是数组
   const scopedSlotFn = this.$scopedSlots[name]
   let nodes
   if (scopedSlotFn) { // scoped slot
@@ -24,6 +26,7 @@ export function renderSlot (
       }
       props = extend(extend({}, bindObject), props)
     }
+    // 对于普通插槽，就是返回name那个vnode
     nodes = scopedSlotFn(props) || fallback
   } else {
     nodes = this.$slots[name] || fallback

@@ -795,17 +795,193 @@ export default {
 
 ## slot
 
-1.  parseHTML   end    closeElement  processElement 
-2.  为el增加rawAttrsMap.scope或rawAttrsMap。slot-scope或el.slotTarget等
-3.  genElement   genSlot
+### 概述
+
+1. 普通插槽的数据更新过程
+   - patch -> patchVnode -> 执行组件prepatch钩子函数 -> updateChildComponent -> 由于needsForceUpdate为true，故重新计算vm.$slots
+   - 调用`vm.$forceUpdate();`强制更新，会调用watcher，然后push到flushSchedulerQueue中，等等nextTick进行更新
+2. 作用域插槽数据更新
+   - 实际就是在子组件更新数据，导致子节点从新渲染，得到新节点
+
+### 普通插槽
+
+![17-普通插槽slot](../源码流程图/17-普通插槽slot.svg)
+
+
+
+### 作用域插槽
+
+![17-1 作用域slot](../源码流程图/17-1 作用域slot.svg)
 
 
 
 ##  keep-alive
 
-1. src/core/components/keep-alive.js。keep-alive定义
-2. 首次渲染
-3. c/core/vdom/patch.js     createComponent  vnode.componentInstance 为undefined，首次执行都是undefined
+### 概述
+
+1. 内置的render组件src/core/components/keep-alive.js，与我们普通组件主要的不同
+
+   - 直接使用render函数书写
+   - 使用`abstract: true`是一个抽象组件，不会在parent链 ，在src/core/instance/lifecycle.js 中的initLifecycle函数中，会判断，如果是abstract，则不会加入到parent链中
+
+2. 注意：
+
+   - keep-alive只会处理第一个子节点
+   - keep-alive组件内部，除了使用cache缓存vnode，还是用keys数组利用LRU算法，优先删除最不长使用的vnode节点
+   - activated生命周期，也是先子后父
+
+   
+
+### 初次渲染过程
+
+1. 首次渲染与普通组件没有什么太多不同，但是在渲染keep-alive组件时，会先获取`this.$slots.default`，即默认插槽的内容
+2. **注意**：keep-alive组件只会处理插槽的第一个子节点，存在keep-alive组件的cache中
+
+### 数据更新阶段
+
+1. 注意：第一次点击switch，还是会进行创建B，然后缓存在keepalive中，因此需要再从B组件到A才会使用缓存
+2. 数据更新基本流程还是普通插槽的数据更新流程
+
+### 流程图
+
+![18-keep-alive组件](../源码流程图/18-keep-alive组件.svg)
+
+
+
+## component组件
+
+### 概述
+
+1. 内置组件Component，只是使用is属性进行标识，并不是只能用于Component上
+2. 与普通组件最重要的不同是，编译期间，is组件（带有is属性的）生成的render函数，_c的第一个参数是一个运行期获取的变量值
+
+### 流程
+
+#### 举例
+
+```javascript
+new Vue({
+    el: '#app',
+    template: '<div>' +
+        '<component :is="currentComp">' +
+        '</component>' +
+        '<button @click="change">switch</button>' +
+        '</div>',
+    data: {
+        currentComp: 'A'
+    },
+    methods: {
+        change() {
+            this.currentComp = this.currentComp === 'A' ? 'B' : 'A'
+        }
+    },
+    components: {
+        A,
+        B
+    }
+})
+```
+
+
+
+#### init阶段
+
+1. 首先会进入new Vue，进入init阶段后，在挂载时，才会触发template进行编译
+2. 在init阶段，会将传入的data，currentComp解析为真正的值'A'
+
+#### 编译阶段
+
+1. closeElement -> processElement -> processComponent 
+   - 提取is后面的值，赋值给el.component
+   - 如果存在inline-template，则设置el.inlineTemplate = true
+
+#### 代码生成阶段
+
+1. genElement -> 由于el.component存在，故执行genComponent  -> 返回的code结果是
+
+   ```javascript
+   _c(currentComp,{tag:"component"})
+   ```
+
+   - 注意，其中currentComp是变量，此时还不知道currentComp值是多少
+
+2. 最终得到运行时的render函数为
+
+   ```javascript
+   with(this) {
+       return _c('div', [
+                             _c(currentComp, { tag: "component" }),
+                             _c('button', {
+                                 on: {
+                                     "click": change
+                                 }
+                             }, 
+                                 [_v("switch")]
+                             )
+                         ], 1)
+   }
+   ```
+
+   
+
+#### 代码运行期间
+
+1. 当运行到_c(currentComp,xxxx)这段时，因为已经确定运行期的currentComp是'A'，
+2. 故传入createElment('A',{tag: 'component'} )，由于A是string，但不是保留的html标签，故会调用`resolveAsset(context.$options, 'components', tag)`，判断当前组件是否注册了A这个组件，如果有，则这个组件作为ctor，传入之后的createComponent
+3. 最为组件调用createComponent
+4. 至此，后面的流程就和创建普通组件是一样的了
+
+# vue-router
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 注意
+
+1. 安装npm包，并配置一下flow预演，可以解决flow问题，否则会提示语法不对
+
+
+
+## 概述
+
+1. Vue.use，实际就是如`plugin.install`是函数，则调用，如`plugin`是函数，则调用，并将实例保存，避免多次调用
+2. 由于`VueRouter.install = install` 故先执行install函数
+3. 安装完，会调用new Router对vue-router进行实例化
+
+## 实例化
+
+1. createMatcher 创建路由对象
+
+
+
+
+
+
+
+
+
+
 
 
 

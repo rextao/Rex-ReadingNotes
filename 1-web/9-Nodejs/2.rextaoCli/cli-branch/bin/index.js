@@ -193,11 +193,11 @@ async function getMergedBranches() {
 function getMergedAndLocal() {
     const { merged, local } = branchCache;
     const localBranchKeys = Object.keys(local);
-    merged.forEach(merge => {
-        if(localBranchKeys.includes(merge)) {
-            branchCache.localMerged.push(merge)
+    localBranchKeys.forEach(item => {
+        if(merged.includes(item)) {
+            branchCache.localMerged.push(item)
         } else {
-            branchCache.res.push(merge)
+            branchCache.res.push(item)
         }
     })
 }

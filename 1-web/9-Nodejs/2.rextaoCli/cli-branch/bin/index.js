@@ -18,6 +18,8 @@ const branchCache = {
     local: {},
     merged: [], // 远程远程仓库已经merged分支，即通过--merged获取
     readyDelete: [], // 准备删除的，用户选择的，或全部删除的列表
+    localMerged: [], // 本地且merged分支名
+    res: [], // merged = localMerged + res;
 };
 
 
@@ -27,6 +29,7 @@ const branchCache = {
     await developPull();     // 不拉最新的develop代码，不能准确获取已合并分支
     try {
         await getMergedBranches();  // 获取merged分支
+        getMergedAndLocal(); // 获取merged并且是本地的分支（避免删除非本地分支）
         await confirmModeSelect();  // 选择删除模式
         await confirmOpenUrl();     // 选择是否打开网页，确定分支已经合并，避免误删
         await deleteBranch();       // 删除分支
@@ -34,24 +37,22 @@ const branchCache = {
         console.log(chalk.red(e));
     }finally {
         await co(branchCache.current);
+        console.log(chalk.green('*******远程merged，但本地不存在的branch********'));
+        console.log(branchCache.res)
     }
 })();
 
 async function deleteBranch() {
-    const { readyDelete, local } = branchCache;
-    const localBranch = Object.keys(local);
+    const readyDelete = branchCache.readyDelete;
     for (let i = 0; i < readyDelete.length; i++) {
         const item = readyDelete[i];
-        // 只有在本地分支里面的分支进行删除
-        if(localBranch.includes(item)) {
-            const isDelete = await confirmDeleteBranches(item);  // 确定删除远程分支
-            // 如确定要删除
-            if(isDelete) {
-                await deleteRemoteTracking(item);  // 确定删除本地分支
-                await confirmDeleteLocalBranch(item);
-            } else {
-                console.log(chalk.green(`${item}并未删除`));
-            }
+        const isDelete = await confirmDeleteBranches(item);  // 确定删除远程分支
+        // 如确定要删除
+        if(isDelete) {
+            await deleteRemoteTracking(item);  // 确定删除本地分支
+            await confirmDeleteLocalBranch(item);
+        } else {
+            console.log(chalk.green(`${item}并未删除`));
         }
     }
 }
@@ -113,13 +114,13 @@ async function confirmModeSelect() {
     });
     // 选择全部删除时
     if (value) {
-        branchCache.readyDelete = branchCache.merged;
+        branchCache.readyDelete = branchCache.localMerged;
     } else {//选择删除
         const { value } = await prompts({
             type: 'multiselect',
             name: 'value',
             message: '选择要删除的分支！',
-            choices: toPromptsChoice(branchCache.merged)
+            choices: toPromptsChoice(branchCache.localMerged)
         });
         branchCache.readyDelete = value;
     }
@@ -188,7 +189,18 @@ async function getMergedBranches() {
         throw new Error('远程无已合并分支')
     }
 }
-
+// 获取merged并且是本地的分支（避免删除非本地分支）
+function getMergedAndLocal() {
+    const { merged, local } = branchCache;
+    const localBranchKeys = Object.keys(local);
+    merged.forEach(merge => {
+        if(localBranchKeys.includes(merge)) {
+            branchCache.localMerged.push(merge)
+        } else {
+            branchCache.res.push(merge)
+        }
+    })
+}
 // 工具函数
 // 将数据转换为多选 choice形式
 function toPromptsChoice(arr) {

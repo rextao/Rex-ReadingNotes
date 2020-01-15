@@ -22,7 +22,7 @@ export function install (Vue) {
       i(vm, callVal)
     }
   }
-
+  // 每个组件都会有这两个逻辑
   Vue.mixin({
     // 初始化路由
     beforeCreate () {
@@ -30,6 +30,7 @@ export function install (Vue) {
       if (isDef(this.$options.router)) {
         this._routerRoot = this
         this._router = this.$options.router
+        // src/install.js，传入的_router是Router实例
         this._router.init(this)
         // 为 _route 属性实现双向绑定
         Vue.util.defineReactive(this, '_route', this._router.history.current)

@@ -72,6 +72,7 @@ export function createPatchFunction (backend) {
   let i, j
   const cbs = {}
   // nodeOps: platformModules.concat(baseModules)
+  // modules包含platformModules与baseModules
   const { modules, nodeOps } = backend
   // 将所有hooks函数都放在cbs中
   for (i = 0; i < hooks.length; ++i) {

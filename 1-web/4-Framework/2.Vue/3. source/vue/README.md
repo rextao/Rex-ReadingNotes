@@ -931,57 +931,148 @@ new Vue({
 3. 最为组件调用createComponent
 4. 至此，后面的流程就和创建普通组件是一样的了
 
-# vue-router
+
+
+## transition
+
+### 概述
+
+1. 由于过度动画只有web存在，故此组件定义在src/platforms/web/runtime/components/index.js
+
+2. 并不只是必须使用v-if，v-show，创建阶段也可显示动画
+
+   ```html
+   <transition :appear="true" name="fade">
+   	<p>hello</p>
+   </transition>
+   ```
+
+3. 官网所说的下一帧，即是在requestAnimationFrame中调用
+
+4. 实际是利用slot插槽特性，为子组件添加和删除样式，利用css形成动画
+
+### 组件定义
+
+1. src/platforms/web/runtime/components/transition.js
+
+#### 注意
+
+1. 核心是，会将transition的props提取出来，赋值给插槽child元素的`data.transition`上
+
+### 动画流程控制
+
+1. src/platforms/web/runtime/modules/transition.js
+
+2. 调用过程
+
+   - 当初始化transition时，会进入transition的render函数，对组件进行初始化
+   - 在src/platforms/web/runtime/patch.js ，会将web的modules传入，故patch时可以获取transition的modules
+   - 进入updateComponent，进入invokeCreateHooks，会触发create钩子，即src/platforms/web/runtime/modules/transition.js 中`_enter`函数
+   - 对动画进行控制
+
+3. 核心代码（动画进入流程）
+
+   ```javascript
+     if (expectsCSS) {
+       // 为el添加class，并将class保存在el._transitionClasses上，避免同一个class在同一个el上多次添加
+       // startClass 例如v-enter
+       addTransitionClass(el, startClass)
+       addTransitionClass(el, activeClass)
+       // nextFrame是对requestAnimationFrame封装
+       nextFrame(() => {
+         // 由于nextFrame会删除startClass，故v-enter，下一帧被移除
+         removeTransitionClass(el, startClass)
+         if (!cb.cancelled) {
+           addTransitionClass(el, toClass)
+           if (!userWantsControl) {
+             if (isValidDuration(explicitEnterDuration)) {
+               setTimeout(cb, explicitEnterDuration)
+             } else {
+               whenTransitionEnds(el, type, cb)
+             }
+           }
+         }
+       })
+     }
+   ```
+
+4. 动画结束会调用whenTransitionEnds
+
+   - 利用监听transitionEndEvent或animationEndEvent判断动画结束，调用cb回调函数
+   - whenTransitionEnds会先删除事件监听，然后再调用cb
+
+5. cb回调函数
+
+   ```javascript
+   const cb = el._enterCb = once(() => {
+     if (expectsCSS) {
+       removeTransitionClass(el, toClass)
+       removeTransitionClass(el, activeClass)
+     }
+     if (cb.cancelled) {
+       if (expectsCSS) {
+         removeTransitionClass(el, startClass)
+       }
+       enterCancelledHook && enterCancelledHook(el)
+     } else {
+       afterEnterHook && afterEnterHook(el)
+     }
+     el._enterCb = null
+   })
+   ```
+
+6. 动画样式添加过程
+
+   - 动画开始： startClass（v-enter），activeClass（v-enter-active）
+   - nextFrame： 删除startClass（v-enter），添加toClass（v-enter-to）
+   - 动画结束： 删除toClass（v-enter-to），activeClass（v-enter-active）
 
 
 
+## transition-group
 
+### 概述
 
+1. 并不是一个abstract组件，会渲染为一个真实节点，未指定会渲染为span
+2. render过程中会将transition赋值给每个children，这样才能触发每个元素的过渡动画
+3. 通过updated钩子函数，触发元素的左右移动动画
+4. 如果样式未生效，可以调用`document.body.offsetHeight`触发页面重绘，获取最新的位置
+5. 实际是可以重写render函数的，参见beforeMount
 
+### beforeMount（不是特别理解）
 
+1. 重写update，手动调用`this.__patch__`并仅在删除时避免元素移动
 
+   ```javascript
+   this.__patch__(
+     this._vnode,
+     this.kept,
+     false, // hydrating
+     true // removeOnly (!important, avoids unnecessary moves)
+   )
+   ```
 
+2. 为何是作用于删除元素
 
+   - 对于官网例子，初始化rawChildren有9个元素，因为没有prevChildren，故this.kept无值，故进入`this.__patch__`函数，`_vnode`与kept都为undefined，但最后调用update.call，进入`Vue.prototype._update` 会将当前vnode赋值给vm._vnode
+   - 当点击add时，prevChildren为9，故this.kept 为9，但`this.__patch__`函数参数vnode是10个，`_vnode`为9
 
+3. 删除后也没法有啥影响-。-
 
+### render
 
+1. 循环子节点，为每个子节点配置c.data.transition, c.key
+2. prevChildren存在，则在this.kept保留prevChildren的vnodes列表，this.removed记录删除的
+3. 最后调用，h(tag,nul, children) children是最新的children
+4. h函数实际就是createElement，会触发patch与patchVnode，创建新元素，触发新元素的transition的enter函数（使用官网实例的add按钮）
+5. 经过creatElment，页面呈现的是： 1 2  空 3 4 5 ； 空这个元素具有过渡的enter与active的类名
 
+### updated
 
-
-
-
-
-
-
-
-
-
-
-## 注意
-
-1. 安装npm包，并配置一下flow预演，可以解决flow问题，否则会提示语法不对
-
-
-
-## 概述
-
-1. Vue.use，实际就是如`plugin.install`是函数，则调用，如`plugin`是函数，则调用，并将实例保存，避免多次调用
-2. 由于`VueRouter.install = install` 故先执行install函数
-3. 安装完，会调用new Router对vue-router进行实例化
-
-## 实例化
-
-1. createMatcher 创建路由对象
-
-
-
-
-
-
-
-
-
-
+1. 此过程主要是处理子元素的move过渡，即元素左右移动
+2. `children.forEach(applyTranslation)`会将移动的元素挪动回原先位置
+3. 然后循环children，对于有移动的children进行处理，设置s.transform= '' 这样就会触发移动的transition效果
+4. 特别注意：当updated的动画全部触发完，才会调用children元素的nextFrame，形成元素从下到上的效果
 
 
 

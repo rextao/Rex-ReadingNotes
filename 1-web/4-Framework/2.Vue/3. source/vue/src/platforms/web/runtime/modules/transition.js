@@ -19,28 +19,42 @@ import {
   addTransitionClass,
   removeTransitionClass
 } from '../transition-util'
-
+// 控制与管理过渡动画核心的
+// 1、处理在执行leave时，又执行了enter情况
+// 2、解析transition的prop值
+// 3、处理enter过程又调用enter
+// 4、处理appear参数，如果未设置且首次渲染，则直接return
+// 5、根据不同情况，设置start、active等class
+// 6、处理enter的done函数，如果done存在，则认为是userWantsControl
 export function enter (vnode: VNodeWithData, toggleDisplay: ?() => void) {
+  // 拿到dom对象
   const el: any = vnode.elm
 
   // call leave callback now
+  // 动画是需要时间的，
+  // 1、处理在执行leave时，又执行了enter情况
   if (isDef(el._leaveCb)) {
     el._leaveCb.cancelled = true
     el._leaveCb()
   }
-
+  // 2、解析transition的prop值
+  // 获取过渡的类名 如`${name}-enter-to`
+  // 如果未解析出，则表示不是一个过渡元素
   const data = resolveTransition(vnode.data.transition)
   if (isUndef(data)) {
     return
   }
 
   /* istanbul ignore if */
+  // 3、处理enter过程又调用enter
+  // 处理enter过程没有结束，又执行enter时，直接返回
   if (isDef(el._enterCb) || el.nodeType !== 1) {
     return
   }
-
+  // 可以对照官网https://cn.vuejs.org/v2/api/#transition
+  // 查看参数定义
   const {
-    css,
+    css,  // 是否使用 CSS 过渡类。默认为 true。如果设置为 false，将只通过组件事件触发注册的 JavaScript 钩子。
     type,
     enterClass,
     enterToClass,
@@ -63,19 +77,23 @@ export function enter (vnode: VNodeWithData, toggleDisplay: ?() => void) {
   // transition. One edge case to check is when the <transition> is placed
   // as the root node of a child component. In that case we need to check
   // <transition>'s parent for appear check.
+  // activeInstance是transition组件中管理transition的
+  // 处理子组件的的根节点就是transition
   let context = activeInstance
   let transitionNode = activeInstance.$vnode
   while (transitionNode && transitionNode.parent) {
     context = transitionNode.context
     transitionNode = transitionNode.parent
   }
-
+  // 4、如第一次渲染，且没有配置appear（初次渲染是否要显示动画），则直接返回
+  // 处理appear参数，如果未设置且首次渲染，则直接return
   const isAppear = !context._isMounted || !vnode.isRootInsert
 
   if (isAppear && !appear && appear !== '') {
     return
   }
-
+  // 5、根据不同情况，设置start、active等class
+  // 分别取过渡类名与钩子函数，都是根据isAppear来确定的
   const startClass = isAppear && appearClass
     ? appearClass
     : enterClass
@@ -110,8 +128,9 @@ export function enter (vnode: VNodeWithData, toggleDisplay: ?() => void) {
   }
 
   const expectsCSS = css !== false && !isIE9
+  // 6、处理enter的done函数，如果done存在，则认为是userWantsControl
   const userWantsControl = getHookArgumentsLength(enterHook)
-
+  // 定义enter callback，动画结束会执行
   const cb = el._enterCb = once(() => {
     if (expectsCSS) {
       removeTransitionClass(el, toClass)
@@ -127,7 +146,7 @@ export function enter (vnode: VNodeWithData, toggleDisplay: ?() => void) {
     }
     el._enterCb = null
   })
-
+  // data.show = false ，insert钩子插入一个函数
   if (!vnode.data.show) {
     // remove pending leave element on enter by injecting an insert hook
     mergeVNodeHook(vnode, 'insert', () => {
@@ -144,14 +163,20 @@ export function enter (vnode: VNodeWithData, toggleDisplay: ?() => void) {
   }
 
   // start enter transition
+  // 动画的本质，执行钩子函数，添加与删除类名
+  // 因此，transition其实本质只是管理动画，在某些时机增加或删除类名，实际起作用的还是类名
   beforeEnterHook && beforeEnterHook(el)
   if (expectsCSS) {
+    // 为el添加class，并将class保存在el._transitionClasses上，避免同一个class在同一个el上多次添加
+    // startClass 例如v-enter
     addTransitionClass(el, startClass)
-    addTransitionClass(el, activeClass)
+    addTransitionClass(el, activeClass) // v-enter-active
+    // nextFrame是对requestAnimationFrame封装
     nextFrame(() => {
+      // 由于nextFrame会删除startClass，故v-enter，下一帧被移除
       removeTransitionClass(el, startClass)
       if (!cb.cancelled) {
-        addTransitionClass(el, toClass)
+        addTransitionClass(el, toClass) // v-enter-to
         if (!userWantsControl) {
           if (isValidDuration(explicitEnterDuration)) {
             setTimeout(cb, explicitEnterDuration)

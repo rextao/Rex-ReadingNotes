@@ -96,9 +96,9 @@ export class History {
       }
     )
   }
-
+  // 真正路径切换
   confirmTransition (route: Route, onComplete: Function, onAbort?: Function) {
-    const current = this.current
+    const current = this.current // 保留当前最新路径
     const abort = err => {
       // after merging https://github.com/vuejs/vue-router/pull/2771 we
       // When the user navigates through history through back/forward buttons
@@ -129,7 +129,7 @@ export class History {
       this.current.matched,
       route.matched
     )
-
+    // 导航守卫，路由切换时执行的一些钩子函数
     const queue: Array<?NavigationGuard> = [].concat(
       // in-component leave guards
       extractLeaveGuards(deactivated),

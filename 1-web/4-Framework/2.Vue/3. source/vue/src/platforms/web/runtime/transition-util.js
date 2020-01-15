@@ -3,7 +3,7 @@
 import { inBrowser, isIE9 } from 'core/util/index'
 import { addClass, removeClass } from './class-util'
 import { remove, extend, cached } from 'shared/util'
-
+// 处理name与css参数
 export function resolveTransition (def?: string | Object): ?Object {
   if (!def) {
     return
@@ -11,6 +11,7 @@ export function resolveTransition (def?: string | Object): ?Object {
   /* istanbul ignore else */
   if (typeof def === 'object') {
     const res = {}
+    // 如果css设置为false，则只通过组件事件触发注册的 JavaScript 钩子。
     if (def.css !== false) {
       extend(res, autoCssTransition(def.name || 'v'))
     }
@@ -80,6 +81,7 @@ export function addTransitionClass (el: any, cls: string) {
 
 export function removeTransitionClass (el: any, cls: string) {
   if (el._transitionClasses) {
+    // Remove an item from an array.
     remove(el._transitionClasses, cls)
   }
   removeClass(el, cls)

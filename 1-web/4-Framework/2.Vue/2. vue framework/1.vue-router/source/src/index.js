@@ -42,7 +42,9 @@ export default class VueRouter {
     // 内部创建路由表后返回{match, addRoutes }，
     this.matcher = createMatcher(options.routes || [], this)
 
+    // 路由模式处理
     let mode = options.mode || 'hash'
+    // 降级处理，即使传入history，但如果浏览器不支持，且没有强制设置fallback=false，会被降级为hash
     this.fallback = mode === 'history' && !supportsPushState && options.fallback !== false
     if (this.fallback) {
       mode = 'hash'
@@ -103,6 +105,8 @@ export default class VueRouter {
 
     // main app previously initialized
     // return as we don't need to set up new history listener
+    // 之后的逻辑只会执行一次，因为也可以new Router多个
+    // 因为不需要多个history listener
     if (this.app) {
       return
     }
@@ -112,6 +116,7 @@ export default class VueRouter {
     const history = this.history
 
     if (history instanceof HTML5History) {
+      // transitionTo 可以理解为路由切换
       history.transitionTo(history.getCurrentLocation())
     } else if (history instanceof HashHistory) {
       const setupHashListener = () => {

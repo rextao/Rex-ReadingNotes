@@ -19,11 +19,11 @@ export function createMatcher (
 ): Matcher {
   // 创建路由映射表
   const { pathList, pathMap, nameMap } = createRouteMap(routes)
-
+  // 可以动态添加路由
   function addRoutes (routes) {
     createRouteMap(routes, pathList, pathMap, nameMap)
   }
-
+  // 根据不同name，patch，以及params，调用_createRoute
   function match (
     raw: RawLocation,
     currentRoute?: Route,
@@ -31,13 +31,14 @@ export function createMatcher (
   ): Route {
     const location = normalizeLocation(raw, currentRoute, false, router)
     const { name } = location
-
+    // 如存在name，则先从nameMap中查询是否存在record
     if (name) {
       const record = nameMap[name]
       if (process.env.NODE_ENV !== 'production') {
         warn(record, `Route with name '${name}' does not exist`)
       }
       if (!record) return _createRoute(null, location)
+      // 处理params
       const paramNames = record.regex.keys
         .filter(key => !key.optional)
         .map(key => key.name)

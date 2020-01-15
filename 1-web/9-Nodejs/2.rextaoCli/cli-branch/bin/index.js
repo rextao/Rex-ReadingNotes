@@ -5,7 +5,7 @@ const open = require('open');
 
 
 const config = {
-    workSpace: process.cwd(), //process.cwd(), // 获取node命令启动路径，其值与代码所在位置无关
+    workSpace: '/Users/rextao/kuaishouWorkpace/kuaishou-frontend-admin-copy/packages/acfun', //process.cwd(), //process.cwd(), // 获取node命令启动路径，其值与代码所在位置无关
     branchAlias: ['wt-','wangtao-']
 };
 
@@ -199,7 +199,10 @@ function getMergedAndLocal() {
         } else {
             branchCache.res.push(item)
         }
-    })
+    });
+    if (branchCache.localMerged.length === 0) {
+        throw new Error('暂无需要删除是分支！');
+    }
 }
 // 工具函数
 // 将数据转换为多选 choice形式

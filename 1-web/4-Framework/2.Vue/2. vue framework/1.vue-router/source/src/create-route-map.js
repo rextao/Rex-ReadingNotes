@@ -13,9 +13,9 @@ export function createRouteMap (
   oldPathMap?: Dictionary<RouteRecord>,
   oldNameMap?: Dictionary<RouteRecord>
 ): {
-  pathList: Array<string>,
-  pathMap: Dictionary<RouteRecord>,
-  nameMap: Dictionary<RouteRecord>
+  pathList: Array<string>, // path的数组
+  pathMap: Dictionary<RouteRecord>, // path: record的对象数组
+  nameMap: Dictionary<RouteRecord> // name： record的对象数组
 } {
   // the path list is used to control path matching priority
   // 开始调用时，只有routes，再调用addRoutes时，会有其他4个参数
@@ -61,13 +61,17 @@ export function createRouteMap (
 }
 // 实际是将传入的route，进行record包装
 // 保存在pathMap与pathList中，有name值是，保存在nameMap中
+// 1. 对route对象的patch与component校验
+// 1. 处理2.6+新的配置项，pathToRegexpOptions与caseSensitive
 // 1、对路由的重新描述
 // 2、处理路由children
 // 3、保存数据到pathMap与pathList
 // 4、处理alias，构建aliasRoute，递归调用addRouteRecord
 // 5、如配置name，则在nameMap保留record，方便之后调用
+// pathList,pathMap,nameMap是用来保存数据的对象或数组
+// route是传入routes的一个item，后两个参数在初始化时并未传
 function addRouteRecord (
-  pathList: Array<string>,
+  pathList: Array<string>, // 只是包含path（字符串的数组）注意类型
   pathMap: Dictionary<RouteRecord>,
   nameMap: Dictionary<RouteRecord>,
   route: RouteConfig,
@@ -76,6 +80,7 @@ function addRouteRecord (
 ) {
   const { path, name } = route
   // 对path != null 与 route.component 必须是组件进行校验
+  // 1. 对route对象的patch与component校验
   if (process.env.NODE_ENV !== 'production') {
     assert(path != null, `"path" is required in a route configuration.`)
     assert(
@@ -85,18 +90,21 @@ function addRouteRecord (
       )} cannot be a ` + `string id. Use an actual component instead.`
     )
   }
-
+  // 1. 处理2.6+新的配置项，pathToRegexpOptions与caseSensitive
+  // 2.6+ 可以传入pathToRegexpOptions 编译正则的选项，文档无详细说
+  // 看源码： 实际就是https://github.com/pillarjs/path-to-regexp对应的options
   const pathToRegexpOptions: PathToRegexpOptions =
     route.pathToRegexpOptions || {}
   // 对path进行处理拼接
   const normalizedPath = normalizePath(path, parent, pathToRegexpOptions.strict)
-
+  // 匹配规则是否大小写敏感？(默认值：false)
   if (typeof route.caseSensitive === 'boolean') {
     pathToRegexpOptions.sensitive = route.caseSensitive
   }
   // 1、对路由的重新描述
   const record: RouteRecord = {
     path: normalizedPath,
+    // 实际是调用 Regexp(path, [], pathToRegexpOptions)， Regexp是path-to-regexp
     regex: compileRouteRegex(normalizedPath, pathToRegexpOptions),
     components: route.components || { default: route.component },
     instances: {},
@@ -113,7 +121,7 @@ function addRouteRecord (
           ? route.props
           : { default: route.props }
   }
-  // 2、处理路由children
+  // 2、处理路由children（嵌套路由）递归调用addRouteRecord
   if (route.children) {
     // Warn if route is named, does not redirect and has a default child route.
     // If users navigate to this route by name, the default child will
@@ -218,5 +226,6 @@ function normalizePath (
   if (!strict) path = path.replace(/\/$/, '')
   if (path[0] === '/') return path
   if (parent == null) return path
+  // cleanPath 将'//a//b//d/'  转换为 '/a/b/d/'
   return cleanPath(`${parent.path}/${path}`)
 }

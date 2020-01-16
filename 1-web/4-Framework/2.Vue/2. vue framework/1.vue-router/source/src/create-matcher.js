@@ -25,10 +25,11 @@ export function createMatcher (
   }
   // 根据不同name，patch，以及params，调用_createRoute
   function match (
-    raw: RawLocation,
-    currentRoute?: Route,
+    raw: RawLocation, // 是当前路由，即window.href 获取的哈希
+    currentRoute?: Route, // history中this.current保存的值
     redirectedFrom?: Location
   ): Route {
+    // normalizeLocation 返回一个对象{ query, hash, path, _normalized: true, }
     const location = normalizeLocation(raw, currentRoute, false, router)
     const { name } = location
     // 如存在name，则先从nameMap中查询是否存在record
@@ -39,6 +40,7 @@ export function createMatcher (
       }
       if (!record) return _createRoute(null, location)
       // 处理params
+      // 由于regex是通过Path-to-RegExp包生成的
       const paramNames = record.regex.keys
         .filter(key => !key.optional)
         .map(key => key.name)
@@ -62,6 +64,7 @@ export function createMatcher (
       for (let i = 0; i < pathList.length; i++) {
         const path = pathList[i]
         const record = pathMap[path]
+        // 会传入location.params 一个空对象
         if (matchRoute(record.regex, location.path, location.params)) {
           return _createRoute(record, location, redirectedFrom)
         }
@@ -184,7 +187,7 @@ function matchRoute (
   } else if (!params) {
     return true
   }
-
+  // 主要是附加了往params添加val，fixed bugs
   for (let i = 1, len = m.length; i < len; ++i) {
     const key = regex.keys[i - 1]
     const val = typeof m[i] === 'string' ? decodeURIComponent(m[i]) : m[i]

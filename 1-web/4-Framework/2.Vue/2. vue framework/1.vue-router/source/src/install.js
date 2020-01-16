@@ -26,11 +26,11 @@ export function install (Vue) {
   Vue.mixin({
     // 初始化路由
     beforeCreate () {
-      // 判断组件是否存在 router 对象，该对象只在根组件上有
+      // 判断组件是否存在 router 对象，该对象一般只在根组件上有
       if (isDef(this.$options.router)) {
         this._routerRoot = this
         this._router = this.$options.router
-        // src/install.js，传入的_router是Router实例
+        // src/install.js，传入的_router是vm实例
         this._router.init(this)
         // 为 _route 属性实现双向绑定
         Vue.util.defineReactive(this, '_route', this._router.history.current)

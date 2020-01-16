@@ -8,13 +8,15 @@ export function resolveAsyncComponents (matched: Array<RouteRecord>): Function {
     let hasAsync = false
     let pending = 0
     let error = null
-
+    // fn参数其实是matched数组每个item(记为m)，每个m.components可能多个值，调用多次fn
+    // 每个m.components 的key，故下面参数分别为m.components[key]，m.instances[key]，m, key
     flatMapComponents(matched, (def, _, match, key) => {
       // if it's a function and doesn't have cid attached,
       // assume it's an async component resolve function.
       // we are not using Vue's default async resolving mechanism because
       // we want to halt the navigation until the incoming component has been
       // resolved.
+      // 重新定义了异步组件加载
       if (typeof def === 'function' && def.cid === undefined) {
         hasAsync = true
         pending++

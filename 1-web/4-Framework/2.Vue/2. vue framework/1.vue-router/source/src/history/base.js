@@ -63,15 +63,17 @@ export class History {
   }
 
   transitionTo (
-    location: RawLocation,
+    location: RawLocation, // 是当前路由，即window.href 获取的哈希
     onComplete?: Function,
     onAbort?: Function
   ) {
+    // 最终返回 createRoute 的route对象
     const route = this.router.match(location, this.current)
     this.confirmTransition(
       route,
       () => {
         this.updateRoute(route)
+        // 对于hash会进入src/history/hash.js  setupListeners
         onComplete && onComplete(route)
         this.ensureURL()
 
@@ -97,8 +99,11 @@ export class History {
     )
   }
   // 真正路径切换
+  // 1. 计算改变的路由
+  // 1. 构造钩子函数执行queue
+  // 1. 调用runQueue
   confirmTransition (route: Route, onComplete: Function, onAbort?: Function) {
-    const current = this.current // 保留当前最新路径
+    const current = this.current // 页面刷新时，this.current 指向的是'/' 通过createRoute返回的route对象
     const abort = err => {
       // after merging https://github.com/vuejs/vue-router/pull/2771 we
       // When the user navigates through history through back/forward buttons
@@ -124,20 +129,25 @@ export class History {
       this.ensureURL()
       return abort(new NavigationDuplicated(route))
     }
-
+    // 1. 通过resolveQueue，计算整个record链，哪些route是改变
     const { updated, deactivated, activated } = resolveQueue(
       this.current.matched,
-      route.matched
+      route.matched // 保存着record 子-祖链，是个数组
     )
-    // 导航守卫，路由切换时执行的一些钩子函数
+    // 1. 路由切换时执行的一些钩子函数的queue
+    // 涉及的钩子：beforeRouteLeave，全局前置守卫beforeEach，beforeRouteUpdate，组件beforeEnter，异步组件
     const queue: Array<?NavigationGuard> = [].concat(
       // in-component leave guards
+      // beforeRouteLeave 导航离开该组件的对应路由时调用
       extractLeaveGuards(deactivated),
       // global before hooks
+      // 全局前置守卫调用后会添加一个到beforeHooks
       this.router.beforeHooks,
       // in-component update hooks
+      // 触发beforeRouteUpdate钩子，主要是处理动态参数的路径路径的跳转
       extractUpdateHooks(updated),
       // in-config enter guards
+      // 路由独享的守卫beforeEnter
       activated.map(m => m.beforeEnter),
       // async components
       resolveAsyncComponents(activated)
@@ -149,6 +159,7 @@ export class History {
         return abort()
       }
       try {
+        // 执行钩子函数，而这个第3个参数，是钩子函数的next参数
         hook(route, current, (to: any) => {
           if (to === false || isError(to)) {
             // next(false) -> abort navigation, ensure current URL
@@ -168,6 +179,7 @@ export class History {
             }
           } else {
             // confirm transition and pass on the value
+            // 实际是runQueue中的step(index + 1)
             next(to)
           }
         })
@@ -175,19 +187,23 @@ export class History {
         abort(e)
       }
     }
-
+    // 分别传入钩子函数queue，迭代器，回调函数
     runQueue(queue, iterator, () => {
       const postEnterCbs = []
       const isValid = () => this.current === route
       // wait until async components are resolved before
       // extracting in-component enter guards
+      // 执行beforeRouteEnter，如进入bar/ 这个路由，此时组件并没有实例化，所以无法访问组件this
       const enterGuards = extractEnterGuards(activated, postEnterCbs, isValid)
+      // 执行全局解析守卫
       const queue = enterGuards.concat(this.router.resolveHooks)
+      // queue队列over，会调用回调，执行onComplete，会调用updateRoute，执行全局的 afterEach 钩子
       runQueue(queue, iterator, () => {
         if (this.pending !== route) {
           return abort()
         }
         this.pending = null
+        // 对于hash路由，会调用history.setupListeners()
         onComplete(route)
         if (this.router.app) {
           this.router.app.$nextTick(() => {
@@ -199,11 +215,12 @@ export class History {
       })
     })
   }
-
+  // 将当前的route，配置到this.current上
   updateRoute (route: Route) {
     const prev = this.current
     this.current = route
     this.cb && this.cb(route)
+    // 执行全局后置钩子
     this.router.afterHooks.forEach(hook => {
       hook && hook(route, prev)
     })
@@ -275,6 +292,7 @@ function extractGuard (
 ): NavigationGuard | Array<NavigationGuard> {
   if (typeof def !== 'function') {
     // extend now so that global mixins are applied.
+    // 将obj对象转为构造函数
     def = _Vue.extend(def)
   }
   return def.options[key]

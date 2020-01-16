@@ -15,6 +15,7 @@ export function normalizeLocation (
 ): Location {
   let next: Location = typeof raw === 'string' ? { path: raw } : raw
   // named target
+  // raw不是string，才可能具有_normalized、name、params属性
   if (next._normalized) {
     return next
   } else if (next.name) {

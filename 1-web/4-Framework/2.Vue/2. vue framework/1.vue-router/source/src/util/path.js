@@ -68,7 +68,7 @@ export function parsePath (path: string): {
     hash
   }
 }
-
+// 将'//a//b//d/'  转换为 '/a/b/d/'
 export function cleanPath (path: string): string {
   return path.replace(/\/\//g, '/')
 }

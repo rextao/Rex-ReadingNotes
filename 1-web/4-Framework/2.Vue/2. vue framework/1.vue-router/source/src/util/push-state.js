@@ -37,6 +37,7 @@ export function pushState (url?: string, replace?: boolean) {
       history.pushState({ key: setStateKey(genStateKey()) }, '', url)
     }
   } catch (e) {
+   //  与assign() 方法不同，replace()，当前页面不会保存到会话历史中
     window.location[replace ? 'replace' : 'assign'](url)
   }
 }

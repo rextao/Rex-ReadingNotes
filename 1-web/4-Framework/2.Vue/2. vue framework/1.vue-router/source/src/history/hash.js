@@ -21,6 +21,7 @@ export class HashHistory extends History {
   // to avoid the hashchange listener being fired too early
   setupListeners () {
     const router = this.router
+    // 滚动行为，需要浏览器支持history.pushState
     const expectScroll = router.options.scrollBehavior
     const supportsScroll = supportsPushState && expectScroll
 
@@ -46,7 +47,8 @@ export class HashHistory extends History {
       }
     )
   }
-
+  // push与replace，只是在回调时调用的方法不同
+  // 最终还得调用浏览器能力
   push (location: RawLocation, onComplete?: Function, onAbort?: Function) {
     const { current: fromRoute } = this
     this.transitionTo(
@@ -83,7 +85,7 @@ export class HashHistory extends History {
       push ? pushHash(current) : replaceHash(current)
     }
   }
-
+  // 获取当前hash /xxx/?s=123&name=4
   getCurrentLocation () {
     return getHash()
   }
@@ -96,7 +98,7 @@ function checkFallback (base) {
     return true
   }
 }
-
+// slash 斜线，确保有斜线
 function ensureSlash (): boolean {
   const path = getHash()
   if (path.charAt(0) === '/') {
@@ -105,7 +107,7 @@ function ensureSlash (): boolean {
   replaceHash('/' + path)
   return false
 }
-
+// 一般可能使用类似这样的路径/#/search/meow/general/cure?page=1&count=50&featured=0
 export function getHash (): string {
   // We can't use window.location.hash here because it's not
   // consistent across browsers - Firefox will pre-decode it!
@@ -113,11 +115,12 @@ export function getHash (): string {
   const index = href.indexOf('#')
   // empty path
   if (index < 0) return ''
-
+  // 获取# 后面内容
   href = href.slice(index + 1)
   // decode the hash but not the search or hash
   // as search(query) is already decoded
   // https://github.com/vuejs/vue-router/issues/2708
+  // 需要手动对请求参数编码，而不是整个hash
   const searchIndex = href.indexOf('?')
   if (searchIndex < 0) {
     const hashIndex = href.indexOf('#')

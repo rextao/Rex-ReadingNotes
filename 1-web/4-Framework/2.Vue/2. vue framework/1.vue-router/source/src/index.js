@@ -39,10 +39,10 @@ export default class VueRouter {
     this.beforeHooks = []
     this.resolveHooks = []
     this.afterHooks = []
-    // 内部创建路由表后返回{match, addRoutes }，
+    // 1、内部创建路由表后返回{match, addRoutes}这两个函数
     this.matcher = createMatcher(options.routes || [], this)
 
-    // 路由模式处理
+    // 2、路由模式处理
     let mode = options.mode || 'hash'
     // 降级处理，即使传入history，但如果浏览器不支持，且没有强制设置fallback=false，会被降级为hash
     this.fallback = mode === 'history' && !supportsPushState && options.fallback !== false
@@ -72,7 +72,7 @@ export default class VueRouter {
   }
 
   match (
-    raw: RawLocation,
+    raw: RawLocation, // 是当前路由，即window.href 获取的哈希
     current?: Route,
     redirectedFrom?: Location
   ): Route {
@@ -82,17 +82,23 @@ export default class VueRouter {
   get currentRoute (): ?Route {
     return this.history && this.history.current
   }
-
+  // 1、检测是否已经调用Vue.use 对vue-router进行安装
+  // 2、保存当前vm实例在apps中
+  // 3、设置destroyed 回调，处理bugs
+  // 4、选择history模式，调用transitionTo
+  // 5、设置history的cb函数
   init (app: any /* Vue component instance */) {
+    // 1、检测是否已经调用Vue.use 对vue-router进行安装
     process.env.NODE_ENV !== 'production' && assert(
       install.installed,
       `not installed. Make sure to call \`Vue.use(VueRouter)\` ` +
       `before creating root instance.`
     )
-
+    // 2、保存当前vm实例在apps中
     this.apps.push(app)
 
     // set up app destroyed handler
+    // 3、设置destroyed 回调，处理bugs
     // https://github.com/vuejs/vue-router/issues/2639
     app.$once('hook:destroyed', () => {
       // clean out app from this.apps array once destroyed
@@ -112,38 +118,42 @@ export default class VueRouter {
     }
 
     this.app = app
-
+    // 4、选择history模式，调用transitionTo
     const history = this.history
 
+    // transitionTo 可以理解为路由切换
     if (history instanceof HTML5History) {
-      // transitionTo 可以理解为路由切换
       history.transitionTo(history.getCurrentLocation())
     } else if (history instanceof HashHistory) {
       const setupHashListener = () => {
         history.setupListeners()
       }
+      // 会调用基类的transitionTo方法
       history.transitionTo(
         history.getCurrentLocation(),
         setupHashListener,
         setupHashListener
       )
     }
-
+    // 5、设置history的cb函数
+    // listen => this.cb = cb 设置this.cb 为 route =>{xxx} 这个函数
+    // this.cb 会在src/history/base.js  updateRoute中调用
     history.listen(route => {
       this.apps.forEach((app) => {
+        // install将_route设置为响应式，此处赋值，会触发vue的响应式系统
         app._route = route
       })
     })
   }
-
+  // router.beforeEach 添加全局前置守卫
   beforeEach (fn: Function): Function {
     return registerHook(this.beforeHooks, fn)
   }
-
+  // 全局解析守卫
   beforeResolve (fn: Function): Function {
     return registerHook(this.resolveHooks, fn)
   }
-
+  // 全局后置钩子
   afterEach (fn: Function): Function {
     return registerHook(this.afterHooks, fn)
   }

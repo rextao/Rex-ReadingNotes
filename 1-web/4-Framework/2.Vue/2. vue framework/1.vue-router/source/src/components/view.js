@@ -3,7 +3,7 @@ import { extend } from '../util/misc'
 
 export default {
   name: 'RouterView',
-  functional: true,
+  functional: true, // 使组件无状态 (没有 data) 和无实例 (没有 this 上下文)
   props: {
     name: {
       type: String,

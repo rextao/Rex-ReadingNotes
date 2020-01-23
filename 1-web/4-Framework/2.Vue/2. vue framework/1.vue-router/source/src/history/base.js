@@ -67,7 +67,7 @@ export class History {
     onComplete?: Function,
     onAbort?: Function
   ) {
-    // 最终返回 createRoute 的route对象
+    // 最终返回 createRoute 的Object.freeze(route)对象
     const route = this.router.match(location, this.current)
     this.confirmTransition(
       route,
@@ -139,17 +139,22 @@ export class History {
     const queue: Array<?NavigationGuard> = [].concat(
       // in-component leave guards
       // beforeRouteLeave 导航离开该组件的对应路由时调用
+      // 在失活的组件里调用离开守卫
       extractLeaveGuards(deactivated),
       // global before hooks
       // 全局前置守卫调用后会添加一个到beforeHooks
+      // 调用全局的 beforeEach 守卫
       this.router.beforeHooks,
       // in-component update hooks
       // 触发beforeRouteUpdate钩子，主要是处理动态参数的路径路径的跳转
+      // 组件里调用 beforeRouteUpdate
       extractUpdateHooks(updated),
       // in-config enter guards
       // 路由独享的守卫beforeEnter
+      // 调用 beforeEnter
       activated.map(m => m.beforeEnter),
       // async components
+      // 解析异步路由组件
       resolveAsyncComponents(activated)
     )
 
@@ -194,8 +199,9 @@ export class History {
       // wait until async components are resolved before
       // extracting in-component enter guards
       // 执行beforeRouteEnter，如进入bar/ 这个路由，此时组件并没有实例化，所以无法访问组件this
+      // 在被激活的组件里调用 beforeRouteEnter
       const enterGuards = extractEnterGuards(activated, postEnterCbs, isValid)
-      // 执行全局解析守卫
+      // 执行全局解析守卫beforeResolve
       const queue = enterGuards.concat(this.router.resolveHooks)
       // queue队列over，会调用回调，执行onComplete，会调用updateRoute，执行全局的 afterEach 钩子
       runQueue(queue, iterator, () => {

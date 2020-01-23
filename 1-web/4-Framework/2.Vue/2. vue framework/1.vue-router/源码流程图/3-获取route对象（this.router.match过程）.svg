@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="195 14 1897 638" width="1897" height="638">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2020-01-22 09:23:59 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" stroke-dasharray="none" fill="none" fill-opacity="1" stroke="none" stroke-opacity="1">
+    <title>Canvas 1</title>
+    <rect fill="white" x="195" y="14" width="1897" height="638"/>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Line_96">
+        <line x1="1768.5" y1="431.5" x2="1768.5" y2="457.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_94">
+        <line x1="1768.5" y1="346.5" x2="1768.5" y2="372.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_89">
+        <line x1="1768.5" y1="261.5" x2="1768.5" y2="287.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_87">
+        <line x1="1768.5" y1="176.5" x2="1768.5" y2="202.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_85">
+        <line x1="1768.5" y1="91.5" x2="1768.5" y2="117.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_81">
+        <line x1="1503.5" y1="346.5" x2="1503.5" y2="372.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_78">
+        <line x1="1503.5" y1="261.5" x2="1503.5" y2="287.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_76">
+        <line x1="1503.5" y1="176.5" x2="1503.5" y2="202.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_69">
+        <line x1="1045" y1="445" x2="1045" y2="471.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_65">
+        <line x1="780" y1="530" x2="780" y2="556.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_63">
+        <line x1="780" y1="445" x2="780" y2="471.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_53">
+        <line x1="1045" y1="176.5" x2="1045" y2="202.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_51">
+        <line x1="1208.172" y1="91.5" x2="1120.3604" y2="124.05829" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_48">
+        <line x1="780" y1="176.5" x2="780" y2="202.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_46">
+        <line x1="780" y1="91.5" x2="780" y2="117.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_43">
+        <line x1="515" y1="176.5" x2="515" y2="202.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_40">
+        <line x1="515" y1="91.5" x2="515" y2="117.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_6">
+        <rect x="400.5" y="42.5" width="229" height="49" fill="white"/>
+        <rect x="400.5" y="42.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(405.5 57.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="44.02" y="15">src/history/base.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_5">
+        <path d="M 220.5 15.5 L 325 15.5 C 338.25483 15.5 349 26.245166 349 39.5 L 349 94.5 C 349 107.75483 338.25483 118.5 325 118.5 L 220.5 118.5 C 207.24517 118.5 196.5 107.75483 196.5 94.5 L 196.5 39.5 C 196.5 26.245166 207.24517 15.5 220.5 15.5 Z" fill="white"/>
+        <path d="M 220.5 15.5 L 325 15.5 C 338.25483 15.5 349 26.245166 349 39.5 L 349 94.5 C 349 107.75483 338.25483 118.5 325 118.5 L 220.5 118.5 C 207.24517 118.5 196.5 107.75483 196.5 94.5 L 196.5 39.5 C 196.5 26.245166 207.24517 15.5 220.5 15.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(201.5 23)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="6.362" y="17">上接</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">src/index.js</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">的</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="4.73" y="39">init</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="39">函数最后，调用</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="10.77" y="61">transitionTo，以</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="24.914" y="83">hash History</tspan>
+        </text>
+      </g>
+      <g id="Graphic_3">
+        <rect x="400.5" y="127.5" width="229" height="49" fill="white"/>
+        <rect x="400.5" y="127.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(405.5 142.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="68.164" y="15">transitionTo</tspan>
+        </text>
+      </g>
+      <g id="Graphic_42">
+        <rect x="400.5" y="212.5" width="229" height="67" fill="white"/>
+        <rect x="400.5" y="212.5" width="229" height="67" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(405.5 218.328)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="62.02" y="15">const route = </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="17.028" y="33.448">this.router.match(location, </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="67.268" y="51.895996">this.current)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_44">
+        <rect x="665.5" y="42.5" width="229" height="49" fill="white"/>
+        <rect x="665.5" y="42.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(670.5 57.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="68.612" y="15">src/index.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_45">
+        <rect x="665.5" y="127.5" width="229" height="49" fill="white"/>
+        <rect x="665.5" y="127.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(670.5 141)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="17.188" y="17">VueRouter</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">实例方法match</tspan>
+        </text>
+      </g>
+      <g id="Graphic_47">
+        <rect x="665.5" y="212.5" width="229" height="49" fill="white"/>
+        <rect x="665.5" y="212.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(670.5 218.552)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="24.436" y="15">this.matcher.match(raw, </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="23.252" y="33.448">current, redirectedFrom)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_49">
+        <rect x="930.5" y="42.5" width="687.5" height="49" fill="white"/>
+        <rect x="930.5" y="42.5" width="687.5" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(935.5 57.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="263.326" y="15">src/create-matcher.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_50">
+        <rect x="930.5" y="127.5" width="229" height="49" fill="white"/>
+        <rect x="930.5" y="127.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(935.5 142.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="87.116" y="15">match</tspan>
+        </text>
+      </g>
+      <g id="Graphic_52">
+        <rect x="930.5" y="212.5" width="229" height="49" fill="white"/>
+        <rect x="930.5" y="212.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(935.5 215)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="4.02" y="17">通过</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">normalizeLocation</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">将旧路</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="5.5" y="39">径与转跳地址转换为一个对象</tspan>
+        </text>
+      </g>
+      <g id="Graphic_54">
+        <path d="M 1213 196 L 1336.5 196 C 1349.7548 196 1360.5 206.74517 1360.5 220 L 1360.5 255.5 C 1360.5 268.75483 1349.7548 279.5 1336.5 279.5 L 1213 279.5 C 1199.7452 279.5 1189 268.75483 1189 255.5 L 1189 220 C 1189 206.74517 1199.7452 196 1213 196 Z" fill="white"/>
+        <path d="M 1213 196 L 1336.5 196 C 1349.7548 196 1360.5 206.74517 1360.5 220 L 1360.5 255.5 C 1360.5 268.75483 1349.7548 279.5 1336.5 279.5 L 1213 279.5 C 1199.7452 279.5 1189 268.75483 1189 255.5 L 1189 220 C 1189 206.74517 1199.7452 196 1213 196 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1194 204.75)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x=".75" y="17">由于跳转的地方，可以</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="16.75" y="39">用对象，也可以用</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="2.998" y="61">string，兼容多种方式</tspan>
+        </text>
+      </g>
+      <g id="Graphic_57">
+        <path d="M 1045 283.5 L 1159.5 325.25 L 1045 367 L 930.5 325.25 Z" fill="white"/>
+        <path d="M 1045 283.5 L 1159.5 325.25 L 1045 367 L 930.5 325.25 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(966.415 302.415)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="36.579" y="17">location</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">中，</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="29.011" y="39">name</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="39">是否存在</tspan>
+        </text>
+      </g>
+      <g id="Graphic_59">
+        <rect x="665.5" y="396" width="229" height="49" fill="white"/>
+        <rect x="665.5" y="396" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(670.5 409.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="25.028" y="17">从nameMap获取record</tspan>
+        </text>
+      </g>
+      <g id="Line_60">
+        <line x1="987.3393" y1="345.97523" x2="857.4792" y2="392.65135" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_61">
+        <text transform="translate(873.5 348)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">是</tspan>
+        </text>
+      </g>
+      <g id="Graphic_62">
+        <rect x="665.5" y="481" width="229" height="49" fill="white"/>
+        <rect x="665.5" y="481" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(670.5 483.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="53.468" y="17">如record不存在</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.876" y="39">_createRoute(null, location)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_64">
+        <rect x="665.5" y="566" width="229" height="49" fill="white"/>
+        <rect x="665.5" y="566" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(670.5 568.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="2.068" y="17">如存在，则获取params赋值给</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="1.364" y="39">location，调用_createRoute()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_66">
+        <rect x="930.5" y="396" width="229" height="49" fill="white"/>
+        <rect x="930.5" y="396" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(935.5 409.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="45.476" y="17">获取location.path</tspan>
+        </text>
+      </g>
+      <g id="Line_67">
+        <line x1="1045" y1="367" x2="1045" y2="386.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_68">
+        <rect x="930.5" y="481" width="229" height="67" fill="white"/>
+        <rect x="930.5" y="481" width="229" height="67" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(935.5 481.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="39.42" y="17">循环pathList，对于</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="40.668" y="39">matchRoute，返回</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="54.828" y="61">_createRoute()</tspan>
+        </text>
+      </g>
+      <g id="Line_70">
+        <line x1="856.3824" y1="212.5" x2="959.1907" y2="179.52373" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_71">
+        <line x1="1045" y1="261.5" x2="1045" y2="273.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_74">
+        <rect x="1389" y="127.5" width="229" height="49" fill="white"/>
+        <rect x="1389" y="127.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1394 142.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="61.94" y="15">_createRoute</tspan>
+        </text>
+      </g>
+      <g id="Graphic_75">
+        <rect x="1389" y="212.5" width="229" height="49" fill="white"/>
+        <rect x="1389" y="212.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1394 215)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="50.532" y="17">如配置了</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">redirect</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="35.5" y="39">调用返回：redirect()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_77">
+        <rect x="1389" y="297.5" width="229" height="49" fill="white"/>
+        <rect x="1389" y="297.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1394 300)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="61.356" y="17">如配置了</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">alias</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="47.26" y="39">调用返回：alias()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_80">
+        <rect x="1389" y="382.5" width="229" height="49" fill="white"/>
+        <rect x="1389" y="382.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1394 385)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="53.5" y="17">否则：调用返回</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="64.156" y="39">createRoute</tspan>
+        </text>
+      </g>
+      <g id="Graphic_82">
+        <rect x="1654" y="42.5" width="229" height="49" fill="white"/>
+        <rect x="1654" y="42.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1659 57.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="56.46" y="15">src/util/route.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_84">
+        <rect x="1654" y="127.5" width="229" height="49" fill="white"/>
+        <rect x="1654" y="127.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1659 142.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="65.94" y="15">createRoute</tspan>
+        </text>
+      </g>
+      <g id="Graphic_86">
+        <rect x="1654" y="212.5" width="229" height="49" fill="white"/>
+        <rect x="1654" y="212.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1659 226)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="17.428" y="17">判断并克隆location.query</tspan>
+        </text>
+      </g>
+      <g id="Graphic_88">
+        <rect x="1654" y="297.5" width="229" height="49" fill="white"/>
+        <rect x="1654" y="297.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1659 300)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="9.308" y="17">构建Route对象，保存name, </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.14" y="39">meta, path, matched 等信息 </tspan>
+        </text>
+      </g>
+      <g id="Graphic_92">
+        <path d="M 1943 283.5 L 2066.5 283.5 C 2079.7548 283.5 2090.5 294.24517 2090.5 307.5 L 2090.5 343 C 2090.5 356.25483 2079.7548 367 2066.5 367 L 1943 367 C 1929.7452 367 1919 356.25483 1919 343 L 1919 307.5 C 1919 294.24517 1929.7452 283.5 1943 283.5 Z" fill="white"/>
+        <path d="M 1943 283.5 L 2066.5 283.5 C 2079.7548 283.5 2090.5 294.24517 2090.5 307.5 L 2090.5 343 C 2090.5 356.25483 2079.7548 367 2066.5 367 L 1943 367 C 1929.7452 367 1919 356.25483 1919 343 L 1919 307.5 C 1919 294.24517 1929.7452 283.5 1943 283.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1924 292.25)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="7.75" y="17">特别注意matched是</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x=".75" y="39">一个数组，保存着当前</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="16.126" y="61">record到祖先的链</tspan>
+        </text>
+      </g>
+      <g id="Graphic_93">
+        <rect x="1654" y="382.5" width="229" height="49" fill="white"/>
+        <rect x="1654" y="382.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1659 385)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="21.5" y="17">如果是重定向，还会保存</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="31.156" y="39">route.redirectedFrom</tspan>
+        </text>
+      </g>
+      <g id="Graphic_95">
+        <rect x="1654" y="467.5" width="229" height="49" fill="white"/>
+        <rect x="1654" y="467.5" width="229" height="49" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1659 481)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="10.956" y="17">返回：Object.freeze(route)</tspan>
+        </text>
+      </g>
+      <g id="Line_97">
+        <path d="M 1618 407.34733 L 1636.1367 407.40234 L 1634.375 152.66016 L 1644.1001 152.61229" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_98">
+        <line x1="1159.5" y1="237.37378" x2="1178.1" y2="237.4345" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_99">
+        <path d="M 1162 517.5 L 1370.8477 283.5 L 1424.2653 264.77497" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_102">
+        <path d="M 1768.972 516.5 L 1771.3752 641.2224 L 519.4451 651.25804 L 515.476 289.3994" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_103">
+        <text transform="translate(964.1825 619.0625)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">最终返回Object.freeze(route)，继续执行</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">transitionTo</tspan>
+        </text>
+      </g>
+      <g id="Line_104">
+        <line x1="350" y1="67" x2="390.6" y2="67" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_105">
+        <line x1="629.5" y1="242.11132" x2="655.6057" y2="241.2247" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_106">
+        <line x1="1883" y1="323.57513" x2="1908.101" y2="323.92044" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

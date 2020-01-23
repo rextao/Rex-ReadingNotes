@@ -48,7 +48,7 @@
 
 ## 流程图
 
-
+![1-new VueRouter](../源码流程图/1-new VueRouter.svg)
 
 
 
@@ -91,35 +91,27 @@
 
 1. init最后就是调用`history.transitionTo(history.getCurrentLocation())`函数
 
-对于hash history，进入基类transitionTo
-
-首先进入match 匹配路由，然后进入this.matcher.match =》 normalizeLocation =》  matchRoute  todo =》
-
-_createRoute  =》 createRoute 就是返回一个不可更改的route对象
-
-然后返回transitionTo 继续执行confirmTransition
-
-confirmTransition，最后调用runQueue
 
 
+## 流程图
 
+![2-路由初始化](../源码流程图/2-路由初始化.svg)
 
+# 获取route对象
 
+1. 进入transitionTo后，先调用`const route = this.router.match(location, this.current)`获取route对象
+2. 由于可能使用alias，redirect，故实际这个就是处理location等，获取新的route对象
 
+## 流程图
 
+![3-获取route对象（this.router.match过程）](../源码流程图/3-获取route对象（this.router.match过程）.svg)
 
 
 
+# 路由切换
+
+![4-路由切换](../源码流程图/4-路由切换.svg)
 
 
 
-## matcher 36
-1. 初始化`this.matcher = createMatcher(options.routes || [], this)`
-1. src/create-matcher.js ,主要就是创建很多函数
-1. createRouteMap
 
-## match函数
-1. 
-
-### 路径切换
-1. 路由初始化时，会执行history.transitionTo，做一次路由切换；或push或replace方法调用

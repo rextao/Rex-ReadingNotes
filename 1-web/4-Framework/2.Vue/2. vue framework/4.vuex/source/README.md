@@ -93,9 +93,7 @@
    },
    ```
 
-## 总结
-
-1. 就是将state数据绑定到computed上
+5. 就是将state数据绑定到computed上
 
 # mapActions
 

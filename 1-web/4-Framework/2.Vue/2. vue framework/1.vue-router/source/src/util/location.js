@@ -1,19 +1,32 @@
 /* @flow */
 
 import type VueRouter from '../index'
-import { parsePath, resolvePath } from './path'
-import { resolveQuery } from './query'
-import { fillParams } from './params'
-import { warn } from './warn'
-import { extend } from './misc'
+import {
+  parsePath,
+  resolvePath
+} from './path'
+import {
+  resolveQuery
+} from './query'
+import {
+  fillParams
+} from './params'
+import {
+  warn
+} from './warn'
+import {
+  extend
+} from './misc'
 
-export function normalizeLocation (
+export function normalizeLocation(
   raw: RawLocation,
-  current: ?Route,
-  append: ?boolean,
-  router: ?VueRouter
+  current: ? Route,
+  append : ? boolean,
+  router : ? VueRouter
 ): Location {
-  let next: Location = typeof raw === 'string' ? { path: raw } : raw
+  let next: Location = typeof raw === 'string' ? {
+    path: raw
+  } : raw
   // named target
   // raw不是string，才可能具有_normalized、name、params属性
   if (next._normalized) {
@@ -46,9 +59,9 @@ export function normalizeLocation (
 
   const parsedPath = parsePath(next.path || '')
   const basePath = (current && current.path) || '/'
-  const path = parsedPath.path
-    ? resolvePath(parsedPath.path, basePath, append || next.append)
-    : basePath
+  const path = parsedPath.path ?
+    resolvePath(parsedPath.path, basePath, append || next.append) :
+    basePath
 
   const query = resolveQuery(
     parsedPath.query,

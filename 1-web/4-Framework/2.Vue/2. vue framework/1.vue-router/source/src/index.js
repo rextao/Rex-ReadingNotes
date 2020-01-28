@@ -215,7 +215,7 @@ export default class VueRouter {
       })
     }))
   }
-
+  // 解析目标位置
   resolve (
     to: RawLocation,
     current?: Route,

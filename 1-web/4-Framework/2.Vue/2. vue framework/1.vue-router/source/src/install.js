@@ -32,12 +32,14 @@ export function install (Vue) {
         this._router = this.$options.router
         // src/install.js，传入的_router是vm实例
         this._router.init(this)
-        // 为 _route 属性实现双向绑定
+        // 为 _route 属性实现双向绑定，这个是为何页面切换组件会重新渲染的关键
         Vue.util.defineReactive(this, '_route', this._router.history.current)
       } else {
         // 用于 router-view 层级判断
         this._routerRoot = (this.$parent && this.$parent._routerRoot) || this
       }
+      // 实际就是执行组件定义的registerRouteInstance函数
+      // 这个函数在router-view中定义，实际就是将this保存在 matched.instances[name]中
       registerInstance(this, this)
     },
     destroyed () {

@@ -1,4 +1,4 @@
-
+  
 
 #路由注册
 
@@ -114,4 +114,59 @@
 
 
 
+# url 变化
+
+1. 路由切换时，会导致浏览器的url变化，或者页面回退时，也会使页面发送变化，这是如何实现的
+2. 通常路径切换是点击router-link或直接在js中调用push方法
+3. 而push方法会执行transitionTo，然后在回调时，执行pushHash与handleScroll
+4. 主要在pushHash中操作url变化，实际就是直接修改window.location.hash或利用history API
+
+# router-view
+
+## 概述
+
+1. 是一个函数式组件
+
+## 问题
+
+1. router-view可以进行嵌套，需要能找到route对应的components
+
+## 流程
+
+1. 对变量进行赋值
+2. 计算当前view的depth，查找对应的component
+3. 定义data.registerRouteInstance，用于将vm实例保存在matched.instances上
+4. 执行data.hook函数
+5. 对路由组件传入的参数进行处理
+
+
+
+# router-link
+
+## 问题
+
+1. 如何变为a标签
+   - 默认是渲染a标签，但还可以渲染为其他标签
+   - 最终通过的还是h函数，传入不同tag名，不同的data，生成不同的标签并具有不同是attr与事件
+2. linkActiveClass与linkExactActiveClass
+
+## 流程
+
+1. 解析目标位置
+2. 处理全局与局部的activeClass与exactActiveClass
+3. 构建handler，为click事件进行包装，包装事件满足某些要求
+4. 处理event参数，可以是数组，也可以是字符串
+5. 处理插槽元素，如果只有一个元素，则直接返回
+6. 处理tag标签
+   - 如果当前节点是a标签，则直接绑定数据到data上
+   - 否则会递归查找child的a标签
+   - 如果子标签没有a，则只会将on绑定到当前节点上
+
+# 问题
+
+## 路由切换为何会触发组件的重新渲染
+
+1. 在beforeCreate中调用`Vue.util.defineReactive(this, '_route', this._router.history.current)`将`_route`设置为响应式
+2. 在router-view组件中，会获取parent.$route的值，实际就是获取`this._routerRoot._route`会进行依赖收集
+3. 而在init函数最后会调用`history.listen`对`app._route`进行赋值操作
 

@@ -200,6 +200,7 @@ export class History {
       // extracting in-component enter guards
       // 执行beforeRouteEnter，如进入bar/ 这个路由，此时组件并没有实例化，所以无法访问组件this
       // 在被激活的组件里调用 beforeRouteEnter
+      // extractEnterGuards的bind函数并不是bindGuard绑定instance
       const enterGuards = extractEnterGuards(activated, postEnterCbs, isValid)
       // 执行全局解析守卫beforeResolve
       const queue = enterGuards.concat(this.router.resolveHooks)
@@ -281,14 +282,18 @@ function extractGuards (
   bind: Function,
   reverse?: boolean
 ): Array<?Function> {
+  // 排平数组
   const guards = flatMapComponents(records, (def, instance, match, key) => {
+    // 实际是组件中获取name对应的函数
     const guard = extractGuard(def, name)
     if (guard) {
       return Array.isArray(guard)
         ? guard.map(guard => bind(guard, instance, match, key))
+          // 绑定instance实例，故在可以访问vue的this实例
         : bind(guard, instance, match, key)
     }
   })
+  // 为什么要reverse，在leave时候使用（比如deactivated）
   return flatten(reverse ? guards.reverse() : guards)
 }
 

@@ -18,10 +18,13 @@ export default {
       type: toTypes,
       required: true
     },
+    // 默认的tag为a，但还可以渲染为其他tag
     tag: {
       type: String,
       default: 'a'
     },
+    // 默认值是false，如为true，只有路由 / 会被添加类名，
+    // 否则 /a /b 等被/ 包含的路由，都会添加类名
     exact: Boolean,
     append: Boolean,
     replace: Boolean,
@@ -35,13 +38,16 @@ export default {
   render (h: Function) {
     const router = this.$router
     const current = this.$route
+    // 1. src/index.js
+    // 1. 主要是解析目标位置
     const { location, route, href } = router.resolve(
       this.to,
       current,
       this.append
     )
-
+    // 1. 处理全局与局部的activeClass与exactActiveClass
     const classes = {}
+    // 全局配置的class，如全局未配置，则使用默认的
     const globalActiveClass = router.options.linkActiveClass
     const globalExactActiveClass = router.options.linkExactActiveClass
     // Support global empty active class
@@ -51,6 +57,7 @@ export default {
       globalExactActiveClass == null
         ? 'router-link-exact-active'
         : globalExactActiveClass
+    // 当前组件上的activeClass是否配置，如未配置，则直接使用全局配置
     const activeClass =
       this.activeClass == null ? activeClassFallback : this.activeClass
     const exactActiveClass =
@@ -66,9 +73,12 @@ export default {
     classes[activeClass] = this.exact
       ? classes[exactActiveClass]
       : isIncludedRoute(current, compareTarget)
-
+    // 定义handler，router-link上的事件
+    // 1. 构建handler，为click事件进行包装，包装事件满足某些要求
+    // 对于false值，直接return就可以
     const handler = e => {
       if (guardEvent(e)) {
+        // 如果配置了replace属性为true，则使用replace
         if (this.replace) {
           router.replace(location, noop)
         } else {
@@ -76,7 +86,7 @@ export default {
         }
       }
     }
-
+    // 1. 处理event参数，可以是数组，也可以是字符串
     const on = { click: guardEvent }
     if (Array.isArray(this.event)) {
       this.event.forEach(e => {
@@ -98,7 +108,8 @@ export default {
         isActive: classes[activeClass],
         isExactActive: classes[exactActiveClass]
       })
-
+    // 1. 处理插槽元素，如果只有一个元素，则直接返回
+    // 如果大于一个，则报警告
     if (scopedSlot) {
       if (scopedSlot.length === 1) {
         return scopedSlot[0]
@@ -114,7 +125,7 @@ export default {
         return scopedSlot.length === 0 ? h() : h('span', {}, scopedSlot)
       }
     }
-
+    // 1. 处理tag标签
     if (this.tag === 'a') {
       data.on = on
       data.attrs = { href }

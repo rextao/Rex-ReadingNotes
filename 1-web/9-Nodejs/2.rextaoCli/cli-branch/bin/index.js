@@ -5,7 +5,7 @@ const open = require('open');
 
 
 const config = {
-    workSpace: '/Users/rextao/kuaishouWorkpace/kuaishou-frontend-admin-copy/packages/acfun', //process.cwd(), //process.cwd(), // 获取node命令启动路径，其值与代码所在位置无关
+    workSpace: process.cwd(), //process.cwd(), // 获取node命令启动路径，其值与代码所在位置无关
     branchAlias: ['wt-','wangtao-']
 };
 

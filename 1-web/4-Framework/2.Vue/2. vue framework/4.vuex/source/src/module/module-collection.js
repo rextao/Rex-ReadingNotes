@@ -2,6 +2,7 @@ import Module from './module'
 import { assert, forEachValue } from '../util'
 
 export default class ModuleCollection {
+  // 此方法是把new Store的参数传入构建modules，故可以理解为最开始传入的是根module
   constructor (rawRootModule) {
     // register root module (Vuex.Store options)
     this.register([], rawRootModule, false)
@@ -26,16 +27,20 @@ export default class ModuleCollection {
     update([], this.root, rawRootModule)
   }
   // 构建一颗状态module树
+  // 第3个参数是用于，vuex提供了动态添加modules的api
   register (path, rawModule, runtime = true) {
     if (process.env.NODE_ENV !== 'production') {
       assertRawModule(path, rawModule)
     }
-
+    // 实例化module，主要是保留children，runtime等，并定义一些module的方法
     const newModule = new Module(rawModule, runtime)
     if (path.length === 0) {
+      // 保留root，主要是可以通过root查到所有模块
       this.root = newModule
     } else {
+      // 子模块进来后，path不再为0
       // 删除数组最后一个path.slice(0, -1)
+      // parent 获得的实际是一个module
       const parent = this.get(path.slice(0, -1))
       parent.addChild(path[path.length - 1], newModule)
     }

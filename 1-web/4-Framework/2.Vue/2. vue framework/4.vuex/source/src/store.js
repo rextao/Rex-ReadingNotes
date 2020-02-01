@@ -17,6 +17,7 @@ export class Store {
 
     if (process.env.NODE_ENV !== 'production') {
       assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
+      // 库是依赖于promise的
       assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
       assert(this instanceof Store, `store must be called with the new operator.`)
     }
@@ -60,10 +61,12 @@ export class Store {
     // init root module.
     // this also recursively registers all sub-modules
     // and collects all module getters inside this._wrappedGetters
-    installModule(this, state, [], this._modules.root)
+    // 1. 为前面定义的变量进行赋值
+    installModule(this, state, [] ,  )
 
     // initialize the store vm, which is responsible for the reactivity
     // (also registers _wrappedGetters as computed properties)
+    // 1. 主要是getters与state建立一些依赖，变为响应式
     resetStoreVM(this, state)
 
     // apply plugins
@@ -84,15 +87,16 @@ export class Store {
       assert(false, `use store.replaceState() to explicit replace store state.`)
     }
   }
-
+  // 提交一个mutation更改数据
   commit (_type, _payload, _options) {
     // check object-style commit
+    // 1. 对传入参数进行调整
     const {
       type,
       payload,
       options
     } = unifyObjectStyle(_type, _payload, _options)
-
+    // 1. 根据type获取`_mutations`对应的mutation
     const mutation = { type, payload }
     const entry = this._mutations[type]
     if (!entry) {
@@ -103,12 +107,14 @@ export class Store {
     }
     // this._withCommit 增加_committing标识，主要目的是当设置strict时，能判断出是内部改变state状态
     // 其实是设置  this._committing = true 然后fn调用
+    // 1. 调用对应的fn函数
     this._withCommit(() => {
       entry.forEach(function commitIterator (handler) {
         handler(payload)
       })
     })
-
+    // 当调用subscribe函数，会往_subscribers中push函数
+    // 即给插件使用的
     this._subscribers
       .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
       .forEach(sub => sub(mutation, this.state))
@@ -123,23 +129,24 @@ export class Store {
       )
     }
   }
-
+  // 派发一个action
   dispatch (_type, _payload) {
     // check object-style dispatch
+    // 1. 对传入参数进行调整
     const {
       type,
       payload
     } = unifyObjectStyle(_type, _payload)
-
+    // 1. 根据type获取`_actions`对应的actions
     const action = { type, payload }
     const entry = this._actions[type]
-    if (!entry) {
+    if (!entry) { 
       if (process.env.NODE_ENV !== 'production') {
         console.error(`[vuex] unknown action type: ${type}`)
       }
       return
     }
-    // todo _actionSubscribers ???
+    // subscribeAction 函数中会对 _actionSubscribers赋值
     try {
       this._actionSubscribers
         .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
@@ -192,33 +199,35 @@ export class Store {
       this._vm._data.$$state = state
     })
   }
-
+  // 动态注册module
   registerModule (path, rawModule, options = {}) {
+    // patch必须是个array，且不能是0，即不能注册根module，只能扩展module
     if (typeof path === 'string') path = [path]
 
     if (process.env.NODE_ENV !== 'production') {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
       assert(path.length > 0, 'cannot register the root module by using registerModule.')
     }
-
+    // 动态注册module
     this._modules.register(path, rawModule)
     installModule(this, this.state, path, this._modules.get(path), options.preserveState)
     // reset store to update getters...
     resetStoreVM(this, this.state)
   }
-
+  // 注销模块
   unregisterModule (path) {
     if (typeof path === 'string') path = [path]
 
     if (process.env.NODE_ENV !== 'production') {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
     }
-
+    // module-collection.js
     this._modules.unregister(path)
     this._withCommit(() => {
       const parentState = getNestedState(this.state, path.slice(0, -1))
       Vue.delete(parentState, path[path.length - 1])
     })
+    // 重新注册根模块
     resetStore(this)
   }
 
@@ -264,6 +273,7 @@ function resetStoreVM (store, state, hot) {
   const oldVm = store._vm
   // 由于是resetStore，故设置为默认值
   // bind store public getters
+  // 暴露给外面使用，一般不会访问_的属性
   store.getters = {}
   // reset local getters cache
   store._makeLocalGettersCache = Object.create(null)
@@ -322,8 +332,10 @@ function resetStoreVM (store, state, hot) {
 }
 // 1. 利用makeLocalContext构造一个本地上下文环境
 // 2. 分别循环遍历mutation、action、getter绑定到`store._mutations[type]=[]`上，这个数组是fn数组
+// 对于 modules: { a: moduleA, b: moduleB }
 function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
+  // 实际就是根据modules拼接，形式'a/b/c'作为key
   const namespace = store._modules.getNamespace(path)
 
   // register in namespace map
@@ -331,11 +343,12 @@ function installModule (store, rootState, path, module, hot) {
     if (store._modulesNamespaceMap[namespace] && process.env.NODE_ENV !== 'production') {
       console.error(`[vuex] duplicate namespace ${namespace} for the namespaced module ${path.join('/')}`)
     }
+    // 此属性保存了module， 即 'a/': moduleA , 'b/': moduleB
     store._modulesNamespaceMap[namespace] = module
   }
 
   // set state
-  // 非根的配置
+  // 非根的配置，子模块时会进入
   if (!isRoot && !hot) {
     const parentState = getNestedState(rootState, path.slice(0, -1))
     const moduleName = path[path.length - 1]
@@ -347,10 +360,15 @@ function installModule (store, rootState, path, module, hot) {
           )
         }
       }
+      // 建立state的父子关系，使用Vue.set主要是新增加的属性，保证state是响应式的
       Vue.set(parentState, moduleName, module.state)
     })
   }
   // 构造了一个本地上下文环境
+  // 主要作用：实际_actions存储的是'a/increment'类似这样的key，但实际书写代码时，
+  // 在commit时，并不是书写commit('a/increment')，而是commit('increment')
+  // 代码通过makeLocalContext来找到对应模块下的action
+  // 实际就是重新定义了dispatch等方法
   const local = module.context = makeLocalContext(store, namespace, path)
   // 注册mutations，getters，actions以及子组件
   // 实际就是遍历 传入的mutations 调用() => {} 此函数，mutation为obj的值，然后添加到store._mutations中
@@ -378,8 +396,10 @@ function installModule (store, rootState, path, module, hot) {
 /**
  * make localized dispatch, commit, getters and state
  * if there is no namespace, just use root ones
+ * 本质就是重新定义dispatch等方法，如果具有namespace，则对传入的type进行拼接
+ * 例如：dispatch('add'), 拼接后实际调用的是dispatch('a/add')
  */
-function makeLocalContext (store, namespace, path) {
+function  makeLocalContext (store, namespace, path) {
   const noNamespace = namespace === ''
   // 1. 重新定义dispatch与commit函数，用于兼容noNameSpace为false情况
   // 2. 都是对于noNamespace:false，
@@ -491,6 +511,7 @@ function registerAction (store, type, handler, local) {
       rootGetters: store.getters,
       rootState: store.state
     }, payload)
+    // 由于dispatch action。执行action要求返回一个promise
     if (!isPromise(res)) {
       res = Promise.resolve(res)
     }
@@ -521,7 +542,7 @@ function registerGetter (store, type, rawGetter, local) {
     )
   }
 }
-
+// 因为是递归watch有性能消耗，故一般不会再生产环境开启strict模式
 function enableStrictMode (store) {
   // $watch( expOrFn, callback, [options] ) ,如第一个参数有return值有变化，会执行第二个参数的cb
   store._vm.$watch(function () { return this._data.$$state }, () => {

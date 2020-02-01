@@ -11,17 +11,19 @@ import { isObject } from './util'
 //     products: state => state.products.all
 // }) 的调用，会转为
 // { products: mappedState() {xxxxx} } 其实当取值时返回 state.products.all值
-export const mapState = normalizeNamespace((namespace, states) => {
+export const mapState = normalizeNamespace((namespace, states) =>   {
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(states)) {
     console.error('[vuex] mapState: mapper parameter must be either an Array or an Object')
   }
-  // 将states转为key,val 形式
+  // normalizeMap 无论states是数组还是对象，都可以将states转为key,val 形式
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
       let state = this.$store.state
       let getters = this.$store.getters
+      // 解析具有nameSpace
       if (namespace) {
+        // 实际就是通过store._modulesNamespaceMap找到对应namespace的module
         const module = getModuleByNamespace(this.$store, 'mapState', namespace)
         if (!module) {
           return
@@ -197,6 +199,7 @@ function normalizeNamespace (fn) {
  * @return {Object}
  */
 function getModuleByNamespace (store, helper, namespace) {
+  // 找到namespace对应的module
   const module = store._modulesNamespaceMap[namespace]
   if (process.env.NODE_ENV !== 'production' && !module) {
     console.error(`[vuex] module namespace not found in ${helper}(): ${namespace}`)

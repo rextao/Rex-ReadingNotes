@@ -10,16 +10,21 @@ export default function createLogger ({
   logger = console
 } = {}) {
   return store => {
+    // 1. 拷贝state对象，旧状态
     let prevState = deepCopy(store.state)
-
+    // 1. store.subscribe(() => {}) 一个函数
+    // 相当于订阅state的变化，当state变化就会执行此函数
     store.subscribe((mutation, state) => {
+      // 1. logger如果未定义，则直接返回
       if (typeof logger === 'undefined') {
         return
       }
+      // 1. 拷贝新状态
       const nextState = deepCopy(state)
-
+      // 1. 可以自定义一个filter函数，即，有些mutation或prevState不想被打印
       if (filter(mutation, prevState, nextState)) {
         const time = new Date()
+        // 获取时间戳
         const formattedTime = ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}`
         const formattedMutation = mutationTransformer(mutation)
         const message = `mutation ${mutation.type}${formattedTime}`

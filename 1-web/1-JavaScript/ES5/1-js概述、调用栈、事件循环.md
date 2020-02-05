@@ -428,6 +428,10 @@
   - 更复杂的（Just-In-Time）优化编译器，为hot方法生成优化的代码
   - 某个函数运行多次后，引擎会识别为`hot`方法，Crankshaft 会启用一个线程将抽象逻辑树（解析编译后的代码）转换为名为Hydrogen的高级static single-assignment (SSA)  ，然后优化Hydrogen
 
+### 内存管理
+
+1. 参见《13-错误处理与性能.md》
+
 # 事件循环
 
 ## 概述

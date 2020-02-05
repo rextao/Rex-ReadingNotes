@@ -354,6 +354,8 @@
 
 1. 共同决定了`cookie`何时被浏览器自动添加到请求头部中发送出去
 2. 如domain为'baidu.com'，path为'/'，则api.baidu.com、/home、/home/login，浏览器都会将cookie添加到请求头中
+3. 因此，在域名的根节点设置Cookie，几􏲝所有子路􏵃下的请求都会带上这些cookie
+4. 考虑到性能问题，对于静态文件业务，可以放在另一个域名下，避免发送cookie
 
 #### secure
 
@@ -424,14 +426,37 @@
 
 ## session
 
-### 实现机制
+### 概述
 
-1. 用户发送请求，服务器验证用户发来的用户名密码。
-2. 如果正确则把当前用户名（通常是用户对象）存储到redis中，并生成它在redis中的ID，这个ID称为Session ID，通过Session ID可以从Redis中取出对应的用户对象， 敏感数据（比如`authed=true`）都存储在这个用户对象中。
-3. 设置Cookie为`sessionId=xxxxxx|checksum`并发送HTTP响应。
-4. 用户收到HTTP响应后，便看不到任何敏感数据了。在此后的请求中发送该Cookie给服务器。
-5. 服务器获取请求中的sessionID，然后从redis等存储中取出用户对象
+1. 为了解决Cookie􏶳感数据的问题，Session应运而生
 
+### 基于Cookie的实现
+
+1. 将口令放在Cookie中是可以的，因为口令一􏰘被􏶰改，就􏰹失了映射关系
+2. 并且Session的有效期通常较短， 一般设置是20分钟􏶻，因此安全性相对较高
+3. 机制
+   - 服务器启动session，会约定一个key作为session的口令，这个值可以随意􏳆约定，比如Connect􏰰􏰱采用connect_uid，Tomcat会采用jsessionid等
+   - 如果用户请求未带此值，服务器会生成一个新的
+4. 举例说明
+   - 用户发送请求，服务器验证用户发来的用户名密码。
+   - 如果正确则把当前用户名（通常是用户对象）存储到redis中，并生成它在redis中的ID，这个ID称为Session ID，通过Session ID可以从Redis中取出对应的用户对象， 敏感数据（比如`authed=true`）都存储在这个用户对象中。
+   - 设置Cookie为`sessionId=xxxxxx|checksum`并发送HTTP响应。
+   - 用户收到HTTP响应后，便看不到任何敏感数据了。在此后的请求中发送该Cookie给服务器。
+   - 服务器获取请求中的sessionID，然后从redis等存储中取出用户对象
+
+### session与内存
+
+1. 如果将session全部存在内存中，由于node有内存限制，当用户增多，可能达到内存上限
+2. 我们为了使用多核cpu，可能启动多个进程，进程之间内存不共享，可能会导致session混乱
+3. 为了解决性能问题和Session数据无法跨进程共享的问题，常用的方案是将Session集中化
+4. 常用的是redis与Memcached等
+
+### session与安全
+
+1. 由于口令保存在客户端，可能存在盗用的情况
+2. 一种方式是将口令通过􏵒􏵓加密进行签名
+3. 另一种方式是：将客户端的􏵁些独有信息（ip地址，用户代理等）与口令作为原值， 然后签名
+4. 但还不可避免的是由于某些客户端漏洞，被xss攻击，黑客直接获取到加密后的口令
 
 # HTTPS
 

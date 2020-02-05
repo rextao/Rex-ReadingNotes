@@ -61,11 +61,30 @@
 
     
 
-    
+## 异步编程解决方案
 
-## 通过事件处理异步
+### 事件发布/订阅模式
 
-1. 例如`XMLHttpRequest`API，为每个请求创建一个请求对象，并登记事件处理函数
+#### 高阶函数的应用
+
+1. 如下Node的event模块
+
+   ```javascript
+   // 订阅
+   emitter.on("event1", function (message) {
+     console.log(message); 
+   });
+   // 发布
+   emitter.emit('event1', "I am message!");
+   ```
+
+2. 订阅事件就是一个高阶函数的应用，本身这种模式并没有同步异步调用问题，但emit多数可能是异步触发的
+
+#### 钩子机制
+
+1. 事件侦听器模式也是一种钩子(hook)机制，利用钩子导出内部数据或 状态给外部的调用者
+
+2. 例如`XMLHttpRequest`API，为每个请求创建一个请求对象，并登记事件处理函数
 
     ```javascript
     var req = new XMLHttpRequest();
@@ -84,10 +103,98 @@
     ```
 
     - `req.send()`实际是放入事件队列，顾此句可以直接在req.open后面进行调用（即先调用req.send，再调用req.onerror与req.onload也是可以的）
+    - 对于http请求，程序员只需要将视线放在error、data、end这些业务事件点上即可，至于内部的流程（如何启动组件等）如何，无需过于关注
 
-2. 事件方式处理异步请求适用于多次接受结果的情况，如只需要接收一次结果使用这样方式就会显得冗长，故回调函数变的流行
+3. 事件方式处理异步请求适用于多次接受结果的情况，如只需要接收一次结果使用这样方式就会显得冗长，故回调函数变的流行
+
+#### 解决雪崩问题
+
+1. 雪崩问题，就是大量并发请求，导致缓存失效
+
+2. 如站点刚启动，如下sql请求并发巨大，会导致同一条sql在数据库中查询多次
+
+   ```javascript
+   var select = function (callback) { 
+     db.select("SQL", function (results) {
+       callback(results); 
+     });
+   };
+   ```
+
+3. 利用once或状态标识符，解决这个问题
+
+   ```javascript
+   var status = "ready";
+   var select = function (callback) {
+     if (status === "ready") {
+       status = "pending";
+       db.select("SQL", function (results) {
+         status = "ready";
+         callback(results); 
+       });
+     } }
+   ```
+
+#### 多异步的协调问题
+
+1. 一般是一个事件多个回调函数，但也可能一个业务需要依赖于多个事件的结果
+
+   ```javascript
+   var count = 0;
+   var results = {};
+   var done = function (key, value) {
+     results[key] = value; count++;
+     if (count === 2) {
+       // 渲染页面
+       render(results); }
+   };
+   fs.readFile(template_path, "utf8", function (err, template) {
+     done("template", template);
+   });
+   db.query(sql, function (err, data) {
+     done("data", data); 
+   });
+   ```
+
+2. 可以利用偏函数对done函数进行封装
+
+   ```javascript
+   var after = function (times, callback) { 
+     var count = 0, results = {};
+     return function (key, value) {
+       results[key] = value; count++;
+       if (count === times) {
+         callback(results); }
+     }; 
+   };
+   var done = after(2, render)
+   ```
+
+#### 小结
+
+1. 主要缺点是，使用此模式执行流程需要被预先设定
+2. 如jquery常用的ajax，回调模式下，不设置succes会报错，无法执行ajax调用
+
+
+
+### Promise/Deferred模式
+
+1. jQuery 1.5 ajax可以使用deferred模式
+
+   ```javascript
+   $.get('/api')
+     .success(onSuccess)
+     .error(onError)
+     .complete(onComplete);
+   ```
+
+   - 不带用success等，$.get也会执行
+   - 通过Deferred对象，设置多个success
+
+2. 此模式最早发布在CommonJS规范中，由于使用的越来越多，抽象出了Promises/A、 Promises/B、Promises/D这样典型的异步Promise/Deferred模型
 
 # 回调
+
 ## 概述
 
 1. 回调是js中最基础的异步模式

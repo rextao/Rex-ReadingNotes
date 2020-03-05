@@ -99,6 +99,35 @@
 
 
 ## v-bind
+
+### 绑定多个属性
+
+1. 利用v-bind可以透传属性
+
+   ```vue
+   <template>
+           <ks-el-cascader
+               v-model="selectedValue"
+               :options="options"
+               v-bind="bindProps"
+               @change="onChange"
+           ></ks-el-cascader>
+   </template>
+   <script>
+   
+   export default {
+       props: {
+           bindProps: {
+               type: Object,
+               required: true
+           },
+       },
+   };
+   </script>
+   ```
+
+   - 特别注意：如果组件上显式声明了某个属性options，是无法在v-bind再传入覆盖的
+
 ### v-bind="$props"
 1. `<child-component v-bind="$props"></child-component>`
 2. 通过 $props 将父组件的 props 一起传给子组件

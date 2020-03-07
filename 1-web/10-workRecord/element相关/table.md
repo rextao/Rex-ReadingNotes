@@ -64,121 +64,121 @@
    - bugs：理论应该低于某个值后，不显示popover
 2. 可以根据row的某个数据设置行颜色
 
-```
+```html
 <template>
-    <ks-el-table
-        :data="list"
-        :row-class-name="rowClassName"
-        @sort-change="handleSortChange"
-    >
-        <ks-el-table-column
-            v-for="item in config"
-            align="center"
-            :prop="item.prop"
-            :key="item.prop"
-            :sortable="item.sortable"
-            :label="item.label"
-            :width="item.width"
-        >
-            <template slot-scope="scope">
-                <div :class="getClass(item.className, scope.row)">
-                    <template v-if="item.type === 'time'">
-                        {{scope.row[item.prop] | datetime}}
-                    </template>
-                    <template v-else-if="item.type === 'img'">
-                        <ks-el-popover
-                            placement="right"
-                            trigger="hover"
+  <ks-el-table
+               :data="list"
+               :row-class-name="rowClassName"
+               @sort-change="handleSortChange"
+               >
+    <ks-el-table-column
+                        v-for="item in config"
+                        align="center"
+                        :prop="item.prop"
+                        :key="item.prop"
+                        :sortable="item.sortable"
+                        :label="item.label"
+                        :width="item.width"
                         >
-                            <img
-                                class="co-img"
-                                :src="scope.row[item.prop]"
-                                :alt="item.label"
-                            />
-                            <img
-                                class="co-img-preview"
-                                slot="reference"
-                                :src="scope.row[item.prop]"
-                            />
-                        </ks-el-popover>
-                    </template>
-                    <template v-else-if="item.type === 'popover'">
-                        <ks-el-popover
-                            placement="top"
-                            trigger="hover"
-                            popper-class="misc-sentence-table__popover"
-                        >
-                            {{scope.row[item.prop]}}
-                            <div slot="reference" class="popover-ref">
-                                {{scope.row[item.prop]}}
-                            </div>
-                        </ks-el-popover>
-                    </template>
-                    <template v-else>
-                        {{scope.row[item.prop]}}
-                    </template>
-                </div>
-            </template>
-        </ks-el-table-column>
-        <slot></slot>
-    </ks-el-table>
+      <template slot-scope="scope">
+        <div :class="getClass(item.className, scope.row)">
+          <template v-if="item.type === 'time'">
+            {{scope.row[item.prop] | datetime}}
+          </template>
+          <template v-else-if="item.type === 'img'">
+            <ks-el-popover
+                           placement="right"
+                           trigger="hover"
+                           >
+              <img
+                   class="co-img"
+                   :src="scope.row[item.prop]"
+                   :alt="item.label"
+                   />
+              <img
+                   class="co-img-preview"
+                   slot="reference"
+                   :src="scope.row[item.prop]"
+                   />
+            </ks-el-popover>
+          </template>
+          <template v-else-if="item.type === 'popover'">
+            <ks-el-popover
+                           placement="top"
+                           trigger="hover"
+                           popper-class="misc-sentence-table__popover"
+                           >
+              {{scope.row[item.prop]}}
+              <div slot="reference" class="popover-ref">
+                {{scope.row[item.prop]}}
+              </div>
+            </ks-el-popover>
+          </template>
+          <template v-else>
+            {{scope.row[item.prop]}}
+          </template>
+        </div>
+      </template>
+    </ks-el-table-column>
+    <slot></slot>
+  </ks-el-table>
 </template>
 
 <script>
-import { Table, TableColumn, Popover } from '@ks/ks-element-ui';
-export default {
+  import { Table, TableColumn, Popover } from '@ks/ks-element-ui';
+  export default {
     name: 'sentence-table',
     components: {
-        KsElTable: Table,
-        KsElTableColumn: TableColumn,
-        KsElPopover: Popover,
+      KsElTable: Table,
+      KsElTableColumn: TableColumn,
+      KsElPopover: Popover,
     },
     props: {
-        config: {
-            type: Array,
-            default: () => []
-        },
-        list: {
-            type: Array,
-            default: () => []
-        },
-        rowClassName: {
-            type: [String, Function],
-            default: () => {}
-        },
+      config: {
+        type: Array,
+        default: () => []
+      },
+      list: {
+        type: Array,
+        default: () => []
+      },
+      rowClassName: {
+        type: [String, Function],
+        default: () => {}
+      },
     },
     methods: {
-        getClass(className, row) {
-            if (typeof className === 'function') {
-                return className(row);
-            }
-            return className || '';
-        },
-        handleSortChange(payload) {
-            this.$emit('sort-change', payload);
-        },
+      getClass(className, row) {
+        if (typeof className === 'function') {
+          return className(row);
+        }
+        return className || '';
+      },
+      handleSortChange(payload) {
+        this.$emit('sort-change', payload);
+      },
     },
-};
+  };
 </script>
 <style lang="less">
-    .misc-sentence-table__popover {
-        width: 500px;
-    }
+  .misc-sentence-table__popover {
+    width: 500px;
+  }
 </style>
 <style lang="less" scoped>
-    /deep/ .el-table__row .cell{
-        max-height: 95px;
-        overflow: hidden;
+  /deep/ .el-table__row .cell{
+    max-height: 95px;
+    overflow: hidden;
+  }
+  .co-img {
+    max-width: 500px;
+    max-height: 500px;
+    &-preview {
+      max-width: 50px;
+      max-height: 50px;
+      padding: 4px;
     }
-    .co-img {
-        max-width: 500px;
-        max-height: 500px;
-        &-preview {
-            max-width: 50px;
-            max-height: 50px;
-            padding: 4px;
-        }
-    }
+  }
 </style>
 
 ```

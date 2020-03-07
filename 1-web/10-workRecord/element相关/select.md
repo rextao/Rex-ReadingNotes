@@ -3,7 +3,94 @@
 ## 基本模式
 
 ```vue
-使用 transform  fixed数据问题
+<template>
+    <ks-el-select
+        ref="select"
+        v-model="select"
+        @change="handleChange"
+        v-bind="props"
+    >
+        <ks-el-option
+            v-for="(item, v) in options"
+            :label="item[label]"
+            :value="transform(item[val])"
+            :key="transform(item[val]) || v"
+        ></ks-el-option>
+    </ks-el-select>
+</template>
+
+<script>
+import {
+    Select,
+    Option,
+} from '@ks/ks-element-ui';
+export default {
+    name: 'select-api',
+    components: {
+        KsElSelect: Select,
+        KsElOption: Option,
+    },
+    props: {
+        options: {
+            type: Array,
+            default: () => []
+        },
+        label: {
+            type: String,
+            default: 'label'
+        },
+        val: {
+            type: String,
+            default: 'value'
+        },
+        // 自定义参数
+        // 多选，显示【全部】按钮，方便列表选择全选
+        allBtn: {
+            type: Boolean,
+            default: false,
+        },
+        // 透传参数
+        props: {
+            type: Object,
+            default: () => ({}),
+        },
+        // 同步v-model值
+        value: {
+            type: [String, Array],
+            default: ''
+        }
+    },
+    data() {
+        return {
+            select: '',
+        };
+    },
+    methods: {
+        handleChange(val) {
+            this.$emit('input', val);
+            this.$emit('change', val);
+        },
+        transform(val) {
+            if (typeof val === 'string') {
+                // 不转换空字符串
+                if (val === '') {
+                    return '';
+                }
+                return +val || val;
+            }
+            return val;
+        },
+    },
+    watch: {
+        value: {
+            immediate: true,
+            handler(val) {
+                this.select = this.transform(val);
+            }
+        }
+    },
+};
+</script>
 ```
 
 

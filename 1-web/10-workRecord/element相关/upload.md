@@ -14,7 +14,9 @@ uploadSuccess(response, file, fileList) {
 },
 ```
 
+# 注意
 
+1. 上传，列表可以点击下载：packages/admin/src/pages/feed/components/package-form.vue
 
 # 封装
 

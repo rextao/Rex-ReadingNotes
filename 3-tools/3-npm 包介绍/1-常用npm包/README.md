@@ -1,0 +1,33 @@
+# Browserslist
+
+## 概述
+
+1. 主要解决的问题
+   - Autoprefixer，Babel等会根据目标浏览器环境来决定使用哪些策略来处理你的源代码，如果对每个浏览器进行配置太麻烦了
+   - browserslist用于解决这个问题
+2. 使用方式
+   - 在项目中添加一个`.browserlistrc`文件来配置, 每一行都是一个 query, `#` 用来注释
+   - 或在项目中的 `package.json`文件中添加一个 `broserslist` 项也可以完成配置
+3. npx browserslist是用于查看目前项目支持的浏览器
+
+## 配置举例
+
+1. 配置
+
+   ```
+   "last 1 version"
+   "> 1%"
+   "not dead"
+   ```
+
+   - `last 1 version` : 支持各类浏览器最近的一个版本，当然这里的 1 是可变的数字。
+   - `1%` : 支持市场份额大于 1% 的浏览器。
+   - `not dead`: 浏览器被认为是 `dead` 条件是：最新的两个版本中发现其市场份额已经低于 0.5% 并且 24 个月内没有任务官方支持和更新了。
+
+2. `last 2 Chrome versions`：仅支持chrome浏览器
+
+
+
+# 文件处理
+
+1. globby：处理全局匹配符（vue-cli3）

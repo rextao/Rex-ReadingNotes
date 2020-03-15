@@ -84,6 +84,11 @@
 4. 因此，在执行`service.run`，会在内部读取`vue.config.js`，读取用户添加的配置
    - `packages/@vue/cli-service/lib/Service.js`中`init`->`loadUserOptions`
 
+## 快速生成项目
+
+1. vue-cli3增加了插件与dashboard功能，但还兼容vue-cli2 的vue init方法
+2. 因此：通过`@vue/cli-init`可以快速生成项目模板
+
 ## 注意
 
 1. 安装cli时，实际是`npm install -g @vue/cli`，整个vue-cli的仓库，包含了其他插件

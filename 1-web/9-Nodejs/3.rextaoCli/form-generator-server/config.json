@@ -1,0 +1,50 @@
+{
+  "info": {
+    "cols": [
+      {
+        "key": "id",
+        "type": "text",
+        "props": null,
+        "rowName": "ID"
+      },
+      {
+        "key": "title",
+        "type": "slot",
+        "props": null,
+        "rowName": "活动名称"
+      },
+      {
+        "key": "title1",
+        "type": "slot",
+        "props": null,
+        "rowName": "活动名称11"
+      },
+      {
+        "key": "adfasd",
+        "type": "slot",
+        "props": null,
+        "rowName": "活动名称"
+      },
+      {
+        "key": "fromTime",
+        "type": "time",
+        "props": null,
+        "rowName": "投放开始时间"
+      }
+    ],
+    "forms": [
+      {
+        "output": "subChannelId",
+        "component": "input",
+        "label": "子频道",
+        "props": {}
+      },
+      {
+        "output": "test123",
+        "component": "select",
+        "label": "巴扎黑",
+        "props": {}
+      }
+    ]
+  }
+}

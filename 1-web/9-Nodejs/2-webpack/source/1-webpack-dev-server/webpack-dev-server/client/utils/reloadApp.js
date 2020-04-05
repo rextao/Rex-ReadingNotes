@@ -1,9 +1,11 @@
 'use strict';
+
 /* global WorkerGlobalScope self */
 
 var _require = require('./log'),
     log = _require.log;
-
+// _ref实际就是options
+// ref2是status
 function reloadApp(_ref, _ref2) {
   var hotReload = _ref.hotReload,
       hot = _ref.hot,
@@ -27,7 +29,7 @@ function reloadApp(_ref, _ref2) {
       self.postMessage("webpackHotUpdate".concat(currentHash), '*');
     }
   } // allow refreshing the page only if liveReload isn't disabled
-  else if (liveReload) {
+  else if (liveReload) {// 不支持hot，则直接reload当前页面
       var rootWindow = self; // use parent window for reload (in case we're in an iframe with no valid src)
 
       var intervalId = self.setInterval(function () {

@@ -7,7 +7,9 @@
 const fs = require('fs');
 const net = require('net');
 const debug = require('debug')('webpack-dev-server');
+// 允许全局安装的包使用本地安装的自身版本（如果可用）
 const importLocal = require('import-local');
+// 可以对传入参数进行显示，并提示信息
 const yargs = require('yargs');
 const webpack = require('webpack');
 const Server = require('../lib/Server');

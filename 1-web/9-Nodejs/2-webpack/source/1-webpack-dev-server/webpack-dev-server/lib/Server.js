@@ -21,6 +21,7 @@ const historyApiFallback = require('connect-history-api-fallback');
 const compress = require('compression');
 const serveIndex = require('serve-index');
 const webpack = require('webpack');
+// 主要是处理webpack的文件，优点1、在内存处理、2、支持热部署
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const validateOptions = require('schema-utils');
 const isAbsoluteUrl = require('is-absolute-url');
@@ -111,8 +112,9 @@ class Server {
     if (this.progress) {
       this.setupProgressPlugin();
     }
-
+    // webpack钩子函数
     this.setupHooks();
+    // 搞一个express服务
     this.setupApp();
     this.setupCheckHostRoute();
     this.setupDevMiddleware();
@@ -122,9 +124,10 @@ class Server {
 
     // Keep track of websocket proxies for external websocket upgrade.
     this.websocketProxies = [];
-
+    // 粗略感觉：实际就是如options.https = true,就是再往https添加一些配置
     this.setupFeatures();
     this.setupHttps();
+    // 构造https，http，普通server
     this.createServer();
 
     killable(this.listeningApp);
@@ -171,6 +174,11 @@ class Server {
     };
 
     const addHooks = (compiler) => {
+      // webpack的介个钩子函数，
+      // compile： 一个新的编译(compilation)创建之后
+      // invalid： 编译无效
+      // done: 完成
+      // 通过tap方法访问
       const { compile, invalid, done } = compiler.hooks;
 
       compile.tap('webpack-dev-server', invalidPlugin);
@@ -663,7 +671,7 @@ class Server {
         }
         this.listeningApp = https.createServer(this.options.https, this.app);
       } else {
-        // The relevant issues are:
+        // The relevant issues are: spdy协议
         // https://github.com/spdy-http2/node-spdy/issues/350
         // https://github.com/webpack/webpack-dev-server/issues/1592
         this.listeningApp = require('spdy').createServer(

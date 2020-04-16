@@ -46,22 +46,22 @@
 
    - 主要是html代码需要写在template字段或利用render函数，而不像react，直接return一个jsx
 
-# vue3
 
-## 设计目标
 
-### 更快
+# 设计目标
 
-#### 使用Proxy代替Object.defineProperty
+## 更快
+
+### 使用Proxy代替Object.defineProperty
 
 1. defineProperty会对对象不停的改变，会更影响js引擎的优化 
 
-#### 编译优化
+### 编译优化
 
 1. slot默认编译为函数，父子组件避免强耦合
 2. vnode参数一致化，并未children带上类型，可以使runtime更快
 
-#### virtual dom的性能瓶颈
+### virtual dom的性能瓶颈
 
 1. 核心价值是一个抽象层，用于描述当前ui的样式
 
@@ -118,60 +118,87 @@
    - 主要是对模板进行切分，可以切分为内部一些静态的块，减少无畏的遍历
    - 将vdom更新性能由于模板大小相关提升为与动态内容的数量相关
 
-### Typescript
+## 支持Typescript
 
-#### 废弃class api，使用composition api
+### 废弃class api，使用composition api
 
 1. Vue2为了支持ts，一般会使用`vue-class-component`这个库（基于装饰器的）
 2. 目标只是为了更好的支持ts，class api是需要基于装饰器的，但装饰器还处于stage2阶段，非常不稳定
 3. 除了类型支持外，Class API并不带有任何新的优势，即写ui时很少会用到继承
 
-### Composition API
+### class api的类型问题
 
-#### 概述
+1. 
+
+# [Composition API](https://vue-composition-api-rfc.netlify.com/)
+
+## 概述
 
 1. Vue3 将采取的新的接口使用方式： `Composition API` （组合式 API）
    - 不再是使用经典的 `Options API`，即分别传入method，data等
    - 提供了一个全新的逻辑复用方案
    - 主要优点是：返回值可以被任意命名（解决命名空间问题），没有额外消耗，暴露给模版的属性来源清晰（从函数返回）
 
-#### 优势
+## 优势
 
-1. 更好的ts类型推导支持
-   - ts对函数的类型支持是非常好的，但ts并不是根据对象设计类型推到的，故之前的option api对类型推导并不友好
-2. tree-shaking优化
-   - tree-shaking是基于import的，故实际可以设计很多vue api，如果不import也不会被打包到最终文件中
-3. 代码更容易压缩
-   - 对象的key，默认情况下是不会被压缩的
-   - 但函数内部的遍历，会被压缩为单字符
+### 更好的ts类型推导支持
+
+1. ts对函数的类型支持是非常好的，但ts并不是根据对象设计类型推到的，故之前的option api对类型推导并不友好
+
+### tree-shaking优化
+
+1. tree-shaking是基于import的，故实际可以设计很多vue api，如果不import也不会被打包到最终文件中
+
+### 代码更容易压缩
+
+1. 对象的key，默认情况下是不会被压缩的
+2. 但函数内部的遍历，会被压缩为单字符
 
 ### 逻辑复用
 
 #### 概述
 
 1. Vue2.x常见的逻辑复用模式
+
    - Mixins
-   
-     - 数据来源不清晰：模版中的数据来源不清晰。举例来说，当一个组件中使用了多个 mixin 的时候，光看模版会很难分清一个属性到底是来自哪一个 mixin。HOC 也有类似的问题。
+
+     - 数据来源不清晰：模版中的数据来源不清晰。举例来说，当一个组件中使用了多个 mixin 的时候，光看模版会很难分清一个属性到底是来自哪一个 mixin。
      - 命名空间冲突：命名空间冲突。由不同开发者开发的 mixin 无法保证不会正好用到一样的属性或是方法名。
-   
+
    - 高阶组件 (Higher-order Components, aka HOCs)
-     
+
      - 数据来源不清晰
      - 命名空间冲突
      - 额外性能消耗：嵌套的组件越多，组件实例就越多，无畏的性能消耗
-     
+
    - Renderless Components (基于 scoped slots / 作用域插槽封装逻辑的组件）是一个很好的抽象方式
-   
+
      - 主要是额外的性能消耗
-   
+
        ```javascript
        <mouse v-slot="{x, y}">
          // x,y
        </mouse>
        ```
 
-## [Vue Composition API](https://vue-composition-api-rfc.netlify.com/)
+#### 优势
+
+1. 代码组织更优
+   - 可以将option api 分离的代码片段，整合在一起，即通过一个函数可以组合data，computed，watch等，把逻辑整合在一个函数
+   - setup函数可以作为一个描述组件要做什么的集合函数，option api并不能清晰的看出组件要干嘛
+2. 复用代码更方便
+   - 因为只需import vue的相关hook函数即可，不会导致上面所说的数据来源不明，命名冲突，额外性能销毁等问题
+
+## 问题
+
+1. ref的使用
+   - 会造成心里负担，需要考虑对象和普通值
+   - 对ref值还需要调用`.value`进行赋值，有些冗长
+2. ref与reactive使用的区别
+3. setup返回值会冗长，解决办法有
+   - ide有插件可以直接从变量生成返回值
+
+## api 详情
 
 ### setup
 

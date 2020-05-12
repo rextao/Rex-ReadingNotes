@@ -1,5 +1,8 @@
 # 封装
 
+1. 需要修改。。。感觉常用的属性不应该用props做透传。太麻烦了
+2. 
+
 ## 基本模式
 
 ```vue
@@ -249,3 +252,10 @@ export default {
     }
 </style>
 ```
+
+
+
+# 问题处理
+
+1. TypeError: Cannot read property 'length' of undefined
+   - 主要是v-model绑定了非数组值

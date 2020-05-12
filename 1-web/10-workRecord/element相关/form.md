@@ -1,6 +1,6 @@
 # 知识总结
 
-### 循环生成表单并增加校验规则
+## 循环生成表单并增加校验规则
 
 1. 可参照：packages/admin/src/pages/channel/link/video/index.vue
 
@@ -61,6 +61,23 @@
 </script>
 ```
 
+## 子form校验
+
+```javascript
+// 子组件
+async validate() {
+  try {
+    return await this.$refs.form.validate();
+  } catch (e) {
+    this.$message.error('需求方信息填写不完整！    ');
+    return false;
+  }
+},
+// 父组件
+const { infoForm, form, clientTab } = this.$refs;
+const res = await infoForm.validate();
+```
+
 
 
 
@@ -91,38 +108,4 @@
 
 
 
-
-# 校验
-
-```javascript
-
-const validateBatchSizes = (rule, value, callback) => {
-    if (value === '') {
-        callback(new Error('请填写批量数字'));
-    } else if (!/^[0-9]+[0-9,]*$/.test(value)) {
-        callback(new Error('请输入数字或英文逗号!'));
-    } else {
-        callback();
-    }
-};
-const validateNumber = msg => {
-    return (rule, value, callback) => {
-        if (value === '') {
-            callback(new Error(msg));
-        } else if (!/^[\d]*$/.test(value)) {
-            callback(new Error('请输入正整数!'));
-        } else {
-            callback();
-        }
-    };
-};
-const validateGiftPrice = validateNumber('请填写价格');
-const validateSlotDisplayDuration = validateNumber('请填写槽位时长');
-export const RULES = {
-    giftName: { required: true, message: '请填写礼物名称', trigger: 'blur' },
-    batchSizes: { required: true, validator: validateBatchSizes, trigger: 'blur' },
-    slotDisplayDuration: { required: true, validator: validateSlotDisplayDuration, trigger: 'blur' },
-};
-
-```
 

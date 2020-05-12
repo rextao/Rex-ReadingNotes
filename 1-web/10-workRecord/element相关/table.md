@@ -54,6 +54,33 @@
 
 
 
+## 如何通过配置产生不同的slot
+
+```html
+// 父级
+<template #operate>
+  asdasdasd
+</template>
+// 子
+<template v-else-if="column.slot">
+  <slot :name="column.slot"></slot>
+</template>
+```
+
+
+
+# 问题处理
+
+## props有数据传入，但不渲染
+
+1. 经常会使用如下方式对list进行赋值
+
+   ```javascript
+   Object.assign(this.list, data)
+   ```
+
+2. 这样的方式，不会触发list响应式，需要`this.list = data`
+
 # 封装
 
 ## 行超过一定高度显示popover

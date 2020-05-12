@@ -47,8 +47,9 @@ data(){
                    return beginTime && endTime ? [beginTime, endTime] : [];
                },
                set(value) {
-                   this.searchForm.beginTime = value && value[0] && new Date(value[0]).getTime();
-                   this.searchForm.endTime = value && value[1] && new Date(value[1]).getTime();
+                   // value是时间戳数组，无需getTime
+                   this.searchForm.beginTime = value && value[0];
+                   this.searchForm.endTime = value && value[1];
                }
            },
        },
@@ -208,4 +209,93 @@ export default {
 ```
 
 
+
+## 将两个提交参数封装在组件里
+
+```html
+<template>
+    <ks-el-date-picker
+        v-model="checkTime"
+        v-bind="transformProps"
+    >
+    </ks-el-date-picker>
+</template>
+
+<script>
+import { DatePicker } from '@ks/ks-element-ui';
+export default {
+    name: 'date-picker-api',
+    components: {
+        KsElDatePicker: DatePicker,
+    },
+    props: {
+        /**
+         * 传入需要绑定的key值
+         */
+        contentProp: {
+            type: [Array, String],
+            default: () => []
+        },
+        /**
+         * 传入的筛选项对象
+         */
+        data: {
+            type: Object,
+            default: () => ({})
+        },
+    },
+    computed: {
+        checkTime: {
+            get() {
+                const contentProp = this.contentProp;
+                if (typeof contentProp === 'string' ) {
+                    return this.data[contentProp];
+                }
+                const [ start, end ] = this.contentProp;
+                const startTime = this.data[start];
+                const endTime = this.data[end];
+                return startTime && endTime ? [startTime, endTime] : [];
+            },
+            set(value) {
+                const contentProp = this.contentProp;
+                if (typeof contentProp === 'string' ) {
+                    this.data[contentProp] = value;
+                } else {
+                    const [ start, end ] = this.contentProp;
+                    this.data[start] = value && value[0];
+                    this.data[end] = value && value[1];
+                }
+            }
+        },
+        transformProps() {
+            const defaultProps = {
+                type: 'datetimerange',
+                'range-separator': '至',
+                'start-placeholder': '开始日期',
+                'end-placeholder': '结束日期',
+                'value-format': 'timestamp',
+            };
+            return { ...defaultProps, ...this.$attrs };
+        },
+    },
+};
+</script>
+
+```
+
+调用方式
+
+```html
+
+<date-picker-api
+ :content-prop="['a', 'b']"
+ :data="filters"
+></date-picker-api>
+data() {
+	filters: {
+		a: '',
+		b: '',
+	}
+}
+```
 

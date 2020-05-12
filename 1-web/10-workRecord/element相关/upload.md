@@ -20,172 +20,6 @@ uploadSuccess(response, file, fileList) {
 
 # 封装
 
-## 图片上传
-
-### 基本封装（单图）
-
-```vue
-<template>
-    <div>
-        <ks-el-upload
-            ref="upload"
-            :class="uploadClass"
-            :multiple="false"
-            list-type="picture-card"
-            :limit="1"
-            :file-list="cardPicsImg"
-            :on-success="handleUploadSuccess"
-            :before-upload="handleBeforeUpload"
-            :on-remove="handleUploadRemove"
-            :on-error="handleUploadError"
-            :action="uploadAPI"
-            :accept="accept"
-        >
-            <i class="el-icon-upload"></i>
-        </ks-el-upload>
-        <div class="el-upload__tip">
-            <slot></slot>
-        </div>
-    </div>
-</template>
-
-<script>
-import {
-    Upload,
-} from '@ks/ks-element-ui';
-import URL_API from '@/const/url-api';
-
-export default {
-    name: 'picture-upload',
-    components: {
-        KsElUpload: Upload,
-    },
-    props: {
-        api: {
-            type: String,
-            required: true,
-        },
-        value: {
-            type: String,
-            default: ''
-        },
-        accept: {
-            type: String,
-            default: 'image/*'
-        },
-        // 限制图片宽高
-        limitWidth: {
-            type: [String, Number],
-            default: ''
-        },
-        limitHeight: {
-            type: [String, Number],
-            default: ''
-        },
-        // 最大尺寸
-        maxSize: {
-            type: [String, Number],
-            default: ''
-        },
-    },
-    data() {
-        return {
-            uploadAPI: `${this.$baseUrl}${URL_API[this.api]}`,
-            cardPicsImg: [],
-            uploadClass: '', // 限制上传一个，隐藏上传后的可上传按钮
-        };
-    },
-    methods: {
-        handleUploadSuccess(res) {
-            const { url } = res.data;
-            this.uploadClass = 'fill-upload';
-            this.$emit('input', url);
-            this.$emit('file-data', res.data);
-        },
-        handleBeforeUpload(file) {
-            const maxSize = Number(this.maxSize);
-            if (maxSize) {
-                // 图片大小限制
-                const isSize = file.size / 1024 < maxSize;
-                if (!isSize) {
-                    this.$message.error(`上传图片大小不能超过 ${maxSize}kb!`);
-                    return false;
-                }
-            }
-            if (!this.limitHeight || !this.limitWidth) {
-                return file;
-            }
-            const width = Number(this.limitWidth); // 限制图片尺寸
-            const height = Number(this.limitHeight);
-            const img = new Image();
-            return new Promise(function (resolve, reject) {
-                img.onload = function () {
-                    const valid = img.width === width && img.height === height;
-                    if (valid) {
-                        this.uploadClass = 'fill-upload';
-                        resolve();
-                    } else {
-                        reject();
-                    }
-                };
-                img.src = URL.createObjectURL(file);
-            }).then(() => {
-                return file;
-            }, () => {
-                this.$message.error(`您上传图片尺寸为：${img.width}*${img.height}, 但图片尺寸限制为${this.limitWidth} x ${this.limitHeight}`);
-                return Promise.reject();
-            });
-
-        },
-        handleUploadRemove() {
-            this.uploadClass = '';
-            this.$emit('input', '');
-            this.$emit('file-data', {});
-        },
-        handleUploadError() {
-            this.uploadClass = '';
-            this.$message.error('图片上传接口出错！');
-        },
-    },
-    watch: {
-        value: {
-            immediate: true,
-            handler(val) {
-                if (val) {
-                    if (this.cardPicsImg.length === 1) {
-                        return;
-                    }
-                    this.cardPicsImg.push({
-                        url: val
-                    });
-                    this.uploadClass = 'fill-upload';
-                } else {
-                    this.cardPicsImg = [];
-                    this.uploadClass = '';
-                }
-            }
-        }
-    }
-};
-</script>
-
-<style scoped lang="less">
-    .fill-upload {
-        /deep/ .el-upload{
-            display: none;
-        }
-    }
-    .el-upload__tip{
-        color: red;
-        line-height: 1.5;
-    }
-</style>
-```
-
-
-
-
-
 ### 设置图片宽高比(单图)
 
 1. 需要fixed
@@ -209,8 +43,10 @@ export default {
             :before-upload="handleBeforeUpload"
             :on-remove="handleUploadRemove"
             :on-error="handleUploadError"
+            :disabled="disabled"
             :action="uploadAPI"
             :accept="accept"
+            v-bind="props"
         >
             <i class="el-icon-upload"></i>
         </ks-el-upload>
@@ -266,7 +102,7 @@ export default {
             type: [String, Boolean],
             default: false
         },
-        // 最大尺寸
+        // 最大尺寸,单位k
         maxSize: {
             type: [String, Number],
             default: ''
@@ -274,17 +110,28 @@ export default {
         errorMsg: {
             type: String,
             default: ''
-        }
-
+        },
+        apiKey: {
+            type: String,
+            default: 'RESOURCE_UPLOAD_API',
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        // 透传参数
+        props: {
+            type: Object,
+            default: () => ({}),
+        },
     },
     data() {
         return {
-            uploadAPI: `${this.$baseUrl}${URL_API.RESOURCE_UPLOAD_API}`,
+            uploadAPI: `${this.$baseUrl}${URL_API[this.apiKey]}`,
             cardPicsImg: [],
             uploadClass: '', // 限制上传一个，隐藏上传后的可上传按钮
         };
     },
-
     computed: {
         limitWidthNum() {
             return Number(this.limitWidth);
@@ -320,9 +167,11 @@ export default {
             const { url } = res.data;
             this.uploadClass = 'fill-upload';
             this.$emit('update:imgUrl', url);
+            this.$emit('file-data', res.data);
         },
         handleBeforeUpload(file) {
             const maxSize = Number(this.maxSize);
+            const img = new Image();
             if (maxSize) {
                 // 图片大小限制
                 const isSize = file.size / 1024 < maxSize;
@@ -332,7 +181,6 @@ export default {
                 }
             }
             return new Promise((resolve, reject) => {
-                const img = new Image();
                 img.onload = () => {
                     const valid = this.validateImgLimit(img);
                     if (valid) {
@@ -346,7 +194,7 @@ export default {
             }).then(() => {
                 return file;
             }, () => {
-                const msg = this.errorMsg || '上传图片尺寸不符合要求！';
+                const msg = `您上传图片尺寸为：${img.width}*${img.height}, 但图片尺寸限制为${this.limitWidth} x ${this.limitHeight}`;
                 this.$message.error(msg);
                 return Promise.reject();
             });
@@ -392,6 +240,8 @@ export default {
         },
         handleUploadRemove() {
             this.uploadClass = '';
+            this.$emit('update:imgUrl', '');
+            this.$emit('file-data', {});
         },
         handleUploadError() {
             this.uploadClass = '';
@@ -399,21 +249,24 @@ export default {
         },
     },
     watch: {
-        imgUrl() {
-            if (this.imgUrl) {
-                if (this.cardPicsImg.length === 1) {
-                    return;
+        imgUrl: {
+            immediate: true,
+            handler(val) {
+                if (val) {
+                    if (this.cardPicsImg.length === 1) {
+                        return;
+                    }
+                    this.cardPicsImg.push({
+                        url: val
+                    });
+                    this.uploadClass = 'fill-upload';
+                } else {
+                    this.cardPicsImg = [];
+                    this.uploadClass = '';
                 }
-                this.cardPicsImg.push({
-                    url: this.imgUrl
-                });
-                this.uploadClass = 'fill-upload';
-            } else {
-                this.cardPicsImg = [];
-                this.uploadClass = '';
             }
-        }
-    }
+        },
+    },
 };
 </script>
 
@@ -428,6 +281,7 @@ export default {
         line-height: 1.5;
     }
 </style>
+
 ```
 
 1. 设置宽高比

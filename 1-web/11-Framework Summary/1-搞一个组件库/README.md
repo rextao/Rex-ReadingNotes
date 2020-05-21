@@ -25,3 +25,8 @@
 3. 痛点：
    - vuese需要写大量注释，解决markdown文档更新或说重新生成文档时，不会把用户编写的内容覆盖
      - 简化注释内容
+
+## vue-styleguidist
+
+1. 使用vue-cli3创建的项目，可以使用`vue add styleguidist`，然后`yarn styleguide`
+2. 快捷产生demo代码

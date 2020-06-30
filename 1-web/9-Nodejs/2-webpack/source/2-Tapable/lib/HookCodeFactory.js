@@ -75,7 +75,6 @@ class HookCodeFactory {
 				break;
 		}
 		this.deinit();
-		console.log(fn.toString())
 		return fn;
 	}
 	// 将绑定taps的函数到this._x上

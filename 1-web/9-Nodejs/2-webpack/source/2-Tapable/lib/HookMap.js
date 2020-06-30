@@ -21,6 +21,7 @@ class HookMap {
 	}
 
 	for(key) {
+		// 是否缓存了key
 		const hook = this.get(key);
 		if (hook !== undefined) {
 			return hook;

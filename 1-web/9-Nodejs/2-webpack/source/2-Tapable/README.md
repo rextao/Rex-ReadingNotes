@@ -1,13 +1,28 @@
 # 学习
 
 1. 事件注册可以注册不同类型，都push到taps数组中，关键在于事件触发，需要根据不同类型，实现不同的逻辑
+
 2. 事件触发与事件注册拆分到两个不同类中
    - 但为了方便使用，需要将事件触发绑定到Hook类中
    - 而call的具体逻辑，是需要子类去覆盖重写的，即需要子类定义一个compile函数
+   
 3. 利用new Function形式生成最终代码
    - HookCodeFactory通过new Function的形式生成针对sync/async/promise的具体函数，而对于sync不同方法的差异，则是在子类的`this.content`中实现的
    - 相比于我们平时直接遍历或者递归的调用每一个事件来说，这种执行方法效率上来说相对更高效
+   
 4. 通过`function.tostring()`可以看到函数的代码
+
+5. 对于串行异步代码，其实就是用function，生成具有回调地狱形式的代码
+
+6. node中，如之前某个方法 HookMap.tap，现在不推荐使用了，可以这样
+
+   ```javascript
+   HookMap.prototype.tap = util.deprecate(function(key, options, fn) {
+   	return this.for(key).tap(options, fn);
+   }, "HookMap#tap(key,…) is deprecated. Use HookMap#for(key).tap(…) instead.");
+   ```
+
+   - 这样，当调用`hookMap.tap(key,options)`时，会转而调用 `this.for(key).tap()`，并报错
 
 ## 逻辑设计
 
@@ -324,6 +339,32 @@ queue3.promise('webpack')
 ```
 
 
+
+## HookMap
+
+```javascript
+const {
+    HookMap,
+    SyncHook
+} = require('./lib/index');
+
+const keyedHook = new HookMap(key => new SyncHook(["arg"]))
+keyedHook.for("some-key").tap("MyPlugin", (arg) => {
+    console.log('123')
+});
+keyedHook.for("some-key").tap("MyPlugin", (arg) => {
+    console.log('456')
+});
+
+const hook = keyedHook.get("some-key");
+if(hook !== undefined) {
+    hook.callAsync("arg", err => {
+        console.log('error')
+    });
+}
+```
+
+1. 实际就是构造一个map，key-> hook的形式
 
 # 源码原理
 

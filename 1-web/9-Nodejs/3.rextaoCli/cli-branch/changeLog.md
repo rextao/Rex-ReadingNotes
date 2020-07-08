@@ -12,3 +12,6 @@
 ## 2020113
 1. 新增branchCache.localMerged 与branchCache.res
 1. 将判断远程分支且在本地分支的逻辑提到getMergedAndLocal，数据保存在上面两个变量中
+
+## 20200708
+1. 更新下逻辑，删除 本地删除和远程删除的confirm

@@ -10,7 +10,6 @@ const config = {
 };
 
 let searchUrl = '' ; // 类似于：xxxxxxxadmin/-/branches/all?utf8=✓&search=wt-  地址
-let isOpenUrl = false;
 const simpleGit = require('simple-git/promise')(config.workSpace);
 
 const branchCache = {
@@ -30,8 +29,8 @@ const branchCache = {
     try {
         await getMergedBranches();  // 获取merged分支
         getMergedAndLocal(); // 获取merged并且是本地的分支（避免删除非本地分支）
+        await confirmOpenUrl();     // 选择是否打开网页
         await confirmModeSelect();  // 选择删除模式
-        await confirmOpenUrl();     // 选择是否打开网页，确定分支已经合并，避免误删
         await deleteBranch();       // 删除分支
     }catch (e) {
         console.log(chalk.red(e));
@@ -42,32 +41,12 @@ const branchCache = {
     }
 })();
 
-async function deleteBranch() {
-    const readyDelete = branchCache.readyDelete;
-    for (let i = 0; i < readyDelete.length; i++) {
-        const item = readyDelete[i];
-        const isDelete = await confirmDeleteBranches(item);  // 确定删除远程分支
-        // 如确定要删除
-        if(isDelete) {
-            await deleteRemoteTracking(item);  // 确定删除本地分支
-            await confirmDeleteLocalBranch(item);
-        } else {
-            console.log(chalk.green(`${item}并未删除`));
-        }
-    }
+async function getLocalBranches() {
+    const item = await simpleGit.branchLocal();
+    branchCache.current = item.current;
+    branchCache.local = item.branches;
 }
 
-// 删除远程分支tracking
-async function deleteRemoteTracking(item){
-    try {
-        await simpleGit.raw(['branch','-r','-d',`origin/${item}`]);
-        await simpleGit.push('origin', `:${item}`);
-        console.log(chalk.green(`${item}远程分支删除成功`));
-    } catch (e) {
-        console.log(e);
-        throw new Error(e);
-    }
-}
 // 获取branch查询地址，查看当前分支是否已经合并到develop，避免删错
 async function getSearchUrl(){
     const remotes = await simpleGit.getRemotes(true);
@@ -79,28 +58,92 @@ async function getSearchUrl(){
     }
     searchUrl =  matches && matches[1].replace(':','/');
 }
+
 // 拉取develop分支最新内容
 async function developPull(){
     await coMaster(); // 切换到develop分支
     await simpleGit.pull();
 }
-// 是否删除本地分支
-async function confirmDeleteLocalBranch(item){
-    const { value } = await prompts({
-        type: 'toggle',
-        name: 'value',
-        message: '是否删除本地分支?',
-        active: 'Yes',
-        inactive: 'No'
-    });
-    if(value){
+
+async function coMaster(){
+    try {
+        await co('develop') ;// 先切换到develop，如果不存在
+    } catch (e) {
         try {
-            await simpleGit.deleteLocalBranch(item);
-            console.log(chalk.green(`本地分支删除成功`));
-        } catch (e) {
-            console.log(e);
-            throw new Error(e);
+            console.log('error: pathspec \'develop\'已被catch');
+            await co('master') ;// 再切换master
+        }catch (e) {
+            // Todo 理论上，如果不是这两分支，需要用户输入-。-，但一般主分支都是这俩
+            throw new Error('此项目主分支不是master或develop，目前不支持-。-')
         }
+    }
+}
+// 切换分支
+async function co(branchName) {
+    await simpleGit.checkout(branchName);
+}
+
+// 根据branchAlias，获取远程已合并分支
+async function getMergedBranches() {
+    const branches = await simpleGit.raw(['branch','-r','--merged']);
+    // 远程分支是以origin/开头,
+    const reg = new RegExp(`(?<=origin\\/).*(${config.branchAlias.join('|')}).*`, 'g');
+    branchCache.merged = branches.match(reg);
+    if(!branchCache.merged) {
+        throw new Error('远程无已合并分支')
+    }
+}
+
+// 获取merged并且是本地的分支（避免删除非本地分支）
+function getMergedAndLocal() {
+    const { merged, local } = branchCache;
+    const localBranchKeys = Object.keys(local);
+    localBranchKeys.forEach(item => {
+        if(merged.includes(item)) {
+            branchCache.localMerged.push(item)
+        } else {
+            branchCache.res.push(item)
+        }
+    });
+    if (branchCache.localMerged.length === 0) {
+        throw new Error('暂无需要删除是分支！');
+    }
+}
+
+
+async function deleteBranch() {
+    const readyDelete = branchCache.readyDelete;
+    for (let i = 0; i < readyDelete.length; i++) {
+        const item = readyDelete[i];
+        const isDeleteRemote = await deleteRemoteTracking(item);
+        if (isDeleteRemote) {
+            await confirmDeleteLocalBranch(item);
+        }
+    }
+}
+
+// 删除远程分支tracking
+async function deleteRemoteTracking(item){
+    try {
+        await simpleGit.raw(['branch','-r','-d',`origin/${item}`]);
+        await simpleGit.push('origin', `:${item}`);
+        console.log(chalk.green(`${item}远程分支删除成功`));
+        return true;
+    } catch (e) {
+        console.log(`${item}远程分支不存在`);
+        return false;
+    }
+}
+
+
+
+// 删除本地分支
+async function confirmDeleteLocalBranch(item){
+    try {
+        await simpleGit.deleteLocalBranch(item);
+        console.log(chalk.green(`本地分支删除成功`));
+    } catch (e) {
+        console.log(e);
     }
 }
 // 删除模式选择
@@ -133,77 +176,18 @@ async function confirmOpenUrl(){
         active: 'Yes',
         inactive: 'No'
     });
-    isOpenUrl = value;
-}
-
-// 确定删除
-async function confirmDeleteBranches(item) {
-    const url = `http://${searchUrl}/-/branches/all?search=${item}`;
-    if(isOpenUrl){
-        open(url);
-    }
-    const msgArr = `${chalk.magenta(item)}: ${url}`;
-    const { value } = await prompts({
-        type: 'toggle',
-        name: 'value',
-        message: `是否要删除这些分支?\n${msgArr}`,
-        active: 'YES',
-        inactive: 'NO'
-    });
-    return value;
-}
-
-async function getLocalBranches() {
-    const item = await simpleGit.branchLocal();
-    branchCache.current = item.current;
-    branchCache.local = item.branches;
-}
-
-
-// 切换分支
-async function co(branchName) {
-    await simpleGit.checkout(branchName);
-}
-async function coMaster(){
-    try {
-        await co('develop') ;// 先切换到develop，如果不存在
-    } catch (e) {
-       try {
-           console.log('error: pathspec \'develop\'已被catch');
-           await co('master') ;// 再切换master
-       }catch (e) {
-           // Todo 理论上，如果不是这两分支，需要用户输入-。-，但一般主分支都是这俩
-           throw new Error('此项目主分支不是master或develop，目前不支持-。-')
-       }
-    }
-}
-
-
-// 根据branchAlias，获取远程已合并分支
-async function getMergedBranches() {
-    const branches = await simpleGit.raw(['branch','-r','--merged']);
-    // 远程分支是以origin/开头,
-    const reg = new RegExp(`(?<=origin\\/).*(${config.branchAlias.join('|')}).*`, 'g');
-    branchCache.merged = branches.match(reg);
-    if(!branchCache.merged) {
-        throw new Error('远程无已合并分支')
-    }
-}
-// 获取merged并且是本地的分支（避免删除非本地分支）
-function getMergedAndLocal() {
-    const { merged, local } = branchCache;
-    const localBranchKeys = Object.keys(local);
-    localBranchKeys.forEach(item => {
-        if(merged.includes(item)) {
-            branchCache.localMerged.push(item)
-        } else {
-            branchCache.res.push(item)
+    if(value){
+        const localMerged = branchCache.localMerged;
+        for (let i = 0; i < localMerged.length; i++) {
+            const item = localMerged[i];
+            const url = `http://${searchUrl}/-/branches/all?search=${item}`;
+            open(url);
         }
-    });
-    if (branchCache.localMerged.length === 0) {
-        throw new Error('暂无需要删除是分支！');
     }
 }
+
+
+
 // 工具函数
 // 将数据转换为多选 choice形式
 function toPromptsChoice(arr) {

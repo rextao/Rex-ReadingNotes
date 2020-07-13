@@ -67,6 +67,23 @@
 </template>
 ```
 
+## 当超过check数量禁止选择
+
+```html
+<table
+       ref="table"
+       @select="handleSelectionSelect"
+       >
+</table>
+        handleSelectionSelect(val, row) {
+            if (this.topListLen + val.length > MAX_TOP_LIST_LENGTH) {
+                this.$refs.table.toggleRowSelection(row, false);
+                return;
+            }
+            this.selection = val;
+        },
+```
+
 
 
 # 问题处理

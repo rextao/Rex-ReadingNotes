@@ -76,6 +76,9 @@ async validate() {
 // 父组件
 const { infoForm, form, clientTab } = this.$refs;
 const res = await infoForm.validate();
+if (!res) {
+  return;
+}
 ```
 
 
@@ -107,5 +110,20 @@ const res = await infoForm.validate();
 
 
 
+# 总结
 
+1. 通过rules的改变，可以改变不同按钮点击后校验不同输入框
+
+   ```javascript
+   this.rules = RULES.FILL;
+   await form.clearValidate();
+   form.validate(async valid => {
+     if (valid) {
+       return true;
+     }
+     return false;
+   });
+   ```
+
+   - 注意需要在validate中调用`form.clearValidate()`
 

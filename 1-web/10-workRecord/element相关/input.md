@@ -28,6 +28,15 @@ handleInputBlur() {
 },
 ```
 
+### 禁止number时，滚动数值
+
+```html
+<ks-el-input
+             type="number"
+             @wheel.native.prevent
+></ks-el-input>
+```
+
 
 
 #封装

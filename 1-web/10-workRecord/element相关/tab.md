@@ -29,3 +29,17 @@
 
 
 
+# 常用
+
+```vue
+
+
+```
+
+```javascript
+export const TAB_CONFIG = [
+    { component: 'BaseForm', label: '基本信息' },
+    { component: 'SortForm', label: '漫画分类' },
+];
+```
+

@@ -9,6 +9,7 @@
      ```html
      <!DOCTYPE html>
      <html lang="en">
+     ```
 <head>
          <meta charset="UTF-8">
          <title>Title</title>
@@ -40,8 +41,9 @@
      </script>
      </html>
      ```
-     
+
    
+
 2. vue是强制将数据层分离
 
    - 主要是html代码需要写在template字段或利用render函数，而不像react，直接return一个jsx
@@ -126,9 +128,7 @@
 2. 目标只是为了更好的支持ts，class api是需要基于装饰器的，但装饰器还处于stage2阶段，非常不稳定
 3. 除了类型支持外，Class API并不带有任何新的优势，即写ui时很少会用到继承
 
-### class api的类型问题
 
-1. 
 
 # [Composition API](https://vue-composition-api-rfc.netlify.com/)
 
@@ -240,22 +240,7 @@
    - 函数内不允许调用this
    - 因为，setup函数会在2.x options之前完成，会导致setup与其他2.x options的this不一致，产生混淆
 
-### reactive
 
-1. 设置响应式
-
-   ```javascript
-   import { reactive } from 'vue'
-   // reactive state
-   const state = reactive({
-     count: 0
-   })
-   ```
-
-   - 与`Vue.observable()` API in 2.x 是一样的
-   - 重命名主要是避免与RxJs observables产生混淆
-   
-2. 创建一个没有包装的响应式对象
 
 ### watchEffect
 
@@ -303,15 +288,32 @@
    })
    ```
 
+### reactive
 
+1. 设置响应式
+
+   ```javascript
+   import { reactive } from 'vue'
+   // reactive state
+   const state = reactive({
+     count: 0
+   })
+   ```
+
+   - 与`Vue.observable()` API in 2.x 是一样的
+   - 重命名主要是避免与RxJs observables产生混淆
+
+2. 创建一个没有包装的响应式对象
 
 ### ref
+
+#### 概述
 
 1. `ref()` 返回的是一个 **value reference （包装对象）**。一个包装对象只有一个属性：`.value`
 
 2. 如果在一个函数中返回一个字符串变量，接收到这个字符串的代码只会获得一个值，是无法追踪原始变量后续的变化的。
 
-3. 包装对象的意义就在于提供一个让我们能够在函数之间以引用的方式传递任意类型值的容器
+3. 包装对象的意义就在于提供一个让我们能够在**函数**之间以引用的方式传递任意类型值的容器
 
 4. 包装数组或对象并非无意义
    - 让我们可以对整个对象的值进行替换，引用不变
@@ -323,6 +325,79 @@
      ```
    
 5. 当包装对象被暴露给模版渲染上下文，或是被嵌套在另一个响应式对象中的时候，它会被自动展开 (unwrap) 为内部的值，即无需调用`count.value`
+
+#### 源码描述
+
+```javascript
+export function ref(raw?: unknown) {
+  if (isRef(raw)) {
+    return raw
+  }
+  const value = reactive({ [RefKey]: raw })
+  return Object.seal({
+    get: () => value[RefKey] as any,
+    set: (v) => ((value[RefKey] as any) = v),
+  })
+}
+```
+
+1. 注意
+   - `ref`内部先调用的是 `reactive`，又将返回的对象 seal下
+   - 返回的对象，只有value属性，不可以删除，或添加其他属性
+
+### toRef
+
+1. 将一个 reactive 对象的属性创建一个 ref
+
+   ```javascript
+   export function toRef<T extends object, K extends keyof T>(
+     object: T,
+     key: K
+   ): Ref<T[K]> {
+     const v = object[key]
+     if (isRef<T[K]>(v)) return v
+     return Object.seal({
+       get: () => object[key],
+       set: (v) => (object[key] = v),
+     })
+   }
+   ```
+
+2. 注意
+
+   - 处理的是`object[key]`值
+
+### toRefs
+
+1. 调用方式： `toRefs(obj)`
+
+2. 注意：
+
+   - obj不是Reactive的，会提示warn
+   - return的是普通对象，对象的每个值都被`toRef`
+
+3. 主要解决，`reactive`返回值不能被解构或展开，保留响应式
+
+   ```javascript
+   export function toRefs<T extends Data = Data>(obj: T): ToRefs<T> {
+     if (!isPlainObject(obj)) return obj as any
+   
+     if (__DEV__ && !isReactive(obj)) {
+       warn(`toRefs() expects a reactive object but received a plain one.`)
+     }
+   
+     const ret: any = {}
+     for (const key in obj) {
+       ret[key] = toRef(obj, key)
+     }
+   
+     return ret
+   }
+   ```
+
+   
+
+
 
 ### computed
 

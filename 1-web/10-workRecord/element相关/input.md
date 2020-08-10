@@ -1,14 +1,12 @@
 # input
 
-## 知识点
-
-### 回车搜索
+## 回车搜索
 
 ```
 @keyup.enter.native="handleSearch"
 ```
 
-### 替换input框选中文本
+## 替换input框选中文本
 
 ```
 handleTagClick(item) {
@@ -28,13 +26,22 @@ handleInputBlur() {
 },
 ```
 
-### 禁止number时，滚动数值
+## 禁止number时，滚动数值
 
 ```html
 <ks-el-input
              type="number"
              @wheel.native.prevent
 ></ks-el-input>
+```
+
+## 处理浮点数精度问题
+
+```javascript
+// 解决浮点数误差，一般选12就能解决掉大部分0001和0009问题
+export function strip(num: number, precision = 12): number {
+    return +parseFloat(num.toPrecision(precision));
+}
 ```
 
 

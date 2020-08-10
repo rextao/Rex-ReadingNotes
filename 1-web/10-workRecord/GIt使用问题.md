@@ -260,6 +260,8 @@ git config --global alias.st status
 
 1. `git cherry-pick <commit-id>`
 
+   - 到master上，可以pick任意commit，到master上
+
 2. `git cherry-pick -x <commit_id>`
 
    - -x 参数，表示保留原提交的作者信息进行提交。

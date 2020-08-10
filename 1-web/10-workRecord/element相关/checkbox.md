@@ -41,3 +41,4 @@
      - 导致校验失败
    - 本质问题在于，checkbox的change事件，在nextTick中。。所以晚于v-model的值改变而触发，即使无nextTick，`_checkboxGroup`在checkbox change时并未获得准确值，故抛出去的还是空数组
 
+

@@ -58,7 +58,22 @@ data(){
 
 2. 实际是，在设置值时，会调用set方法，val分别设置在beginTime与endTime中；当修改时，获取的数据data中包含beginTime与endTime，在通过get方法转换为数组
 
+## 常用时间
+
+1. 今天起止时间
+
+   ```javascript
+   export const ONE_DAY = 24 * 3600 * 1000;
+   // 今天起始时间戳  20200730 00:00:00
+   export const START_DAY = new Date(new Date().toLocaleDateString()).getTime();
+   // 今天结束时间 20200730 23：59：59
+   export const END_DAY = START_DAY + ONE_DAY - 1;
+   ```
+
+   
+
 # 封装
+
 ```vue
 <template>
     <ks-el-tooltip

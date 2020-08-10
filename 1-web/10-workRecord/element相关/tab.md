@@ -31,10 +31,37 @@
 
 # 常用
 
-```vue
-
+```html
+<ks-el-tabs
+            v-model="activeTab"
+            type="card"
+            tab-position="left"
+            @tab-click="handleTabClick"
+            >
+  <template
+            v-for="item in TAB_CONFIG"
+            >
+    <ks-el-tab-pane
+                    :key="item.component"
+                    :label="item.label"
+                    :name="item.component"
+                    >
+      <component
+                 ref="forms"
+                 :is="item.component"
+                 :model="model"
+                 :row-data="rowData"
+                 :condition="condition"
+                 :selections="selections"
+                 @submit="submit"
+                 ></component>
+    </ks-el-tab-pane>
+  </template>
+</ks-el-tabs>
 
 ```
+
+
 
 ```javascript
 export const TAB_CONFIG = [

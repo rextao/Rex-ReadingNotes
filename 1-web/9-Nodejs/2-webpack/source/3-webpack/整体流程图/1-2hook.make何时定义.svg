@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="237 243 802 686" width="802" height="686">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="237 243 802 596" width="802" height="596">
   <defs>
     <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
       <g>
@@ -27,32 +27,31 @@
         <font-face-name name="PingFangSC-Regular"/>
       </font-face-src>
     </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
   </defs>
   <metadata> Produced by OmniGraffle 7.11.5 
-    <dc:date>2020-06-21 09:18:59 +0000</dc:date>
+    <dc:date>2020-07-23 01:27:41 +0000</dc:date>
   </metadata>
-  <g id="Canvas_1" stroke-opacity="1" fill="none" fill-opacity="1" stroke="none" stroke-dasharray="none">
+  <g id="Canvas_1" stroke-dasharray="none" fill-opacity="1" fill="none" stroke="none" stroke-opacity="1">
     <title>Canvas 1</title>
-    <rect fill="white" x="237" y="243" width="802" height="686"/>
+    <rect fill="white" x="237" y="243" width="802" height="596"/>
     <g id="Canvas_1: Layer 1">
       <title>Layer 1</title>
       <g id="Line_18">
-        <line x1="460.25" y1="838" x2="460.25" y2="864.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      </g>
-      <g id="Line_16">
         <line x1="460.25" y1="748" x2="460.25" y2="774.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
-      <g id="Line_12">
+      <g id="Line_16">
         <line x1="460.25" y1="658" x2="460.25" y2="684.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
-      <g id="Line_10">
+      <g id="Line_12">
         <line x1="460.25" y1="568" x2="460.25" y2="594.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
-      <g id="Line_8">
+      <g id="Line_10">
         <line x1="460.25" y1="478" x2="460.25" y2="504.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      </g>
-      <g id="Line_6">
-        <line x1="460.25" y1="388" x2="460.25" y2="414.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_4">
         <line x1="460.25" y1="298" x2="460.25" y2="324.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
@@ -72,74 +71,70 @@
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="168.314" y="17">webpack函数</tspan>
         </text>
       </g>
-      <g id="Graphic_5">
+      <g id="Graphic_7">
         <rect x="238" y="424" width="444.5" height="54" fill="white"/>
         <rect x="238" y="424" width="444.5" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
         <text transform="translate(243 440)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="155.106" y="17">createCompiler()</tspan>
         </text>
       </g>
-      <g id="Graphic_7">
+      <g id="Graphic_9">
         <rect x="238" y="514" width="444.5" height="54" fill="white"/>
         <rect x="238" y="514" width="444.5" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
         <text transform="translate(243 530)" fill="black">
-          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="155.106" y="17">createCompiler()</tspan>
-        </text>
-      </g>
-      <g id="Graphic_9">
-        <rect x="238" y="604" width="444.5" height="54" fill="white"/>
-        <rect x="238" y="604" width="444.5" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(243 620)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.714" y="17">new WebpackOptionsApply().process(options, compiler);</tspan>
         </text>
       </g>
       <g id="Graphic_11">
-        <rect x="238" y="694" width="444.5" height="54" fill="white"/>
-        <rect x="238" y="694" width="444.5" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(243 710)" fill="black">
+        <rect x="238" y="604" width="444.5" height="54" fill="white"/>
+        <rect x="238" y="604" width="444.5" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(243 620)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="68.378" y="17">new EntryOptionPlugin().apply(compiler)</tspan>
         </text>
       </g>
       <g id="Graphic_15">
-        <rect x="238" y="784" width="444.5" height="54" fill="white"/>
-        <rect x="238" y="784" width="444.5" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(243 800)" fill="black">
+        <rect x="238" y="694" width="444.5" height="54" fill="white"/>
+        <rect x="238" y="694" width="444.5" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(243 710)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.754" y="17">new EntryPlugin(context, entry, options).apply(compiler);</tspan>
         </text>
       </g>
       <g id="Graphic_17">
-        <rect x="238" y="874" width="444.5" height="54" fill="white"/>
-        <rect x="238" y="874" width="444.5" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(243 890)" fill="black">
+        <rect x="238" y="784" width="444.5" height="54" fill="white"/>
+        <rect x="238" y="784" width="444.5" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(243 800)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="97.514" y="17">compiler.hooks.make.tapAsync()</tspan>
         </text>
       </g>
       <g id="Graphic_19">
-        <path d="M 761.5 874 L 1014 874 C 1027.2548 874 1038 884.7452 1038 898 L 1038 904 C 1038 917.2548 1027.2548 928 1014 928 L 761.5 928 C 748.2452 928 737.5 917.2548 737.5 904 L 737.5 898 C 737.5 884.7452 748.2452 874 761.5 874 Z" fill="white"/>
-        <path d="M 761.5 874 L 1014 874 C 1027.2548 874 1038 884.7452 1038 898 L 1038 904 C 1038 917.2548 1027.2548 928 1014 928 L 761.5 928 C 748.2452 928 737.5 917.2548 737.5 904 L 737.5 898 C 737.5 884.7452 748.2452 874 761.5 874 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        <text transform="translate(742.5 890)" fill="#525356">
+        <path d="M 761.5 784 L 1014 784 C 1027.2548 784 1038 794.7452 1038 808 L 1038 814 C 1038 827.2548 1027.2548 838 1014 838 L 761.5 838 C 748.2452 838 737.5 827.2548 737.5 814 L 737.5 808 C 737.5 794.7452 748.2452 784 761.5 784 Z" fill="white"/>
+        <path d="M 761.5 784 L 1014 784 C 1027.2548 784 1038 794.7452 1038 808 L 1038 814 C 1038 827.2548 1027.2548 838 1014 838 L 761.5 838 C 748.2452 838 737.5 827.2548 737.5 814 L 737.5 808 C 737.5 794.7452 748.2452 784 761.5 784 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(742.5 800)" fill="#525356">
           <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="43.602" y="17">hooks.make钩子函数的定义</tspan>
         </text>
       </g>
       <g id="Graphic_20">
-        <path d="M 761.5 694 L 1014 694 C 1027.2548 694 1038 704.7452 1038 718 L 1038 724 C 1038 737.2548 1027.2548 748 1014 748 L 761.5 748 C 748.2452 748 737.5 737.2548 737.5 724 L 737.5 718 C 737.5 704.7452 748.2452 694 761.5 694 Z" fill="white"/>
-        <path d="M 761.5 694 L 1014 694 C 1027.2548 694 1038 704.7452 1038 718 L 1038 724 C 1038 737.2548 1027.2548 748 1014 748 L 761.5 748 C 748.2452 748 737.5 737.2548 737.5 724 L 737.5 718 C 737.5 704.7452 748.2452 694 761.5 694 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        <text transform="translate(742.5 710)" fill="#525356">
+        <path d="M 761.5 604 L 1014 604 C 1027.2548 604 1038 614.7452 1038 628 L 1038 634 C 1038 647.2548 1027.2548 658 1014 658 L 761.5 658 C 748.2452 658 737.5 647.2548 737.5 634 L 737.5 628 C 737.5 614.7452 748.2452 604 761.5 604 Z" fill="white"/>
+        <path d="M 761.5 604 L 1014 604 C 1027.2548 604 1038 614.7452 1038 628 L 1038 634 C 1038 647.2548 1027.2548 658 1014 658 L 761.5 658 C 748.2452 658 737.5 647.2548 737.5 634 L 737.5 628 C 737.5 614.7452 748.2452 604 761.5 604 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(742.5 620)" fill="#525356">
           <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="18.69" y="17">处理entry，对象与函数模式的entry</tspan>
         </text>
       </g>
       <g id="Graphic_21">
-        <path d="M 761.5 784 L 1014 784 C 1027.2548 784 1038 794.7452 1038 808 L 1038 814 C 1038 827.2548 1027.2548 838 1014 838 L 761.5 838 C 748.2452 838 737.5 827.2548 737.5 814 L 737.5 808 C 737.5 794.7452 748.2452 784 761.5 784 Z" fill="white"/>
-        <path d="M 761.5 784 L 1014 784 C 1027.2548 784 1038 794.7452 1038 808 L 1038 814 C 1038 827.2548 1027.2548 838 1014 838 L 761.5 838 C 748.2452 838 737.5 827.2548 737.5 814 L 737.5 808 C 737.5 794.7452 748.2452 784 761.5 784 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        <text transform="translate(742.5 789)" fill="#525356">
+        <path d="M 761.5 694 L 1014 694 C 1027.2548 694 1038 704.7452 1038 718 L 1038 724 C 1038 737.2548 1027.2548 748 1014 748 L 761.5 748 C 748.2452 748 737.5 737.2548 737.5 724 L 737.5 718 C 737.5 704.7452 748.2452 694 761.5 694 Z" fill="white"/>
+        <path d="M 761.5 694 L 1014 694 C 1027.2548 694 1038 704.7452 1038 718 L 1038 724 C 1038 737.2548 1027.2548 748 1014 748 L 761.5 748 C 748.2452 748 737.5 737.2548 737.5 724 L 737.5 718 C 737.5 704.7452 748.2452 694 761.5 694 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(742.5 699)" fill="#525356">
           <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="5.194" y="17">处理对象模式entry的import，实际是绑</tspan>
           <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="14.034" y="39">定hooks.compilation与hooks.make</tspan>
         </text>
       </g>
       <g id="Graphic_22">
-        <text transform="translate(465 846)" fill="black">
+        <text transform="translate(465 756)" fill="black">
           <tspan font-family="PingFang SC" font-size="14" font-weight="400" fill="black" x="0" y="15">内部</tspan>
         </text>
+      </g>
+      <g id="Line_23">
+        <line x1="460.25" y1="388" x2="460.25" y2="414.1" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
     </g>
   </g>

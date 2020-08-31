@@ -921,22 +921,25 @@
 4. 然后回到`this.hooks.get.callAsync`的回调函数中
 
    ```javascript
-   this.hooks.get.callAsync(identifier, etag, gotHandlers, (err, result) => {
-     // 处理error与 result === null 情况
-     if (gotHandlers.length > 1) {
-       const innerCallback = needCalls(
-         gotHandlers.length, () =>
-         callback(null, result)
-       );
-       for (const gotHandler of gotHandlers) {
-         gotHandler(result, innerCallback);
+   get(identifier, etag, callback) {
+     const gotHandlers = [];
+     this.hooks.get.callAsync(identifier, etag, gotHandlers, (err, result) => {
+       // 处理error与 result === null 情况
+       if (gotHandlers.length > 1) {
+         const innerCallback = needCalls(
+           gotHandlers.length, () =>
+           callback(null, result)
+         );
+         for (const gotHandler of gotHandlers) {
+           gotHandler(result, innerCallback);
+         }
+       } else if (gotHandlers.length === 1) {
+         gotHandlers[0](result, () => callback(null, result));
+       } else {
+         callback(null, result);
        }
-     } else if (gotHandlers.length === 1) {
-       gotHandlers[0](result, () => callback(null, result));
-     } else {
-       callback(null, result);
-     }
-   });
+     });
+   }
    ```
 
    - 其实，这个回调函数，可以理解为就是根据不同情况，执行`gotHandlers`，即回到2 执行`processCacheResult`

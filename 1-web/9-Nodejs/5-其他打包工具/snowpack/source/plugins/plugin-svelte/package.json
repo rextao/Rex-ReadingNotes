@@ -1,0 +1,16 @@
+{
+  "name": "@snowpack/plugin-svelte",
+  "version": "2.0.4",
+  "main": "plugin.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "svelte": "^3.21.0"
+  },
+  "gitHead": "a01616bb0787d56cd782f94cecf2daa12c7594e4",
+  "dependencies": {
+    "rollup-plugin-svelte": "^5.2.3"
+  }
+}

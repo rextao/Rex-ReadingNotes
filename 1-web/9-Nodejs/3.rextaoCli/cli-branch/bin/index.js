@@ -130,9 +130,9 @@ async function deleteRemoteTracking(item){
         console.log(chalk.green(`${item}远程分支删除成功`));
         return true;
     } catch (e) {
-        if (item.indexOf('fix') !== -1) {
-            return true;
-        }
+        // if (item.indexOf('fix') !== -1) {
+        //     return true;
+        // }
         console.log(chalk.red(`${item}远程分支不存在`));
         return false;
     }

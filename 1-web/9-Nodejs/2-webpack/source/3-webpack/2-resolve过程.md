@@ -471,6 +471,7 @@
        settings,
        type,
        parser: this.getParser(type, settings.parser),
+       // 会在生成文件时使用，之后会介绍
        generator: this.getGenerator(type, settings.generator),
        resolveOptions
      });

@@ -1,3 +1,21 @@
+# 哦吼
+
+1. 如下：
+
+   ```javascript
+   if (list === undefined) {
+     sortedDependencies.push({
+       factory: factoryCacheValue2,
+       dependencies: list,
+       originModule: module
+     });
+   }
+   list.push(dep);
+   ```
+
+   - list为数组，利用数组，可以实现factory是相同情况下，不同dep，push到数组不同位置
+   - 但需要一个map作为辅助
+
 # 概述
 
 1. 再回顾下`addEntry`，关键的3个步骤，`factorizeQueue`主要处理的是resolve
@@ -769,7 +787,9 @@
    - 最终会执行`processModuleDependencies`，即`this.processDependenciesQueue.add()`
    - 按照之前介绍，会进入`_processModuleDependencies`
 
-5. `__processModuleDependencies`
+## processModuleDependencies
+
+5. `__processModuleDependencies`，首先是对依赖进行处理，即执行`processDependenciesBlock`
 
    ```javascript
    _processModuleDependencies(module, callback) {
@@ -792,34 +812,103 @@
      } catch (e) {
        return callback(e);
      }
-   
-     if (sortedDependencies.length === 0) {
-       callback();
-       return;
-     }
-   
-     this.processDependenciesQueue.increaseParallelism();
-   
-     asyncLib.forEach(
-       sortedDependencies,
-       (item, callback) => {
-         this.handleModuleCreation(item, err => {
-           if (err && this.bail) {
-             err.stack = err.stack;
-             return callback(err);
-           }
-           callback();
-         });
-       },
-       err => {
-         this.processDependenciesQueue.decreaseParallelism();
-         return callback(err);
-       }
-     );
    }
    ```
+   
+   - `processDependenciesBlock` 将blocks进行递归，每个`dependencies`都要经过 `processDependency`处理
+   - blocks数组可以理解为异步引入的模块，这些都是在模块build过程中生成的
+   
+2. `processDependency`做了什么，主要是为`this.moduleGraph,dependencies，sortedDependencies`赋值
 
-   - 内部主要是执行`processDependenciesBlock`方法，主要是将`module.dependencies`进行处理，得到`sortedDependencies`
+   ```javascript
+   const dependencies = new Map();
+   const sortedDependencies = [];
+   const processDependency = dep => {
+     this.moduleGraph.setParents(dep, currentBlock, module);
+     // module{this.request}
+     const resourceIdent = dep.getResourceIdentifier();
+     if (resourceIdent) {
+       // dep 是在lib/javascript/JavascriptParser.js 过程中，实例化的，如HarmonyImportSideEffectDependency
+       const constructor = dep.constructor;
+       let innerMap;
+       let factory;
+       if (factoryCacheKey === constructor) {
+         innerMap = factoryCacheValue;
+         if (listCacheKey === resourceIdent) {
+           listCacheValue.push(dep);
+           return;
+         }
+       } else {
+         factory = this.dependencyFactories.get(dep.constructor);
+         if (factory === undefined) {
+           throw new Error(
+             `No module factory available for dependency type: ${dep.constructor.name}`
+           );
+         }
+         innerMap = dependencies.get(factory);
+         if (innerMap === undefined) {
+           dependencies.set(factory, (innerMap = new Map()));
+         }
+         factoryCacheKey = constructor;
+         factoryCacheValue = innerMap;
+         factoryCacheValue2 = factory;
+       }
+       let list = innerMap.get(resourceIdent);
+       if (list === undefined) {
+         innerMap.set(resourceIdent, (list = []));
+         // 重点。。。。
+         sortedDependencies.push({
+           factory: factoryCacheValue2,
+           dependencies: list,
+           originModule: module
+         });
+       }
+       list.push(dep);
+       listCacheKey = resourceIdent;
+       listCacheValue = list;
+     }
+   };
+   ```
+
+   - `dependencies`辅助生成`sortedDependencies`的，因此需要 `fatctory与resourceIndent都相同时`，才会push到`sortedDependencies`对应的list中
+
+   - 举个例子，假设现在处理的文件是 `a.js`, 即 a-module，内容如下
+
+     ```
+     import add from './b.js'
+     add(1, 2)
+     import('./c').then(del => del(1, 2))
+     ```
+
+   - 经过build等过程，import内容会被作为a.js的`dependencies`，异步加载会被作为blocks，
+
+   - 同样对于`b.js`，`dependencies`不一定只有一个，而可能是多个（build过程中的parse导致的）
+
+   - 而每一个dep，都是有某个factory生成的，因此`sortedDependencies` 存储了 某个 factory 对应的 dep
+
+3. `this.moduleGraph` 
+
+   - 实际是在构建其中的`this._dependencyMap`，其中key为 dep， 而value 是 `new ModuleGraphDependency()`
+   - 同时将当前文件的block与module，保存在ModuleGraphDependency的parentBlock与parentModule上
+   - 通过`this.moduleGraph._dependencyMap`，每个文件是由哪个module或block生成的，都被记录下
+
+4. `sortedDependencies`数组生成后，会利用`asyncLib`异步库，循环处理
+
+   ```javascript
+   asyncLib.forEach(
+     sortedDependencies,
+     (item, callback) => {
+       this.handleModuleCreation(item, err => {
+         callback();
+       });
+     },
+     err => {
+       this.processDependenciesQueue.decreaseParallelism();
+       return callback(err);
+     }
+   );
+   ```
+
    - 然后，利用`asyncLib`异步库，循环`sortedDependencies`，针对每一项，执行`this.handleModuleCreation`
    - 而这个方法内部会执行`this.factorizeModule()`，即又回到开头的流程，继续反复
 
@@ -828,6 +917,9 @@
 
 1. pitch函数的内容，会被parse解析，然后作为最后的dependency，然后每个依赖会去执行`this.factorizeModule`
 2. 因此，实际如果配置的是abc3个loader，a 的pitch函数 内部只是一行`import d`，那么实际最终只有一个d依赖
+3. 上述过程循环反复，将全部import处理完后，整个`complier.hooks.make`阶段结束
+
+
 
 
 
@@ -857,3 +949,8 @@
 
      - pitch函数执行阶段，loaderIndex = 0 ， 故执行`iterateNormalLoaders`会直接return，执行各个回调
 
+
+
+# ？？？？？？？？？？？
+
+1. 这个buildQueue是处理完的数据保存在？

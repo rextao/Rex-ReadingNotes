@@ -15,7 +15,7 @@
    - | 常量                             | 值   | 描述                           |
 
     	 	| -------------------------------- | ---- | ------------------------------ |
-    
+  
     | Node.ELEMENT_NODE                | 1    | 一个元素节点                   |
     | Node.TEXT_NODE                   | 3    | 文本                           |
     | Node.PROCESSING_INSTRUCTION_NODE | 7    | xml的processingInstruction声明 |
@@ -566,31 +566,243 @@
 3. ![Image:Dimensions-client.png](9-DOM.assets/Dimensions-client.png)
 4. html宽度：document.documentElement.clientWidth（documentElement返回的是html元素）
 
-- 概述
+## 一图胜千言
 
-  - 不属于DOM2规范，所有浏览器都支持
-  - 主要用于确定页面元素大小，DOM没有定义
+![img](9-DOM.assets/16ac07aada15893e.png)
 
-- 偏移量
+# 滚动行为
 
-  - 元素在屏幕中占用的所有可见的空间
-  - 所有偏移量属性都是只读的，每次访问都要重新计算
+## 设置全局滚动条高度
 
-- 客户区大小
+1. 最常用的方法：
 
-  - 元素内容和内边距所占据的空间大小
-  - 滚动条占用的空间不计算在内
+   ```javascript
+   window.scrollTo(0, 0);
+   
+   // or
+   window.scrollTo({
+     left: 0,
+     top: 100
+   });
+   ```
 
-- 滚动大小
+1. 也可以利用`相对滚动`设置：
 
-  - 包含滚动内容的元素的大小
-  - scrollLeft和scrollTop属性
-    - 可以确定当前元素的滚动位置，也可以设置元素滚动位置
-    - 当值为0时，元素未滚动；大于0时，表示滚动，大于0的部分为滚动后不可见部分的宽度或高度
-    - 把值设为0，则元素滚动到开始位置
+    ```
+    window.scrollBy(0, 0);
 
-- 确定元素大小
+    // or
+    window.scrollBy({
+    left: 0,
+    top: 100
+    });
+    ```
 
-  - getBoundingClientRect()方法
+1. 或者利用`scrollTop`设置：
 
-    - 返回一个包含top，left，right，bottom的矩形对象
+    ```
+    document.scrollingElement.scrollTop = 100;
+    ```
+
+    - 注意：`scrollTo`跟`scrollBy`的参数是一样的，区别就是`scrollBy`滚动距离是相对与当前滚动条位置进行滚动
+
+
+
+## 指定元素显示在视窗
+
+1. 最常用的方法：
+
+    ```
+    // 获取元素的offsetTop(元素距离文档顶部的距离)
+    let offsetTop = document.querySelector(".box").offsetTop;
+
+    // 设置滚动条的高度
+    window.scrollTo(0, offsetTop);
+    ```
+
+1. 或者用锚点：
+
+    ```
+    <a href="#box">盒子出现在顶部</a>
+    <div id="box"></div>
+    ```
+
+1. 或者利用`scrollIntoView`进行展现：
+
+    ```
+    document.querySelector(".box").scrollIntoView();
+    ```
+
+1. 指定元素的出现位置：
+
+    ```
+    // start出现在视口顶部、center出现在视口中央、end出现在视口底部
+    document.querySelector(".box").scrollIntoView({
+    block: "start" || "center" || "end"
+    });
+    ```
+
+    ![img](9-DOM.assets/16d1fe6612f88547.gif)
+
+
+
+## 设置滚动平滑的过渡效果
+
+1. 利用每个方法的`参数`设置：
+
+    ```
+    window.scrollTo({
+    behavior: "smooth"
+    });
+
+    window.scrollBy({
+    behavior: "smooth"
+    });
+
+    document.querySelector(".box").scrollIntoView({
+    behavior: "smooth"
+    });
+    ```
+
+1. 或者用`css`属性设置：
+
+    ```
+    html {
+    scroll-behavior: smooth; // 全局滚动具有平滑效果
+    }
+
+    // 或者所有
+    * {
+    scroll-behavior: smooth;
+    }
+    ```
+    - 注意：设置了该属性之后，所有方法都可以不用设置`behavior`参数了，二选一即可，因为都是`控制当前指定元素的滚动行为`，所以锚点跳转、设置`scrollTop`也具有平滑(`smooth`)的`滚动行为`
+
+
+## scrollingElement
+
+1. 该对象可以非常`兼容`地获取`scrollTop`、`scrollHeight`等属性，在`移动端`跟`PC端`都屡试不爽
+
+2. 还记得当初写这个兼容性方法：
+
+    ```
+    let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    ```
+1. 现在你只需要：
+
+    ```
+    let scrollHeight = document.scrollingElement.scrollHeight;
+    ```
+1. 因为在`MDN`中是这样介绍它的：标准模式返回`documentElement`，怪异模式返回`body`；
+
+## 应用
+
+### 滚动到底部
+
+```
+window.scrollTo({
+  left: 0,
+  top: document.scrollingElement.scrollHeight
+});
+
+// 如果你实在是懒的话...
+window.scrollTo(0, 999999);
+```
+
+### 判断浏览器已滚动到底部
+
+```
+window.addEventListener("scroll", () => {
+  let {
+    scrollTop,
+    scrollHeight,
+    clientHeight
+  } = document.scrollingElement;
+  
+  // 当前滚动高度 + 视口高度 >= 文档总高度
+  if (scrollTop + clientHeight >= scrollHeight) {
+    console.log("已到达底部");
+  }
+});
+```
+
+
+
+## 解决IOS设备局部滚动不顺畅(粘手)
+
+1. 除了浏览器原生滚动，`自定义的滚动条`都会出现这种情况，加以下属性就可以解决：
+
+    ```
+    .box {
+    -webkit-overflow-scrolling: touch;
+    }
+    ```
+    ![img](9-DOM.assets/16d2338d59cd5e06.gif)
+
+    ![img](9-DOM.assets/16d2338f4c7f4e0c.gif)
+
+
+
+## 滚动传播
+
+1. 指有多个`滚动区域`，当一个`滚动区域`滚动完之后，继续滚动会`传播到`到父区域继续滚动的行为：
+
+    ```
+    .box {
+    overscroll-behavior: contain; // 阻止滚动传播
+    }
+    ```
+
+
+## 横向滚动
+
+```
+<ul>
+  <li>
+    <img src="">
+  </li>
+  // ...
+</ul>
+
+ul {
+  white-space: nowrap; // 超出不换行
+  overflow-x: auto;
+
+  li {
+    display: inline-block;
+
+    img {
+      display: block;
+      width: 200px;
+    }
+  }
+}
+```
+
+
+## 滚动结束后，强制滚动到指定元素
+
+```
+ul {
+  scroll-snap-type: x mandatory;
+  
+  li {
+    scroll-snap-align: start;
+  }
+}
+```
+
+![img](9-DOM.assets/16d235b560e4b58c.gif)
+
+
+1. 仔细看会发现，我们松手的时候，会将`最近的元素`滚动到最右边（初始位置，对于Y轴来讲就是顶部，X轴则是右边）
+
+2. 也可以设置出现在中间：
+
+    ```
+    li {
+    scroll-snap-align: center;
+    }
+    ```
+
+    ![img](9-DOM.assets/16d2363b256ce9f4.gif)

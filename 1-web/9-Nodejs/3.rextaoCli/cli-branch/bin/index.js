@@ -6,7 +6,12 @@ const open = require('open');
 
 const config = {
     workSpace: process.cwd(), //process.cwd(), // 获取node命令启动路径，其值与代码所在位置无关
-    branchAlias: ['wt-','wangtao-']
+    branchAlias: ['wt-','wangtao-'],
+    // 项目对应的master分支，写死在此，否则不知
+    // 默认先找develop（admin），然后是master，最后是masterBranch对应的
+    masterBranch: {
+        polaris: 'release',
+    }
 };
 
 let searchUrl = '' ; // 类似于：xxxxxxxadmin/-/branches/all?utf8=✓&search=wt-  地址
@@ -67,6 +72,16 @@ async function developPull(){
 
 async function coMaster(){
     try {
+        const { masterBranch, workSpace } = config;
+        const keys = Object.keys(masterBranch);
+        for (let i = 0; i< keys.length; i ++) {
+            const key = keys[i];
+            const value  = masterBranch[key];
+            if (workSpace.indexOf(key) !== -1){
+                await co(value) ;// masterBranch指定的
+                return;
+            }
+        }
         await co('develop') ;// 先切换到develop，如果不存在
     } catch (e) {
         try {

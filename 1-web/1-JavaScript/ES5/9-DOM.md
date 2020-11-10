@@ -648,7 +648,7 @@
 
 ## 设置滚动平滑的过渡效果
 
-1. 利用每个方法的`参数`设置：
+1. 利用每个方法的参数设置：
 
     ```
     window.scrollTo({
@@ -728,7 +728,22 @@ window.addEventListener("scroll", () => {
 
 
 
-## 解决IOS设备局部滚动不顺畅(粘手)
+### 改变滚动条外观效果
+
+1. github通过搜索： custom scrollbar，有很多库
+2. 在Webkit内核提供了`-webkit-scrollbar`（由七个伪元素）属性，可以轻易的帮助我们实现自定义（个性化）滚动条UI风格
+   - `@supports`特性或可做降级处理
+
+### scroll snap效果
+
+1. 让Card精确定位在正中间
+2. 
+
+
+
+## 问题处理
+
+### 解决IOS设备局部滚动不顺畅(粘手)
 
 1. 除了浏览器原生滚动，`自定义的滚动条`都会出现这种情况，加以下属性就可以解决：
 
@@ -743,7 +758,7 @@ window.addEventListener("scroll", () => {
 
 
 
-## 滚动传播
+### 滚动传播
 
 1. 指有多个`滚动区域`，当一个`滚动区域`滚动完之后，继续滚动会`传播到`到父区域继续滚动的行为：
 
@@ -754,7 +769,7 @@ window.addEventListener("scroll", () => {
     ```
 
 
-## 横向滚动
+### 横向滚动
 
 ```
 <ul>
@@ -780,7 +795,7 @@ ul {
 ```
 
 
-## 滚动结束后，强制滚动到指定元素
+#### 滚动结束后，强制滚动到指定元素
 
 ```
 ul {
@@ -801,8 +816,46 @@ ul {
 
     ```
     li {
-    scroll-snap-align: center;
+    	scroll-snap-align: center;
     }
     ```
 
     ![img](9-DOM.assets/16d2363b256ce9f4.gif)
+
+
+
+### 滚动链接
+
+1. 当用户滚动到（Modal弹框或下拉列表）末尾（后再继续滚动时），整个页面都会开始滚动
+
+   - 期望的行为：不会再滚动整个页面
+
+2. 解决办法：
+
+   - 当滚动元素到达底部时，可以通过（改变）页面的`overflow`属性或在滚动元素的滚动事件（wheel）处理函数中取消默认行为来解决这问题
+
+     ```javascript
+     function handleOverscroll(event) { 
+         const delta = -event.deltaY; 
+         if (delta < 0 && elem.offsetHeight - delta > elem.scrollHeight - elem.scrollTop) { 
+             elem.scrollTop = elem.scrollHeight; 
+             event.preventDefault(); 
+             return false; 
+         }
+         if (delta > elem.scrollTop) { 
+             elem.scrollTop = 0; 
+             event.preventDefault(); 
+             return false; 
+         }
+         return true; 
+     }
+     ```
+
+     - 这个解决方案不太可靠。同时可能对页面性能产生负面影响
+
+   - 利用：`overscroll-behavior`
+
+
+
+
+

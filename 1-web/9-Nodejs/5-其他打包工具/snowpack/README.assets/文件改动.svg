@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" viewBox="-136 -172 1221 468" width="1221" height="468">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" viewBox="-168 -172 1295 496" width="1295" height="496">
   <defs>
     <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
       <font-face-src>
@@ -17,13 +17,18 @@
         <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
       </g>
     </marker>
+    <font-face font-family="Noteworthy" font-size="10" panose-1="2 0 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-166.25" underline-thickness="25" slope="0" x-height="537.5" cap-height="867.5" ascent="1279.9988" descent="-320.00732" font-weight="700">
+      <font-face-src>
+        <font-face-name name="Noteworthy-Bold"/>
+      </font-face-src>
+    </font-face>
   </defs>
   <metadata> Produced by OmniGraffle 7.11.5 
-    <dc:date>2020-09-09 01:03:09 +0000</dc:date>
+    <dc:date>2020-11-12 02:12:08 +0000</dc:date>
   </metadata>
-  <g id="Canvas_1" stroke-dasharray="none" stroke-opacity="1" fill="none" stroke="none" fill-opacity="1">
+  <g id="Canvas_1" stroke="none" stroke-opacity="1" stroke-dasharray="none" fill-opacity="1" fill="none">
     <title>Canvas 1</title>
-    <rect fill="white" x="-136" y="-172" width="1221" height="468"/>
+    <rect fill="white" x="-168" y="-172" width="1295" height="496"/>
     <g id="Canvas_1: Layer 1">
       <title>Layer 1</title>
       <g id="Graphic_31">
@@ -54,9 +59,6 @@
         <text transform="translate(258.25 140.5)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="79.878" y="17">使用chokidar包，监听全部文件的改动</tspan>
         </text>
-      </g>
-      <g id="Line_18">
-        <line x1="474" y1="72" x2="474" y2="110.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_17">
         <line x1="421.40625" y1="183" x2="348.08693" y2="226.91317" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
@@ -116,6 +118,17 @@
       </g>
       <g id="Line_47">
         <line x1="681.91525" y1="-46" x2="536.10564" y2="19.921588" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_49">
+        <path d="M -158 203.5 L 1117 203.5 C 1121.9706 203.5 1126 207.52944 1126 212.5 L 1126 314.5 C 1126 319.47056 1121.9706 323.5 1117 323.5 L -158 323.5 C -162.97056 323.5 -167 319.47056 -167 314.5 L -167 212.5 C -167 207.52944 -162.97056 203.5 -158 203.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8.0,5.0" stroke-width="1"/>
+      </g>
+      <g id="Graphic_50">
+        <title>Button</title>
+        <path d="M 1 203.5 L 93 203.5 C 95.20914 203.5 97 205.29086 97 207.5 L 97 215.65 C 97 217.85913 95.20914 219.65 93 219.65 L 1 219.65 C -1.209139 219.65 -3 217.85913 -3 215.65 L -3 207.5 C -3 205.29086 -1.209139 203.5 1 203.5 Z" fill="white"/>
+        <path d="M .7360162 203.49863 L 94.20088 203.98457 C 95.19351 203.48034 97.08994 205.42519 97 207.5 M 96.97953 206.69957 L 97.21486 215.90115 C 97.15527 217.91432 95.10473 219.85166 93 219.65 M 93.70954 219.65265 L .4381191 219.30414 C -1.4412643 219.74867 -3.1568993 217.73033 -3 215.65 M -2.9979105 216.22953 L -3.0332417 206.4301 C -2.9698854 205.46516 -1.3771486 203.61156 1 203.5 M 1.543742 203.5 L .27832466 203.5 M .8611114 203.35531 L 93.33632 203.7814 C 95.44351 203.23034 97.33994 205.17519 97.25 207.25 M 97.16169 206.57311 L 97.40609 215.3576 C 97.40527 217.66432 95.35473 219.60166 93.25 219.4 M 93.83429 219.5928 L 1.3924962 219.185 C -1.1912643 219.49867 -2.9068993 217.48033 -2.75 215.4 M -2.9165923 216.10469 L -2.9201055 206.94498 C -2.7198854 205.21516 -1.1271486 203.36156 1.25 203.25 M 1.668742 203.38518 L 1.125 203.48848" stroke="#33afe2" stroke-opacity=".501859" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(2 203.5)" fill="#268bd2">
+          <tspan font-family="Noteworthy" font-size="10" font-weight="700" fill="#268bd2" x="7.10625" y="13">handleHmrUpdate</tspan>
+        </text>
       </g>
     </g>
   </g>

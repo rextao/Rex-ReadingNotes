@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="82 113 1083 950" width="1083" height="950">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Avenir" font-size="16" panose-1="2 11 7 3 2 2 3 2 2 4" units-per-em="1000" underline-position="-75" underline-thickness="50" slope="0" x-height="480" cap-height="708" ascent="1e3" descent="-365.9973" font-weight="800">
+      <font-face-src>
+        <font-face-name name="Avenir-Heavy"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2020-12-26 07:37:47 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" fill="none" stroke-opacity="1" stroke="none" fill-opacity="1" stroke-dasharray="none">
+    <title>Canvas 1</title>
+    <rect fill="white" x="82" y="113" width="1083" height="950"/>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Line_40">
+        <line x1="498.5" y1="978" x2="498.5" y2="1004.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_38">
+        <line x1="498.5" y1="894" x2="498.5" y2="920.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_36">
+        <line x1="498.5" y1="810" x2="498.5" y2="836.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_34">
+        <line x1="498.5" y1="726" x2="498.5" y2="752.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_32">
+        <line x1="498.5" y1="642" x2="498.5" y2="668.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_30">
+        <line x1="498.5" y1="558" x2="498.5" y2="584.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_25">
+        <line x1="1036" y1="339" x2="1036" y2="365.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_23">
+        <line x1="1036" y1="255" x2="1036" y2="281.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_21">
+        <line x1="872" y1="231" x2="898.1" y2="231" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_19">
+        <line x1="752.5" y1="339" x2="752.5" y2="365.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_17">
+        <line x1="752.5" y1="255" x2="752.5" y2="281.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_15">
+        <line x1="597" y1="231" x2="623.1" y2="231" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_13">
+        <line x1="477.5" y1="339" x2="477.5" y2="365.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_11">
+        <line x1="477.5" y1="255" x2="477.5" y2="281.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_8">
+        <line x1="322" y1="231" x2="348.1" y2="231" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_6">
+        <line x1="202.5" y1="255" x2="202.5" y2="281.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_4">
+        <line x1="422.1129" y1="162" x2="288.3319" y2="204.03255" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_2">
+        <rect x="330" y="114" width="337" height="48" fill="white"/>
+        <rect x="330" y="114" width="337" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(335 128.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="111.484" y="15">processQueue</tspan>
+        </text>
+      </g>
+      <g id="Graphic_3">
+        <rect x="83" y="207" width="239" height="48" fill="white"/>
+        <rect x="83" y="207" width="239" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(88 221.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="10.044" y="15">ADD_AND_ENTER_MODULE</tspan>
+        </text>
+      </g>
+      <g id="Graphic_5">
+        <rect x="83" y="291" width="239" height="48" fill="white"/>
+        <rect x="83" y="291" width="239" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(88 293)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="11.3" y="17">在chunkGraph建立</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">module</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">与</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="60.708" y="39">chunk</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="39">之间关系</tspan>
+        </text>
+      </g>
+      <g id="Graphic_7">
+        <rect x="358" y="207" width="239" height="48" fill="white"/>
+        <rect x="358" y="207" width="239" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(363 221.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="51.084" y="15">ENTER_MODULE</tspan>
+        </text>
+      </g>
+      <g id="Graphic_9">
+        <text transform="translate(283.224 168)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="831335e-18" y="15">case</tspan>
+        </text>
+      </g>
+      <g id="Graphic_10">
+        <rect x="358" y="291" width="239" height="48" fill="white"/>
+        <rect x="358" y="291" width="239" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(363 294.776)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="98.5" y="17">配置</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="3.06" y="37">chunkGroupInfo.preOrderIndex</tspan>
+        </text>
+      </g>
+      <g id="Graphic_12">
+        <rect x="358" y="375" width="239" height="48" fill="white"/>
+        <rect x="358" y="375" width="239" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(363 380.552)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="45.38" y="15">queueItem.action = </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="52.78" y="33.448">LEAVE_MODULE</tspan>
+        </text>
+      </g>
+      <g id="Graphic_14">
+        <rect x="633" y="207" width="239" height="48" fill="white"/>
+        <rect x="633" y="207" width="239" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(638 221.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="45.604" y="15">PROCESS_BLOCK</tspan>
+        </text>
+      </g>
+      <g id="Graphic_16">
+        <rect x="633" y="291" width="239" height="48" fill="white"/>
+        <rect x="633" y="291" width="239" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(638 305.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="61.612" y="15">processBlock()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_18">
+        <rect x="633" y="375" width="239" height="48" fill="white"/>
+        <rect x="633" y="375" width="239" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(638 378.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="92.268" y="15">break:</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="17.012" y="35.448">执行完process</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="35.448">Block</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="35.448">会返回</tspan>
+        </text>
+      </g>
+      <g id="Graphic_20">
+        <rect x="908" y="207" width="256" height="48" fill="white"/>
+        <rect x="908" y="207" width="256" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(913 221.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="54.104" y="15">PROCESS_BLOCK</tspan>
+        </text>
+      </g>
+      <g id="Graphic_22">
+        <rect x="908" y="291" width="256" height="48" fill="white"/>
+        <rect x="908" y="291" width="256" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(913 294.776)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="107" y="17">配置</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="7.264" y="37">chunkGroupInfo.postOrderIndex</tspan>
+        </text>
+      </g>
+      <g id="Graphic_24">
+        <rect x="908" y="375" width="256" height="48" fill="white"/>
+        <rect x="908" y="375" width="256" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(913 388)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="100.136" y="17">break;</tspan>
+        </text>
+      </g>
+      <g id="Graphic_26">
+        <path d="M 757 114 L 933 114 C 946.2548 114 957 124.74517 957 138 L 957 138 C 957 151.25483 946.2548 162 933 162 L 757 162 C 743.7452 162 733 151.25483 733 138 L 733 138 C 733 124.74517 743.7452 114 757 114 Z" fill="white"/>
+        <path d="M 757 114 L 933 114 C 946.2548 114 957 124.74517 957 138 L 957 138 C 957 151.25483 946.2548 162 933 162 L 757 162 C 743.7452 162 733 151.25483 733 138 L 733 138 C 733 124.74517 743.7452 114 757 114 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(738 126.5)" fill="#525356">
+          <tspan font-family="Avenir" font-size="16" font-weight="800" fill="#525356" x="6.392" y="17">while (queue.length)</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" y="17">的循环</tspan>
+        </text>
+      </g>
+      <g id="Line_27">
+        <line x1="732" y1="138" x2="676.9" y2="138" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_28">
+        <rect x="330" y="510" width="337" height="48" fill="white"/>
+        <rect x="330" y="510" width="337" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(335 524.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="91.052" y="15">processBlock(block)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_29">
+        <rect x="330" y="594" width="337" height="48" fill="white"/>
+        <rect x="330" y="594" width="337" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(335 599.552)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="84.012" y="15">const blockModules = </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="59.772" y="33.448">blockModulesMap.get(block)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_31">
+        <rect x="330" y="678" width="337" height="48" fill="white"/>
+        <rect x="330" y="678" width="337" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(335 680)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="15.476" y="17">循环</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">blockModules</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">，将符合条件的</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">push</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">到</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="111.764" y="39">queueBuffer</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="39">中</tspan>
+        </text>
+      </g>
+      <g id="Graphic_33">
+        <rect x="330" y="762" width="337" height="48" fill="white"/>
+        <rect x="330" y="762" width="337" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(335 764)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="14.892" y="17">逆序循环queueBuffer，将module push到 </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="132.972" y="39">queue中</tspan>
+        </text>
+      </g>
+      <g id="Graphic_35">
+        <rect x="330" y="846" width="337" height="48" fill="white"/>
+        <rect x="330" y="846" width="337" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(335 859)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="101.62" y="17">遍历block.blocks</tspan>
+        </text>
+      </g>
+      <g id="Graphic_37">
+        <rect x="330" y="930" width="337" height="48" fill="white"/>
+        <rect x="330" y="930" width="337" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(335 943)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="9.716" y="17">如果是同步模块，则递归调用processBlock</tspan>
+        </text>
+      </g>
+      <g id="Graphic_39">
+        <rect x="330" y="1014" width="337" height="48" fill="white"/>
+        <rect x="330" y="1014" width="337" height="48" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(335 1027)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="75.74" y="17">否则调用：iteratorBlock</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

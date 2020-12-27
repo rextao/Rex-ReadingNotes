@@ -15,26 +15,30 @@
 
 # 概述
 
-1. 上接 loader 将全部import处理完，即每个文件都经过loader的处理后，`hooks.make.tap`定义的函数就执行完，进入回调（Compiler.js）
+1. 接上文，loader通过递归方式，全部处理完，即每个文件都经过loader的处理后，`hooks.make.tap`定义的函数就执行完，进入回调（Compiler.js）
 
-   ```javascript
-   compile(callback) {
-     this.hooks.beforeCompile.callAsync(params, err => {
-       this.hooks.make.callAsync(compilation, err => {
-         process.nextTick(() => {
-           compilation.finish(err => {
-             compilation.seal(err => {
-               if (err) return callback(err);
-               this.hooks.afterCompile.callAsync(compilation, err => {
-                 return callback(null, compilation);
+   - 我们再回顾一下，入口文件，会执行`compoile`函数
+
+   - 在执行`hooks.make.callAsync`前，会先执行`hooks.make`上tap的函数，前面resolve与loader的处理，就是在执行`hooks.tap `的函数
+
+     ```javascript
+     compile(callback) {
+       this.hooks.beforeCompile.callAsync(params, err => {
+         this.hooks.make.callAsync(compilation, err => {
+           process.nextTick(() => {
+             compilation.finish(err => {
+               compilation.seal(err => {
+                 if (err) return callback(err);
+                 this.hooks.afterCompile.callAsync(compilation, err => {
+                   return callback(null, compilation);
+                 });
                });
              });
            });
          });
        });
-     });
-   }
-   ```
+     }
+     ```
 
 2. `make hook`结束后，先执行`compilation.finish`然后执行`compilation.seal`
 
@@ -43,42 +47,30 @@
 1. 进入`finish`函数，首先会执行`this.hooks.finishModules`
 
    ```javascript
-   	finish(callback) {
-   		this.logger.time("finish modules");
-   		const { modules } = this;
-   		this.hooks.finishModules.callAsync(modules, err => {
-         this.logger.time("report dependency errors and warnings");
-   			for (const module of modules) {
-         	// 省略error处理
-         }
-   		});
-   	}
+   finish(callback) {
+     this.logger.time("finish modules");
+     const { modules } = this;
+     this.hooks.finishModules.callAsync(modules, err => {
+       this.logger.time("report dependency errors and warnings");
+       for (const module of modules) {
+         // 省略error处理
+       }
+       this.logger.timeEnd("report dependency errors and warnings");
+     });
+   }
    ```
 
-   - 这个hooks主要tap了4个函数`ResolverCachePlugin`、`InferAsyncModulesPlugin`、`FlagDependencyExportsPlugin`
-
-2. 首先进入：`ResolverCachePlugin`
-
-   - 主要是如`doRealResolve`有调用，将一些变量初始化为最初定义的值
-
-3. 然后进入：`InferAsyncModulesPlugin`
-
-   - 主要是处理`module.buildMeta.async`，理解为，处理异步模块的
-   - 暂时跳过
-
-4. 然后进入：`FlagDependencyExportsPlugin`
-
-   - 注释：恢复提供的缓存导出。。。。。
-   - 暂时跳过
-
-5. 然后进入：`InnerGraphPlugin`
-
-   - 不知道干嘛的。。。。。。。
+   - 这个hooks主要tap了4个函数
+     - `ResolverCachePlugin`(在满足条件（`realResolves + cachedResolves > 0`）将一些变量初始化为0)、
+     - `InferAsyncModulesPlugin`：主要是处理`module.buildMeta.async为true`的module
+     -  `FlagDependencyExportsPlugin`：根据webpack注释，尝试从缓存还原缓存提供的导出信息
+     - `InnerGraphPlugin`：不知道干嘛的。。。。
+   - 插件逻辑暂时跳过
 
 6. 小结
 
-   - `finish`函数主要是经过几个插件处理module，初始化原始值、异步module等
-   - 然后处理module存在的错误
+   - `finish`函数主要是执行`hooks.finishModules`，经过几个插件处理module
+   - 然后循环`modules`，处理module存在的错误
 
 7. 然后执行`compilation.seal`
 
@@ -137,103 +129,110 @@
 
 ## 概述
 
-1. 先利用`this.moduleGraph`构造一个chunkGraph实例
+1. `seal`函数，首先利用`this.moduleGraph`构造一个chunkGraph实例
 
    ```javascript
-   const chunkGraph = new ChunkGraph(this.moduleGraph);
-   this.chunkGraph = chunkGraph;
-   for (const module of this.modules) {
-     // todo webpack6 remove
-     // 实际是 一个weakMap.set()
-     ChunkGraph.setChunkGraphForModule(module, chunkGraph);
+   seal(callback) {
+     const chunkGraph = new ChunkGraph(this.moduleGraph);
+     this.chunkGraph = chunkGraph;
+     for (const module of this.modules) {
+       // todo webpack6 remove
+       // 内部实际是： 在chunkGraphForModuleMap 缓存module与chunkGraph关系
+       // const chunkGraphForModuleMap = new WeakMap();
+       // chunkGraphForModuleMap.set(module, chunkGraph)
+       ChunkGraph.setChunkGraphForModule(module, chunkGraph);
+     }
+     // WarnCaseSensitiveModulesPlugin:模块文件路径需要区分大小写
+     this.hooks.seal.call();
    }
-   // WarnCaseSensitiveModulesPlugin:模块文件路径需要区分大小写的警告
-   this.hooks.seal.call();
    ```
 
-   - `this.hooks.seal`只有一个插件`WarnCaseSensitiveModulesPlugin`用于处理模块文件路径需要区分大小写的警告
+   - `this.hooks.seal`只有一个插件`WarnCaseSensitiveModulesPlugin`用于处理模块文件路径需要区分大小写
 
 2. 优化`dependencies`
 
    ```javascript
-   this.logger.time("optimize dependencies");
-   // SideEffectsFlagPlugin：识别 package.json 或者 module.rules 的 sideEffects 标志（纯的 ES2015 模块)，安全地删除未用到的 export 导出
-   // FlagDependencyUsagePlugin： 编译时标记依赖 unused harmony export 用于 Tree shaking
-   while (this.hooks.optimizeDependencies.call(this.modules)) {
+   seal(callback) {
+     // 省略1 ....代码
+     this.logger.time("optimize dependencies");
+     // tap 了两个函数
+     while (this.hooks.optimizeDependencies.call(this.modules)) {
+     }
+     // taps no func
+     this.hooks.afterOptimizeDependencies.call(this.modules);
+     this.logger.timeEnd("optimize dependencies");
+     this.logger.time("create chunks");
+     // 省略....参见 create chunks 小节
+     this.logger.timeEnd("create chunks");
+   	this.logger.time("optimize");
+     // 省略....  create chunks 后，会执行一系列 optimize
    }
-   // taps no func
-   this.hooks.afterOptimizeDependencies.call(this.modules);
-   this.logger.timeEnd("optimize dependencies");
    ```
 
    - `hooks.optimizeDependencies` tap 两个插件
      - `SideEffectsFlagPlugin`：识别 package.json 或者 module.rules 的 sideEffects 标志（纯的 ES2015 模块)，安全地删除未用到的 export 导出
      - `FlagDependencyUsagePlugin`： 编译时标记依赖 unused harmony export 用于 Tree shaking
-     - ？？？？？？？？未看
 
-3. 然后会 `create chunks`，之后详细介绍
+3. 下面我们先来看下，优化`dependencies` 后的 create chunks 做了什么
 
-4. `chunks`生成后，会进行系列优化
 
 ## create chunks
 
-1. 生成chunks，首先会遍历每个`entries`，然后对每个 entry 进行处理
+1. 图示：chunkgroup，entrypoint
+
+   ![3-entrypoint](4-chunk生成.assets/3-entrypoint.svg)
+
+2. 生成chunks，首先会遍历每个`entries`，然后对每个 entry 进行处理
 
    ```javascript
    this.logger.time("create chunks");
    // taps no func
    this.hooks.beforeChunks.call();
-   // addEntry 方法时，会对此赋值，入口文件
+   // addEntry 方法里，会对 this.entries 赋值，实际是入口文件
    for (const [name, { dependencies, options }] of this.entries) {
-     // ......
-   }
-   ```
-
-2. 在循环内，首先会准备`chunk、entrypoint`，缓存 数据等
-
-  ```javascript
-  for (const [name, { dependencies, options }] of this.entries) {
-    const chunk = this.addChunk(name);
-    chunk.name = name;
-    // 此选项决定了每个输出 bundle 的名称
-    if (options.filename) {
-      chunk.filenameTemplate = options.filename;
-    }
-    // 实例化entrypoint
-    const entrypoint = new Entrypoint(name);
-    // 内部实际是：this.runtimeChunk = chunk;
-    if (!options.dependOn) entrypoint.setRuntimeChunk(chunk);
-    this.namedChunkGroups.set(name, entrypoint);
-    this.entrypoints.set(name, entrypoint);
-    this.chunkGroups.push(entrypoint);
-    // ......
-  }
-  ```
-
-  - `this.addChunk(name)`，主要就是分别缓存下name和name对应的chunk，即
-    - 在``Compilation.js`的`namedChunks` 保存`name`， 在`chunks` 保存` new Chunk(name)`
-    - 每个entry，都会通过addChunk方法创建一个chunk ( new  Chunk(name))
-  - 实例化entrypoint：`new Entrypoint(name)`， 并分别保存在`namedChunkGroups、entrypoints、chunkGroups`中
-
-3. 接下来建立了 chunk 与 entrypoint，chunk 与 module 之间的联系
-
-   ```javascript
-   for (const [name, { dependencies, options }] of this.entries) {
-     // ......
+     const chunk = this.addChunk(name);
+     chunk.name = name;
+     // 此选项决定了每个输出 bundle 的名称
+     if (options.filename) {
+       chunk.filenameTemplate = options.filename;
+     }
+     // 实例化entrypoint
+     const entrypoint = new Entrypoint(name);
+     // 内部实际是：this.runtimeChunk = chunk;
+     if (!options.dependOn) entrypoint.setRuntimeChunk(chunk);
+     // 将entrypoint 分别保存在`namedChunkGroups、entrypoints、chunkGroups`中
+     this.namedChunkGroups.set(name, entrypoint);
+     this.entrypoints.set(name, entrypoint);
+     this.chunkGroups.push(entrypoint);
      // 建立了 chunk 与 entrypoint，chunk 与 module 之间的联系
      connectChunkGroupAndChunk(entrypoint, chunk);
-   	// ......
+     // 处理当前入口的直接依赖
+     for (const dep of dependencies) {
+       // 实际是将dep保存在 `entrypoint.origins`中，
+       entrypoint.addOrigin(null, { name }, (dep).request);
+       // 通过`this.moduleGraph`获取当前dep的module
+       const module = this.moduleGraph.getModule(dep);
+       if (module) {
+         chunkGraph.connectChunkAndEntryModule(chunk, module, entrypoint);
+         // 设置module在`moduleGraph`的depth, 暂时略过
+         this.assignDepth(module);
+       }
+     }
    }
    ```
 
-   - 而`connectChunkGroupAndChunk`内部实现是
+   - `this.addChunk(name)`，主要就是分别缓存下name和name对应的chunk，即
+     - 在``Compilation.js`的`namedChunks` 保存`name`， 在`chunks` 保存` new Chunk(name)`
+     - 每个entry，都会通过addChunk方法创建一个chunk ( new  Chunk(name))
+
+   - `connectChunkGroupAndChunk`内部实现是
 
      ```javascript
      const connectChunkGroupAndChunk = (chunkGroup, chunk) => {
      	// 如存在 返回false，否则会将chunk push到 this.chunks里，
-     	// chunkGroup === new Entrypoint(name); chunk ==  this.addChunk(name)
+     	// chunkGroup === new Entrypoint(name); chunk ==  new Chunk(name)
      	if (chunkGroup.pushChunk(chunk)) {
-     		// SortableSet 实现的一个set，提供了sort功能
+     		// chunk是 SortableSet 实现的一个set，提供了sort功能
      		// Chunk.js 实际是 sortableSet.add(chunkGroup)
      		chunk.addGroup(chunkGroup);
      	}
@@ -241,55 +240,31 @@
      ```
 
      - 根据上文的介绍，传入参数chunkGroup，每次都是 新实例，此处应该不会存在 `chunkGroup.pushChunk(chunk) = false` 情况
-     - 创建`Entrypoint`与chunk的联系，即 entrypoint内部保存了 chunk
+     - 创建`Entrypoint`与chunk的联系，即相当于 在chunkGroup保存了chunk信息`chunkGroup.chunks.push(chunk)`；在chunk中保存chunkGroup信息：`chunk._groups.add(chunkGroup)`
+     
+   - 循环依赖dependencies，通过`chunkGraph.connectChunkAndEntryModule`构建`chunkGraph`  与 chunk、module、entrypoint联系
 
-4. 循环依赖，构建`chunkGraph`  与 chunk、module、entrypoint联系
+     ```javascript
+     connectChunkAndEntryModule(chunk, module, entrypoint) {
+       const cgm = this._getChunkGraphModule(module);
+       const cgc = this._getChunkGraphChunk(chunk);
+       if (cgm.entryInChunks === undefined) {
+         cgm.entryInChunks = new Set();
+       }
+       cgm.entryInChunks.add(chunk);
+       cgc.entryModules.set(module, entrypoint);
+     }
+     ```
 
-  ```javascript
-  for (const [name, { dependencies, options }] of this.entries) {
-    // ......
-  	// 处理依赖，当前入口的直接依赖
-    for (const dep of dependencies) {
-      entrypoint.addOrigin(null, { name }, (dep).request);
-      const module = this.moduleGraph.getModule(dep);
-      if (module) {
-        chunkGraph.connectChunkAndEntryModule(chunk, module, entrypoint);
-        this.assignDepth(module);
-      }
-    }
-  }
-  ```
+     - 获取`chunkGraph`中的cgm（new ChunkGraphModule） 和 cgc （new ChunkGraphChunk）,分别为其中的`entryInChunks\entryModules`配置新值
 
-  - `entrypoint.addOrigin`，实际是将dep保存在 `entrypoint.origins`中，
+3. **小结**：由于后序会处理`this.chunkGroups`，我们简单小结下与chunkGroups相关的数据
 
-  - 通过`this.moduleGraph`获取当前dep的module
+   - Entrypoint 继承自 ChunkGroup
+   - `compilation.chunkGroups`：每一个entries，会往`this.chunkGroups.push`一个 `new Entrypoint(name)`
+   - `chunkGroup.origins`：经过`connectChunkGroupAndChunk`函数（内部会调用`chunkGroup.pushChunk(chunk)`）后，`entrypoint.origins.push({module: null, loc: { name }, request})`
 
-  - 将module，chunk保存在`chunkGraph`中
-
-    ```javascript
-    connectChunkAndEntryModule(chunk, module, entrypoint) {
-      const cgm = this._getChunkGraphModule(module);
-      const cgc = this._getChunkGraphChunk(chunk);
-      if (cgm.entryInChunks === undefined) {
-        cgm.entryInChunks = new Set();
-      }
-      cgm.entryInChunks.add(chunk);
-      cgc.entryModules.set(module, entrypoint);
-    }
-    ```
-
-    - `chunkGraph = new ChunkGraph(this.moduleGraph) ` 
-    - 本质上：是获取`chunkGraph`中的cgm（new ChunkGraphModule） 和 cgc （new ChunkGraphChunk）,分别为其中的`entryInChunks\entryModules`配置新值
-
-  - 最后通过`this.assignDepth(module)`，设置module在`moduleGraph`的depth？？？？？？？有何用
-
-5. **小结**：后面处理的是`this.chunkGroups`，我们简单小结下
-
-   - 每一个entries，会往`this.chunkGroups.push`一个 `new Entrypoint(name)`
-   - 经过`connectChunkGroupAndChunk`函数后，`entrypoint.chunks`，会多当前的chunk
-   - 然后遍历`dependencies`，`entrypoint.origins.push({module: null, loc: { name }, request})`
-
-6. 至此，遍历每个`entries`结束，之后对每个entry处理`dependOn`：这个选项是为了在多个 chunk 之间共享模块
+4. 至此，遍历每个`entries`结束，之后对每个entry处理`dependOn`：这个选项是为了在多个 chunk 之间共享模块
 
    ```javascript
    for (const [
@@ -302,13 +277,13 @@
    }
    ```
 
-7. 然后，`buildChunkGraph`， 生成并优化chunk依赖图
+5. 然后，`buildChunkGraph`， 生成并优化chunk依赖图
 
    ```javascript
    buildChunkGraph(this,(this.chunkGroups.slice()));
    ```
 
-8. 最后，进行一系列优化工作，完成seal调用，下面看一下 chunk依赖图是生成
+6. 最后，进行一系列优化工作，完成seal调用，下面看一下 chunk依赖图是生成
 
 ### ChunkGraph
 
@@ -347,40 +322,18 @@
 
 4. 而`chunkGraph.connectChunkAndEntryModule(chunk, module, entrypoint);`，上面也介绍了，在`cgm.entryInChunks`保存chunk信息，在`cgc.entryModules`保存entrypoint信息
 
+5. chunkGraph图示
+
+   ![1-ChunkGraph](4-chunk生成.assets/1-ChunkGraph.svg)
+
 ### buildChunkGraph
 
 1. 首先初始化一些map，然后调用 `visitModules`方法，然后调用`connectChunkGroups`，最后做cleanup 工作
 
    ```javascript
-   // 这几个map 在下面多个函数中公用
-   const chunkGroupDependencies = new Map();
-   const allCreatedChunkGroups = new Set();
-   const chunkGroupInfoMap = new Map();
-   const blocksWithNestedBlocks = new Set();
-   logger.time("visitModules");
-   visitModules(
-     logger,
-     compilation,
-     inputEntrypoints,
-     chunkGroupInfoMap,
-     chunkGroupDependencies,
-     blocksWithNestedBlocks,
-     allCreatedChunkGroups
-   );
-   logger.timeEnd("visitModules");
-   logger.time("connectChunkGroups");
-   connectChunkGroups(
-     compilation,
-     blocksWithNestedBlocks,
-     chunkGroupDependencies,
-     chunkGroupInfoMap
-   );
-   logger.timeEnd("connectChunkGroups");
-   logger.time("cleanup");
-   cleanupUnconnectedGroups(compilation, allCreatedChunkGroups);
-   logger.timeEnd("cleanup");
+   xxxxxxxxxx27 1// 这几个map 在下面多个函数中公用2const chunkGroupDependencies = new Map();3const allCreatedChunkGroups = new Set();4const chunkGroupInfoMap = new Map();5const blocksWithNestedBlocks = new Set();6logger.time("visitModules");7visitModules(8  logger,9  compilation,10  inputEntrypoints,11  chunkGroupInfoMap,12  chunkGroupDependencies,![1-ChunkGraph](4-chunk生成.assets/1-ChunkGraph.svg)13  blocksWithNestedBlocks,14  allCreatedChunkGroups15);16logger.timeEnd("visitModules");17logger.time("connectChunkGroups");18connectChunkGroups(19  compilation,20  blocksWithNestedBlocks,21  chunkGroupDependencies,22  chunkGroupInfoMap23);24logger.timeEnd("connectChunkGroups");25logger.time("cleanup");26cleanupUnconnectedGroups(compilation, allCreatedChunkGroups);27logger.timeEnd("cleanup");javascript
    ```
-
+   
    - 因此，就是3函数`visitModules`，`connectChunkGroups`， `cleanupUnconnectedGroups`
 
 ####visitModules
@@ -391,9 +344,9 @@
    // 处理module.outgoingConnections  感觉应该是获取 异步引用模块与modules关系
    const blockModulesMap = extractBlockModulesMap(compilation);
    ```
-   
+
    - 内部使用了`outgoingConnections`属性，这个属性会在`this.addModule`回调时，通过`moduleGraph.setResolvedModule`配置
-   
+
      ```javascript
      this.addModule(newModule, (err, module) => {
        for (let i = 0; i < dependencies.length; i++) {
@@ -415,106 +368,108 @@
        mgm.outgoingConnections.add(connection);
      }
      ```
-   
-      - 归纳就是，分别为 `dependency.connection`,`module.incomingConnections`，`originModule.outgoningConnections `增加connection（new ModuleGraphConnection）
-      - originModule，可以理解为主module，下面可能有很多依赖，每个依赖会被解析为一个module，有种父级的感觉。。
-   
 
-   - `blockModulesMap` 获取的是异步模块block与`dependencies`的关系，key是block，而value，则是`dependencies`对应的module
-   
+      - 归纳就是，分别为 `dependency.connection`,`module.incomingConnections`，`originModule.outgoningConnections `增加connection（new ModuleGraphConnection）
+      - 简单了解，是何时为module.connection 赋值，大致是当前module 使用 import引入的模块
+
+
+   - extractBlockModulesMap 最终返回值是  blockModulesMap 
+
      ```javascript
      const extractBlockModulesMap = compilation => {
        const { moduleGraph } = compilation;
        const blockModulesMap = new Map();
        const blockQueue = new Set();
+       // 循环全部modules
        for (const module of compilation.modules) {
-         // 省略........
-         moduleMap.set(connection.dependency, m);
-       }
-     
-       blockQueue.clear();
-       blockQueue.add(module);
-       for (const block of blockQueue) {
-         let modules;
-         if (moduleMap !== undefined && block.dependencies) {
-           for (const dep of block.dependencies) {
-             const module = moduleMap.get(dep);
-             if (module !== undefined) {
-               if (modules === undefined) {
-                 modules = new Set();
-                 blockModulesMap.set(block, modules);
+         let moduleMap;
+         // 暂时理解为，获取存在异步模块的`module`，保存在`moduleMap`中
+         // 即满足此循环条件，即在moduleMap里的module，才会被set到blockModulesMap
+         for (const connection of moduleGraph.getOutgoingConnections(module)) {
+           const d = connection.dependency;
+           // 省略。。。。
+           moduleMap.set(connection.dependency, m);
+         }
+         blockQueue.clear();
+         blockQueue.add(module);
+         // block可以理解为module的异步引用模块
+         // 生成 blockModulesMap 关键
+         for (const block of blockQueue) {
+           let modules;
+           if (moduleMap !== undefined && block.dependencies) {
+             for (const dep of block.dependencies) {
+               const module = moduleMap.get(dep);
+               if (module !== undefined) {
+                 if (modules === undefined) {
+                   modules = new Set();
+                   // 注意modules是一个Set集合
+                   blockModulesMap.set(block, modules);
+                 }
+                 modules.add(module);
                }
-               modules.add(module);
+             }
+           }
+           // block 存在异步模块，则add到 `blockQueue`中，继续循环
+           if (block.blocks) {
+             for (const b of block.blocks) {
+               blockQueue.add(b);
              }
            }
          }
-         if (block.blocks) {
-           for (const b of block.blocks) {
-             blockQueue.add(b);
-           }
-         }
        }
-     }
-     // 看起来像，每个异步block，对应的modules
-     return blockModulesMap;
+       // 看起来像，每个异步block，对应的modules
+       return blockModulesMap;
+     
      };
      ```
-   
-     - 详细逻辑： 先遍历`modules`，获取存在异步模块的`module`，保存在`moduleMap`中，
-     
-     - 遍历`blockQueue`，将`block`与`dependency`，建立关系，形成`blockModulesMap`
-     
-     - 如存在`block.blocks`，则add到 `blockQueue`中，继续循环
-     
-     - 根据准备阶段的图，A.js 有一个普通依赖b.js和异步模块c.js，在webpack中，对于A module数据结构为：
-     
-       ```javascript
-       // 简单理解为：
-       A : {
-         dependencies: [ b ],
-         block: [c], 
-       }
-       ```
-     
+
      - 故最终得到<a id="blockModulesMap">`blockModulesMap`</a>，大致数据结构是
-     
+
        ```javascript
        {
-         a(NormalModule): b(NormalModule),
-         c(ImportDependenciesBlock): c(NormalModule),
-         b(NormalModule): d(NormalModule),
-         c(NormalModule),: d(NormalModule),,
-         b(ImportDependenciesBlock): b(NormalModule),,
+         a(NormalModule): [b(NormalModule)],
+         c(ImportDependenciesBlock): [c(NormalModule)],
+         b(NormalModule): [d(NormalModule)],
+         c(NormalModule): [d(NormalModule),
+         b(ImportDependenciesBlock): [b(NormalModule)]
        }
        ```
-     
-       - 异步加载的模块，key是`ImportDependenciesBlock`，而value，则是当前模块对应的module，而普通import，key是普通的NormalModule，value是其对应dependency对应的module
+
+       - 我们测试例的module依赖关系是![image-20200930143637896](4-chunk生成.assets/image-20200930143637896.png)
+       - webpack 同步模块为`NormalModule`实例，异步模块是`ImportDependenciesBlock`实例
+       - `blockModulesMap`是遍历`compilation.modules`，拿到每个module的dependency与blocks；即先循环a与a的blocks，即a(NormalModule) 与c(ImportDependenciesBlock)
+       - 大概是：经过过滤后的module依赖关系（module.dependency， 对于同一模块不一定只有一个（why？？？？？？））
 
 2. 先进入<a id='visitModulesPrepare'>准备阶段</a>
 
    ```javascript
    // inputEntrypoints = this.chunkGroups.slice()
    // 循环`inputEntrypoints`数组，将每个entry的每个chunks的每个module，全部push到 queue中
+   const chunkGroupsForCombining = new Set();
    for (const chunkGroup of inputEntrypoints) {
      // 构造chunkGroupInfo 对象
      const chunkGroupInfo = {
-       
-   	};
-     // ... 省略一部分逻辑
-     for (const chunk of chunkGroup.chunks) {
-       // cgc.entryModules.keys()，理解为，chunk，保存的module
-       for (const module of chunkGraph.getChunkEntryModulesIterable(chunk)) {
-         queue.push({
-           action: ADD_AND_ENTER_MODULE,
-           block: module,
-           module,
-           chunk,
-           chunkGroup,
-           chunkGroupInfo
-         });
+   
+     };
+     if (chunkGroup.getNumberOfParents() > 0) {
+       // ... 省略一部分逻辑
+     } else {
+       for (const chunk of chunkGroup.chunks) {
+         // cgc.entryModules.keys()，理解为，chunk，保存的module
+         for (const module of chunkGraph.getChunkEntryModulesIterable(chunk)) {
+           queue.push({
+             action: ADD_AND_ENTER_MODULE,
+             block: module,
+             module,
+             chunk,
+             chunkGroup,
+             chunkGroupInfo
+           });
+         }
        }
      }
    }
+   // chunkGroup.getNumberOfParents() > 0 时，会为chunkGroupsForCombining add 内容
    for (const chunkGroupInfo of chunkGroupsForCombining) {
      // ... 省略
    }
@@ -524,14 +479,12 @@
    logger.timeEnd("visitModules: prepare");
    ```
 
-   - 忽略了内部实现细节，总之，就是将构造一个queue数组
+   - 准备阶段，即使用入口chunk 构造初始queue数组
    - 根据上文介绍，每个`entries`会往自己的`chunkGroups`里面push一个 `new Entrypoint`，并将 `chunk`加入到 `chunks数组中`（非重复），而每个chunk 实际就是 name 对应的`new Chunk`
    - 循环`inputEntrypoints`数组，将每个entry的每个chunks的每个module，全部push到 queue中
    - 注意：此时整个queue里面的`item.action = ADD_AND_ENTER_MODULE`
 
-3. 循环遍历`chunkGroupsForCombining` ，只有上一步循环时，出现`chunkGroup.getNumberOfParents() > 0`，`chunkGroupsForCombining`才会有值，故先跳过
-
-4. 准备阶段结束后，开始循环queue数组，完成`module graph`的迭代遍历
+4. 准备阶段结束后，开始<a id="whileQueue">循环queue数组</a>，完成`module graph`的迭代遍历
 
    ```javascript
    while (queue.length || queueConnect.size) {
@@ -542,34 +495,43 @@
      // 合并modules
      if (chunkGroupsForCombining.size > 0) {
        logger.time("visitModules: combine available modules");
+       // 主要处理：chunkGroupsForCombining
        processChunkGroupsForCombining();
        logger.timeEnd("visitModules: combine available modules");
      }
      // 计算可用modules
      if (queueConnect.size > 0) {
        logger.time("visitModules: calculating available modules");
+       // 主要处理 queueConnect
+       // 并为：chunkGroupsForMerging 赋值
        processConnectQueue();
        logger.timeEnd("visitModules: calculating available modules");
-       // 合并可用modules
        if (chunkGroupsForMerging.size > 0) {
          logger.time("visitModules: merging available modules");
+       	// 主要处理：chunkGroupsForMerging 这个Set集合
+         // 会为outdatedChunkGroupInfo赋值
          processChunkGroupsForMerging();
          logger.timeEnd("visitModules: merging available modules");
        }
      }
-     // 检查modules，再遍历
+   
      if (outdatedChunkGroupInfo.size > 0) {
        logger.time("visitModules: check modules for revisit");
+   		// 主要是处理 outdatedChunkGroupInfo 这个Set集合
        processOutdatedChunkGroupInfo();
        logger.timeEnd("visitModules: check modules for revisit");
      }
-     if (queue.length === 0) {
+  if (queue.length === 0) {
        // 会处理queueDelayed
      }
    }
    ```
-
+   
    - 根据logger注释，整个循环过程大致分为如下几个步骤：遍历modules，合并modules、计算可用modules、再检查modules（避免遗漏）
+   - 重点是：`processQueue` 遍历modules，会处理chunkGroup
+   - 后面的步骤基本都略过
+     - processConnectQueue 得到chunkGroupsForMerging，如果存在则调用processChunkGroupsForMerging
+     - processChunkGroupsForMerging得到outdatedChunkGroupInfo，如果存在，则调用processOutdatedChunkGroupInfo
 
 ##### 遍历modules
 
@@ -586,10 +548,14 @@
        chunkGroupInfo = queueItem.chunkGroupInfo;
        switch (queueItem.action) {
          case ADD_AND_ENTER_MODULE: {
+           // 上文：chunkGraph.getChunkEntryModulesIterable(chunk) 是判断chunk.entryModules是否有此module
+           // 此处是，判断chunk.modules是否有，可以简单理解为，未被处理的应为false
            if (chunkGraph.isModuleInChunk(module, chunk)) {
              break;
            }
+           // 分别在`cgm.chunks.add(chunk);`和`cgc.modules.add(module);
            chunkGraph.connectChunkAndModule(chunk, module);
+           // 注意这个 case，如不进入if，语句，并没 break，执行 ENTER_MODULE内部逻辑
          }
            // fallthrough
          case ENTER_MODULE: {}
@@ -601,22 +567,27 @@
    };
    ```
 
-   - 首先，判断`chunkGraph`的`cgc.modules.has(module)`，如果否
-   - 则调用`chunkGraph.connectChunkAndModule(chunk, module);`，分别在`cgm.chunks.add(chunk);`和`cgc.modules.add(module);
-   - 注意这个 case，如不进入if，语句，并没 break，执行 ENTER_MODULE内部逻辑
+   - 因此：ADD_AND_ENTER_MODULE主要逻辑是，在chunk加入module，在module加入chunk，建立二者之间关系
+
+   - 图示
+
+     ![2-processQueue](4-chunk生成.assets/2-processQueue.svg)
 
 2. ENTER_MODULE内部逻辑
 
    ```javascript
    case ENTER_MODULE: {
      // chunkGroup的一个自上而下的index
+     // this._modulePreOrderIndices.get(module)
      const index = chunkGroup.getModulePreOrderIndex(module);
      if (index === undefined) {
+       // 在chunkGroup保存当前module在所在chunkGroupInfo的index值
        chunkGroup.setModulePreOrderIndex(
          module,
          chunkGroupInfo.preOrderIndex++
        );
      }
+     // 配置`moduleGraph`中`mgm.preOrderIndex= index`
      if (
        moduleGraph.setPreOrderIndexIfUnset(
          module,
@@ -630,12 +601,10 @@
    }
    ```
 
-   - 在`chunkGroup._modulePreOrderIndices.set(module, index)`为每个module设置index
-   - 配置`moduleGraph`中`mgm.preOrderIndex= index`
-   - 因此，这段主要功能是配置 index，然后配置当前action为LEAVE_MODULE，由于没有break，会进入PROCESS_BLOCK
-   - 经过ENTER_MODULE的模块，action都会变为LEAVE_MODULE
+   - 因此，这段主要功能是配置 preOrderIndex，
+   - 经过ENTER_MODULE处理后，action变为LEAVE_MODULE， 但由于未break，会进入下一环节PROCESS_BLOCK
 
-3. PROCESS_BLOCK内部逻辑，即执行`processBlock`，[根据上文](#visitModulesPrepare)，此时的block实际就是module
+3. PROCESS_BLOCK内部逻辑，即执行`processBlock`，[根据上文](#visitModulesPrepare)（注意看queue开始push的item）此时的block实际就是module
 
    ```javascript
    case PROCESS_BLOCK: {
@@ -646,9 +615,12 @@
 
    ```javascript
    const processBlock = block => {
+     // 获取block对应的全部`blockModules`
      const blockModules = blockModulesMap.get(block);
      if (blockModules !== undefined) {
        const { minAvailableModules } = chunkGroupInfo;
+       // 循环`blockModules`，构建一个queueBuffer
+       // 目的是为了根据情况跳过某些modules，
        for (const refModule of blockModules) {
          if (chunkGraph.isModuleInChunk(refModule, chunk)) {
            continue;
@@ -657,6 +629,7 @@
            minAvailableModules.has(refModule) ||
            minAvailableModules.plus.has(refModule)
          ) {
+           // 暂时跳过skipBuffer逻辑，不知何用
            skipBuffer.push(refModule);
            continue;
          }
@@ -670,15 +643,9 @@
          });
        }
        if (skipBuffer.length > 0) {
-         let { skippedItems } = chunkGroupInfo;
-         if (skippedItems === undefined) {
-           chunkGroupInfo.skippedItems = skippedItems = new Set();
-         }
-         for (let i = skipBuffer.length - 1; i >= 0; i--) {
-           skippedItems.add(skipBuffer[i]);
-         }
-         skipBuffer.length = 0;
+         // 暂时跳过
        }
+       // 将 queueBuffer 逆序添加到 queue中
        if (queueBuffer.length > 0) {
          for (let i = queueBuffer.length - 1; i >= 0; i--) {
            queue.push(queueBuffer[i]);
@@ -686,43 +653,33 @@
          queueBuffer.length = 0;
        }
      }
-     // ....
-   };
-   ```
-
-   - 首先获取block对应的全部`blockModules`
-
-   - 循环`blockModules`，构建一个queueBuffer，主要目的是为了根据情况跳过某些modules，并逆序push到queue队列中
-
-   - skipBuffer 何用？？？？？？？
-
-   - 接下来会处理`block.blocks`
-
-     ```javascript
      for (const b of block.blocks) {
+       // 异步模块，如通过`mport('./c').then(del => del(1, 2))`加载的模块
+       // 即 blockModulesMap 中 ImportDependenciesBlock 类型
        if (b.isAsync(chunkGroup)) {
          iteratorBlock(b);
        } else {
+         // 同步模块，则直接进行递归操作
          processBlock(b);
        }
      }
      if (block.blocks.length > 0 && module !== block) {
        blocksWithNestedBlocks.add(block);
      }
-     ```
-
-     - 对于同步模块，递归调用`processBlock`，否则调用`iteratorBlock`
+   };
+   ```
 
 4. `iteratorBlock` 内部逻辑： 为异步模块生成新的`chunkGroup`，并push 到`queueDelayed`队列中，并会对外部传入的map赋值
 
    ```javascript
    const iteratorBlock = b => {
-     // 1. We create a chunk group with single chunk in it for this Block
-     // but only once (blockChunkGroups map)
+     // 1. 获取异步模块，如本例中的 c.js 所在的ChunkGroupInfo，如果不存在，则生成一个新的
+     // blockChunkGroups 就是缓存异步模块的chunkGroupInfo信息
      let cgi = blockChunkGroups.get(b);
      let c;
      if (cgi === undefined) {
        const chunkName = (b.groupOptions && b.groupOptions.name) || b.chunkName;
+       // 是否存在chunkName
        cgi = namedChunkGroups.get(chunkName);
        if (!cgi) {
          c = compilation.addChunkInGroup(
@@ -732,6 +689,7 @@
            b.request
          );
          c.index = nextChunkGroupIndex++;
+         // 构造新的chunkGroupInfo
          cgi = {
            chunkGroup: c,
            minAvailableModules: undefined,
@@ -745,6 +703,7 @@
            preOrderIndex: 0,
            postOrderIndex: 0
          };
+         // 缓存chunkGroup和chunkGroupInfoMap
          allCreatedChunkGroups.add(c); // chunkGroup
          chunkGroupInfoMap.set(c, cgi); // cgi,chunkGroupInfo,一个包装对象
          if (chunkName) {
@@ -770,17 +729,14 @@
    };
    ```
 
-   - 第一部分逻辑较为简单，就是`blockChunkGroups`缓存了block，则直接返回对应的chunkGroup
+   - `iteratorBlock` 第1部分逻辑较为简单，就是获取入参b（block），对应的chunkGroupInfo，如有缓存则使用缓存，否则创建一个新的
 
-   - 否则会判断`namedChunkGroups`是否缓存了chunkName，如是，则抛出异常，因为webpack不允许与entrypoint相同
-
-   - 否则，会创建新的chunkGroup与chunkGroupInfo
-
-   - 接下是在<a id="chunkGroupDependencies">`chunkGroupDependencies`</a>保存当前block
+   - 接下是在<a id="chunkGroupDependencies">`chunkGroupDependencies`</a>保存当前block与 chunkGroup
 
      ```javascript
-     // 2. We store the Block + Chunk Group mapping as dependency
-     // for the chunk group which is set in processQueue
+     // 2. 注意， deps中的chunkGroup，是入参b（block）对应的chunkGroup，
+     // 而chunkGroupDependencies.get(chunkGroup)的chunkGroup，可以理解为父级的chunkGroup
+     // 此处，相当chunkGroupDependencies 保存了chunkGroup的父子关系
      let deps = chunkGroupDependencies.get(chunkGroup);
      if (!deps) chunkGroupDependencies.set(chunkGroup, (deps = []));
      deps.push({
@@ -789,9 +745,10 @@
      });
      ```
 
-   - 接下来是，<a id="queueConnect">queueConnect</a> 保存`chunkGroupInfo`，`queueConnect`队列会在后面的`processConnectQueue`函数中使用
+   - 接下来是，<a id="queueConnect">queueConnect</a> 保存`chunkGroupInfo`的父子关系（与chunkGroupDependencies）逻辑是一致的
 
      ```javascript
+     // 同理，queueConnect 保存了父子的chunkGroupInfo的信息
      let connectList = queueConnect.get(chunkGroupInfo);
      if (connectList === undefined) {
        connectList = new Set();
@@ -800,7 +757,7 @@
      connectList.add(cgi);
      ```
 
-   - 最后是构建一个<a id="queueDelayed">queueDelayed队列</a>，而`queueDelayed`队列会在`queue.length === 0`时处理
+   - 最后是构建一个<a id="queueDelayed">queueDelayed队列</a>，而`queueDelayed`队列会（在上面`while (queue.length || queueConnect.size)`循环中）最后`queue.length === 0`时处理
 
      ```javascript
      // 4. We enqueue the DependenciesBlock for traversal
@@ -814,7 +771,7 @@
      });
      ```
 
-5. 执行之后，又回到[processQueue](#processQueue) 这个while循环，因为在上述过程中，queue在ENTER_MODULE中push了一个值（action=LEAVE_MODULE），然后PROCESS_BLOCK阶段，`queueBuffer`值被逆序push到queue中的一个（这个值会先被循环处理），根据[`blockModulesMap`](#blockModulesMap),会依次执行完ABD（a对应的value是b，b对应value是d）
+5. processBlock 全部执行完，又回到[processQueue](#processQueue) 这个while循环，因为在上述过程中，queue在ENTER_MODULE中push了一个值（action=LEAVE_MODULE），然后PROCESS_BLOCK阶段，`queueBuffer`值被逆序push到queue中的一个（这个值会先被循环处理），根据[`blockModulesMap`](#blockModulesMap),会依次执行完ABD（a对应的value是b，b对应value是d）
 
 6. LEAVE_MODULE：内部逻辑，注意此处是设置`_modulePostOrderIndices`的index，ENTER_MODULE是设置`modulePreOrderIndices`，key是module，值是index
 
@@ -839,26 +796,21 @@
    }
    ```
 
-   - 此时遍历结束，回到[遍历modules](#遍历modules)，开始合并可用模块步骤，由于`chunkGroupsForCombining`无内容，暂时跳过，到计算可用模块
+   - 此时遍历结束，回到[循环queue数组](#whileQueue)，
+   - 开始合并可用模块步骤，由于`chunkGroupsForCombining`无内容，暂时跳过，到计算可用模块
 
-7. 小结：
-
-   - 感觉整个过程，是将普通的import模块，进行处理，如a，b，d
-   - 处理过程中，将涉及到异步模块block和abd，关系保存方便后序处理
-   - 并将异步模块，push到queueDelayed中，最后处理
 
 ##### 计算可用模块
 
-1. 根据上文，[queueConnect](#queueConnect)介绍，queueConnect 保存了异步模块block的chunkGroupInfo信息
+1. 根据上文，[queueConnect](#queueConnect)介绍，queueConnect 保存了chunkGroupInfo父子关系
 
 2. 源码：
 
    ```javascript
    const processConnectQueue = () => {
-     // Figure out new parents for chunk groups
-     // to get new available modules for these children
+     // 根据上述介绍，queueConnect[chunGroupInfo, targets]， targets理解为chunGroupInfo的子
      for (const [chunkGroupInfo, targets] of queueConnect) {
-       // 1. Add new targets to the list of children
+       // 配置children
        if (chunkGroupInfo.children === undefined) {
          chunkGroupInfo.children = targets;
        } else {
@@ -868,11 +820,13 @@
        }
    
        // 2. Calculate resulting available modules
+       // 暂略，2,3暂略，未看到通过命名看，似乎是为了计算可以合并的Modules？？
        const resultingAvailableModules = calculateResultingAvailableModules(
          chunkGroupInfo
        );
    
-       // 3. Update chunk group info
+       // 3. Update chunk group info，
+       // 暂略，
        for (const target of targets) {
          target.availableModulesToBeMerged.push(resultingAvailableModules);
          chunkGroupsForMerging.add(target);
@@ -882,23 +836,10 @@
    };
    ```
 
-   - 首先是将`connectList`保存在`chunkGroupInfo`上，方便计算可用模块
+3. 小结：主要是配置chunkGroupInfo的children，并计算可合并的availableModulesToBeMerged有哪些（待考证）
 
-3. 计算可用模块，`calculateResultingAvailableModules`
-
-   - 此方法，大致理解为，通过`chunkGroupInfo`的chunk信息，从`chunkGraph`获取当前chunk对应的modules，
-   - 保存在`chunkGroupInfo.resultingAvailableModules`，并将modules返回
-
-4. 更新chunk group 信息
-
-5. 小结：合并模块主要干的事是，获取异步模块涉及到的modules
-
-   - 在`chunkGroupsForMerging`保存异步模块的`chunkGroupInfo`
-   - 为保存的这个`chunkGroupInfo`配置`availableModulesToBeMerged`，保存每个异步模块涉及到modules
-   - 根据上述[介绍](#connectChunkAndModule) ,当前chunk（name=app），涉及到的modules是，abd
    - 整个过程，会将`chunkGroupsForMerging`值，提供给后序流程
 
-6. 可以说，拿到chunkGroupsForMerging，进行，合并可用模块（processChunkGroupsForMerging），以及，后面的检查模块再进行遍历modules（processOutdatedChunkGroupInfo），此例并不涉及。。。直接跳过。。。。
 
 ##### 处理queue.length ===0 情况
 
@@ -917,6 +858,10 @@
 3. 至此，例子中描述的关系，会生成 三个 chunkGroup，abd是一个，c是一个，b是一个，信息会保存在`chunkGroupInfoMap`
 
 4. 进入第二阶段，connectChunkGroups
+
+##### 小结
+
+1. 
 
 #### connectChunkGroups
 
@@ -947,6 +892,7 @@
        // 2. Foreach edge
        for (let i = 0; i < deps.length; i++) {
          const dep = deps[i];
+         、、
          if (!filterFn(dep)) {
            continue;
          }
@@ -1016,7 +962,7 @@
 
 3. 至此，获得具有chunk关系图谱的chunkGraph
 
-4. 然后执行：`hooks.afterChunks(this.chunks)`，未tap 函数，至此，整个create chunks，结束
+4. 然后执行：`hooks.afterChunks(this.chunks)`，未tap 函数，至此，整个create chunks，结束`buildChunkGraph`过程
 
 #### 小结
 

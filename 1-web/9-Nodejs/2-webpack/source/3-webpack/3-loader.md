@@ -1,21 +1,3 @@
-# 哦吼
-
-1. 如下：
-
-   ```javascript
-   if (list === undefined) {
-     sortedDependencies.push({
-       factory: factoryCacheValue2,
-       dependencies: list,
-       originModule: module
-     });
-   }
-   list.push(dep);
-   ```
-
-   - list为数组，利用数组，可以实现factory是相同情况下，不同dep，push到数组不同位置
-   - 但需要一个map作为辅助
-
 # 概述
 
 1. 再回顾下`addEntry`，关键的3个步骤，`factorizeQueue`主要处理的是resolve
@@ -32,13 +14,19 @@
    })
    ```
 
-   
+2. 特别注意：很多hook，写 no tap func，表示当前调试代码，当前hook没有绑定函数，可能不同配置就会有，但不影响主流程
 
+#  ModuleGraph
 
+![3-3ModuleGraph](3-loader.assets/3-3ModuleGraph.svg)
 
-## `_addModule`函数
+1. `ModuleGraph` 主要两个属性`_moduleMap与_dependencyMap`
+2. 主要操作这两个属性的方法是`_getModuleGraphModule与_getModuleGraphDependency`
+3. 前者存储module 与 `new ModuleGraphModule()`关系，后者存储`dependency与new ModuleGraphDependency()`关系
 
-1. 上接上文，`factorizeQueue`执行完，会执行`addModuleQueue`，即执行`_addModule`函数，`_addModule`传入参数是`createdModule = new NormalModule(createData)`
+# `_addModule`函数
+
+1. 上接上文，`factorizeQueue`执行完，会执行`addModuleQueue`，即执行`_addModule`函数，`_addModule`传入参数`newModule`是`createdModule = new NormalModule(createData)`
 
 2. `createData`是`resolve`阶段解析的最终结果，包含了 绝对路径、适用的module等；`NormalModule在NormalModule.js`
 
@@ -50,14 +38,16 @@
      const identifier = module.identifier();
      // this._modules =  new Map();
      const alreadyAddedModule = this._modules.get(identifier);
+     // 是否被`this._modules`缓存，如果有则直接返回
      if (alreadyAddedModule) {
        return callback(null, alreadyAddedModule);
      }
-   
+   	// this.moduleGraph.getProfile(module) = mgm.profile
      const currentProfile = this.profile
      ? this.moduleGraph.getProfile(module)
      : undefined;
      if (currentProfile !== undefined) {
+       // this.profile 是ModuleProfile实例，主要用于记录时间， markRestoringStart = Date.now()
        currentProfile.markRestoringStart();
      }
      const cacheName = `${this.compilerPath}/module/${identifier}`;
@@ -67,58 +57,7 @@
    }
    ```
 
-   - 主要是判断是否被`this._modules`缓存，如果有则直接返回
-
-   - 否则会调用`this.cache.get`，这个函数在 上篇已介绍过，主要是先通过`MemoryCachePlugin`将缓存设置的方法push到gotHandlers中
-
-     ```javascript
-     get(identifier, etag, callback) {
-       const gotHandlers = [];
-       this.hooks.get.callAsync(identifier, etag, gotHandlers, (err, result) => {
-         if (err) {
-           callback(makeWebpackError(err, "Cache.hooks.get"));
-           return;
-         }
-         if (result === null) {
-           result = undefined;
-         }
-         if (gotHandlers.length > 1) {
-           const innerCallback = needCalls(gotHandlers.length, () =>
-                                           callback(null, result)
-                                          );
-           for (const gotHandler of gotHandlers) {
-             gotHandler(result, innerCallback);
-           }
-         } else if (gotHandlers.length === 1) {
-           gotHandlers[0](result, () => callback(null, result));
-         } else {
-           callback(null, result);
-         }
-       });
-     }
-     ```
-
-     ```javascript
-     compiler.cache.hooks.get.tap(
-       { name: "MemoryCachePlugin", stage: Cache.STAGE_MEMORY },
-       (identifier, etag, gotHandlers) => {
-         const cacheEntry = cache.get(identifier);
-         if (cacheEntry === null) {
-           return null;
-         } else if (cacheEntry !== undefined) {
-           return cacheEntry.etag === etag ? cacheEntry.data : null;
-         }
-         gotHandlers.push((result, callback) => {
-           if (result === undefined) {
-             cache.set(identifier, null);
-           } else {
-             cache.set(identifier, { etag, data: result });
-           }
-           return callback();
-         });
-       }
-     );
-     ```
+   - 最后调用`this.cache.get`，这个函数在上篇已介绍过，主要是先通过`MemoryCachePlugin`将缓存设置的方法push到`gotHandlers`中（可简单理解为，缓存下，然后调用callback）
 
 4. 缓存处理完，会继续执行`this.cache.get`回调
 
@@ -126,12 +65,11 @@
    _addModule(module, callback) {
    		const cacheName = `${this.compilerPath}/module/${identifier}`;
    		this.cache.get(cacheName, null, (err, cacheModule) => {
-   			if (err) return callback(new ModuleRestoreError(module, err));
    			if (currentProfile !== undefined) {
    				currentProfile.markRestoringEnd();
    				currentProfile.markIntegrationStart();
    			}
-         // 更新module
+         // 如果存在缓存module，更新module
    			if (cacheModule) {
    				cacheModule.updateCacheModule(module);
    				module = cacheModule;
@@ -139,6 +77,7 @@
    			this._modules.set(identifier, module);
    			// this.modules = new Set
    			this.modules.add(module);
+         // 当前：moduleGraphForModuleMap.set(module, moduleGraph);
    			ModuleGraph.setModuleGraphForModule(module, this.moduleGraph);
    			if (currentProfile !== undefined) {
    				currentProfile.markIntegrationEnd();
@@ -149,28 +88,83 @@
    ```
 
    - 这个回调，主要是分别在`this._modules`这个Map，`this.modules`这个Set集合，缓存module
-   - 然后在`ModuleGraph`缓存module，主要是进行缓存？？？？？？？（）
+   - 注意：此时callback的第二参数还是module
+   
+5. `_addModule`关键是判断是否有缓存，如有用缓存更新module，根据前文介绍，`this.addModule`实际是执行`_addModule`,`_addModule`全部执行完，会执行`this.addModule`的回调函数
+
+   ```javascript
+   addEntry(context, entry, optionsOrName, callback) {
+     this.factorizeModule(options, (err, newModule) => {
+       // 如果没module缓存，实际newModule === module
+       this.addModule(newModule, (err, module) => {
+         for (let i = 0; i < dependencies.length; i++) {
+           const dependency = dependencies[i];
+           // 主要逻辑是：获取module.incomingConnections 绑定在dependency.connection上
+           // 在module.outgoingConnections 绑定connection = new ModuleGraphConnection
+           // 简单理解就是：建立dependency与module联系
+           moduleGraph.setResolvedModule(originModule, dependency, module);
+         }
+   			// 设置 module.issuer 值
+         moduleGraph.setIssuerIfUnset(
+           module,
+           originModule !== undefined ? originModule : null
+         );
+         if (module !== newModule) {
+           if (currentProfile !== undefined) {
+             const otherProfile = moduleGraph.getProfile(module);
+             if (otherProfile !== undefined) {
+               currentProfile.mergeInto(otherProfile);
+             } else {
+               moduleGraph.setProfile(module, currentProfile);
+             }
+           }
+         }
+         // Check for cycles when build is trigger inside another build
+         // 检查build触发了另一build的情况
+         let creatingModuleDuringBuildSet = undefined;
+         if (!recursive && this.buildQueue.isProcessing(originModule)) {
+   				// 省略
+         }
+         this.buildQueue.add(module, err => {
+           // 根据不同逻辑，最终会调用 callback
+         });
+       });
+     });
+   })
+   ```
+
+   - 回调函数，主要是建立dependency与module关系（并不是为module.dependencies赋值），而是为 `module.outgoningConnections`与`dependency.connection`
+   - 具体何用。。还要等后续。。。。。。。
 
 ### 小结
 
-1. 主要是缓存数据
+1. 主要是缓存module数据
+
 2. 在`_modules`这个Map中，缓存：`this._modules.set(identifier, module);`
+
 3. 在`modules`这个Set中，缓存：`this.modules.add(module);`
+
 4. 在`compiler.cache`（`MemoryCachePlugin.js`），缓存：`cacheName = {this.compilerPath}/module/​{identifier};`
+
 5. 在`ModuleGraph`这个WeekMap，缓存：`ModuleGraph.setModuleGraphForModule(module, this.moduleGraph);`
 
+6. 判断是否缓存了module，如缓存则update
 
+7. 由于，`_addModule`最终调用`callback(null,module)`，故后续函数的入参还是module
 
+   
 
+# buildQueue
 
+## 流程图
 
+![3-1buildQueue流程图](3-loader.assets/3-1buildQueue流程图.svg)
 
-## buildQueue
-
-1. `_addModule`执行完，会执行`this.buildQueue.add`，进入`_buildModule`
+1. `_addModule`执行完，回到概述1中，会执行`this.buildQueue.add`，即进入`_buildModule`
 
    ```javascript
    _buildModule(module, callback) {
+     // 用profile标记时间
      const currentProfile = this.profile
      ? this.moduleGraph.getProfile(module)
      : undefined;
@@ -188,7 +182,7 @@
    }
    ```
 
-   - `module`是由`NormalModule.js`构造的，故`needBuild`逻辑是满足一些调剂则，直接执行回调
+   - 根据上文可知，`module`是`NormalModule.js`实例，`needBuild`伪代码：
 
      ```javascript
      needBuild({ fileSystemInfo }, callback) {
@@ -201,14 +195,14 @@
        });
      }
      ```
+     
+     - 主要是判断是否需要执行build操作（回调函数），满足一定条件，执行回调函数
+     - 补：虽然都是`return callback(null, true)`，但if条件没被合并，可能是为了每行注释，各个条件是什么意思
 
 2. 然后进入`needBuild`回调函数中
 
    ```javascript
-   module.needBuild(
-     {
-       fileSystemInfo: this.fileSystemInfo
-     },
+   module.needBuild( { fileSystemInfo: this.fileSystemInfo },
      (err, needBuild) => {
        // 1. 首先处理错误与needBuild 为false的情况
        if (err) return callback(err);
@@ -219,10 +213,11 @@
          this.hooks.stillValidModule.call(module);
          return callback();
        }
-   		// 执行 buildModule  钩子
+   		// 执行 buildModule  钩子， no tap func
        this.hooks.buildModule.call(module);
-       // builtModules 缓存 module， 当前文件没有builtModules的使用
+       // builtModules 缓存 module， 没发现builtModules的使用
        this.builtModules.add(module);
+     	// 执行`module.build`方法
        module.build(
          this.options,
          this,
@@ -234,10 +229,6 @@
      }
    );
    ```
-
-   - 首先处理错误与needBuild 为false的情况
-   - 执行 `buildModule` 钩子， 这个钩子tap 了一个`SourceMapDevToolModuleOptionsPlugin`，内部就是设置`module.useSourceMap = true;`
-   - 然后执行`module.build`方法
 
 3. `module.build`方法，初始化一些值，然后执行`this.doBuild`
 
@@ -271,6 +262,7 @@
 
    ```javascript
    doBuild(options, compilation, resolver, fs, callback) {
+     // 用`createLoaderContext`创建`loadeerContext`
      const loaderContext = this.createLoaderContext(
        resolver,
        options,
@@ -294,38 +286,39 @@
    }
    ```
 
-5. 首先利用`createLoaderContext`创建`loadeerContext`
-
-   ```javascript
-   createLoaderContext(resolver, options, compilation, fs) {
-     // 字段含义介绍：https://webpack.docschina.org/api/loaders/#the-loader-context
-     const loaderContext = {
-     };
-     NormalModule.getCompilationHooks(compilation).loader.call(
-       loaderContext,
-       this
-     );
-     if (options.loader) {
-       Object.assign(loaderContext, options.loader);
-     }
-     return loaderContext;
-   }
-   ```
-
-   - 利用`NormalModule.getCompilationHooks` 缓存`compilation`
+   - `createLoaderContext` 伪代码为：
 
      ```javascript
-     static getCompilationHooks(compilation) {
-       let hooks = compilationHooksMap.get(compilation);
-       if (hooks === undefined) {
-         hooks = {
-           loader: new SyncHook(["loaderContext", "module"])
-         };
-         compilationHooksMap.set(compilation, hooks);
+     createLoaderContext(resolver, options, compilation, fs) {
+       // 构建 loaderContext
+       // 字段含义介绍：https://webpack.docschina.org/api/loaders/#the-loader-context
+       const loaderContext = {
+       };
+       NormalModule.getCompilationHooks(compilation).loader.call(
+         loaderContext,
+         this
+       );
+       if (options.loader) {
+         Object.assign(loaderContext, options.loader);
        }
-       return hooks;
+       return loaderContext;
      }
      ```
+
+     - 利用`NormalModule.getCompilationHooks` 缓存`compilation`的hooks
+
+       ```javascript
+       static getCompilationHooks(compilation) {
+         let hooks = compilationHooksMap.get(compilation);
+         if (hooks === undefined) {
+           hooks = {
+             loader: new SyncHook(["loaderContext", "module"])
+           };
+           compilationHooksMap.set(compilation, hooks);
+         }
+         return hooks;
+       }
+       ```
 
 6. `loaderContext`获得后，会执行`runLoaders`函数，这个函数由独立的npm包`loader-runner`提供
 
@@ -337,16 +330,33 @@
 
 ### 内部运行逻辑
 
-1. 我们先整体看一下`LoaderRunner.js`这个文件
+1. `runLoaders`主要是执行一个文件适用的loaders，根据loader配置介绍，loader`执行是从右到左的，pitch函数是从左到右的（这个执行顺序原因后面会介绍），如配置的loader序列是：a,b,c 实际的执行是
 
-   ![runLoaders](3-loader.assets/runLoaders.svg)
-
-   - 主入口文件：`runLoaders`
-   - `iteratePitchingLoaders`：循环pitch函数
-   - `iterateNormalLoaders`：循环loader的default函数（主内容），逻辑与`iteratePitchingLoaders`基本类似
-     - `runSyncOrAsync`：执行 pitch或default函数
+   ```javascript
+|- a-loader `pitch`
+     |- b-loader `pitch`
+       |- c-loader `pitch`
+         |- requested module is picked up as a dependency
+       |- c-loader normal execution
+     |- b-loader normal execution
+   |- a-loader normal execution
+   ```
    
-2. `runLoaders`内部主要逻辑可分为3块
+   - 这些 pitch 函数并不是用来实际处理 module 的内容的，主要是可以利用 module 的 request，来做一些拦截处理的工作，从而达到在 loader 处理流程当中的一些定制化的处理需要
+   
+   - `pitch`函数功能详细介绍在：https://webpack.docschina.org/api/loaders/#pitching-loader
+   - 因此，整个过程可以简单理解先处理pitch函数，然后处理module内容（我们称为raw函数），在满足某些pitch函数条件时，跳过raw函数执行
+   
+2. 我们可以先来看一下程序流程图：
+
+   ![3-2runLoaders](3-loader.assets/3-2runLoaders.svg)
+
+   - 主入口文件：`runLoaders`，先为 loaderContext 配置属性，然后就是涉及主要流程的两个函数
+   - `iteratePitchingLoaders`：循环pitch函数，每次对loaders数组，index ++，即正向处理pitch函数；处理完或pitch存在返回值，则跳到`iterateNormalLoaders`，处理loader主内容
+   - `iterateNormalLoaders`：循环loader的default函数（主内容），逻辑与`iteratePitchingLoaders`基本类似，只是此时是从len 逐步--操作，执行到0，会调用callback，完成整个runloader操作
+   - 因此，整个函数逻辑并不复杂，如不想看实现细节，下面其实不用看
+
+3. 源码实现：`runLoaders`内部主要逻辑可分为3块
 
    - 首先初始化变量
 
@@ -437,33 +447,16 @@
      iteratePitchingLoaders(processOptions, loaderContext, function(err, result) {}
      ```
 
-     - 由于`loader`执行是从右到左的，pitch函数是从左到右的，如配置的loader序列是：a,b,c 实际的执行是
-
-       ```javascript
-       |- a-loader `pitch`
-         |- b-loader `pitch`
-           |- c-loader `pitch`
-             |- requested module is picked up as a dependency
-           |- c-loader normal execution
-         |- b-loader normal execution
-       |- a-loader normal execution
-       ```
-
-     - 这些 pitch 函数并不是用来实际处理 module 的内容的，主要是可以利用 module 的 request，来做一些拦截处理的工作，从而达到在 loader 处理流程当中的一些定制化的处理需要
-
-     - `pitch`函数功能详细介绍在：https://webpack.docschina.org/api/loaders/#pitching-loader
-
-3. 进入`iteratePitchingLoaders`函数，我们先假设当前解析文件需要`loader`处理，即`loaders.length > 0`
+4. 进入`iteratePitchingLoaders`函数，我们先假设当前解析文件需要`loader`处理，loaders数组为abc，即`loaders.length = 3 > 0`
 
    ```javascript
    function iteratePitchingLoaders(options, loaderContext, callback) {
-   	// abort after last loader
-   	// loaderContext.loaderIndex ：初始值为0
-   	// 如无匹配的loaders。则loaderContext.loaders.length 为0
+   	// loaderContext.loaderIndex ：初始值为0，
+   	// loaderContext.loaders 当前文件需要执行的loader数组，
    	if(loaderContext.loaderIndex >= loaderContext.loaders.length)
    		return processResource(options, loaderContext, callback);
    
-   	var currentLoaderObject = loaderContext.loaders[loaderContext.loaderIndex];
+     var currentLoaderObject = loaderContext.loaders[loaderContext.loaderIndex];
    
    	// iterate,在后面loadLoader中会将currentLoaderObject.pitchExecuted赋值为true
      // 即如不存在pitch函数，会进入这里，将index++，执行下一个loader
@@ -478,8 +471,6 @@
    }
    ```
 
-   - 如果存在`loaders`，则先用`loaders[0]`作为`currentLoaderObject`
-
    - 根据上述流程图：`processResource`可以认为是执行 loader.default函数的入口
 
    - 执行`loadLoader`，这个方法就是获取loader内容
@@ -487,27 +478,28 @@
      ```javascript
      module.exports = function loadLoader(loader, callback) {
      	try {
+         // 利用`require`获取 loader 文件内容
      		var module = require(loader.path);
      	} catch(e) {
+         // 处理可能出现的错误
      	}
+       // 导入的模块module必须是function或 object
      	if(typeof module !== "function" && typeof module !== "object") {}
      	loader.normal = typeof module === "function" ? module : module.default;
      	loader.pitch = module.pitch;
      	loader.raw = module.raw;
+       // 要求loader里面 normal 与  pitch 两者都必须是function
      	if(typeof loader.normal !== "function" && typeof loader.pitch !== "function") {}
      	callback();
      };
      ```
 
-     - 利用`require`方式获取 module 文件内容，并处理错误，要求module必须是function或 object
-
-     - 初始化`loader.noraml`与`loader.pitch`，并要求，两者都必须是function
-
-   - 然后回到`loadLoader`的回调函数
+   - 执行完回到`loadLoader`的回调函数
 
      ```javascript
      loadLoader(currentLoaderObject, function(err) {
        var fn = currentLoaderObject.pitch;
+       // 标记当前执行对象已经处理了pitch函数
        currentLoaderObject.pitchExecuted = true;
        // 不存在pitch函数，则直接执行iteratePitchingLoaders
        if(!fn) return iteratePitchingLoaders(options, loaderContext, callback);
@@ -521,9 +513,9 @@
      });
      ```
      
-   - 如果module不存在`pitch`函数，设置 `pitchEecuted = true`，再执行`iteratePitchingLoaders`函数，这样，会执行loaders数组的下一项
+   - 如果module不存在`pitch`函数，执行`iteratePitchingLoaders`函数，执行loaders数组的下一项
      
-   - 如果module存在pitch函数，则直接执行`runSyncOrAsync`
+   - 如果module存在pitch函数，则执行`runSyncOrAsync`，执行pitch函数，获取执行结果
      
        ```javascript
        function runSyncOrAsync(fn, context, args, callback) {
@@ -531,7 +523,7 @@
          var isDone = false;
          var isError = false; // internal error
          var reportedError = false;
-         // context.async，context.callback初始值被设为null
+         // context.async，context.callback 在3 中初始值被设为null，此处对两个变量赋值
          context.async = function async() {};
          var innerCallback = context.callback = function() {};
          try {
@@ -558,10 +550,9 @@
        }
      ```
      
-       - 先分别定义`context.async`与`context.callback`函数
-     - 然后执行module的pitch函数，根据返回结果，调用callback
+       - 重点是：`var result = ((function LOADER_EXECUTION){....}())`，这个子执行函数，获取pitch函数执行结果
      
-   - 回到`runSyncOrAsync`回调函数中
+   - 回到`runSyncOrAsync`回调函数中，注意这个函数在pitch函数处理时使用，在后面normal函数处理时还会使用
 
      ```javascript
      runSyncOrAsync(
@@ -570,60 +561,99 @@
        function(err) {
          if(err) return callback(err);
          var args = Array.prototype.slice.call(arguments, 1);
+         // 通过webpack注释，这块的逻辑主要是判断arguments，即判断` module.pitch` 的返回值
          // Determine whether to continue the pitching process based on
          // argument values (as opposed to argument presence) in order
          // to support synchronous and asynchronous usages.
          var hasArg = args.some(function(value) {
            return value !== undefined;
          });
+         // 如有返回值，则 -- ，比如abc 三个loader，此时执行到b的pitch函数，即index=1，如果存在返回值，则 index =0，执行normalLoaders的迭代，意味着，跳过了c的pitch函数，以及cb的normal阶段
          if(hasArg) {
            loaderContext.loaderIndex--;
            iterateNormalLoaders(options, loaderContext, args, callback);
          } else {
+           // 如无返回值时，则`hasArg = false`，继续执行`iteratePitchingLoaders`，即会执行下一个loader的pitch函数
            iteratePitchingLoaders(options, loaderContext, callback);
          }
        }
      );
      ```
 
-     - 通过webpack注释，可以得知，这块的逻辑主要是判断arguments，即判断` module.pitch` 的返回值
+5. `iterateNormalLoaders`的处理逻辑与`iteratePitchingLoaders`很相似，只是index为递减操作
 
-     - 如无返回值时，则`hasArg = false`，执行`iteratePitchingLoaders`
+  ```javascript
+  function iterateNormalLoaders(options, loaderContext, args, callback) {
+    // index < 0 表示整个loaders全部处理完
+  	if(loaderContext.loaderIndex < 0)
+  		return callback(null, args);
+  
+  	var currentLoaderObject = loaderContext.loaders[loaderContext.loaderIndex];
+  
+  	// 如果当前obj已经被处理过
+  	if(currentLoaderObject.normalExecuted) {
+  		loaderContext.loaderIndex--;
+  		return iterateNormalLoaders(options, loaderContext, args, callback);
+  	}
+  
+  	var fn = currentLoaderObject.normal;
+  	currentLoaderObject.normalExecuted = true;
+    // 如果当前loader未配置noraml函数
+  	if(!fn) {
+  		return iterateNormalLoaders(options, loaderContext, args, callback);
+  	}
+  	// 此时的args，实际是上一个loader normal函数的返回结果，
+    // currentLoaderObject.raw 是 loader 的default函数（根据4中介绍）
+  	convertArgs(args, currentLoaderObject.raw);
+  
+  	runSyncOrAsync(fn, loaderContext, args, function(err) {
+  		if(err) return callback(err);
+  	
+  		var args = Array.prototype.slice.call(arguments, 1);
+  		iterateNormalLoaders(options, loaderContext, args, callback);
+  	});
+  }
+  ```
 
-     - 此时有返回值，先将`loaderContext.loaderIndex--`，然后执行`iterateNormalLoaders`
+  - `convertArgs`伪代码：
 
-       ```javascript
-       function iterateNormalLoaders(options, loaderContext, args, callback) {
-       	// 如果loaders数组不存在，就会返回
-       	if(loaderContext.loaderIndex < 0)
-       		return callback(null, args);
-         // 等等其他逻辑
-       }
-       ```
+    ```javascript
+    function convertArgs(args, raw) {
+    	if(!raw && Buffer.isBuffer(args[0]))
+    		args[0] = utf8BufferToString(args[0]);
+    	else if(raw && typeof args[0] === "string")
+    		args[0] = Buffer.from(args[0], "utf-8");
+    }
+    ```
 
-       - 直接会执行call，回到`iteratePitchingLoaders`函数的回调函数中
-     
-   - `iteratePitchingLoaders`回调函数主要是处理错误，然后调用callback，回到`runLoaders`的回调函数
+6. loaders全部pitch函数与normal函数处理完后，又回到了3中最后一步，调用`iteratePitchingLoaders`的回调函数中
 
-     ```javascript
-     iteratePitchingLoaders(processOptions, loaderContext, function(err, result) {
-       if(err) {
-         return callback(err, {});
-       }
-       callback(null, {
-         result: result,
-         resourceBuffer: processOptions.resourceBuffer,
-         cacheable: requestCacheable,
-         fileDependencies: fileDependencies,
-         contextDependencies: contextDependencies,
-         missingDependencies: missingDependencies
-       });
+   ```javascript
+   iteratePitchingLoaders(processOptions, loaderContext, function(err, result) {
+     if(err) {
+       return callback(err, {});
+     }
+     // 最终这个result，应该是第一个loader noraml的返回结果（因为loader normal函数是逆序处理）
+     // 这个结果并没有被 类似convertArgs 做数据转换
+     callback(null, {
+       result: result,
+       resourceBuffer: processOptions.resourceBuffer,
+       cacheable: requestCacheable,
+       fileDependencies: fileDependencies,
+       contextDependencies: contextDependencies,
+       missingDependencies: missingDependencies
      });
-     ```
+   });
+   ```
 
-     - 因此，loader 的pitch函数的返回值，实际是这个result
+### 小结
 
-### 回调函数
+1. 由于是顺序执行pitch函数以及逆序执行normal函数，故最终返回的结果是第一个loader的normal函数执行结果，这个结果并未做数据转换，后面会通过`webpack-sources`包，转换结果
+2. 返回值的`result.result`，保存了normal函数的处理结果
+
+
+
+## 回调函数
 
 1. `runLoaders`回调函数
 
@@ -632,6 +662,7 @@
      for (const loader of this.loaders) {
        compilation.buildDependencies.add(loader.loader);
      }
+     // 将result的相关信息，保存在`this.buildInfo`中
      this.buildInfo.fileDependencies = new Set(result.fileDependencies);
      this.buildInfo.contextDependencies = new Set(result.contextDependencies);
      this.buildInfo.missingDependencies = new Set(result.missingDependencies);
@@ -641,20 +672,20 @@
        return;
      }
      this.buildInfo.cacheable = true;
+     // `compilation.fileSystemInfo.createSnapshot`先跳过，不影响主流程
      compilation.fileSystemInfo.createSnapshot((err2, snapshot) => {
        this.buildInfo.snapshot = snapshot;
+       // 处理结果
        processResult(err || err2, result.result);
      });
    });
    ```
 
-   - `compilation.fileSystemInfo.createSnapshot`先跳过
-
-   - 主要是将result的信息，保存在`this.buildInfo`中，然后调用`processRusult`函数
+   - 会在`createSnapshot`的回调函数中，调用`processRusult`函数，处理loader处理的结果
 
      ```javascript
      const processResult = (err, result) => {
-       // result为何是数组：在`runSyncOrAsync`回调函数中，使用Array.prototype.slice.call(arguments, 1);获取的args，最为result参数
+       // result为何是数组：在`runSyncOrAsync`回调函数中，使用Array.prototype.slice.call(arguments, 1);获取的args作为result
        const source = result[0];
        const sourceMap = result.length >= 1 ? result[1] : null;
        const extraInfo = result.length >= 2 ? result[2] : null;
@@ -662,7 +693,6 @@
        if (!Buffer.isBuffer(source) && typeof source !== "string") {
        }
        // this.createSource会使用webpack-sources这个库，将source进行处理（如转为 utf-8）
-       // this._source 是一个对象
        this._source = this.createSource();
        if (this._sourceSizes !== undefined) this._sourceSizes.clear();
        this._ast =
@@ -674,9 +704,8 @@
        return callback();
      };
      ```
-
-     - 根据注释的分析，`processResult`主要是将source（即result结果），通过`this.createSource`进行转换，规范下source结果
-     - 在module上绑定`_source`与`_ast`这两个属性，
+     
+   - `this.createSource`，会根据不同条件，调用`webpack-sources`库中的`new SourceMapSource`或`new OriginalSource`或`new RawSource`， 因此`this._source`为这几其中一个类的实例
 
 2. 执行callback回到[`doBuild`](#doBuild)的回调函数中
 
@@ -694,6 +723,8 @@
        }
    
        const handleParseError = e => {};
+       // 对`this.dependencies`进行sort 
+       // 特别注意：这个result结果并未被使用，但`JavascriptParser.js`会填充`this.dependencies`
        const handleParseResult = result => {
          this.dependencies.sort(
            concatComparators(
@@ -708,7 +739,8 @@
    
        let result;
        try {
-         // lib/javascript/JavascriptParser.js，解析出ast来
+         // lib/javascript/JavascriptParser.js，
+         // 利用`JavascriptParser.js`进行 parse
          result = this.parser.parse(this._ast || this._source.source(), {
            current: this,
            module: this,
@@ -725,11 +757,44 @@
    
    ```
 
-   - 因为`doBuild`这个回调函数会利用`jsParser`去解析结果，故
-   - 先会对`options.noParser`进行处理，如配置了则提前返回 **？？？？？？？具体逻辑？？？？**
-   - 然后利用`JavascriptParser.js`对上面返回source进行 parse，得到result；特别注意：这个result结果并未被随后的`handleParseResult`使用，`JavascriptParser.js`会填充`this.dependencies`
-   - 然后执行：`handleParseResult`函数中，对`this.dependencies`进行sort 
-   - 然后调用callback
+   - `doBuild`这个回调函数关键是利用`parser`去解析结果，我们看下parse简单实现：
+
+     ```javascript
+     // lib/javascript/JavascriptParser.js，
+     parse(source, state) {
+       let ast;
+       let comments;
+       const semicolons = new Set();
+       if (Buffer.isBuffer(source)) {
+         source = source.toString("utf-8");
+       }
+       if (typeof source === "object") {
+         ast = (source);
+         comments = source.comments;
+       } else {
+         comments = [];
+         // 简单理解，内部使用 acorn 这个包，获取source的ast结果
+         ast = JavascriptParser.parse(source, {
+           sourceType: this.sourceType,
+           onComment: comments,
+           onInsertedSemicolon: pos => semicolons.add(pos)
+         });
+       }
+       // 省略。。为this.xxxxx赋值
+       if (this.hooks.program.call(ast, comments) === undefined) {
+         this.detectMode(ast.body);
+         this.preWalkStatements(ast.body);
+         this.blockPreWalkStatements(ast.body);
+         this.walkStatements(ast.body);
+       }
+       this.hooks.finish.call(ast, comments);
+       return state;
+     }
+     ```
+
+     - 内部具体逻辑不再详看，主要了解，1，整个函数返回的state是以复杂对象，包含了很多信息；2、在blockPreWalkStatements中，会针对`import xxxxx字符串，为`this.dependencies`push内容，
+
+   - 再次强调，特别特别注意：`this.parser.parse`执行前`this.dependencies = []`,  parse会对此数组赋值，processResult并未使用 parse的最终结果result
 
 3. 进入`module.build`的回调函数
 
@@ -749,6 +814,7 @@
            if (currentProfile !== undefined) {
              currentProfile.markStoringStart();
            }
+           // 缓存module
            this.cache.store(
              `${this.compilerPath}/module/${module.identifier()}`,
              null,
@@ -767,12 +833,13 @@
    }
    ```
 
-   - 每个模块的module.build 的回调函数，主要把当前编译后的module缓存下
+   - 此时，缓存的module，带有了dependencies参数，即每个文件的import等，会被认为是当前module的依赖
 
 4. 回到`buildModule`的回到函数中
 
    ```javascript
    this.buildModule(module, err => {
+     // 省略错误处理。。。
      this.processModuleDependencies(module, err => {
        if (err) {
          return callback(err);
@@ -780,16 +847,18 @@
        callback(null, module);
      });
    });
-   ```
-
-   - 我们之前说过，`this.buildModule`会执行`this.buildQueue.add`
+```
+   
    - 经过上述一连串处理，实际是给` module.dependencies` 赋值了一个已经排序的数组
-   - 最终会执行`processModuleDependencies`，即`this.processDependenciesQueue.add()`
-   - 按照之前介绍，会进入`_processModuleDependencies`
+   - 进入`buildModule`回调函数，执行`_processModuleDependencies`
 
-## processModuleDependencies
 
-5. `__processModuleDependencies`，首先是对依赖进行处理，即执行`processDependenciesBlock`
+
+### processModuleDependencies
+
+1. `this.processModuleDependencies`执行的套路，还是会执行`this.processDependenciesQueue`，跟上面一样，会去执行`_this._processModuleDependencies`函数
+
+2. `__processModuleDependencies`，首先是对依赖进行处理，即执行`processDependenciesBlock`
 
    ```javascript
    _processModuleDependencies(module, callback) {
@@ -814,18 +883,20 @@
      }
    }
    ```
-   
+
    - `processDependenciesBlock` 将blocks进行递归，每个`dependencies`都要经过 `processDependency`处理
    - blocks数组可以理解为异步引入的模块，这些都是在模块build过程中生成的
-   
-2. `processDependency`做了什么，主要是为`this.moduleGraph,dependencies，sortedDependencies`赋值
+
+3. `processDependency`做了什么，主要是为`this.moduleGraph,dependencies，sortedDependencies`赋值
 
    ```javascript
+   let factoryCacheKey;
    const dependencies = new Map();
    const sortedDependencies = [];
    const processDependency = dep => {
+     // 为当前的dependency设置 parentBlock与 parentModule
      this.moduleGraph.setParents(dep, currentBlock, module);
-     // module{this.request}
+     // resourceIdent = `module${this.request}`
      const resourceIdent = dep.getResourceIdentifier();
      if (resourceIdent) {
        // dep 是在lib/javascript/JavascriptParser.js 过程中，实例化的，如HarmonyImportSideEffectDependency
@@ -845,6 +916,11 @@
              `No module factory available for dependency type: ${dep.constructor.name}`
            );
          }
+         // 可以理解构造了这样一个数据结构
+         /**
+         	*  dependencies{facotory{resourceIdent, [dep,dep,dep] }}
+         	*  可以理解为，将相同类型的factory与resourceIdent 的 dep，放在一个list中
+         	*/
          innerMap = dependencies.get(factory);
          if (innerMap === undefined) {
            dependencies.set(factory, (innerMap = new Map()));
@@ -856,7 +932,7 @@
        let list = innerMap.get(resourceIdent);
        if (list === undefined) {
          innerMap.set(resourceIdent, (list = []));
-         // 重点。。。。
+         // 重点, 注意push 到sortedDependencies.dependencies 是 多个dep数组
          sortedDependencies.push({
            factory: factoryCacheValue2,
            dependencies: list,
@@ -870,27 +946,10 @@
    };
    ```
 
-   - `dependencies`辅助生成`sortedDependencies`的，因此需要 `fatctory与resourceIndent都相同时`，才会push到`sortedDependencies`对应的list中
-
-   - 举个例子，假设现在处理的文件是 `a.js`, 即 a-module，内容如下
-
-     ```
-     import add from './b.js'
-     add(1, 2)
-     import('./c').then(del => del(1, 2))
-     ```
-
-   - 经过build等过程，import内容会被作为a.js的`dependencies`，异步加载会被作为blocks，
-
-   - 同样对于`b.js`，`dependencies`不一定只有一个，而可能是多个（build过程中的parse导致的）
-
+   - `dependencies`辅助生成`sortedDependencies.dependencies`，根据dependencies， 其实是 `fatctory与resourceIndent都相同时的 dep`，才会push到`sortedDependencies`对应的list中
+   - 经过build等过程，import内容会被作为a.js的`dependencies`，异步加载c.js会被作为blocks，
+   - 同样对于`b.js`，也import和requ`dependencies`不一定只有一个，而可能是多个（build过程中的parse导致的）
    - 而每一个dep，都是有某个factory生成的，因此`sortedDependencies` 存储了 某个 factory 对应的 dep
-
-3. `this.moduleGraph` 
-
-   - 实际是在构建其中的`this._dependencyMap`，其中key为 dep， 而value 是 `new ModuleGraphDependency()`
-   - 同时将当前文件的block与module，保存在ModuleGraphDependency的parentBlock与parentModule上
-   - 通过`this.moduleGraph._dependencyMap`，每个文件是由哪个module或block生成的，都被记录下
 
 4. `sortedDependencies`数组生成后，会利用`asyncLib`异步库，循环处理
 
@@ -909,14 +968,16 @@
    );
    ```
 
-   - 然后，利用`asyncLib`异步库，循环`sortedDependencies`，针对每一项，执行`this.handleModuleCreation`
-   - 而这个方法内部会执行`this.factorizeModule()`，即又回到开头的流程，继续反复
+   - 利用`asyncLib`异步库，循环`sortedDependencies`，针对每一项，执行`this.handleModuleCreation`
+   - 而这个方法内部会执行`this.factorizeModule()`，即又回到开头的流程，继续反复，将所有dependency处理完
+
+
 
 
 ### 小结
 
-1. pitch函数的内容，会被parse解析，然后作为最后的dependency，然后每个依赖会去执行`this.factorizeModule`
-2. 因此，实际如果配置的是abc3个loader，a 的pitch函数 内部只是一行`import d`，那么实际最终只有一个d依赖
+1. 整个回调阶段最，重要的是`processModuleDependencies`处理，是将当前module通过buildqueue解析的dependencies，进行数据整合，形成`sortedDependencies`
+2. 主要是为了方便后序递归迭代操作
 3. 上述过程循环反复，将全部import处理完后，整个`complier.hooks.make`阶段结束
 
 
@@ -950,7 +1011,3 @@
      - pitch函数执行阶段，loaderIndex = 0 ， 故执行`iterateNormalLoaders`会直接return，执行各个回调
 
 
-
-# ？？？？？？？？？？？
-
-1. 这个buildQueue是处理完的数据保存在？

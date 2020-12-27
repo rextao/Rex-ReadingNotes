@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" viewBox="-355 208 1764 849" width="1764" height="849">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="-355 208 1764 945" width="1764" height="945">
   <defs>
     <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
       <g>
@@ -34,11 +34,11 @@
     </marker>
   </defs>
   <metadata> Produced by OmniGraffle 7.11.5 
-    <dc:date>2020-08-21 00:51:23 +0000</dc:date>
+    <dc:date>2020-12-12 06:22:23 +0000</dc:date>
   </metadata>
-  <g id="Canvas_1" stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
+  <g id="Canvas_1" stroke="none" stroke-opacity="1" fill="none" stroke-dasharray="none" fill-opacity="1">
     <title>Canvas 1</title>
-    <rect fill="white" x="-355" y="208" width="1764" height="849"/>
+    <rect fill="white" x="-355" y="208" width="1764" height="945"/>
     <g id="Canvas_1: Layer 1">
       <title>Layer 1</title>
       <g id="Line_70">
@@ -63,7 +63,7 @@
         <line x1="947.25" y1="501.5" x2="947.25" y2="564.0375" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_35">
-        <line x1="319.25" y1="938.9375" x2="319.25" y2="993.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="319.25" y1="938.9375" x2="319.25" y2="1009.975" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_33">
         <line x1="319.25" y1="858.9375" x2="319.25" y2="885.0375" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
@@ -110,7 +110,7 @@
         </text>
       </g>
       <g id="Graphic_10">
-        <rect x="208" y="457.5" width="222.5" height="44" fill="white"/>
+        <rect x="208" y="457.5" width="222.5" height="44" fill="#40ffff"/>
         <rect x="208" y="457.5" width="222.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
         <text transform="translate(213 468.5)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="22.202" y="17">iteratePitchingLoaders</tspan>
@@ -135,8 +135,8 @@
         <rect x="208" y="573.9375" width="222.5" height="44" fill="white"/>
         <rect x="208" y="573.9375" width="222.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
         <text transform="translate(213 573.9375)" fill="black">
-          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.674" y="17">loadLoader通过require加载</tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="39.122" y="39">loaders第一个元素</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="48.61" y="17">loadLoader函数</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="23.122" y="39">加载loaders第一个元素</tspan>
         </text>
       </g>
       <g id="Line_16">
@@ -162,16 +162,13 @@
         <path d="M 430.5 755.06 L 501.5 754.5 L 500.34375 491.21875 L 440.37934 487.3384" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_24">
-        <path d="M 547 566.5 L 735 566.5 C 748.2548 566.5 759 577.2452 759 590.5 L 759 635.5625 C 759 648.8173 748.2548 659.5625 735 659.5625 L 547 659.5625 C 533.74517 659.5625 523 648.8173 523 635.5625 L 523 590.5 C 523 577.2452 533.74517 566.5 547 566.5 Z" fill="white"/>
-        <path d="M 547 566.5 L 735 566.5 C 748.2548 566.5 759 577.2452 759 590.5 L 759 635.5625 C 759 648.8173 748.2548 659.5625 735 659.5625 L 547 659.5625 C 533.74517 659.5625 523 648.8173 523 635.5625 L 523 590.5 C 523 577.2452 533.74517 566.5 547 566.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        <text transform="translate(528 568.03125)" fill="#525356">
+        <path d="M 547 585 L 735 585 C 748.2548 585 759 595.7452 759 609 L 759 625.71875 C 759 638.9736 748.2548 649.71875 735 649.71875 L 547 649.71875 C 533.74517 649.71875 523 638.9736 523 625.71875 L 523 609 C 523 595.7452 533.74517 585 547 585 Z" fill="white"/>
+        <path d="M 547 585 L 735 585 C 748.2548 585 759 595.7452 759 609 L 759 625.71875 C 759 638.9736 748.2548 649.71875 735 649.71875 L 547 649.71875 C 533.74517 649.71875 523 638.9736 523 625.71875 L 523 609 C 523 595.7452 533.74517 585 547 585 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(528 594.8594)" fill="#525356">
           <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">如不存在</tspan>
           <tspan font-family="Avenir" font-size="16" font-weight="800" fill="#525356" y="17">pitch</tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" y="17">函数，则会调用</tspan>
-          <tspan font-family="Avenir" font-size="16" font-weight="800" fill="#525356" x="0" y="40">iteratePitchingLoaders</tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" y="40">，然后</tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="63">执行loaders数组的下一个</tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="85">loader（index++）</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" y="17">函数，index++，</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="40">执行下一个loader的pitch函数</tspan>
         </text>
       </g>
       <g id="Graphic_25">
@@ -193,16 +190,15 @@
         </text>
       </g>
       <g id="Graphic_29">
-        <path d="M 547 790.40625 L 735 790.40625 C 748.2548 790.40625 759 801.1514 759 814.40625 L 759 859.4688 C 759 872.7236 748.2548 883.4688 735 883.4688 L 547 883.4688 C 533.74517 883.4688 523 872.7236 523 859.4688 L 523 814.40625 C 523 801.1514 533.74517 790.40625 547 790.40625 Z" fill="white"/>
-        <path d="M 547 790.40625 L 735 790.40625 C 748.2548 790.40625 759 801.1514 759 814.40625 L 759 859.4688 C 759 872.7236 748.2548 883.4688 735 883.4688 L 547 883.4688 C 533.74517 883.4688 523 872.7236 523 859.4688 L 523 814.40625 C 523 801.1514 533.74517 790.40625 547 790.40625 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        <text transform="translate(528 803.9375)" fill="#525356">
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">传入参数为loader的pitch函</tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">数，pitch函数的执行结果，会</tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="61">作为callback的参数</tspan>
+        <path d="M 547 807.1406 L 735 807.1406 C 748.2548 807.1406 759 817.8858 759 831.1406 L 759 840.7344 C 759 853.9892 748.2548 864.7344 735 864.7344 L 547 864.7344 C 533.74517 864.7344 523 853.9892 523 840.7344 L 523 831.1406 C 523 817.8858 533.74517 807.1406 547 807.1406 Z" fill="white"/>
+        <path d="M 547 807.1406 L 735 807.1406 C 748.2548 807.1406 759 817.8858 759 831.1406 L 759 840.7344 C 759 853.9892 748.2548 864.7344 735 864.7344 L 547 864.7344 C 533.74517 864.7344 523 853.9892 523 840.7344 L 523 831.1406 C 523 817.8858 533.74517 807.1406 547 807.1406 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(528 813.9375)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">pitch函数的执行结果，会作为</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">callback的参数</tspan>
         </text>
       </g>
       <g id="Line_30">
-        <line x1="430.5" y1="836.9375" x2="512.1" y2="836.9375" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="430.5" y1="836.5917" x2="512.10005" y2="836.3381" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_32">
         <rect x="208" y="894.9375" width="222.5" height="44" fill="white"/>
@@ -213,15 +209,15 @@
         </text>
       </g>
       <g id="Graphic_34">
-        <rect x="202.5" y="1003" width="233.5" height="44" fill="white"/>
-        <rect x="202.5" y="1003" width="233.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(207.5 1003)" fill="black">
+        <rect x="202.5" y="1019.875" width="233.5" height="44" fill="white"/>
+        <rect x="202.5" y="1019.875" width="233.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(207.5 1019.875)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="5.038" y="17">loaderContext.loaderIndex--</tspan>
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="31.246" y="39">iterateNormalLoaders</tspan>
         </text>
       </g>
       <g id="Graphic_36">
-        <text transform="translate(453.756 993.5)" fill="black">
+        <text transform="translate(458.5625 1009)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">存在</tspan>
         </text>
       </g>
@@ -234,10 +230,10 @@
         </text>
       </g>
       <g id="Line_39">
-        <line x1="500.9752" y1="635.0001" x2="512.21964" y2="633.2359" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="500.9752" y1="635.0001" x2="513.0375" y2="633.48046" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_40">
-        <rect x="836" y="457.5" width="222.5" height="44" fill="white"/>
+        <rect x="836" y="457.5" width="222.5" height="44" fill="aqua"/>
         <rect x="836" y="457.5" width="222.5" height="44" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
         <text transform="translate(841 468.5)" fill="black">
           <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="25.746" y="17">iterateNormalLoaders</tspan>
@@ -293,7 +289,7 @@
         </text>
       </g>
       <g id="Line_55">
-        <path d="M 436 1023.9003 L 797 1020.5 L 791.6055 479.875 L 826.1 479.7919" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <path d="M 436 1042.601 L 797.2617 1044.8477 L 788 481 L 826.1004 480.6411" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_56">
         <path d="M 1058.5 931.2034 L 1148.5 932 L 1146.9219 480.6289 L 1068.3998 480.18496" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
@@ -310,18 +306,16 @@
         <line x1="1058.5" y1="595.9375" x2="1161.1" y2="595.9375" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_60">
-        <path d="M 547 940.9375 L 735 940.9375 C 748.2548 940.9375 759 951.6827 759 964.9375 L 759 987.5 C 759 1000.7548 748.2548 1011.5 735 1011.5 L 547 1011.5 C 533.74517 1011.5 523 1000.7548 523 987.5 L 523 964.9375 C 523 951.6827 533.74517 940.9375 547 940.9375 Z" fill="white"/>
-        <path d="M 547 940.9375 L 735 940.9375 C 748.2548 940.9375 759 951.6827 759 964.9375 L 759 987.5 C 759 1000.7548 748.2548 1011.5 735 1011.5 L 547 1011.5 C 533.74517 1011.5 523 1000.7548 523 987.5 L 523 964.9375 C 523 951.6827 533.74517 940.9375 547 940.9375 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        <text transform="translate(528 943.2188)" fill="#525356">
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">由于初始时loaderIndex=0，故</tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">如某个loader存在pitch函数，</tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="61">进入下个步骤会直接return</tspan>
+        <path d="M 547 1057 L 735 1057 C 748.2548 1057 759 1067.7452 759 1081 L 759 1103.5625 C 759 1116.8173 748.2548 1127.5625 735 1127.5625 L 547 1127.5625 C 533.74517 1127.5625 523 1116.8173 523 1103.5625 L 523 1081 C 523 1067.7452 533.74517 1057 547 1057 Z" fill="white"/>
+        <path d="M 547 1057 L 735 1057 C 748.2548 1057 759 1067.7452 759 1081 L 759 1103.5625 C 759 1116.8173 748.2548 1127.5625 735 1127.5625 L 547 1127.5625 C 533.74517 1127.5625 523 1116.8173 523 1103.5625 L 523 1081 C 523 1067.7452 533.74517 1057 547 1057 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(528 1070.2812)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">如pitch callback有结果，则认</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">为跳过当前loader之后的loader</tspan>
         </text>
       </g>
       <g id="Graphic_61">
-        <text transform="translate(322 520.875)" fill="black">
-          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="49.55725" y="17">当index &lt; </tspan>
-          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="28.77325" y="39">loader.length时</tspan>
+        <text transform="translate(322 531.875)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="1.768" y="17">当index &lt;loader.length时</tspan>
         </text>
       </g>
       <g id="Graphic_63">
@@ -364,7 +358,44 @@
         </text>
       </g>
       <g id="Line_71">
-        <path d="M 38.67519 857.9375 L 38 1056.5 L 799 1054.5 L 797.4634 1025.0797" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <path d="M 38.98789 857.9375 L 42.16797 1152.0312 L 797 1150 L 797.0057 1039.1896" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_73">
+        <path d="M 547 924 L 735 924 C 748.2548 924 759 934.7452 759 948 L 759 970.5625 C 759 983.8173 748.2548 994.5625 735 994.5625 L 547 994.5625 C 533.74517 994.5625 523 983.8173 523 970.5625 L 523 948 C 523 934.7452 533.74517 924 547 924 Z" fill="white"/>
+        <path d="M 547 924 L 735 924 C 748.2548 924 759 934.7452 759 948 L 759 970.5625 C 759 983.8173 748.2548 994.5625 735 994.5625 L 547 994.5625 C 533.74517 994.5625 523 983.8173 523 970.5625 L 523 948 C 523 934.7452 533.74517 924 547 924 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(528 926.2812)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">则认为pitch未跳过后续</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">loader，index++，执行下个</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="61">loader的pitch函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_74">
+        <path d="M -329.5 649.7656 L -129 649.7656 C -115.74517 649.7656 -105 660.5108 -105 673.7656 L -105 678.1094 C -105 691.3642 -115.74517 702.1094 -129 702.1094 L -329.5 702.1094 C -342.75483 702.1094 -353.5 691.3642 -353.5 678.1094 L -353.5 673.7656 C -353.5 660.5108 -342.75483 649.7656 -329.5 649.7656 Z" fill="white"/>
+        <path d="M -329.5 649.7656 L -129 649.7656 C -115.74517 649.7656 -105 660.5108 -105 673.7656 L -105 678.1094 C -105 691.3642 -115.74517 702.1094 -129 702.1094 L -329.5 702.1094 C -342.75483 702.1094 -353.5 691.3642 -353.5 678.1094 L -353.5 673.7656 C -353.5 660.5108 -342.75483 649.7656 -329.5 649.7656 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-348.5 653.9375)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">index设为length-1，开始逆序执</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">行</tspan>
+        </text>
+      </g>
+      <g id="Graphic_75">
+        <path d="M 484 430 L 568 430 C 576.83656 430 584 437.16344 584 446 L 584 446 C 584 454.83656 576.83656 462 568 462 L 484 462 C 475.16344 462 468 454.83656 468 446 L 468 446 C 468 437.16344 475.16344 430 484 430 Z" fill="white"/>
+        <path d="M 484 430 L 568 430 C 576.83656 430 584 437.16344 584 446 L 584 446 C 584 454.83656 576.83656 462 568 462 L 484 462 C 475.16344 462 468 454.83656 468 446 L 468 446 C 468 437.16344 475.16344 430 484 430 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(473 435)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">迭代pitch函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_76">
+        <path d="M 896.25 402 L 998.25 402 C 1007.0866 402 1014.25 409.16344 1014.25 418 L 1014.25 418 C 1014.25 426.83656 1007.0866 434 998.25 434 L 896.25 434 C 887.4134 434 880.25 426.83656 880.25 418 L 880.25 418 C 880.25 409.16344 887.4134 402 896.25 402 Z" fill="white"/>
+        <path d="M 896.25 402 L 998.25 402 C 1007.0866 402 1014.25 409.16344 1014.25 418 L 1014.25 418 C 1014.25 426.83656 1007.0866 434 998.25 434 L 896.25 434 C 887.4134 434 880.25 426.83656 880.25 418 L 880.25 418 C 880.25 409.16344 887.4134 402 896.25 402 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(885.25 407)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">迭代normal函数</tspan>
+        </text>
+      </g>
+      <g id="Line_77">
+        <line x1="469.6568" y1="455.12937" x2="440.27255" y2="459.89054" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_78">
+        <line x1="947.25" y1="435" x2="947.25" y2="447.6" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
     </g>
   </g>

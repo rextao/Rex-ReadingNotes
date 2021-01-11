@@ -1,0 +1,30 @@
+{
+  "extends": "../../config/tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",      
+    "module": "esnext",
+    "sourceMap": true,
+    "lib": [
+      "es6",
+      "dom",
+      "es2017",
+      "esnext"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@asset/*": ["asset/*"],
+      "@component/*": ["component/*"],
+      "@framework/*": ["framework/*"],
+      "@store/*": ["page/store/*"],
+      "@router/*": ["page/admin/home/router/*"],
+      "@view/*": ["page/admin/home/view/*"]
+    }
+  },
+  "include": [
+    "./**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

@@ -67,8 +67,6 @@ import {
     KEY_ERROR,
     KEY_WAIT,
 } from './const';
-const { $http } = window;
-import { saveAs } from 'file-saver';
 
 export default {
     name: 'download',
@@ -89,7 +87,7 @@ export default {
         // 获取url
         getUrlFunc: {
             type: Function,
-            default: () => {},
+            default: () => ({}),
         },
         // 并发下载量
         limit: {
@@ -115,7 +113,7 @@ export default {
         this.KEY_LOADING = KEY_LOADING;
     },
     mounted() {
-        window.addEventListener('beforeunload', this.beforeunloadCallBack);
+        // window.addEventListener('beforeunload', this.beforeunloadCallBack);
         this.$nextTick(() => {
             this.tableHeight = window.innerHeight - 80;
         });
@@ -233,19 +231,6 @@ export default {
         async exportVideo(item) {
             const mainKey = this.mainKey;
             try {
-                const data = await $http.get(
-                    item._url,
-                    {
-                        responseType: 'blob',
-                        withCredentials: true,
-                        enabledUnversalLoading: false,
-                        disableUniversalErrorHandler: true,
-                    }
-                );
-                await saveAs(new Blob([data], {
-                    type: 'application/mp4'
-                }), `${mainKey}-${item[mainKey]}.mp4`);
-                this.successNum += 1;
                 this.$emit('update:success-sum', this.successNum);
                 return KEY_SUCCESS;
             } catch (e) {

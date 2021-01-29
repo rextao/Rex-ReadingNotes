@@ -5,13 +5,12 @@
         <download-drawer
             v-model="showDrawer"
             :list="videoList"
-            :show-btn="showDownBtn"
         ></download-drawer>
     </div>
 </template>
 
 <script>
-import DownloadDrawer from './auto-download/download-drawer';
+import DownloadDrawer from './download-drawer';
 export default {
     name: "download-index",
     components: {
@@ -32,9 +31,5 @@ export default {
             ]
         };
     },
-}
+};
 </script>
-
-<style scoped>
-
-</style>

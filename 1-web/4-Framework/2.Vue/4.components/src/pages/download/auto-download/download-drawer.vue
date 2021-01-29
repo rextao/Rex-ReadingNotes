@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import BaseDownLoad from './index';
+import BaseDownLoad from './base-download';
 import {
     KEY_ERROR,
     TABLE_CONFIG,

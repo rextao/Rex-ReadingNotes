@@ -1,14 +1,14 @@
 <template>
     <div>
         <div @click='handleClick'>{{msg}}</div>
-        <button @click="handleClick">asdasfdasfdasfd</button>
+        <button @click="handleClick">阿萨斯大所大多撒反反复复阿斯顿发斯蒂芬 </button>
     </div>
 </template>
 <script>
     export default {
         data() {
             return {
-                msg: 'asdfasdf'
+                msg: '宿舍宿舍'
             };
         },
         created(){
@@ -19,7 +19,7 @@
         },
         methods: {
             handleClick() {
-                console.log('name');
+                console.log('nameasasdfafsdaf');
                 this.msg += '11111';
             }
         }

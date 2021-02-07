@@ -1,11 +1,10 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
 module.exports = {
     output:{
         path:path.resolve(__dirname,'./../dist'),
-        filename:'build.js',
     },
+    mode: 'development',
     module: {
         rules: [
             {
@@ -20,7 +19,9 @@ module.exports = {
             },
             {
                 test:/\.vue$/,
-                use:['vue-loader']
+                use: {
+                    loader: 'vue-loader',
+                },
             }
         ]
     },

@@ -1,35 +1,3 @@
-# Reflect
-
-## 概述
-
-1. `Reflect`对象与`Proxy`对象一样，主要目的是
-
-2. 将`Object`对象的一些明显属于语言内部的方法（比如`Object.defineProperty`）
-
-3. 修改某些Object的返回结果，让其变得更合理
-
-4.  让`Object`操作都变成函数行为
-
-	```javascript
-	// 老写法
-	'assign' in Object // true
-	// 新写法
-	Reflect.has(Object, 'assign') // true
-	```
-
-5. 有了`Reflect`对象以后，很多操作会更易读。
-
-	```javascript
-	// 老写法
-	Function.prototype.apply.call(Math.floor, undefined, [1.75]) // 1
-	// 新写法
-	Reflect.apply(Math.floor, undefined, [1.75]) // 1
-	```
-
-## 注意
-
-1. 如果在Proxy中调用Reflect的话，其实对应的就是默认行为。
-
 # Proxy
 
 ## 概述
@@ -40,8 +8,47 @@
 ## 语法
 
 1. `let p = new Proxy(target, handler);`
-	- target：用proxy包装的对象
+	- target：用proxy包装的对象（可以是任何类型的对象，包括原生数组，函数，甚至另一个代理）
 	- 一个对象，定义操作时代理的行为函数
+2. `handler`支持的捕获器
+   - handler.get()：属性读取操作的捕获器。
+   - handler.set()：属性设置操作的捕获器。
+   - handler.deleteProperty()：delete 操作符的捕获器。
+   - handler.ownKeys()：Object.getOwnPropertyNames 方法和 Object.getOwnPropertySymbols 方法的捕获器。
+   - handler.has()：in 操作符的捕获器
+
+# Reflect
+
+## 概述
+
+1. `Reflect`为内置，主要目的是
+
+   - 将`Object`对象的一些明显属于语言内部的方法（比如`Object.defineProperty`）进行封装
+
+   - 修改某些Object的返回结果，让其变得更合理
+   - 在实际的 Proxy 使用场景中，我们往往会结合 Reflect 对象提供的静态方法来实现某些特定的功能
+
+2.  让`Object`操作都变成函数行为
+
+    ```javascript
+    // 老写法
+    'assign' in Object // true
+    // 新写法
+    Reflect.has(Object, 'assign') // true
+    ```
+
+3. 有了`Reflect`对象以后，很多操作会更易读。
+
+   ```javascript
+   // 老写法
+   Function.prototype.apply.call(Math.floor, undefined, [1.75]) // 1
+   // 新写法
+   Reflect.apply(Math.floor, undefined, [1.75]) // 1
+   ```
+
+## 注意
+
+1. 如果在Proxy中调用Reflect的话，其实对应的就是默认行为。
 
 # 双向绑定
 

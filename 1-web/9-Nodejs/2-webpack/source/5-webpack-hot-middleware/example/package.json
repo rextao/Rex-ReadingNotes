@@ -1,0 +1,23 @@
+{
+  "name": "webpack-hot-middleware-example",
+  "version": "1.0.0",
+  "description": "Example of using webpack-hot-middleware",
+  "author": "Glen Mailer <glen@stainlessed.co.uk>",
+  "license": "MIT",
+  "dependencies": {
+    "console-stamp": "^0.2.9",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "webpack": "^4.46.0",
+    "webpack-dev-middleware": "^3.7.3",
+    "webpack-hot-middleware": "file:.."
+  },
+  "scripts": {
+    "start:multientry": "WEBPACK_CONFIG=./webpack.config.multientry.js node server.js",
+    "start": "WEBPACK_CONFIG=./webpack.config.js node server.js",
+    "build": "webpack --config webpack.config.js"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.5.0"
+  }
+}

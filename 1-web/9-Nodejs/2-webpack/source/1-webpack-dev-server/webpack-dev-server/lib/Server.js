@@ -113,23 +113,30 @@ class Server {
       this.setupProgressPlugin();
     }
     // webpack钩子函数
+    // 配置，done， invalid 钩子
     this.setupHooks();
     // 搞一个express服务
+    // this.app = new express();
     this.setupApp();
+    // 检查header的host是否正确
     this.setupCheckHostRoute();
+    // 加入 webpack-dev-middleware express 中间件
     this.setupDevMiddleware();
 
     // set express routes
+    // 配置 devserver 内置的一些router
     routes(this.app, this.middleware, this.options);
 
     // Keep track of websocket proxies for external websocket upgrade.
     this.websocketProxies = [];
-    // 粗略感觉：实际就是如options.https = true,就是再往https添加一些配置
+    // 根据options.compress 等配置，增加server的一些特性，如proxy等
     this.setupFeatures();
+    // 粗略感觉：实际就是如options.https = true,就是再往https添加一些配置
     this.setupHttps();
-    // 构造https，http，普通server
+    // 构造https，http2 或 http 的 server
+    // this.listeningApp =
     this.createServer();
-
+    // 这样，可以非常迅速地终止服务器连接。
     killable(this.listeningApp);
 
     // Proxy websockets without the initial http request

@@ -1,2 +1,2 @@
-var ret = '123123aad12'
+var ret = '123d22ss12'
 module.exports = ret

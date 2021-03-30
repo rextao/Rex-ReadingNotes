@@ -5,6 +5,18 @@ Vue.use(VueRouter);
 
 export const routes: Array<RouteConfig> = [
     {
+        path: '/base',
+        name: 'base',
+        component: () => import(/* webpackChunkName: "about" */ './../pages/index.vue'),
+        children: [
+            {
+                path: 'tooltip',
+                name: 'tooltip',
+                component: () => import(/* webpackChunkName: "about" */ './../pages/base/tooltip.vue'),
+            },
+        ]
+    },
+    {
         path: '/cascader',
         name: 'cascader',
         component: () => import(/* webpackChunkName: "about" */ './../pages/index.vue'),

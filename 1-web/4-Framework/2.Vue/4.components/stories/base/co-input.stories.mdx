@@ -1,0 +1,95 @@
+import { Meta, Story, ArgsTable, } from '@storybook/addon-docs';
+import {
+    CoInput,
+} from '@src/components/base/index';
+
+<Meta
+    title="Base/co-input"
+    component={ CoInput }
+    argTypes={{
+        transform: {
+            control: {
+                type: 'inline-radio',
+                options: ['comma', 'array', 'default']
+            },
+        }
+    }}
+    args={{
+        model: '',
+        transform: 'default',
+    }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+    components: {
+        CoInput,
+    },
+    props: Object.keys(argTypes),
+    template: `
+        <div>
+            <div>同步的model值(此处改变controls的model不能响应式变化) ：  {{model}}</div>
+            <co-input v-bind="$props" v-model="model"></co-input>
+        </div>
+    `,
+});
+
+## 代码引用
+```js
+import {
+    CoInput,
+} from '@src/component/base/index';
+```
+
+### 转换model值
+<Story
+    name="转换model值"
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-input
+    transform="array"
+></co-input>
+```
+
+## slots
+
+export const TemplateSlot = (args, { argTypes }) => ({
+    components: {
+        CoInput,
+    },
+    props: Object.keys(argTypes),
+    template: `
+        <co-input v-bind="$props" v-model="model">
+            <template slot="prepend">
+                 search:
+            </template>
+            <template slot="append">
+                @kuaishou.com
+            </template>
+        </co-input>
+    `,
+});
+
+### prepend与append插槽
+<Story
+    name="prepend与append插槽"
+>
+    {TemplateSlot.bind({})}
+</Story>
+
+```html
+<co-input
+    v-model="model"
+>
+    <template slot="prepend">
+        search:
+    </template>
+    <template slot="append">
+        @kuaishou.com
+    </template>
+</co-input>
+```
+
+<ArgsTable of={CoInput} />

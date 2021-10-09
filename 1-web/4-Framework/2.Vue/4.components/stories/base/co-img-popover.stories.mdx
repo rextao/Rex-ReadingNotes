@@ -1,0 +1,154 @@
+import { Meta, Story, ArgsTable, } from '@storybook/addon-docs';
+import {
+    CoImgPopover,
+} from '@src/components/base/index';
+
+<Meta
+    title="Base/co-img-popover"
+    component={ CoImgPopover }
+    argTypes={{
+    }}
+    args={{
+    }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+    components: {
+        CoImgPopover,
+    },
+    props: Object.keys(argTypes),
+    template: `
+        <co-img-popover v-bind="$props"></co-img-popover>
+    `,
+});
+
+## 代码引用
+```js
+import {
+    CoImgPopover,
+} from '@src/component/base/index';
+```
+
+## 基本用法
+### hover显示放大图片
+
+<Story
+    name="hover显示放大图片"
+    args={{
+        url: 'https://avatars.githubusercontent.com/u/19482744?v=4',
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-img-popover
+    url="https://avatars.githubusercontent.com/u/19482744?v=4"
+></co-img-popover>
+```
+
+### 设置尺寸
+
+<Story
+    name="设置尺寸"
+    args={{
+        url: 'https://avatars.githubusercontent.com/u/19482744?v=4',
+        imgStyle: {
+            width: '150px',
+            height: '150px',
+        },
+        previewStyle: {
+            width: '400px',
+            height: '400px',
+        }
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-img-popover
+    url="https://avatars.githubusercontent.com/u/19482744?v=4"
+    :previewStyle="{
+        width: '400px',
+        height: '400px',
+    }"
+    :imgStyle="{
+        width: '150px',
+        height: '150px',
+    }"
+></co-img-popover>
+```
+
+### 图片出错
+
+<Story
+    name="展示默认的错误图"
+    args={{
+        url: 'https://xxxxxx',
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-img-popover
+    url="https://xxxxxxxx"
+></co-img-popover>
+```
+
+
+<Story
+    name="展示iconfont"
+    args={{
+        url: 'https://xxxxxx',
+        errorIcon: 'el-icon-error'
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-img-popover
+    url="https://xxxxxxxx"
+    errorIcon="el-icon-error"
+></co-img-popover>
+```
+
+
+## slots
+
+export const TemplateSlot = (args, { argTypes }) => ({
+    components: {
+        CoImgPopover,
+    },
+    props: Object.keys(argTypes),
+    template: `
+        <co-img-popover v-bind="$props">
+            <template #error>
+                 error!!!!!
+            </template>
+        </co-img-popover>
+    `,
+});
+
+<Story
+    name="error插槽"
+    args={{
+        url: 'https://xxxxxx',
+    }}
+>
+    {TemplateSlot.bind({})}
+</Story>
+
+```html
+<co-img-popover
+    url="https://xxxxxxxx"
+>
+    <template #error>
+         error!!!!!
+    </template>
+</co-img-popover>
+```
+
+<ArgsTable of={CoImgPopover} />

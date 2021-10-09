@@ -9,7 +9,9 @@
             :label="item[val]"
             :key="getRadioKey(item, v)"
         >
-            <slot name="prepend" :item="item"></slot>{{item[label]}}<slot name="append" :item="item"></slot>
+            <slot name="prepend" :item="item"></slot>
+            {{item[label]}}
+            <slot name="append" :item="item"></slot>
         </component>
     </ks-radio-group>
 </template>
@@ -50,7 +52,9 @@ export default defineComponent<IProps>({
             type: String,
             default: 'label',
         },
-        // 下拉选项的value
+        /**
+       * 下拉选项的value
+       */
         val: {
             type: String,
             default: 'value',

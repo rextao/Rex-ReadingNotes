@@ -1,0 +1,108 @@
+import { Meta, Story, ArgsTable, } from '@storybook/addon-docs';
+import {
+    CoCheckbox,
+} from '@src/components/base/index';
+
+<Meta
+    title="Base/co-checkbox"
+    component={ CoCheckbox }
+    argTypes={{
+        model: {
+            control: {
+                type: 'check',
+            },
+            options: [1, 2, 3, 4],
+        },
+    }}
+    args={{
+        model: [1,2],
+    }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+    components: {
+        CoCheckbox,
+    },
+    props: Object.keys(argTypes),
+    template: `
+        <co-checkbox v-bind="$props" v-model="model"></co-checkbox>
+    `,
+});
+
+## 代码引用
+```js
+import {
+    CoCheckbox,
+} from '@src/component/base/index';
+```
+
+### ckeckbox的简洁用法
+
+如`options`返回字段非label与value，可以通过配置`label`和`val`解决
+
+<Story
+    name="ckeckbox的简洁用法"
+    args={{
+        options: [
+            { label: '上海', value: 1 },
+            { label: '北京', value: 2 },
+            { label: '广州', value: 3 },
+            { label: '深圳', value: 4 },
+        ],
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-checkbox
+    :options="[
+        { label: '上海', value: 1 },
+        { label: '北京', value: 2 },
+        { label: '广州', value: 3 },
+        { label: '深圳', value: 4 },
+    ]"
+></co-checkbox>
+
+<co-checkbox
+    val="id"
+    label="text"
+    :options="[
+        { text: '上海', id: 1 },
+        { text: '北京', id: 2 },
+        { text: '广州', id: 3 },
+        { text: '深圳', id: 4 },
+    ]"
+></co-checkbox>
+```
+
+### 禁用某项
+
+options的disabled字段，可以直接禁用当前项
+
+<Story
+    name="禁用某项"
+    args={{
+        options: [
+            { label: '上海', value: 1, disabled: true },
+            { label: '北京', value: 2, disabled: true },
+            { label: '广州', value: 3 },
+            { label: '深圳', value: 4 },
+        ],
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-checkbox
+    :options="[
+        { label: '上海', value: 1, disabled: true },
+        { label: '北京', value: 2, disabled: true },
+        { label: '广州', value: 3 },
+        { label: '深圳', value: 4 },
+    ]"
+></co-checkbox>
+```
+
+<ArgsTable of={CoCheckbox} />

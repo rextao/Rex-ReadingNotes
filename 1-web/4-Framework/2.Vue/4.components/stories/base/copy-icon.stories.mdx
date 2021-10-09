@@ -1,0 +1,50 @@
+import { Meta, Story, ArgsTable, } from '@storybook/addon-docs';
+import {
+    CopyIcon,
+} from '@src/components/base/index';
+
+<Meta
+    title="Base/copy-icon"
+    component={ CopyIcon }
+    argTypes={{
+    }}
+    args={{
+    }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+    components: {
+        CopyIcon,
+    },
+    props: Object.keys(argTypes),
+    template: `
+        <copy-icon v-bind="$props"></copy-icon>
+    `,
+});
+
+## 代码引用
+```js
+import {
+    CopyIcon,
+} from '@src/component/base/index';
+```
+
+### 复制按钮
+
+<Story
+    name="复制按钮"
+    args={{
+        value: '啊啊啊啊啊啊啊啊啊',
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<copy-icon
+    value="啊啊啊啊啊啊啊啊啊"
+></copy-icon>
+```
+
+
+<ArgsTable of={CopyIcon} />

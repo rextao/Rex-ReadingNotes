@@ -18,25 +18,25 @@
 <script lang="ts">
 import { ref, computed, defineComponent } from '@vue/composition-api';
 import { Input } from 'element-ui';
-const TYPE_TRANSFORM_METHODS: Record<string, any> = {
+const TYPE_TRANSFORM_METHODS = {
     // 输入中英文，可能需要
     comma: {
-        get(value: any) {
+        get(value) {
             return value;
         },
-        output(value: any) {
+        output(value) {
             return value.trim().replace(/，/g, ',');
         },
     },
     // 提交数据为数组，需将逗号（中或英文）split
     array: {
-        get(value: any) {
+        get(value) {
             if (Array.isArray(value)) {
                 return value.join();
             }
             return value;
         },
-        output(value: any) {
+        output(value) {
             // 数组类型，将以逗号（兼容中文逗号）分隔的文本数组形式输出
             if (!value) {
                 return [];
@@ -46,7 +46,7 @@ const TYPE_TRANSFORM_METHODS: Record<string, any> = {
     },
 };
 // append与prepend 配置
-const CONFIG: Record<string, any> = {
+const CONFIG = {
     email: {
         text: '@kuaishou',
     },
@@ -66,14 +66,18 @@ export default defineComponent<IProps>({
             type: [String, Array, Number],
             default: '',
         },
-        // array, email
+        /**
+         * default: 不进行转换
+         * comma: 将中文逗号转为英文
+         * array： 将逗号分隔的文本转为数组
+         */
         transform: {
             type: String,
             default: 'default',
         },
     },
     setup(props, context) {
-        const inputRef = ref<any>({});
+        const inputRef = ref(null);
         const transformMethod = computed(() => {
             return TYPE_TRANSFORM_METHODS[props.transform];
         });

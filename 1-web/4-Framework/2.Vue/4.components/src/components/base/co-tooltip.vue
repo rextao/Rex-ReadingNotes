@@ -42,22 +42,22 @@ interface IProps {
     len: number;
     autoCal: boolean;
 }
-interface Ioptions {
+interface IOptions {
     font?: string;
     targetDom?: HTMLElement;
     text?: string;
 };
 // 利用canvas计算文本长度
-function textMeasure(text: string, options: Ioptions = {}): number {
+function textMeasure(text: string, options: IOptions = {}): number {
     // 以下两项应该放在外层 避免每次使用都不必要的创建
-    const defaultOptions: Ioptions = {
+    const defaultOptions: IOptions = {
         font: '12px sans-serif',
         targetDom: undefined,
     };
 
     const canvas: HTMLCanvasElement = document.createElement('canvas');
 
-    const cfg: Ioptions = Object.assign({}, defaultOptions, options);
+    const cfg: IOptions = Object.assign({}, defaultOptions, options);
     if (cfg.targetDom) {
         const domStyle: CSSStyleDeclaration = getComputedStyle(cfg.targetDom);
         cfg.font = domStyle.font;
@@ -75,43 +75,59 @@ export default defineComponent<IProps>({
         KsTooltip: Tooltip,
     },
     props: {
-        // 设置字数省略模式
+        /**
+         * 设置字数省略模式
+         */
         lineClamp: {
             type: [Number, String],
             default: undefined,
         },
-        // 设置样式， 想通过简洁方式，直接复用 line-clamp 样式，不行的话直接使用slot
+        /**
+         * 设置样式， 想通过简洁方式，直接复用 line-clamp 样式，不行的话直接使用slot
+         */
         lineClampClass: {
             type: String,
             default: '',
         },
+        /**
+         * tooltip要显示的文案
+         */
         content: {
             type: String,
             default: '',
         },
-        // 弹窗宽度，需px单位
+        /**
+         * 弹窗宽度，需px单位
+         */
         contentWidth: {
             type: String,
             default: '',
         },
-        // 只支持iconfont，其他可以直接slot
+        /**
+         * 只支持iconfont，其他可以直接slot
+         */
         iconfont: {
             type: String,
             default: 'el-icon-warning-outline',
         },
-        // 当文字长度小于等于len（粗略计算），会禁用tooltip
+        /**
+         * 当文字长度小于等于len（粗略计算），会禁用tooltip
+         * 通过mouseEnter计算 text.value.scrollWidth > text.value.offsetWidth;会精准
+         */
         len: {
             type: Number,
             default: 0,
         },
-        // true， 且 coTooltipRef.value.$el存在，
-        // 文字长度通过canvas自动计算,较为精确
+        /**
+         * true， 且 coTooltipRef.value.$el存在，
+         * 文字长度通过canvas自动计算,较为精确
+         */
         autoCal: {
             type: Boolean,
-            default: true,
+            default: false,
         }
     },
-    setup(props) {
+    setup(props, { attrs, slots }) {
         const coTooltipRef = ref<any>({});
         const contentStyle = computed(() => {
             return {
@@ -125,10 +141,11 @@ export default defineComponent<IProps>({
             };
         });
         function setDisabled() {
+            debugger;
             const targetDom  = coTooltipRef.value && coTooltipRef.value.$el;
             const { len, content, lineClamp, autoCal } = props;
             // 无文本，则不显示 tooltip
-            if (!content) {
+            if (!content && !slots.content || attrs.disabled) {
                 return true;
             }
             // 文本clamp形式
@@ -146,8 +163,10 @@ export default defineComponent<IProps>({
                 return domWidth * lineClamp> measureWidth;
             }
             // 如autoCal = false，或targetDom不存在
+            console.log(`${content}`.length <= len);
             if (len > 0) {
-                return content.length <= len;
+                // 避免content为数字
+                return `${content}`.length <= len;
             }
             return false;
         }

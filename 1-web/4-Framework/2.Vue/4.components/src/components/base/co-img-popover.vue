@@ -24,16 +24,18 @@
         v-else
         :style="previewStyle"
     >
-        <span
-            v-if="defaultImg"
-            class="iconfont icon-liebiaozhuangtai-fasongzhong"
-        ></span>
-        <img
-            v-else
-            class="img"
-            src="https://cdnfile.corp.kuaishou.com/kc/files/a/polaris/public/img/hot-video-topic-magic-default-img.png"
-            alt=""
-        >
+        <slot name="error">
+            <span
+                v-if="errorIcon"
+                :class="errorIcon"
+            ></span>
+            <img
+                v-else
+                class="img"
+                :src="errorImg"
+                alt=""
+            >
+        </slot>
     </div>
 </template>
 <script lang="ts">
@@ -54,11 +56,16 @@ export default defineComponent<IProps>({
         KsPopover: Popover,
     },
     props: {
+        /**
+         *  需要显示的图片url
+         */
         url: {
             type: String,
             default: '',
         },
-        // popover弹窗图片的宽高尺寸
+        /**
+         * popover弹窗图片的宽高尺寸
+         */
         imgStyle: {
             type: Object,
             default: () => ({
@@ -66,7 +73,9 @@ export default defineComponent<IProps>({
                 height: '150px',
             }),
         },
-        // 图片尺寸
+        /**
+         * 图片尺寸
+         */
         previewStyle: {
             type: Object,
             default: () => ({
@@ -74,10 +83,16 @@ export default defineComponent<IProps>({
                 height: '50px',
             }),
         },
-        // 默认图片，true，使用默认图片，false，使用默认icon，string，则使用传入图片
-        defaultImg: {
-            type: [String, Boolean],
-            default: false,
+        errorIcon: {
+            type: String,
+            default:''
+        },
+        /**
+         * 图片加载error时，展示的图片
+         */
+        errorImg: {
+            type: String,
+            default: 'https://cdnfile.corp.kuaishou.com/kc/files/a/polaris/public/img/hot-video-topic-magic-default-img.png',
         },
     },
     setup(props, ctx) {

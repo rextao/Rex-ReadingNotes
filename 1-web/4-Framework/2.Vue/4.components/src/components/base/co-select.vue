@@ -3,7 +3,6 @@
         class="co_select"
         ref="select"
         v-model="model"
-        popper-class="co_select_popper"
         @focus="handleFocus"
         v-bind="bindProps"
     >

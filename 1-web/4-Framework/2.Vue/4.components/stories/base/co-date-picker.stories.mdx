@@ -1,0 +1,193 @@
+import { Meta, Story, ArgsTable, } from '@storybook/addon-docs';
+import {
+    CoDatePicker,
+} from '@src/components/base/index';
+
+<Meta
+    title="Base/co-date-picker"
+    component={ CoDatePicker }
+    argTypes={{
+        pickStartTime: {
+            control: {
+                type: 'date',
+            },
+        },
+        pickEndTime: {
+            control: {
+                type: 'date',
+            },
+        },
+        shortcuts: {
+            control: {
+                type: 'inline-check',
+                options:  ['week','month', 'month3','yearHalf','year']
+            },
+        },
+    }}
+    args={{
+        model: [Date.now(), Date.now()],
+    }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+    components: {
+        CoDatePicker,
+    },
+    props: Object.keys(argTypes),
+    template: `
+        <co-date-picker v-bind="$props" v-model="model"></co-date-picker>
+    `,
+});
+
+## 代码引用
+```js
+import {
+    CoDatePicker,
+} from '@src/component/base/index';
+```
+
+## 时间禁用
+### 从昨天禁用（快捷方式）
+<Story
+    name="从今天 - 1 天 禁用"
+    args={{
+        pickStartTime: true
+    }}
+    argTypes={{
+        pickStartTime: {
+            control: {
+                type: 'boolean',
+            },
+        },
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-date-picker
+    :pick-start-time="true"
+></co-date-picker>
+```
+
+### 从某个时间开始禁用
+<Story
+    name="从某个时间开始禁用"
+    args={{
+        pickStartTime: Date.now()
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-date-picker
+    :pick-start-time="Date.now()"
+></co-date-picker>
+```
+
+### 开始与结束时间禁用
+<Story
+    name="开始与结束时间禁用"
+    args={{
+        pickStartTime: Date.now(),
+        pickEndTime: Date.now() + 3 *24 * 3600* 1000
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-date-picker
+    :pick-start-time="Date.now()"
+    :pick-end-time="Date.now() + 3 *24 * 3600* 1000"
+></co-date-picker>
+```
+
+### 最多选择n天
+<Story
+    name="只可以选择n天"
+    args={{
+        pickTimeNum: 15,
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+```html
+<co-date-picker
+    :pick-time-num="15"
+></co-date-picker>
+```
+
+## shortcuts快捷使用
+
+<Story
+    name="shortcuts快捷使用"
+    args={{
+        shortcuts: ['week','month', 'month3','yearHalf','year']
+    }}
+>
+    {Template.bind({})}
+</Story>
+
+shortcuts配置为 true，则默认使用全部可用shortcuts
+
+```html
+<co-date-picker
+    :shortcuts: "['week','month', 'month3','yearHalf','year']"
+></co-date-picker>
+```
+
+## 数据绑定到form对象上
+export const TemplateForm = (args, { argTypes }) => ({
+    components: {
+        CoDatePicker,
+    },
+    props: Object.keys(argTypes),
+    template: `
+        <div>
+            使用如下方式, 可以将数据同步到form.start与form.end上： form = {{model}}
+            <co-date-picker v-bind="$props" v-model="model"></co-date-picker>
+        </div>
+    `,
+});
+
+
+<Story
+    name="数据绑定到form对象上"
+    args={{
+        bindStartValue: 'start',
+        bindEndValue: 'end',
+        model: {
+            start: Date.now(),
+            end: Date.now(),
+        },
+    }}
+>
+    {TemplateForm.bind({})}
+</Story>
+
+```html
+<script>
+import { reactive, defineComponent } from '@vue/composition-api';
+export default defineComponent({
+    setup(props) {
+        const form = reactive({
+            start: '',
+            end: '',
+        })
+        return {
+            form
+        };
+    },
+});
+</script>
+<co-date-picker
+    v-model="model"
+    bind-start-value="start"
+    bind-end-value="end"
+></co-date-picker>
+```
+
+<ArgsTable of={CoDatePicker} />

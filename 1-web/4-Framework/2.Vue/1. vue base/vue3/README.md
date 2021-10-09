@@ -44,89 +44,10 @@
 
    
 
+
 2. vue是强制将数据层分离
 
    - 主要是html代码需要写在template字段或利用render函数，而不像react，直接return一个jsx
-
-
-
-# 设计目标
-
-## 更快
-
-### 使用Proxy代替Object.defineProperty
-
-1. defineProperty会对对象不停的改变，会更影响js引擎的优化 
-
-### 编译优化
-
-1. slot默认编译为函数，父子组件避免强耦合
-2. vnode参数一致化，并未children带上类型，可以使runtime更快
-
-### virtual dom的性能瓶颈
-
-1. 核心价值是一个抽象层，用于描述当前ui的样式
-
-2. 一个组件内，还是需要循环遍历比较，如果组件内节点很多，也不一定在16ms内就能完成更新
-
-3. react的jsx和手写render function是完全动态的，过渡的灵活性导致运行时用于优化的信息不足
-
-   ```javascript
-   function render() {
-     const children = [];
-     for(let i = 0; i < 5; i++) {
-   		children.push(h('p', {
-         class: 'text'
-       }, i === 2 ? this.message : 'rex'))
-     }
-     return h('div', { id: 'content'}, children)
-   }
-   ```
-
-   - 运行时是无法推测出`i === 2` 时，显示`this.message`
-   - react的解决办法是时间分片，react承认无法将一段更新足够快，利用时间分片的方式，将更新分在不同的cpu片段
-
-4. 但对于vue模板是一眼可以看出哪个数据是变化的
-
-   - 因此传统dom的性能跟模板大小正相关，与动态节点数量无关
-   - 如果组件模板只有少量动态节点，遍历都是性能浪费（默认的dom diff，会遍历组件内部所有dom）
-
-5. 业界解决方案
-
-   - svelte 没有virtual dom，走极致的编译路线，如
-
-     ```javascript
-     <h1>hell, {name}</h1>
-     // 极致的编译结果
-     p(changed, ctx) {
-       if(changed.name) {
-         set_data(t1, ctx.name)
-       }
-     }
-     ```
-
-   - 限制是，你只能用模板，不能使用模板更底层的东西，放弃了virtual dom和js的灵活性与表达力
-
-   - 换来的是极致的更新性能
-
-6. 为何不能抛弃virtual dom
-
-   - 某些库使用render函数会灵活的多
-   - 兼容2.x
-   - 目标是：兼容手写render function，又能最大化利用模板静态信息的算法
-
-7. 新的virtual dom方案
-
-   - 主要是对模板进行切分，可以切分为内部一些静态的块，减少无畏的遍历
-   - 将vdom更新性能由于模板大小相关提升为与动态内容的数量相关
-
-## 支持Typescript
-
-### 废弃class api，使用composition api
-
-1. Vue2为了支持ts，一般会使用`vue-class-component`这个库（基于装饰器的）
-2. 目标只是为了更好的支持ts，class api是需要基于装饰器的，但装饰器还处于stage2阶段，非常不稳定
-3. 除了类型支持外，Class API并不带有任何新的优势，即写ui时很少会用到继承
 
 
 

@@ -627,3 +627,11 @@
       <script src="a.js"></script>
       ```
 
+# tree shaking
+
+1. 依赖于EMS的静态分析，与纯函数
+2. 使用时，需要注意的几点
+   - 使用ESMs，注意依赖的包最好也是导出为ESMs
+   - 注意依赖包sideEffects的设置 
+   - 如果输出为commonJs，注意要导出优化好的结果
+3. 使用typescript、babel等，可能因为配置不对，将代码输出为commonJs或非EMS，导致无法tree-shaking

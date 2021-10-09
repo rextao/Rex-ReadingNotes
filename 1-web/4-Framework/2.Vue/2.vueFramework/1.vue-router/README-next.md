@@ -364,7 +364,42 @@ app.mount('#app')
 4. redirect处理
 
    - 如果配置了redirect，则会调用`pushWithRedirect`，跳到 redirect 配置的地址
+   
+5. query是如何生成的，为何空数组会生成为空字符串
 
+   - https://next.router.vuejs.org/zh/api/#parsequery，可以通过parsequery配置解析query的方式
+
+   - 默认实现在：src/query.ts  的 stringifyQuery，数组为空则不会将key添加到query里
+
+     ```typescript
+     export function stringifyQuery(query: LocationQueryRaw): string {
+       let search = ''
+       for (let key in query) {
+         if (search.length) search += '&'
+         const value = query[key]
+         key = encodeQueryKey(key)
+         if (value == null) {
+           // only null adds the value
+           if (value !== undefined) search += key
+           continue
+         }
+         // keep null values
+         let values: LocationQueryValueRaw[] = Array.isArray(value)
+           ? value.map(v => v && encodeQueryValue(v))
+           : [value && encodeQueryValue(value)]
+     
+         for (let i = 0; i < values.length; i++) {
+           // only append & with i > 0
+           search += (i ? '&' : '') + key
+           if (values[i] != null) search += ('=' + values[i]) as string
+         }
+       }
+     
+       return search
+     }
+     ```
+
+     
 
 
 

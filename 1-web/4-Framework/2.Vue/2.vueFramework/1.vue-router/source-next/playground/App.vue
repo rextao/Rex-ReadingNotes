@@ -47,7 +47,7 @@
         >
       </li>
       <li>
-        <router-link :to="{ path: '/', query: { currency: '€uro', é: 'e' } }"
+        <router-link :to="{ path: '/', query: { a: 1, b: '1', c: {d:{dd: '123'}}, d: [1,23,4], e: [] } }"
           >/currency=€uro&é=e (object)</router-link
         >
       </li>

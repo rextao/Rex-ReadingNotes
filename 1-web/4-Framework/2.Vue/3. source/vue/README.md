@@ -667,11 +667,11 @@ export default {
   
 1. 然后比较，`sameVnode(oldEndVnode, newStartVnode)`为true，故将新元素插入到OldStartVnode后面
 		| DOM      | 1    | 9    | 3           | 4    | 7    | 8         | 2    | 10   |
-  | -------- | ---- | ---- | ----------- | ---- | ---- | --------- | ---- | ---- |
-  |          |      |      | oldStartIdx |      |      | oldEndIdx |      |      |
-  | oldVnode | 1    | 2    | 3           | 4    | 7    | 8         | 9    | 10   |
-  | vnode    | 1    | 9    | 11          | 7    | 3    | 4         | 2    | 10   |
-  |          |      |      | newStartIdx |      |      | newEndIdx |      |      |
+    | -------- | ---- | ---- | ----------- | ---- | ---- | --------- | ---- | ---- |
+    |          |      |      | oldStartIdx |      |      | oldEndIdx |      |      |
+    | oldVnode | 1    | 2    | 3           | 4    | 7    | 8         | 9    | 10   |
+    | vnode    | 1    | 9    | 11          | 7    | 3    | 4         | 2    | 10   |
+    |          |      |      | newStartIdx |      |      | newEndIdx |      |      |
   
 1. 下一次循环，发现所有比对都不是sameVnode，故newStartVnode会在old序列中查找，发现未找到，则表示11，是一个新节点，直接调用createElm在当前位置创建节点
 			| DOM      | 1    | 9    | 11   | 3           | 4           | 7    | 8         | 2    | 10   |
@@ -683,19 +683,19 @@ export default {
   
 1. 下一次循环，比对7，发现7在old序列中有值，实际是挪动位置，本质是将7插入此位置，oldVnode的7的位置设为undefined（但dom并没有被删除）
 				| DOM      | 1    | 9    | 11->7 | 3           | 4    | 7           | 8         | 2    | 10   |
-  | -------- | ---- | ---- | ----- | ----------- | ---- | ----------- | --------- | ---- | ---- |
-  |          |      |      |       | oldStartIdx |      |             | oldEndIdx |      |      |
-  | oldVnode | 1    | 2    |       | 3           | 4    | undefined   | 8         | 9    | 10   |
-  | vnode    | 1    | 9    |       | 11          | 7    | 3           | 4         | 2    | 10   |
-  |          |      |      |       |             |      | newStartIdx | newEndIdx |      |      |
+    | -------- | ---- | ---- | ----- | ----------- | ---- | ----------- | --------- | ---- | ---- |
+    |          |      |      |       | oldStartIdx |      |             | oldEndIdx |      |      |
+    | oldVnode | 1    | 2    |       | 3           | 4    | undefined   | 8         | 9    | 10   |
+    | vnode    | 1    | 9    |       | 11          | 7    | 3           | 4         | 2    | 10   |
+    |          |      |      |       |             |      | newStartIdx | newEndIdx |      |      |
 	
 1. 下次循环，发现头头相同，即3，4相同，不需要挪动dom得到
 					| DOM      | 1    | 9    | 11->7 | 3    | 4    | 7           | 8         | 2           | 10   |
-  | -------- | ---- | ---- | ----- | ---- | ---- | ----------- | --------- | ----------- | ---- |
-  |          |      |      |       |      |      | oldStartIdx | oldEndIdx |             |      |
-  | oldVnode | 1    | 2    |       | 3    | 4    | undefined   | 8         | 9           | 10   |
-  | vnode    | 1    | 9    |       | 11   | 7    | 3           | 4         | 2           | 10   |
-  |          |      |      |       |      |      |             | newEndIdx | newStartIdx |      |
+    | -------- | ---- | ---- | ----- | ---- | ---- | ----------- | --------- | ----------- | ---- |
+    |          |      |      |       |      |      | oldStartIdx | oldEndIdx |             |      |
+    | oldVnode | 1    | 2    |       | 3    | 4    | undefined   | 8         | 9           | 10   |
+    | vnode    | 1    | 9    |       | 11   | 7    | 3           | 4         | 2           | 10   |
+    |          |      |      |       |      |      |             | newEndIdx | newStartIdx |      |
   
 1. 循环结束，发现newStartIdx>newEndIdx，故需要删除7，8这两个dom，得到最终结果：1>9>11>7>3>4>2>10
 
@@ -734,8 +734,8 @@ export default {
 
 1. 并不是所有数据都是响应式的，很多数据是首次渲染后就永远不会变化的，那么这部分数据生成的 DOM 也不会变化，可以在 patch 的过程跳过对他们的比对
 2. optimize的过程可以分为两步
-   - 利用markStatic函数，标记静态节点
-   - 利用markStaticRoots函数，标记静态根
+   - 利用markStatic函数，标记静态节点，即标记`node.static` true或false
+   - 利用markStaticRoots函数，标记静态根，即标记`node.staticRoot` true 或false
 
 ### generate
 

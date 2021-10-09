@@ -62,7 +62,7 @@ export class Store {
     // this also recursively registers all sub-modules
     // and collects all module getters inside this._wrappedGetters
     // 1. 为前面定义的变量进行赋值
-    installModule(this, state, [] ,  )
+    installModule(this, state, [], this._modules.root)
 
     // initialize the store vm, which is responsible for the reactivity
     // (also registers _wrappedGetters as computed properties)
@@ -140,7 +140,7 @@ export class Store {
     // 1. 根据type获取`_actions`对应的actions
     const action = { type, payload }
     const entry = this._actions[type]
-    if (!entry) { 
+    if (!entry) {
       if (process.env.NODE_ENV !== 'production') {
         console.error(`[vuex] unknown action type: ${type}`)
       }

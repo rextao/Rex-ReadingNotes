@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>粘性效果</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <style>
+        body {
+            padding: 50px;
+        }
+        .stage {
+            /* must be explicit, for contrast */
+            background: white;
+            /* weirdness happens when edges hit */
+            padding: 30px;
+            /* autoprefixer helping here */
+        }
+        .stage.Gooey  {
+            /*毕竟对比度，对比度越大，越鲜明*/
+            /*0时为全黑，100图片不变*/
+            /*20表示20%*/
+            -webkit-filter: contrast(20);
+            filter: contrast(20);
+        }
+        .dot {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            /* needs to be very contrasty color. Some light gray won't work */
+            background: black;
+            -webkit-filter: blur(15px);
+            filter: blur(15px);
+        }
+        /*主要为了显示动画效果，可能会有点问题*/
+        .rotate{
+            animation: rotate 5s linear infinite;
+            border-radius: 0;
+            width: 60px;
+            height: 60px;
+        }
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<!--css过滤器，blur与contrast实现粘性效果-->
+<p><a href="https://codepen.io/chriscoyier/pen/lIBAg?editors=1100">https://codepen.io/chriscoyier/pen/lIBAg?editors=1100</a></p>
+<div class="stage">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+<div class="stage Gooey">
+    <div class="dot rotate"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+
+</body>
+</html>

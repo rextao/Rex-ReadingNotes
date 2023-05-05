@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dancing Skeleton ☠ CSS Only</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css">
+
+    <style>
+        /*颜色定义*/
+        :root {
+            --color-background: #837391;
+            --color-primary: #D8D1C0;
+            --color-secondary: #A99378;
+            --color-tertiary: #272728;
+            --color-shadow: #695C74;
+            font-size: 0.9vw;
+            color: #fff;
+        }
+        /*浏览器默认样式清除*/
+        * {
+            margin: 0;
+            padding: 0;
+            /*避免padding，对盒子模型影响*/
+            box-sizing: border-box;
+        }
+        /*样式都为absolute，省的每个元素后都写content*/
+        *::after, *::before { content: ""; }
+        /*辅助样式*/
+        body {
+            background: var(--color-background);
+            height: 100vh;
+            padding: 0 50px;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+        }
+
+        /*骷髅*/
+        .skeleton {
+            width: 12rem;
+            height: 20rem;
+            position: relative;
+        }
+        /*头骨样式*/
+        .head {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 43%;
+        }
+        .head-hemispheres {
+            position: absolute;
+            width: 100%;
+            height: 85%;
+            overflow: hidden;
+            z-index: -2;
+        }
+        .head-hemispheres::before, .head-hemispheres::after{
+            width: 75%;
+            height: 110%;
+            position: absolute;
+            border-radius: 50%;
+            background: var(--color-primary);
+        }
+            /*控制圆位置*/
+        .head-hemispheres::before {
+            left: 0;
+        }
+        .head-hemispheres::after {
+            right: 0;
+        }
+        /*眼睛样式*/
+        .eye {
+            position: absolute;
+            width: 2.8rem;
+            height: 2.8rem;
+            background: var(--color-tertiary);
+            border-radius: 50%;
+            bottom: 30%;
+        }
+        .eye::before{
+            position: absolute;
+            bottom: 0.4rem;
+            width: 2.8rem;
+            height: 2.8rem;
+            border-radius: 50%;
+            background: var(--color-secondary);
+            z-index: -1;
+        }
+        .eye-left {
+            left: 20%;
+        }
+        .eye-right{
+            right: 20%;
+        }
+        /*鼻子*/
+        .nose{
+            z-index: 1;
+            position: absolute;
+            bottom: 20%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 1.3rem;
+            height: 0.7rem;
+            background: var(--color-tertiary);
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        }
+        .nose-shadow{
+            position: absolute;
+            bottom: 20%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 1.3rem;
+            height: 1rem;
+            background: var(--color-secondary);
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        }
+        /*嘴巴*/
+        .mouth{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 50%;
+            height: 16%;
+            background: var(--color-primary);
+            clip-path: polygon(0 0, 100% 0,80% 100%, 20% 100%);
+        }
+        /*牙齿*/
+        .mouth::before{
+            position: absolute;
+            bottom: 0;
+            left: 34%;
+            width: 0.4rem;
+            height: 1rem;
+            background: var(--color-secondary);
+            border-radius: 3rem 3rem 0 0;
+        }
+        .mouth::after{
+            position: absolute;
+            bottom: 0;
+            right: 34%;
+            width: 0.4rem;
+            height: 1rem;
+            background: var(--color-secondary);
+            border-radius: 3rem 3rem 0 0;
+        }
+    </style>
+</head>
+<body>
+<h1 style="color: red;">使用rem与%为单位，方便控制大小</h1>
+<h1>绘制骷髅头</h1>
+<p>骷髅头主要分为，头骨、眼睛、鼻子、嘴</p>
+<h2>1、head-hemispheres头骨</h2>
+<p>外div高度85，overflow:hidden；div::before与div::after高度110%的圆
+    这样就可以形成骷髅头骨样子
+</p>
+<pre><code class="css hljs">.head {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 43%;
+}
+.head-hemispheres {
+    position: absolute;
+    width: 100%;
+    height: 85%;
+    overflow: hidden;
+    z-index: -2;
+}
+.head-hemispheres::before, .head-hemispheres::after{
+    width: 75%;
+    height: 110%;
+    position: absolute;
+    border-radius: 50%;
+    background: var(--color-primary);
+}
+/*控制圆位置*/
+.head-hemispheres::before {
+    left: 0;
+}
+.head-hemispheres::after {
+    right: 0;
+}
+</code></pre>
+<div class="skeleton">
+    <div class="head">
+        <div class="head-hemispheres"></div>
+    </div>
+</div>
+<h2>2、eye眼睛</h2>
+<p>注意：::before与z-index之间关系，温习了下z-index</p>
+<p>利用before生成眼睛阴影，减少两个元素</p>
+<pre><code class="css hljs">.eye {
+position: absolute;
+width: 2.8rem;
+height: 2.8rem;
+background: var(--color-tertiary);
+border-radius: 50%;
+bottom: 30%;
+}
+.eye::before{
+position: absolute;
+bottom: 0.4rem;
+width: 2.8rem;
+height: 2.8rem;
+border-radius: 50%;
+background: var(--color-secondary);
+z-index: -1;
+}
+.eye-left {
+left: 20%;
+}
+.eye-right{
+right: 20%;
+}
+</code></pre>
+<div class="skeleton">
+    <div class="head">
+        <div class="head-hemispheres"></div>
+        <div class="eye eye-left"></div>
+        <div class="eye eye-right"></div>
+    </div>
+</div>
+
+<h2>3、nose鼻子</h2>
+<p>形成三角形</p>
+<p>clip-path属性，注意：clip-path会产生层叠上下文，故无法使用眼睛的方式，产生鼻子</p>
+<p>注意：clip-path，Global使用88%，但ie，edge都不支持，chrome所有版本支持部分，firefox54+都支持</p>
+<pre><code class="css hljs">.nose{
+    z-index: 1;
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 1.3rem;
+    height: 0.7rem;
+    background: var(--color-tertiary);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.nose-shadow{
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 1.3rem;
+    height: 1rem;
+    background: var(--color-secondary);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+</code></pre>
+<div class="skeleton">
+    <div class="head">
+        <div class="head-hemispheres"></div>
+        <div class="eye eye-left"></div>
+        <div class="eye eye-right"></div>
+        <div class="nose"></div>
+        <div class="nose-shadow"></div>
+    </div>
+</div>
+<h2>4、mouth嘴巴</h2>
+<p>梯形绘制,position:absolute，利用left，right也可使元素居中</p>
+<pre><code class="css hljs">.mouth{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 50%;
+    height: 16%;
+    background: var(--color-primary);
+    clip-path: polygon(0 0, 100% 0,80% 100%, 20% 100%);
+}</code></pre>
+<div class="skeleton">
+    <div class="head">
+        <div class="head-hemispheres"></div>
+        <div class="eye eye-left"></div>
+        <div class="eye eye-right"></div>
+        <div class="nose"></div>
+        <div class="nose-shadow"></div>
+        <div class="mouth">
+        </div>
+    </div>
+</div>
+
+<h2>5、teeth牙齿</h2>
+<p>牙齿两个，左右对称，分别用left与right</p>
+<pre><code class="css hljs">.mouth::before{
+    position: absolute;
+    bottom: 0;
+    left: 34%;
+    width: 0.4rem;
+    height: 1rem;
+    background: var(--color-secondary);
+    border-radius: 3rem 3rem 0 0;
+}
+.mouth::after{
+    position: absolute;
+    bottom: 0;
+    right: 34%;
+    width: 0.4rem;
+    height: 1rem;
+    background: var(--color-secondary);
+    border-radius: 3rem 3rem 0 0;
+}
+</code></pre>
+<div class="skeleton">
+    <div class="head">
+        <div class="head-hemispheres"></div>
+        <div class="eye eye-left"></div>
+        <div class="eye eye-right"></div>
+        <div class="nose"></div>
+        <div class="nose-shadow"></div>
+        <div class="mouth">
+        </div>
+    </div>
+</div>
+
+<style>
+    /*身体容器*/
+    .below-head-container {
+        width: 75%;
+        left: 12.5%;
+        position: absolute;
+        height: 57%;
+        bottom: 0;
+    }
+    .backbone {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        top: 0;
+        height: 45%;
+        width: 1rem;
+        background: var(--color-secondary);
+    }
+    .backbone::before{
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% + 3rem);
+        border-radius: 1rem;
+        height: 90%;
+        background: var(--color-secondary);
+    }
+    /*主骨骼*/
+    .body {
+        position: absolute;
+        top: calc(0.2 * 45%);
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+    }
+    .body-inner {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 62%;
+    }
+    .main-bone {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 1rem;
+        height: 95%;
+        background: var(--color-primary);
+    }
+</style>
+<h1>身体</h1>
+<h2>1、骨骼后内脏</h2>
+<p>利用translateX(-50%)居中，不用考虑当前元素多宽；利用before，after构建稍微复杂的图形</p>
+<pre><code class="css hljs">.below-head-container {
+    width: 75%;
+    left: 12.5%;
+    position: absolute;
+    height: 57%;
+    bottom: 0;
+}
+.backbone {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 0;
+    height: 45%;
+    width: 1rem;
+    background: var(--color-secondary);
+}
+.backbone::before{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% + 3rem);
+    border-radius: 1rem;
+    height: 90%;
+    background: var(--color-secondary);
+}
+</code></pre>
+<div class="skeleton">
+    <div class="below-head-container">
+        <div class="backbone"></div>
+    </div>
+</div>
+
+<h2>2、主骨骼</h2>
+<pre><code class="css hljs">.main-bone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 1rem;
+    height: 95%;
+    background: var(--color-primary);
+}</code></pre>
+<div class="skeleton">
+    <div class="below-head-container">
+        <div class="backbone"></div>
+        <div class="body">
+            <div class="body-inner">
+                <div class="main-bone"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>3、肩膀</h2>
+<style>
+    .shoulder {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 2.2rem;
+        border-radius: 2rem;
+        background: var(--color-primary);
+        clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+    }
+</style>
+<p>完全可以使用 border-top-left-radius与border-top-left-radius实现</p>
+<pre><code class="css hljs">.shoulder {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 2.2rem;
+    border-radius: 2rem;
+    background: var(--color-primary);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}</code></pre>
+<div class="skeleton">
+    <div class="below-head-container">
+        <div class="backbone"></div>
+        <div class="body">
+            <div class="body-inner">
+                <div class="main-bone"></div>
+                <div class="shoulder"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>4、胸腔</h2>
+<p>主要是利用transform:skew对长方形做倾斜</p>
+<style>
+    .rib-cage {
+        position: absolute;
+        width: 1rem;
+        height: 0.8rem;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+    .rib-cage-1 {
+        top: 1.5rem;
+    }
+    .rib-cage-2 {
+        top: 2.8rem;
+    }
+    .rib-cage::before {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        height: 100%;
+        width: 2.7rem;
+        background: var(--color-primary);
+        transform: skew(0, 10deg);
+    }
+    .rib-cage::after {
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        height: 100%;
+        width: 2.7rem;
+        background: var(--color-primary);
+        transform: skew(0, -10deg);
+    }
+</style>
+<pre><code class="css hljs">.rib-cage {
+    position: absolute;
+    width: 1rem;
+    height: 0.8rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.rib-cage-1 {
+    top: 1.5rem;
+}
+.rib-cage-2 {
+    top: 2.8rem;
+}
+.rib-cage::before {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    height: 100%;
+    width: 2.7rem;
+    background: var(--color-primary);
+    transform: skew(0, 10deg);
+}
+.rib-cage::after {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    height: 100%;
+    width: 2.7rem;
+    background: var(--color-primary);
+    transform: skew(0, -10deg);
+}</code></pre>
+<div class="skeleton">
+    <div class="below-head-container">
+        <div class="backbone"></div>
+        <div class="body">
+            <div class="body-inner">
+                <div class="main-bone"></div>
+                <div class="shoulder"></div>
+                <div class="rib-cage rib-cage-1"></div>
+                <div class="rib-cage rib-cage-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>5、肾脏kidney</h2>
+<p>如不使用kidney-cover，可以调整kidney，before与after的left，right位置，使两者重合</p>
+<p>kidney-cover相当于利用一个原型进行覆盖形成结果，至于圆选多大，怎么clip-path，需要计算下。。或者手动调整</p>
+<style>
+    .kidney-cover {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        /*利用translateX居中*/
+        transform: translateX(-50%);
+        width: 5.7rem;
+        height: 5.7rem;
+        border-radius: 50%;
+        opacity: 1;
+        z-index: 1;
+        background: var(--color-primary);
+        clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%);
+    }
+    .kidney {
+        position: absolute;
+        bottom: -0.3rem;
+        width: 2.8rem;
+        height: 1.5rem;
+        margin: 0 auto;
+        right: 0;
+        left: 0;
+    }
+    .kidney::after {
+        width: 100%;
+        height: 100%;
+        border-radius: 1rem;
+        background: var(--color-primary);
+        transform-origin: left center;
+        transform: rotate(-35deg);
+        position: absolute;
+        left:50%;
+    }
+    .kidney::before{
+        width: 100%;
+        height: 100%;
+        border-radius: 1rem;
+        background: var(--color-primary);
+        transform-origin: right center;
+        transform: rotate(35deg);
+        position: absolute;
+        right: 50%;
+    }
+</style>
+<pre><code class="css hljs">.kidney-cover {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    /*利用translateX居中*/
+    transform: translateX(-50%);
+    width: 5.7rem;
+    height: 5.7rem;
+    border-radius: 50%;
+    opacity: 1;
+    z-index: 1;
+    background: var(--color-primary);
+    clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%);
+}
+.kidney {
+    position: absolute;
+    bottom: -0.3rem;
+    width: 2.8rem;
+    height: 1.5rem;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+}
+.kidney::after {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    background: var(--color-primary);
+    transform-origin: left center;
+    transform: rotate(-35deg);
+    position: absolute;
+    left:50%;
+}
+.kidney::before{
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    background: var(--color-primary);
+    transform-origin: right center;
+    transform: rotate(35deg);
+    position: absolute;
+    right: 50%;
+}</code></pre>
+<div class="skeleton">
+    <div class="below-head-container">
+        <div class="backbone"></div>
+        <div class="body">
+            <div class="body-inner">
+                <div class="main-bone"></div>
+                <div class="shoulder"></div>
+                <div class="rib-cage rib-cage-1"></div>
+                <div class="rib-cage rib-cage-2"></div>
+                <div class="kidney-cover"></div>
+                <div class="kidney"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>6、手臂(实际难度不大)</h2>
+<p>hand为外围容器，保证手总长宽</p>
+<p>手臂的各个部件，利用left:50%与transformX:(-50%)，居中</p>
+<p>前臂放在arm-below-container容器中，主要原因是因为动画，前臂一起运动</p>
+<p>手指有些曲度，实际是两个拼接而来，figer控制位置，before和after控制形状</p>
+<p>主要是使用transform:rotate</p>
+<style>
+    .hand {
+        position: absolute;
+        top: 0;
+        width: 1.5rem;
+        height: calc(100% + 1.5rem);
+    }
+    .hand-left { left: -1.4rem; }
+    .hand-right { right: -1.4rem; }
+    .hand-top {
+        position: absolute;
+        top: 0;
+        width: 0.9rem;
+        height: 0.9rem;
+        border-radius: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--color-primary);
+    }
+    .arm, .forearm {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 1rem;
+        height: 2.2rem;
+        background: var(--color-primary);
+    }
+    .arm {
+        top: 0.5rem;
+        transform-origin: top center;
+        clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+    }
+    .arm-below-container {
+        position: absolute;
+        top: 2.9rem;
+        height: 100%;
+        width: 100%;
+        transform-origin: top center;
+    }
+    .forearm {
+        top: 0;
+        clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+    }
+    .wrist {
+        position: absolute;
+        top: 2.45rem;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 1rem;
+        height: 0.7rem;
+        background: var(--color-primary);
+        border-radius: 1rem;
+    }
+    .finger {
+        position: absolute;
+        top: 3.4rem;
+    }
+
+    .hand-right .finger {
+        transform: scaleX(-1);
+        left: auto;
+    }
+
+    .finger-pinky { left: 0; }
+    .finger-ring { left: 0.4rem; }
+    .finger-index { left: 0.8rem; }
+    .finger-thumb {
+        left: 1.3rem;
+        top: 3.3rem;
+    }
+
+    .hand-right .finger-pinky { right: 0; }
+    .hand-right .finger-ring { right: 0.4rem; }
+    .hand-right .finger-thumb { right: 1.3rem; }
+    .hand-right .finger-index { right: 0.8rem; }
+
+    .finger::before {
+        position: absolute;
+        top: 0;
+        width: 0.25rem;
+        border-radius: 2rem;
+        height: 0.5rem;
+        transform: rotate(5deg);
+        background: var(--color-primary);
+    }
+
+    .finger::after {
+        position: absolute;
+        top: 0.3rem;
+        width: 0.25rem;
+        border-radius: 2rem;
+        height: 0.5rem;
+        transform: rotate(-5deg);
+        background: var(--color-primary);
+    }
+    .finger-ring::before { transform: rotate(8deg); }
+    .finger-ring::after {
+        height: 0.6rem;
+        transform: rotate(-8deg);
+    }
+    .finger-index::before { transform: rotate(5deg); }
+    .finger-index::after {
+        height: 0.7rem;
+        transform: rotate(-4deg);
+    }
+
+    .finger-thumb::before { transform: rotate(-20deg); }
+
+    .finger-thumb::after { transform: rotate(20deg); }
+</style>
+<div class="skeleton">
+    <div class="below-head-container">
+        <div class="backbone"></div>
+        <div class="body">
+            <div class="body-inner">
+                <div class="main-bone"></div>
+                <div class="shoulder"></div>
+                <div class="rib-cage rib-cage-1"></div>
+                <div class="rib-cage rib-cage-2"></div>
+                <div class="kidney-cover"></div>
+                <div class="kidney"></div>
+                <div class="hand hand-left">
+                    <div class="hand-top"></div>
+                    <div class="arm"></div>
+                    <div class="arm-below-container">
+                        <div class="forearm"></div>
+                        <div class="wrist"></div>
+                        <div class="finger finger-pinky"></div>
+                        <div class="finger finger-thumb"></div>
+                        <div class="finger finger-ring"></div>
+                        <div class="finger finger-index"></div>
+                    </div>
+                </div>
+                <div class="hand hand-right">
+                    <div class="hand-top"></div>
+                    <div class="arm"></div>
+                    <div class="arm-below-container">
+                        <div class="forearm"></div>
+                        <div class="wrist"></div>
+                        <div class="finger finger-pinky"></div>
+                        <div class="finger finger-thumb"></div>
+                        <div class="finger finger-ring"></div>
+                        <div class="finger finger-index"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h1>腿</h1>
+<p>充分利用clip-path，将圆截为半圆</p>
+<style>
+
+    .feet-container {
+        position: absolute;
+        bottom: 0;
+        height: 20%;
+        width: 100%;
+    }
+
+    .foot {
+        position: absolute;
+        top: -1rem;
+        height: calc(100% + 1rem);
+        width: 1rem;
+        transform-origin: top center;
+    }
+
+    .foot-left {
+        left: 30%;
+        animation: feetLeftJump 0.4s 4s ease-out forwards;
+    }
+    .foot-right {
+        right: 30%;
+        animation: feetRightJump 0.4s 4s ease-out forwards;
+    }
+
+    .thigh {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 45%;
+        background: var(--color-primary);
+        border-radius: 1px;
+    }
+
+    .leg {
+        position: absolute;
+        top: calc(45% + 0.3rem);
+        height: 55%;
+        width: 100%;
+        background: var(--color-primary);
+    }
+
+    .leg::before {
+        position: absolute;
+        top: 100%;
+        transform: translateY(-50%);
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background: var(--color-primary);
+        clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+    }
+
+    .leg-right::before {
+        left: 0;
+    }
+
+    .leg-left::before {
+        right: 0;
+        animation: legTap 0.5s 2;
+    }
+
+</style>
+<div class="skeleton">
+    <div class="feet-container">
+        <div class="foot foot-left">
+            <div class="thigh"></div>
+            <div class="leg leg-left"></div>
+            <div class="shoe"></div>
+        </div>
+        <div class="foot foot-right">
+            <div class="thigh"></div>
+            <div class="leg leg-right"></div>
+        </div>
+    </div>
+</div>
+<h1>阴影</h1>
+<p>阴影的基本效果是长条状，但是，会随着动画拉伸与缩小，故需要用before，after将阴影拉动</p>
+<style>
+    .shadow {
+        position: absolute;
+        top: calc(100% + 0.7rem);
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 100%;
+        height: 1.2rem;
+        z-index: -1;
+    }
+
+    .shadow::after, .shadow::before {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        background: var(--color-shadow);
+    }
+
+    .shadow::before {
+        right: 50%;
+        border-radius: 1rem 0 0 1rem;
+    }
+
+    .shadow::after {
+        left: 50%;
+        border-radius: 0 1rem 1rem 0;
+    }
+</style>
+<div class="skeleton" >
+    <div class="head">
+        <div class="head-hemispheres"></div>
+        <div class="eye eye-left"></div>
+        <div class="eye eye-right"></div>
+        <div class="nose"></div>
+        <div class="nose-shadow"></div>
+        <div class="mouth">
+        </div>
+    </div>
+    <div class="below-head-container">
+        <div class="backbone"></div>
+        <div class="body">
+            <div class="body-inner">
+                <div class="main-bone"></div>
+                <div class="shoulder"></div>
+                <div class="rib-cage rib-cage-1"></div>
+                <div class="rib-cage rib-cage-2"></div>
+                <div class="kidney-cover"></div>
+                <div class="kidney"></div>
+                <div class="hand hand-left">
+                    <div class="hand-top"></div>
+                    <div class="arm"></div>
+                    <div class="arm-below-container">
+                        <div class="forearm"></div>
+                        <div class="wrist"></div>
+                        <div class="finger finger-pinky"></div>
+                        <div class="finger finger-thumb"></div>
+                        <div class="finger finger-ring"></div>
+                        <div class="finger finger-index"></div>
+                    </div>
+                </div>
+                <div class="hand hand-right">
+                    <div class="hand-top"></div>
+                    <div class="arm"></div>
+                    <div class="arm-below-container">
+                        <div class="forearm"></div>
+                        <div class="wrist"></div>
+                        <div class="finger finger-pinky"></div>
+                        <div class="finger finger-thumb"></div>
+                        <div class="finger finger-ring"></div>
+                        <div class="finger finger-index"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="feet-container">
+        <div class="foot foot-left">
+            <div class="thigh"></div>
+            <div class="leg leg-left"></div>
+            <div class="shoe"></div>
+        </div>
+        <div class="foot foot-right">
+            <div class="thigh"></div>
+            <div class="leg leg-right"></div>
+        </div>
+    </div>
+    <div class="shadow"></div>
+</div>
+
+<div style="height: 500px;"></div>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

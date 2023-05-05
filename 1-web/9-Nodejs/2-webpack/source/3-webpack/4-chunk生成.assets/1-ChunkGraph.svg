@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-1456 -421 2360 868" width="2360" height="868">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Avenir" font-size="11" panose-1="2 11 7 3 2 2 3 2 2 4" units-per-em="1000" underline-position="-75" underline-thickness="50" slope="0" x-height="480" cap-height="708" ascent="1e3" descent="-365.9973" font-weight="800">
+      <font-face-src>
+        <font-face-name name="Avenir-Heavy"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="11" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Avenir" font-size="16" panose-1="2 11 7 3 2 2 3 2 2 4" units-per-em="1000" underline-position="-75" underline-thickness="50" slope="0" x-height="480" cap-height="708" ascent="1e3" descent="-365.9973" font-weight="800">
+      <font-face-src>
+        <font-face-name name="Avenir-Heavy"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2020-12-26 07:36:56 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" fill="none" stroke-opacity="1" stroke="none" fill-opacity="1" stroke-dasharray="none">
+    <title>Canvas 1</title>
+    <rect fill="white" x="-1456" y="-421" width="2360" height="868"/>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Line_172">
+        <line x1="-1286" y1="-210" x2="-1286" y2="-183.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_170">
+        <line x1="-1286" y1="-292" x2="-1286" y2="-265.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_167">
+        <line x1="-932.5" y1="-292" x2="-932.5" y2="-265.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_163">
+        <line x1="-518" y1="-292" x2="-518" y2="-265.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_137">
+        <line x1="-22" y1="-210" x2="-22" y2="-183.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_135">
+        <line x1="-22" y1="-292" x2="-22" y2="-265.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_65">
+        <line x1="415.5" y1="-128" x2="415.5" y2="-101.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_64">
+        <line x1="415.5" y1="-210" x2="415.5" y2="-183.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_59">
+        <line x1="791.5" y1="-129" x2="791.5" y2="-102.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_58">
+        <line x1="791.5" y1="-211" x2="791.5" y2="-184.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_57">
+        <line x1="791.5" y1="-292" x2="791.5" y2="-266.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_56">
+        <rect x="263" y="-420" width="305" height="46" fill="white"/>
+        <rect x="263" y="-420" width="305" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 -406.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="102.004" y="15">ChunkGraph</tspan>
+        </text>
+      </g>
+      <g id="Graphic_55">
+        <rect x="263" y="-256" width="305" height="46" fill="white"/>
+        <rect x="263" y="-256" width="305" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 -242.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="28.436" y="15">cgm = this._modules.get(module)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_54">
+        <rect x="679.5" y="-338" width="224" height="46" fill="white"/>
+        <rect x="679.5" y="-338" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(684.5 -335.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="34.68" y="15">ChunkGraphModule</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="35" y="35.448">只有属性，没有方法</tspan>
+        </text>
+      </g>
+      <g id="Graphic_53">
+        <path d="M 601.25 -351 L 646.25 -351 C 653.15356 -351 658.75 -345.40356 658.75 -338.5 L 658.75 -338.5 C 658.75 -331.59644 653.15356 -326 646.25 -326 L 601.25 -326 C 594.34644 -326 588.75 -331.59644 588.75 -338.5 L 588.75 -338.5 C 588.75 -345.40356 594.34644 -351 601.25 -351 Z" fill="white"/>
+        <path d="M 601.25 -351 L 646.25 -351 C 653.15356 -351 658.75 -345.40356 658.75 -338.5 L 658.75 -338.5 C 658.75 -331.59644 653.15356 -326 646.25 -326 L 601.25 -326 C 594.34644 -326 588.75 -331.59644 588.75 -338.5 L 588.75 -338.5 C 588.75 -345.40356 594.34644 -351 601.25 -351 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(593.75 -346.5)" fill="#525356">
+          <tspan font-family="Avenir" font-size="11" font-weight="800" fill="#525356" x="4.843" y="12">cgm: </tspan>
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" y="12">实例</tspan>
+        </text>
+      </g>
+      <g id="Graphic_52">
+        <rect x="679.5" y="-257" width="224" height="46" fill="yellow"/>
+        <rect x="679.5" y="-257" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(684.5 -243.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="81.208" y="15">chunks</tspan>
+        </text>
+      </g>
+      <g id="Graphic_48">
+        <rect x="679.5" y="-175" width="224" height="46" fill="#c0ffc0"/>
+        <rect x="679.5" y="-175" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(684.5 -163)" fill="#525356">
+          <tspan font-family="Avenir" font-size="16" font-weight="800" fill="#525356" x="53.52" y="16">entryInChunks</tspan>
+        </text>
+      </g>
+      <g id="Graphic_47">
+        <rect x="679.5" y="-93" width="224" height="46" fill="white"/>
+        <rect x="679.5" y="-93" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(684.5 -81)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="8.328" y="17">hash, renderHash等属性值</tspan>
+        </text>
+      </g>
+      <g id="Graphic_46">
+        <rect x="263" y="-338" width="305" height="46" fill="white"/>
+        <rect x="263" y="-338" width="305" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 -324.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="13.98" y="15">this._getChunkGraphModule(module)</tspan>
+        </text>
+      </g>
+      <g id="Line_42">
+        <line x1="415.5" y1="-374" x2="415.5" y2="-347.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_41">
+        <line x1="415.5" y1="-292" x2="415.5" y2="-265.9" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_40">
+        <rect x="263" y="-174" width="305" height="46" fill="white"/>
+        <rect x="263" y="-174" width="305" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 -162)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.004" y="17">如不存在，则</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">new ChunkGraphModule()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_39">
+        <rect x="263" y="-92" width="305" height="46" fill="white"/>
+        <rect x="263" y="-92" width="305" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 -80)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="30.46" y="17">this._modules.set(module, cgm)</tspan>
+        </text>
+      </g>
+      <g id="Line_34">
+        <path d="M 679.5 -314.4491 L 612.0156 -314.1172 L 614 -69 L 577.9 -69" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_33">
+        <line x1="424.5" y1="341" x2="424.5" y2="367.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_32">
+        <line x1="424.5" y1="259" x2="424.5" y2="285.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_30">
+        <line x1="791.5" y1="340" x2="791.5" y2="366.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_29">
+        <line x1="791.5" y1="258" x2="791.5" y2="284.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_28">
+        <line x1="791.5" y1="177" x2="791.5" y2="202.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_27">
+        <rect x="263" y="49" width="323" height="46" fill="white"/>
+        <rect x="263" y="49" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 62.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="111.004" y="15">ChunkGraph</tspan>
+        </text>
+      </g>
+      <g id="Graphic_26">
+        <rect x="263" y="213" width="323" height="46" fill="white"/>
+        <rect x="263" y="213" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 226.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="47.516" y="15">cgc = this._chunks.get(chunk);</tspan>
+        </text>
+      </g>
+      <g id="Graphic_25">
+        <rect x="679.5" y="131" width="224" height="46" fill="white"/>
+        <rect x="679.5" y="131" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(684.5 133.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="38.232" y="15">ChunkGraphChunk</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="35" y="35.448">只有属性，没有方法</tspan>
+        </text>
+      </g>
+      <g id="Graphic_24">
+        <path d="M 601.25 118 L 646.25 118 C 653.15356 118 658.75 123.59644 658.75 130.5 L 658.75 130.5 C 658.75 137.40356 653.15356 143 646.25 143 L 601.25 143 C 594.34644 143 588.75 137.40356 588.75 130.5 L 588.75 130.5 C 588.75 123.59644 594.34644 118 601.25 118 Z" fill="white"/>
+        <path d="M 601.25 118 L 646.25 118 C 653.15356 118 658.75 123.59644 658.75 130.5 L 658.75 130.5 C 658.75 137.40356 653.15356 143 646.25 143 L 601.25 143 C 594.34644 143 588.75 137.40356 588.75 130.5 L 588.75 130.5 C 588.75 123.59644 594.34644 118 601.25 118 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(593.75 122.5)" fill="#525356">
+          <tspan font-family="Avenir" font-size="11" font-weight="800" fill="#525356" x="5.8605" y="12">Cgc: </tspan>
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" y="12">实例</tspan>
+        </text>
+      </g>
+      <g id="Graphic_23">
+        <rect x="679.5" y="212" width="224" height="46" fill="#40ffff"/>
+        <rect x="679.5" y="212" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(684.5 225.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="76.32" y="15">modules</tspan>
+        </text>
+      </g>
+      <g id="Graphic_20">
+        <rect x="679.5" y="294" width="224" height="46" fill="#ffc0c0"/>
+        <rect x="679.5" y="294" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(684.5 306)" fill="#525356">
+          <tspan font-family="Avenir" font-size="16" font-weight="800" fill="#525356" x="55.296" y="16">entryModules</tspan>
+        </text>
+      </g>
+      <g id="Graphic_19">
+        <rect x="679.5" y="376" width="224" height="46" fill="white"/>
+        <rect x="679.5" y="376" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(684.5 388)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="13.736" y="17">runtimeModules等属性值</tspan>
+        </text>
+      </g>
+      <g id="Graphic_18">
+        <rect x="263" y="131" width="323" height="46" fill="white"/>
+        <rect x="263" y="131" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 144.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="31.42" y="15">this._getChunkGraphChunk(chunk)</tspan>
+        </text>
+      </g>
+      <g id="Line_17">
+        <line x1="424.5" y1="95" x2="424.5" y2="121.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_16">
+        <line x1="424.5" y1="177" x2="424.5" y2="203.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_15">
+        <rect x="263" y="295" width="323" height="46" fill="white"/>
+        <rect x="263" y="295" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 307)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="16.332" y="17">如不存在，则</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">new ChunkGraphChunk();</tspan>
+        </text>
+      </g>
+      <g id="Graphic_14">
+        <rect x="263" y="377" width="323" height="46" fill="white"/>
+        <rect x="263" y="377" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(268 389)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="49.828" y="17">this._chunks.set(chunk, cgc);</tspan>
+        </text>
+      </g>
+      <g id="Line_13">
+        <path d="M 679.5 154.55088 L 612.0156 154.88281 L 614 400 L 595.9 400" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_9">
+        <path d="M 52 -420 L 191 -420 C 203.70255 -420 214 -409.70255 214 -397 L 214 -397 C 214 -384.29745 203.70255 -374 191 -374 L 52 -374 C 39.29745 -374 29 -384.29745 29 -397 L 29 -397 C 29 -409.70255 39.29745 -420 52 -420 Z" fill="white"/>
+        <path d="M 52 -420 L 191 -420 C 203.70255 -420 214 -409.70255 214 -397 L 214 -397 C 214 -384.29745 203.70255 -374 191 -374 L 52 -374 C 39.29745 -374 29 -384.29745 29 -397 L 29 -397 C 29 -409.70255 39.29745 -420 52 -420 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(34 -408)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="36.82" y="17">_modules</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">属性</tspan>
+        </text>
+      </g>
+      <g id="Graphic_8">
+        <path d="M 52 49 L 191 49 C 203.70255 49 214 59.29745 214 72 L 214 72 C 214 84.70255 203.70255 95 191 95 L 52 95 C 39.29745 95 29 84.70255 29 72 L 29 72 C 29 59.29745 39.29745 49 52 49 Z" fill="white"/>
+        <path d="M 52 49 L 191 49 C 203.70255 49 214 59.29745 214 72 L 214 72 C 214 84.70255 203.70255 95 191 95 L 52 95 C 39.29745 95 29 84.70255 29 72 L 29 72 C 29 59.29745 39.29745 49 52 49 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(34 61)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="41.708" y="17">_chunks</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">属性</tspan>
+        </text>
+      </g>
+      <g id="Line_7">
+        <line x1="263" y1="-397" x2="224.9" y2="-397" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_6">
+        <line x1="333.0366" y1="-338" x2="210.05347" y2="-372.3014" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_5">
+        <line x1="263" y1="72" x2="224.9" y2="72" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_4">
+        <line x1="339.5122" y1="131" x2="210.97303" y2="96.21382" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_3">
+        <path d="M 227.5 -368.5 L 272.5 -368.5 C 279.40356 -368.5 285 -362.90356 285 -356 L 285 -356 C 285 -349.09644 279.40356 -343.5 272.5 -343.5 L 227.5 -343.5 C 220.59644 -343.5 215 -349.09644 215 -356 L 215 -356 C 215 -362.90356 220.59644 -368.5 227.5 -368.5 Z" fill="white"/>
+        <path d="M 227.5 -368.5 L 272.5 -368.5 C 279.40356 -368.5 285 -362.90356 285 -356 L 285 -356 C 285 -349.09644 279.40356 -343.5 272.5 -343.5 L 227.5 -343.5 C 220.59644 -343.5 215 -349.09644 215 -356 L 215 -356 C 215 -362.90356 220.59644 -368.5 227.5 -368.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(220 -364)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" x="19" y="12">读取</tspan>
+        </text>
+      </g>
+      <g id="Graphic_2">
+        <path d="M 202.75 106.5 L 247.75 106.5 C 254.65356 106.5 260.25 112.09644 260.25 119 L 260.25 119 C 260.25 125.90356 254.65356 131.5 247.75 131.5 L 202.75 131.5 C 195.84644 131.5 190.25 125.90356 190.25 119 L 190.25 119 C 190.25 112.09644 195.84644 106.5 202.75 106.5 Z" fill="white"/>
+        <path d="M 202.75 106.5 L 247.75 106.5 C 254.65356 106.5 260.25 112.09644 260.25 119 L 260.25 119 C 260.25 125.90356 254.65356 131.5 247.75 131.5 L 202.75 131.5 C 195.84644 131.5 190.25 125.90356 190.25 119 L 190.25 119 C 190.25 112.09644 195.84644 106.5 202.75 106.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(195.25 111)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" x="19" y="12">读取</tspan>
+        </text>
+      </g>
+      <g id="Graphic_133">
+        <rect x="-252" y="-338" width="460" height="46" fill="white"/>
+        <rect x="-252" y="-338" width="460" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-247 -324.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="20.04" y="15">connectChunkAndEntryModule(chunk,module,entrypoint)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_134">
+        <rect x="-252" y="-256" width="460" height="46" fill="#c0ffc0"/>
+        <rect x="-252" y="-256" width="460" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-247 -242.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="111.176" y="15">cgm.entryInChunks.add(chunk);</tspan>
+        </text>
+      </g>
+      <g id="Graphic_136">
+        <rect x="-252" y="-174" width="460" height="46" fill="#ffc0c0"/>
+        <rect x="-252" y="-174" width="460" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-247 -160.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="74.296" y="15">cgc.entryModules.set(module, entrypoint);</tspan>
+        </text>
+      </g>
+      <g id="Line_159">
+        <line x1="-554.5" y1="364" x2="-554.5" y2="390.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_158">
+        <line x1="-554.5" y1="282" x2="-554.5" y2="308.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_157">
+        <line x1="-187.5" y1="363" x2="-187.5" y2="389.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_156">
+        <line x1="-187.5" y1="281" x2="-187.5" y2="307.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_155">
+        <line x1="-187.5" y1="200" x2="-187.5" y2="225.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_154">
+        <rect x="-716" y="72" width="323" height="46" fill="white"/>
+        <rect x="-716" y="72" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-711 85.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="111.004" y="15">ChunkGraph</tspan>
+        </text>
+      </g>
+      <g id="Graphic_153">
+        <rect x="-716" y="236" width="323" height="46" fill="white"/>
+        <rect x="-716" y="236" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-711 249.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="5.268" y="15">mgm = this._dependencyMap.get(module)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_152">
+        <rect x="-299.5" y="154" width="224" height="46" fill="white"/>
+        <rect x="-299.5" y="154" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-294.5 156.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="12.752" y="15">ModuleGraphDependency</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="35" y="35.448">只有属性，没有方法</tspan>
+        </text>
+      </g>
+      <g id="Graphic_151">
+        <path d="M -377.75 141 L -332.75 141 C -325.84644 141 -320.25 146.59644 -320.25 153.5 L -320.25 153.5 C -320.25 160.40356 -325.84644 166 -332.75 166 L -377.75 166 C -384.65356 166 -390.25 160.40356 -390.25 153.5 L -390.25 153.5 C -390.25 146.59644 -384.65356 141 -377.75 141 Z" fill="white"/>
+        <path d="M -377.75 141 L -332.75 141 C -325.84644 141 -320.25 146.59644 -320.25 153.5 L -320.25 153.5 C -320.25 160.40356 -325.84644 166 -332.75 166 L -377.75 166 C -384.65356 166 -390.25 160.40356 -390.25 153.5 L -390.25 153.5 C -390.25 146.59644 -384.65356 141 -377.75 141 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-385.25 145.5)" fill="#525356">
+          <tspan font-family="Avenir" font-size="11" font-weight="800" fill="#525356" x="4.029" y="12">mgd: </tspan>
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" y="12">实例</tspan>
+        </text>
+      </g>
+      <g id="Graphic_150">
+        <rect x="-299.5" y="235" width="224" height="46" fill="white"/>
+        <rect x="-299.5" y="235" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-294.5 248.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="67.288" y="15">connection</tspan>
+        </text>
+      </g>
+      <g id="Graphic_149">
+        <rect x="-299.5" y="317" width="224" height="46" fill="white"/>
+        <rect x="-299.5" y="317" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-294.5 329)" fill="#525356">
+          <tspan font-family="Avenir" font-size="16" font-weight="800" fill="#525356" x="53.808" y="16">parentModule</tspan>
+        </text>
+      </g>
+      <g id="Graphic_148">
+        <rect x="-299.5" y="399" width="224" height="46" fill="white"/>
+        <rect x="-299.5" y="399" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-294.5 411)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="61.272" y="17">parentBlock</tspan>
+        </text>
+      </g>
+      <g id="Graphic_147">
+        <rect x="-716" y="154" width="323" height="46" fill="white"/>
+        <rect x="-716" y="154" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-711 167.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="1.052" y="15">this._getModuleGraphDependency(module)</tspan>
+        </text>
+      </g>
+      <g id="Line_146">
+        <line x1="-554.5" y1="118" x2="-554.5" y2="144.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_145">
+        <line x1="-554.5" y1="200" x2="-554.5" y2="226.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_144">
+        <rect x="-716" y="318" width="323" height="46" fill="white"/>
+        <rect x="-716" y="318" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-711 319)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="93.692" y="17">如不存在，则</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">new </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="56.924" y="39">ModuleGraphDependency</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="39">()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_143">
+        <rect x="-716" y="400" width="323" height="46" fill="white"/>
+        <rect x="-716" y="400" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-711 412)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.204" y="17">this._dependencyMap.set(module, mgd);</tspan>
+        </text>
+      </g>
+      <g id="Line_142">
+        <path d="M -299.5 177.55088 L -366.98438 177.88281 L -365 423 L -383.1 423" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_141">
+        <path d="M -927 72 L -788 72 C -775.29745 72 -765 82.29745 -765 95 L -765 95 C -765 107.70255 -775.29745 118 -788 118 L -927 118 C -939.7025 118 -950 107.70255 -950 95 L -950 95 C -950 82.29745 -939.7025 72 -927 72 Z" fill="white"/>
+        <path d="M -927 72 L -788 72 C -775.29745 72 -765 82.29745 -765 95 L -765 95 C -765 107.70255 -775.29745 118 -788 118 L -927 118 C -939.7025 118 -950 107.70255 -950 95 L -950 95 C -950 82.29745 -939.7025 72 -927 72 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-945 84)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="7.18" y="17">_dependencyMap</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">属性</tspan>
+        </text>
+      </g>
+      <g id="Line_140">
+        <line x1="-716" y1="95" x2="-754.1" y2="95" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_139">
+        <line x1="-639.4878" y1="154" x2="-768.027" y2="119.21382" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_138">
+        <path d="M -776.25 129.5 L -731.25 129.5 C -724.3464 129.5 -718.75 135.09644 -718.75 142 L -718.75 142 C -718.75 148.90356 -724.3464 154.5 -731.25 154.5 L -776.25 154.5 C -783.1536 154.5 -788.75 148.90356 -788.75 142 L -788.75 142 C -788.75 135.09644 -783.1536 129.5 -776.25 129.5 Z" fill="white"/>
+        <path d="M -776.25 129.5 L -731.25 129.5 C -724.3464 129.5 -718.75 135.09644 -718.75 142 L -718.75 142 C -718.75 148.90356 -724.3464 154.5 -731.25 154.5 L -776.25 154.5 C -783.1536 154.5 -788.75 148.90356 -788.75 142 L -788.75 142 C -788.75 135.09644 -783.1536 129.5 -776.25 129.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-783.75 134)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" x="19" y="12">读取</tspan>
+        </text>
+      </g>
+      <g id="Graphic_161">
+        <rect x="-748" y="-338" width="460" height="46" fill="white"/>
+        <rect x="-748" y="-338" width="460" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-743 -324.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="88.376" y="15">getChunkEntryModulesIterable(chunk)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_162">
+        <rect x="-748" y="-256" width="460" height="46" fill="#ffc0c0"/>
+        <rect x="-748" y="-256" width="460" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-743 -242.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="135.8" y="15"> cgc.entryModules.keys()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_164">
+        <rect x="-1081" y="-338" width="297" height="46" fill="white"/>
+        <rect x="-1081" y="-338" width="297" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-1076 -324.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="24.044" y="15">isModuleInChunk(module, chunk)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_166">
+        <rect x="-1081" y="-256" width="297" height="46" fill="#40ffff"/>
+        <rect x="-1081" y="-256" width="297" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-1076 -242.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="51.62" y="15">cgc.modules.has(module)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_168">
+        <rect x="-1455" y="-338" width="338" height="46" fill="white"/>
+        <rect x="-1455" y="-338" width="338" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-1450 -324.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="13.568" y="15">connectChunkAndModule(chunk, module)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_169">
+        <rect x="-1455" y="-256" width="338" height="46" fill="yellow"/>
+        <rect x="-1455" y="-256" width="338" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-1450 -242.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="76.104" y="15">cgm.chunks.add(chunk);</tspan>
+        </text>
+      </g>
+      <g id="Graphic_171">
+        <rect x="-1455" y="-174" width="338" height="46" fill="#40ffff"/>
+        <rect x="-1455" y="-174" width="338" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-1450 -160.224)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="68.856" y="15">cgc.modules.add(module);</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

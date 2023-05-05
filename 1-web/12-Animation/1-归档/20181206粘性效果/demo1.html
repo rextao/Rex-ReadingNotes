@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>20181206果冻菜单</title>
+    <!--基本样式-->
+    <style>
+        .blobs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+        .circle {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            transform: translate(0, -48px);
+            background: hsl(337, 70%, 58%);
+            clip-path: circle(42px at center);
+        }
+        .circle.main {
+            z-index: 2;
+        }
+    </style>
+    <!--动画-->
+    <style>
+        .first {
+            transition: transform 0.5s 100ms ease-out;
+            background: hsl(307, 70%, 58%);
+        }
+        .second {
+            transition: transform 0.5s 300ms ease-out;
+            background: hsl(277, 70%, 58%);
+        }
+        .last {
+            transition: transform 0.5s 500ms ease-out;
+            background: hsl(247, 70%, 58%);
+        }
+        .first.show {
+            transform: translate(-100px, -120px);
+        }
+        .second.show {
+            transform: translate(0px, -150px);
+        }
+        .last.show {
+            transform: translate(100px, -120px);
+        }
+    </style>
+    <!--粘性特效-->
+    <style>
+        .blobs {
+            filter: url(#goo);
+        }
+    </style>
+</head>
+<body>
+<h1 style="color: red;">本质就是在动画的底层，如此图是blobs添加如下是svg</h1>
+<h2 style="color: red;">如下svg关键是模糊色彩矩阵，对透明通道的更改</h2>
+<div class="blobs">
+    <div class="circle main"></div>
+    <div class="circle sub first"></div>
+    <div class="circle sub second"></div>
+    <div class="circle sub last"></div>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+        <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+            <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"></feColorMatrix>
+            <feComposite in="SourceGraphic" in2="goo" operator="atop"></feComposite>
+        </filter>
+    </defs>
+</svg>
+<script>
+  const button = document.querySelector(".circle.main");
+  const circles = document.querySelectorAll(".circle.sub");
+  button.addEventListener("click", function() {
+    circles.forEach(element => {
+      element.classList.toggle("show");
+    });
+  });
+</script>
+</body>
+</html>

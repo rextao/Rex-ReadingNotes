@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css">
+    <!--transform-box的使用-->
+    <style>
+        .loader {
+            width: 10vw;
+            max-height: 90vh;
+            transform-origin: 50% 50%;
+            overflow: visible;
+        }
+        .loader .ci1 {
+            fill: #1A2A3A;
+            animation: toBig 3s infinite -1.5s;
+            transform-box: fill-box;
+            transform-origin: 50% 50%;
+        }
+        .loader .ci2 {
+            fill: #1A2A3A;
+            animation: toBig2 3s infinite;
+            transform-box: fill-box;
+            /*元素变形的原点。https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-origin*/
+            transform-origin: 50% 50%;
+        }
+        .loader .ciw {
+            transform-origin: 50% 50%;
+            animation: breath 3s infinite;
+        }
+        .points {
+            animation: rot 3s infinite;
+            /*不用使用transform-box: fill-box
+              因为，外围大小与当前大小相同*/
+            transform-origin: 50% 50%;
+        }
+        @keyframes toBig {
+            0% {
+                transform: scale(1) translateX(0px);
+            }
+            30% {
+                transform: scale(1) translateX(0px);
+            }
+            50% {
+                transform: scale(10) translateX(-4.5px);
+            }
+            80% {
+                transform: scale(10) translateX(-4.5px);
+            }
+            100% {
+                transform: scale(1) translateX(0px);
+            }
+        }
+        @keyframes toBig2 {
+            0% {
+                transform: scale(1) translateX(0px);
+            }
+            30% {
+                transform: scale(1) translateX(0px);
+            }
+            50% {
+                transform: scale(10) translateX(4.5px);
+            }
+            80% {
+                transform: scale(10) translateX(4.5px);
+            }
+            100% {
+                transform: scale(1) translateX(0px);
+            }
+        }
+        @keyframes breath {
+            15% {
+                transform: scale(1);
+            }
+            40% {
+                transform: scale(1.1);
+            }
+            65% {
+                transform: scale(1);
+            }
+            90% {
+                transform: scale(1.1);
+            }
+        }
+        @keyframes rot {
+            0% {
+                transform: rotate(0deg);
+            }
+            30% {
+                transform: rotate(360deg);
+            }
+            50% {
+                transform: rotate(360deg);
+            }
+            80% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+        html {
+            height: 100%;
+            background: #1A2A3A;
+            color: #FFF;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p>这是一种实验技术</p>
+    <p>该transform-box属性定义了与transform以及transform-origin属性相关的布局框。</p>
+    <p>即：transform根据哪里作为原点</p>
+    <p>可能值</p>
+    <p>border-box:使用边框作为参考框。如table元素的参考box是包裹着该table的borderbox，而不是table。</p>
+    <p>fill-box:当前对象作为参考box</p>
+    <p>view-box：使用SVG视口作为参考</p>
+</div>
+<svg class="loader" viewBox="0 0 100 100">
+    <g class="points">
+        <circle class="ciw" cx="50" cy="50" r="50" fill="#fff"  />
+        <circle class="ci2" cx="5" cy="50" r="4" />
+        <circle class="ci1" cx="95" cy="50" r="4" />
+    </g>
+</svg>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

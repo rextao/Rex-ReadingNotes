@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color:red
+        }
+        .box::before{
+            content:'';
+            position: absolute;
+            transition: transform .5s;
+            width: 200px;
+            height: 200px;
+            background-color: #000;
+            transform-origin: 0 0;
+            transform: scaleX(0) scaleY(0);
+        }
+        .box:hover::before{
+            transform: scaleX(1) scaleY(1);
+            transform-origin: 100% 100% ;
+        }
+    </style>
+</head>
+<body>
+<h1>妙用scale与transfrom-origin，精准控制动画方向</h1>
+<p>我们给线条设置一个默认的 transform-origin 记为状态1</p>
+<p>hover 的时候，设置另外一个不同的 transform-origin, 记为状态2</p>
+<p>所以，当然我们 hover 的时候，会读取状态2的transform-origin，从该原点开始放大至 scaleX(1)，hover 离开的时候，会读取状态1的transform-origin，从scaleX(1)状态缩小至该原点。</p>
+<div class="box">
+    鼠标放在上面
+</div>
+
+<h1>文字效果</h1>
+<style>
+    .txt{
+        position: relative;
+        width: 280px;
+    }
+    .txt::before{
+        content:'';
+        position: absolute;
+        background: purple;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        transition: transform .5s;
+        transform: scaleX(0);
+        transform-origin:100% 0 ;
+    }
+    .txt:hover::before{
+        transform: scaleX(1);
+        color: purple;
+        transform-origin:0 0 ;
+    }
+</style>
+<div class="txt">
+    我爱北京天安门，天安门上太阳升
+</div>
+<h1>使用此原理，有了hover.css的background Transitions和Border Transitions</h1>
+</body>
+</html>

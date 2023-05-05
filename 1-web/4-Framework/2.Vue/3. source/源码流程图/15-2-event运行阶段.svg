@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="-415 46 2113 1691" width="2113" height="1691">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Regular"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2020-01-04 11:54:34 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" stroke-opacity="1" stroke-dasharray="none" fill="none" stroke="none" fill-opacity="1">
+    <title>Canvas 1</title>
+    <rect fill="white" x="-415" y="46" width="2113" height="1691"/>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Line_168">
+        <line x1="-299.5" y1="1467.5385" x2="-299.5" y2="1493.6385" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_166">
+        <line x1="-299.5" y1="1377.5385" x2="-299.5" y2="1403.6385" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_159">
+        <line x1="230.5" y1="1646" x2="230.5" y2="1672.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_157">
+        <line x1="230.5" y1="1556" x2="230.5" y2="1582.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_155">
+        <line x1="230.5" y1="1466" x2="230.5" y2="1492.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_153">
+        <line x1="230.5" y1="1376" x2="230.5" y2="1402.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_147">
+        <line x1="-34.5" y1="1466" x2="-34.5" y2="1492.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_138">
+        <line x1="517.5" y1="1376" x2="517.5" y2="1402.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_136">
+        <line x1="517.5" y1="1286" x2="517.5" y2="1312.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_134">
+        <line x1="517.5" y1="1196" x2="517.5" y2="1222.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_132">
+        <line x1="668" y1="1169" x2="641.9" y2="1169" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_127">
+        <line x1="782.5" y1="1106" x2="782.5" y2="1132.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_125">
+        <line x1="632" y1="1079" x2="658.1" y2="1079" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_123">
+        <line x1="608.15" y1="1016" x2="564.4795" y2="1046.3501" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_117">
+        <line x1="80" y1="989" x2="393.1" y2="989" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_115">
+        <line x1="-34.5" y1="1106" x2="-34.5" y2="1132.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_112">
+        <line x1="80" y1="1079" x2="117.1" y2="1079" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_109">
+        <line x1="-34.5" y1="1016" x2="-34.5" y2="1042.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_99">
+        <line x1="241.5" y1="825.2632" x2="241.5" y2="851.3632" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_96">
+        <line x1="241.5" y1="735.2632" x2="241.5" y2="761.3632" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_92">
+        <line x1="241.5" y1="645.26316" x2="241.5" y2="671.36316" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_90">
+        <line x1="48.3" y1="681.26316" x2="149.28777" y2="648.3324" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_85">
+        <line x1="-34.5" y1="645.26316" x2="-34.5" y2="671.36316" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_73">
+        <line x1="1052.5" y1="926" x2="1052.5" y2="952.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_71">
+        <line x1="1238" y1="836" x2="1141.3741" y2="868.8163" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_69">
+        <line x1="1052.5" y1="746" x2="1052.5" y2="772.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_67">
+        <line x1="1052.5" y1="656" x2="1052.5" y2="682.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_65">
+        <line x1="1582.5" y1="667" x2="1582.5" y2="691.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_54">
+        <line x1="1317.5" y1="746" x2="1317.5" y2="772.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_52">
+        <line x1="1317.5" y1="656" x2="1317.5" y2="682.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_50">
+        <line x1="1317.5" y1="566" x2="1317.5" y2="592.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_48">
+        <line x1="1317.5" y1="476" x2="1317.5" y2="502.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_46">
+        <line x1="1582.5" y1="296" x2="1582.5" y2="322.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_42">
+        <line x1="1317.5" y1="296" x2="1317.5" y2="312.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_37">
+        <line x1="1052.5" y1="386" x2="1052.5" y2="412.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_33">
+        <line x1="1052.5" y1="296" x2="1052.5" y2="322.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_29">
+        <line x1="776.5" y1="477.26316" x2="776.5" y2="503.36316" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_27">
+        <line x1="776.5" y1="387.26316" x2="776.5" y2="413.36316" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_19">
+        <line x1="511.5" y1="296" x2="511.5" y2="322.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_10">
+        <line x1="235.5" y1="391" x2="235.5" y2="417.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_8">
+        <line x1="235.5" y1="301" x2="235.5" y2="327.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_6">
+        <line x1="332.1" y1="211" x2="285.19234" y2="241.59195" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_3">
+        <rect x="121" y="157" width="505" height="54" fill="white"/>
+        <rect x="121" y="157" width="505" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(126 174.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="164.524" y="15">src/core/vdom/patch.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_2">
+        <path d="M -31.5 171.5 L 41.5 171.5 C 48.40356 171.5 54 177.09644 54 184 L 54 184 C 54 190.90356 48.40356 196.5 41.5 196.5 L -31.5 196.5 C -38.40356 196.5 -44 190.90356 -44 184 L -44 184 C -44 177.09644 -38.40356 171.5 -31.5 171.5 Z" fill="white"/>
+        <path d="M -31.5 171.5 L 41.5 171.5 C 48.40356 171.5 54 177.09644 54 184 L 54 184 C 54 190.90356 48.40356 196.5 41.5 196.5 L -31.5 196.5 C -38.40356 196.5 -44 190.90356 -44 184 L -44 184 C -44 177.09644 -38.40356 171.5 -31.5 171.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-39 173)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="8.816" y="17">DOM事件</tspan>
+        </text>
+      </g>
+      <g id="Graphic_4">
+        <path d="M -269 47 L 30 47 C 43.254834 47 54 57.745166 54 71 L 54 103 C 54 116.25483 43.254834 127 30 127 L -269 127 C -282.25483 127 -293 116.25483 -293 103 L -293 71 C -293 57.745166 -282.25483 47 -269 47 Z" fill="white"/>
+        <path d="M -269 47 L 30 47 C 43.254834 47 54 57.745166 54 71 L 54 103 C 54 116.25483 43.254834 127 30 127 L -269 127 C -282.25483 127 -293 116.25483 -293 103 L -293 71 C -293 57.745166 -282.25483 47 -269 47 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-288 54)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="7.98" y="17">生成代码阶段实际就是生成render函数，运行</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="3.012" y="39">render函数，会运行_c即vm._render将code生</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="34.244" y="61">成的data传入，最终会进入patch函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_5">
+        <rect x="121" y="247" width="229" height="54" fill="white"/>
+        <rect x="121" y="247" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(126 264.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="73.788" y="15">createElm</tspan>
+        </text>
+      </g>
+      <g id="Graphic_7">
+        <rect x="121" y="337" width="229" height="54" fill="white"/>
+        <rect x="121" y="337" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(126 353)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="22.884" y="17">由于vnode存在data数据</tspan>
+        </text>
+      </g>
+      <g id="Graphic_9">
+        <rect x="121" y="427" width="229" height="54" fill="white"/>
+        <rect x="121" y="427" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(126 432)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="10.5" y="17">invokeCreateHooks(vnode, </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="29.572" y="39">insertedVnodeQueue)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_14">
+        <rect x="121" y="47" width="505" height="74" fill="white"/>
+        <rect x="121" y="47" width="505" height="74" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(126 51)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="12.188" y="17">调用</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">patch</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">函数前，会在src/platforms/web/runtime/patch.js调用</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.556" y="39">createPatchFunction，进入此函数先会将update，create等hooks，</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="136.74" y="61">循环遍历push到cbs这个对象上</tspan>
+        </text>
+      </g>
+      <g id="Graphic_15">
+        <rect x="397" y="242" width="229" height="54" fill="white"/>
+        <rect x="397" y="242" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(402 258)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="23.572" y="17">会循环调用cbs[I],create</tspan>
+        </text>
+      </g>
+      <g id="Line_17">
+        <path d="M 350 453.5743 L 376.29688 453.47656 L 373.5078 266.6836 L 387.1014 266.91178" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_18">
+        <rect x="397" y="332" width="229" height="54" fill="white"/>
+        <rect x="397" y="332" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(402 337)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="53.5" y="17">这样就会调用到</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="31.108" y="39">updateDOMListeners</tspan>
+        </text>
+      </g>
+      <g id="Graphic_20">
+        <rect x="662" y="157" width="505" height="54" fill="white"/>
+        <rect x="662" y="157" width="505" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(667 174.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="85.26" y="15">src/platforms/web/runtime/modules/events.js</tspan>
+        </text>
+      </g>
+      <g id="Line_21">
+        <line x1="373.5" y1="121" x2="373.5" y2="147.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_22">
+        <line x1="48.31364" y1="120.0181" x2="226.55943" y2="155.08877" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_23">
+        <line x1="55" y1="184" x2="111.1" y2="184" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_24">
+        <rect x="662" y="333.26316" width="229" height="54" fill="white"/>
+        <rect x="662" y="333.26316" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(667 349.26316)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="19.612" y="17">获取新旧vnode的data.on</tspan>
+        </text>
+      </g>
+      <g id="Graphic_26">
+        <rect x="662" y="423.26316" width="229" height="54" fill="white"/>
+        <rect x="662" y="423.26316" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(667 439.26316)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="19.612" y="17">获取新旧vnode的data.on</tspan>
+        </text>
+      </g>
+      <g id="Graphic_28">
+        <rect x="662" y="513.26316" width="229" height="54" fill="white"/>
+        <rect x="662" y="513.26316" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(667 529.26316)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="34.612" y="17">normalizeEvents(on)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_30">
+        <rect x="938" y="242" width="229" height="54" fill="white"/>
+        <rect x="938" y="242" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(943 258)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="34.612" y="17">normalizeEvents(on)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_32">
+        <rect x="938" y="332" width="229" height="54" fill="white"/>
+        <rect x="938" y="332" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(943 337)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.268" y="17">由于v-model会生成事件做处</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="101.5" y="39">理</tspan>
+        </text>
+      </g>
+      <g id="Graphic_36">
+        <rect x="938" y="422" width="229" height="54" fill="white"/>
+        <rect x="938" y="422" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(943 438)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="49.948" y="17">updateListeners</tspan>
+        </text>
+      </g>
+      <g id="Graphic_38">
+        <path d="M 686 591.26316 L 867 591.26316 C 880.2548 591.26316 891 602.0083 891 615.26316 L 891 621.26316 C 891 634.518 880.2548 645.26316 867 645.26316 L 686 645.26316 C 672.7452 645.26316 662 634.518 662 621.26316 L 662 615.26316 C 662 602.0083 672.7452 591.26316 686 591.26316 Z" fill="white"/>
+        <path d="M 686 591.26316 L 867 591.26316 C 880.2548 591.26316 891 602.0083 891 615.26316 L 891 621.26316 C 891 634.518 880.2548 645.26316 867 645.26316 L 686 645.26316 C 672.7452 645.26316 662 634.518 662 621.26316 L 662 615.26316 C 662 602.0083 672.7452 591.26316 686 591.26316 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(667 596.26316)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="3.748" y="17">并没有处理nativeOn事件，非</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="28.396" y="39">组件不存在使用.native</tspan>
+        </text>
+      </g>
+      <g id="Graphic_39">
+        <rect x="1203" y="157" width="494" height="54" fill="white"/>
+        <rect x="1203" y="157" width="494" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1208 174.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="92.504" y="15">src/core/vdom/helpers/update-listeners.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_40">
+        <rect x="1203" y="242" width="229" height="54" fill="white"/>
+        <rect x="1203" y="242" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1208 258)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="49.948" y="17">updateListeners</tspan>
+        </text>
+      </g>
+      <g id="Graphic_41">
+        <rect x="1203" y="322" width="229" height="74" fill="white"/>
+        <rect x="1203" y="322" width="229" height="74" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1208 337)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="81.948" y="17">event = </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="27.588" y="39">normalizeEvent(name)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_43">
+        <rect x="1203" y="422" width="229" height="54" fill="white"/>
+        <rect x="1203" y="422" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1208 427)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="1.724" y="17">分别获取新旧事件处理函数cur</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="90.244" y="39">与old</tspan>
+        </text>
+      </g>
+      <g id="Graphic_44">
+        <rect x="1468" y="242" width="229" height="54" fill="white"/>
+        <rect x="1468" y="242" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1473 258)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="53.14" y="17">normalizeEvent</tspan>
+        </text>
+      </g>
+      <g id="Graphic_45">
+        <rect x="1468" y="332" width="229" height="54" fill="white"/>
+        <rect x="1468" y="332" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1473 337)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="16.86" y="17">区分出事件是否有 once、</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="11.036" y="39">capture、passive 等修饰符</tspan>
+        </text>
+      </g>
+      <g id="Graphic_47">
+        <rect x="1203" y="512" width="229" height="54" fill="white"/>
+        <rect x="1203" y="512" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1208 528)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="25.724" y="17">新的cur无定义，报警告</tspan>
+        </text>
+      </g>
+      <g id="Graphic_49">
+        <rect x="1203" y="602" width="229" height="54" fill="white"/>
+        <rect x="1203" y="602" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1208 607)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="4.396" y="17">旧的old无定义，调用add函数</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="77.5" y="39">添加事件</tspan>
+        </text>
+      </g>
+      <g id="Graphic_51">
+        <rect x="1203" y="692" width="229" height="54" fill="white"/>
+        <rect x="1203" y="692" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1208 697)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="5.604" y="17">old与cur不等，更新old.fns即</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="42.18" y="39">只更新handler函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_53">
+        <rect x="1203" y="782" width="229" height="54" fill="white"/>
+        <rect x="1203" y="782" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1208 787)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="2.244" y="17">最后，如果old中具有的事件，</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.54" y="39">cur没有，则调用remove删除</tspan>
+        </text>
+      </g>
+      <g id="Graphic_55">
+        <path d="M 962 500 L 1143 500 C 1156.2548 500 1167 510.74517 1167 524 L 1167 550 C 1167 563.25483 1156.2548 574 1143 574 L 962 574 C 948.7452 574 938 563.25483 938 550 L 938 524 C 938 510.74517 948.7452 500 962 500 Z" fill="white"/>
+        <path d="M 962 500 L 1143 500 C 1156.2548 500 1167 510.74517 1167 524 L 1167 550 C 1167 563.25483 1156.2548 574 1143 574 L 962 574 C 948.7452 574 938 563.25483 938 550 L 938 524 C 938 510.74517 948.7452 500 962 500 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(943 504)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="3.308" y="17">此函数会传人add与remove函</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="5.932" y="39">数，实际在web平台下添加和</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="53.5" y="61">删除事件的方法</tspan>
+        </text>
+      </g>
+      <g id="Line_56">
+        <line x1="1052.5" y1="476" x2="1052.5" y2="489.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_57">
+        <path d="M 1168 536.1348 L 1186 536 L 1183.5078 265.08984 L 1193.1042 265.3699" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_58">
+        <line x1="1317.5" y1="396" x2="1317.5" y2="412.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_59">
+        <path d="M 1432 357.49135 L 1451.3158 357.23684 L 1450 270.39474 L 1458.1005 270.30947" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_60">
+        <rect x="938" y="602" width="229" height="54" fill="#ff40ff"/>
+        <rect x="938" y="602" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(943 618)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="79.652" y="17">add函数</tspan>
+        </text>
+      </g>
+      <g id="Line_61">
+        <line x1="1203" y1="629" x2="1176.9" y2="629" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_62">
+        <path d="M 1492 592 L 1673 592 C 1686.2548 592 1697 602.7452 1697 616 L 1697 642 C 1697 655.2548 1686.2548 666 1673 666 L 1492 666 C 1478.7452 666 1468 655.2548 1468 642 L 1468 616 C 1468 602.7452 1478.7452 592 1492 592 Z" fill="white"/>
+        <path d="M 1492 592 L 1673 592 C 1686.2548 592 1697 602.7452 1697 616 L 1697 642 C 1697 655.2548 1686.2548 666 1673 666 L 1492 666 C 1478.7452 666 1468 655.2548 1468 642 L 1468 616 C 1468 602.7452 1478.7452 592 1492 592 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1473 596)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="5.5" y="17">特别注意，在此情况下，会调</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="24.668" y="39">用createFnInvoker构建</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="81.284" y="61">handler</tspan>
+        </text>
+      </g>
+      <g id="Line_63">
+        <line x1="1432" y1="629" x2="1457.1" y2="629" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_64">
+        <path d="M 1492 702 L 1673 702 C 1686.2548 702 1697 712.7452 1697 726 L 1697 752 C 1697 765.2548 1686.2548 776 1673 776 L 1492 776 C 1478.7452 776 1468 765.2548 1468 752 L 1468 726 C 1468 712.7452 1478.7452 702 1492 702 Z" fill="white"/>
+        <path d="M 1492 702 L 1673 702 C 1686.2548 702 1697 712.7452 1697 726 L 1697 752 C 1697 765.2548 1686.2548 776 1673 776 L 1492 776 C 1478.7452 776 1468 765.2548 1468 752 L 1468 726 C 1468 712.7452 1478.7452 702 1492 702 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1473 706)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="8.668" y="17">createFnInvoker可以理解对</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="9.284" y="39">handler进来处理并外包裹了</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="17.5" y="61">try-catch对错误进行处理</tspan>
+        </text>
+      </g>
+      <g id="Graphic_66">
+        <rect x="938" y="692" width="229" height="54" fill="white"/>
+        <rect x="938" y="692" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(943 708)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="46.004" y="17">处理fireFox的bug</tspan>
+        </text>
+      </g>
+      <g id="Graphic_68">
+        <rect x="938" y="782" width="229" height="54" fill="white"/>
+        <rect x="938" y="782" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(943 787)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="4.692" y="17">target.addEventListener绑定</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="93.5" y="39">事件</tspan>
+        </text>
+      </g>
+      <g id="Graphic_70">
+        <rect x="938" y="872" width="229" height="54" fill="fuchsia"/>
+        <rect x="938" y="872" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(943 888)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="66.316" y="17">remove函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_72">
+        <rect x="938" y="962" width="229" height="54" fill="white"/>
+        <rect x="938" y="962" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(943 978)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="15.708" y="17">调用removeEventListener</tspan>
+        </text>
+      </g>
+      <g id="Graphic_74">
+        <rect x="662" y="242" width="229" height="54" fill="white"/>
+        <rect x="662" y="242" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(667 258)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="31.108" y="17">updateDOMListeners</tspan>
+        </text>
+      </g>
+      <g id="Line_75">
+        <line x1="776.5" y1="296" x2="776.5" y2="323.36316" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_76">
+        <path d="M 626 359.8223 L 644.5878 359.9558 L 644.4901 267.8351 L 652.1004 267.90227" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_78">
+        <line x1="776.5" y1="567.26316" x2="776.5" y2="580.36316" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_79">
+        <path d="M -301.5 605.76316 L -228.5 605.76316 C -221.59644 605.76316 -216 611.3596 -216 618.26316 L -216 618.26316 C -216 625.1667 -221.59644 630.76316 -228.5 630.76316 L -301.5 630.76316 C -308.40356 630.76316 -314 625.1667 -314 618.26316 L -314 618.26316 C -314 611.3596 -308.40356 605.76316 -301.5 605.76316 Z" fill="white"/>
+        <path d="M -301.5 605.76316 L -228.5 605.76316 C -221.59644 605.76316 -216 611.3596 -216 618.26316 L -216 618.26316 C -216 625.1667 -221.59644 630.76316 -228.5 630.76316 L -301.5 630.76316 C -308.40356 630.76316 -314 625.1667 -314 618.26316 L -314 618.26316 C -314 611.3596 -308.40356 605.76316 -301.5 605.76316 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-309 607.26316)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="12" y="17">组件事件</tspan>
+        </text>
+      </g>
+      <g id="Graphic_80">
+        <rect x="-149" y="591.26316" width="229" height="54" fill="white"/>
+        <rect x="-149" y="591.26316" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-144 599.81516)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="29.492" y="15">src/core/vdom/create-</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="73.044" y="33.448">element.js</tspan>
+        </text>
+      </g>
+      <g id="Line_82">
+        <line x1="-215" y1="618.26316" x2="-158.9" y2="618.26316" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_84">
+        <rect x="-149" y="681.26316" width="229" height="54" fill="white"/>
+        <rect x="-149" y="681.26316" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-144 686.26316)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="37.124" y="17">运行_c函数，先进入</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="1.86" y="39">createElement进行vnode创建</tspan>
+        </text>
+      </g>
+      <g id="Graphic_89">
+        <rect x="127" y="591.26316" width="229" height="54" fill="white"/>
+        <rect x="127" y="591.26316" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(132 596.26316)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="21.34" y="17">src/core/vdom/create-</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="59.708" y="39">component.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_91">
+        <rect x="127" y="681.26316" width="229" height="54" fill="white"/>
+        <rect x="127" y="681.26316" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(132 697.26316)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="17.388" y="17">const listeners = data.on</tspan>
+        </text>
+      </g>
+      <g id="Graphic_93">
+        <path d="M 427 681.26316 L 608 681.26316 C 621.2548 681.26316 632 692.0083 632 705.26316 L 632 711.2632 C 632 724.518 621.2548 735.2632 608 735.2632 L 427 735.2632 C 413.74517 735.2632 403 724.518 403 711.2632 L 403 705.26316 C 403 692.0083 413.74517 681.26316 427 681.26316 Z" fill="white"/>
+        <path d="M 427 681.26316 L 608 681.26316 C 621.2548 681.26316 632 692.0083 632 705.26316 L 632 711.2632 C 632 724.518 621.2548 735.2632 608 735.2632 L 427 735.2632 C 413.74517 735.2632 403 724.518 403 711.2632 L 403 705.26316 C 403 692.0083 413.74517 681.26316 427 681.26316 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(408 686.26316)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="21.5" y="17">将组件上的普通事件作为</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="77.26" y="39">listeners</tspan>
+        </text>
+      </g>
+      <g id="Line_94">
+        <line x1="-112.94016" y1="128" x2="-40.38396" y2="581.4875" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_95">
+        <rect x="127" y="771.2632" width="229" height="54" fill="white"/>
+        <rect x="127" y="771.2632" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(132 787.2632)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="20.268" y="17">data.on = data.nativeOn</tspan>
+        </text>
+      </g>
+      <g id="Graphic_97">
+        <path d="M 427 771.2632 L 608 771.2632 C 621.2548 771.2632 632 782.0083 632 795.2632 L 632 801.2632 C 632 814.518 621.2548 825.2632 608 825.2632 L 427 825.2632 C 413.74517 825.2632 403 814.518 403 801.2632 L 403 795.2632 C 403 782.0083 413.74517 771.2632 427 771.2632 Z" fill="white"/>
+        <path d="M 427 771.2632 L 608 771.2632 C 621.2548 771.2632 632 782.0083 632 795.2632 L 632 801.2632 C 632 814.518 621.2548 825.2632 608 825.2632 L 427 825.2632 C 413.74517 825.2632 403 814.518 403 801.2632 L 403 795.2632 C 403 782.0083 413.74517 771.2632 427 771.2632 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(408 776.2632)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="4.396" y="17">组件上的.native事件，作为普</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="5.5" y="39">通事件，环境为当前组件环境</tspan>
+        </text>
+      </g>
+      <g id="Graphic_98">
+        <rect x="127" y="861.2632" width="229" height="54" fill="white"/>
+        <rect x="127" y="861.2632" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(132 866.2632)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x=".036" y="17">将listeners作为new Vnode()的</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="77.5" y="39">参数传入</tspan>
+        </text>
+      </g>
+      <g id="Graphic_102">
+        <rect x="-149" y="962" width="229" height="54" fill="white"/>
+        <rect x="-149" y="962" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-144 978)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="18.884" y="17">src/core/instance/init.js</tspan>
+        </text>
+      </g>
+      <g id="Line_103">
+        <line x1="356" y1="708.2632" x2="392.1" y2="708.2632" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_104">
+        <line x1="356" y1="798.2632" x2="392.1" y2="798.2632" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_106">
+        <path d="M -125 861.2632 L 56 861.2632 C 69.25483 861.2632 80 872.0083 80 885.2632 L 80 891.2632 C 80 904.518 69.25483 915.2632 56 915.2632 L -125 915.2632 C -138.25483 915.2632 -149 904.518 -149 891.2632 L -149 885.2632 C -149 872.0083 -138.25483 861.2632 -125 861.2632 Z" fill="white"/>
+        <path d="M -125 861.2632 L 56 861.2632 C 69.25483 861.2632 80 872.0083 80 885.2632 L 80 891.2632 C 80 904.518 69.25483 915.2632 56 915.2632 L -125 915.2632 C -138.25483 915.2632 -149 904.518 -149 891.2632 L -149 885.2632 C -149 872.0083 -138.25483 861.2632 -125 861.2632 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-144 866.2632)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="5.5" y="17">当前组件初始化完，会初始化</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="49.556" y="39">子组件，执行init</tspan>
+        </text>
+      </g>
+      <g id="Line_107">
+        <line x1="-34.5" y1="916.2632" x2="-34.5" y2="952.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_108">
+        <rect x="-149" y="1052" width="229" height="54" fill="white"/>
+        <rect x="-149" y="1052" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-144 1057)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.748" y="17">调用initInternalComponent合</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="74.036" y="39">并options</tspan>
+        </text>
+      </g>
+      <g id="Graphic_111">
+        <rect x="127" y="1024.5" width="229" height="109" fill="white"/>
+        <rect x="127" y="1024.5" width="229" height="109" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(132 1024)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="69.5" y="17">获取父级的</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="2.276" y="39">listenersopts._parentListener</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="97.956" y="61">s = </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="2.572" y="83">vnodeComponentOptions.list</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="89.188" y="105">eners</tspan>
+        </text>
+      </g>
+      <g id="Line_113">
+        <path d="M 891 540.8212 L 915.075 540.9385 L 913.1733 269.17146 L 928.1 269.1531" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_114">
+        <rect x="-149" y="1142" width="229" height="54" fill="white"/>
+        <rect x="-149" y="1142" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-144 1158)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="41.324" y="17">执行initEvents(vm)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_116">
+        <rect x="403" y="962" width="488" height="54" fill="white"/>
+        <rect x="403" y="962" width="488" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(408 978)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="135.704" y="17">src/core/instance/events.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_122">
+        <rect x="403" y="1052" width="229" height="54" fill="white"/>
+        <rect x="403" y="1052" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(408 1057)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="14.38" y="17">由于存在父级listeners，故</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.996" y="39">updateComponentListeners</tspan>
+        </text>
+      </g>
+      <g id="Graphic_124">
+        <rect x="668" y="1052" width="229" height="54" fill="white"/>
+        <rect x="668" y="1052" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(673 1068)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.996" y="17">updateComponentListeners</tspan>
+        </text>
+      </g>
+      <g id="Graphic_126">
+        <rect x="668" y="1142" width="229" height="54" fill="white"/>
+        <rect x="668" y="1142" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(673 1150.552)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="25.94" y="15">src/core/vdom/helpers/</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="43.564" y="33.448">update-listeners.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_128">
+        <path d="M 692 1242.7368 L 873 1242.7368 C 886.2548 1242.7368 897 1253.482 897 1266.7368 L 897 1327.7368 C 897 1340.9917 886.2548 1351.7368 873 1351.7368 L 692 1351.7368 C 678.7452 1351.7368 668 1340.9917 668 1327.7368 L 668 1266.7368 C 668 1253.482 678.7452 1242.7368 692 1242.7368 Z" fill="white"/>
+        <path d="M 692 1242.7368 L 873 1242.7368 C 886.2548 1242.7368 897 1253.482 897 1266.7368 L 897 1327.7368 C 897 1340.9917 886.2548 1351.7368 873 1351.7368 L 692 1351.7368 C 678.7452 1351.7368 668 1340.9917 668 1327.7368 L 668 1266.7368 C 668 1253.482 678.7452 1242.7368 692 1242.7368 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(673 1253.2368)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="37.5" y="17">还是会调用此文件的</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="13.964" y="39">updateupdateListeners函</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="3.308" y="61">数，只是传入的add与remove</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="93.5" y="83">不同</tspan>
+        </text>
+      </g>
+      <g id="Line_129">
+        <line x1="127" y1="888.2632" x2="90.9" y2="888.2632" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_130">
+        <line x1="782.5" y1="1196" x2="782.5" y2="1231.8368" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_131">
+        <rect x="403" y="1142" width="229" height="54" fill="fuchsia"/>
+        <rect x="403" y="1142" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(408 1158)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="79.716" y="17">add</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_133">
+        <rect x="403" y="1232" width="229" height="54" fill="white"/>
+        <rect x="403" y="1232" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(408 1249.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="68.98" y="15">target.$on()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_135">
+        <rect x="403" y="1322" width="229" height="54" fill="fuchsia"/>
+        <rect x="403" y="1322" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(408 1338)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="66.972" y="17">remove</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_137">
+        <rect x="403" y="1412" width="229" height="54" fill="white"/>
+        <rect x="403" y="1412" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(408 1429.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="68.812" y="15">target.$off()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_139">
+        <rect x="-414" y="1232" width="770" height="54" fill="white"/>
+        <rect x="-414" y="1232" width="770" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-409 1248)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="178.272" y="17">eventsMixin自定义事件中心，定义$on与$remove等函数</tspan>
+        </text>
+      </g>
+      <g id="Line_140">
+        <line x1="403" y1="1187.8564" x2="144.71842" y2="1230.3913" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_144">
+        <rect x="-149" y="1322" width="229" height="54" fill="white"/>
+        <rect x="-149" y="1322" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-144 1338)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="41.524" y="17">Vue.prototype.$on</tspan>
+        </text>
+      </g>
+      <g id="Graphic_145">
+        <rect x="-149" y="1412" width="229" height="54" fill="white"/>
+        <rect x="-149" y="1412" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-144 1417)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="1.452" y="17">如果event是数组，则递归调用</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="79.54" y="39">$on方法</tspan>
+        </text>
+      </g>
+      <g id="Graphic_146">
+        <rect x="-149" y="1502" width="229" height="54" fill="white"/>
+        <rect x="-149" y="1502" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-144 1518)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x=".836" y="17">否则，往vm._events.push函数</tspan>
+        </text>
+      </g>
+      <g id="Line_148">
+        <line x1="-34.5" y1="1376" x2="-34.5" y2="1402.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_151">
+        <rect x="116" y="1322" width="229" height="54" fill="white"/>
+        <rect x="116" y="1322" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(121 1338)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="40.508" y="17">Vue.prototype.$off</tspan>
+        </text>
+      </g>
+      <g id="Graphic_152">
+        <rect x="116" y="1412" width="229" height="54" fill="white"/>
+        <rect x="116" y="1412" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(121 1417)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="9.708" y="17">直接this.$off()，则清空全部</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="89.452" y="39">event</tspan>
+        </text>
+      </g>
+      <g id="Graphic_154">
+        <rect x="116" y="1502" width="229" height="54" fill="white"/>
+        <rect x="116" y="1502" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(121 1507)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="9.452" y="17">如event是数组，则递归调用</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="94.524" y="39">$off</tspan>
+        </text>
+      </g>
+      <g id="Graphic_156">
+        <rect x="116" y="1592" width="229" height="54" fill="white"/>
+        <rect x="116" y="1592" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(121 1597)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="5.404" y="17">如指定event，则删除event的</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="82.18" y="39">handler</tspan>
+        </text>
+      </g>
+      <g id="Graphic_158">
+        <rect x="116" y="1682" width="229" height="54" fill="white"/>
+        <rect x="116" y="1682" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(121 1687)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="2.18" y="17">如果指定了handler，则删除当</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="30.132" y="39">前event对应的handler</tspan>
+        </text>
+      </g>
+      <g id="Graphic_160">
+        <rect x="-414" y="1323.5385" width="229" height="54" fill="white"/>
+        <rect x="-414" y="1323.5385" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-409 1339.5385)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="34.516" y="17">Vue.prototype.$emit</tspan>
+        </text>
+      </g>
+      <g id="Line_161">
+        <line x1="-108.78613" y1="1286" x2="-210.33627" y2="1320.365" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_162">
+        <line x1="-30.65" y1="1286" x2="-32.246127" y2="1312.1184" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_163">
+        <line x1="48.85" y1="1286" x2="143.29657" y2="1318.756" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_164">
+        <path d="M 403 1351.2114 L 375.79327 1351.7368 L 375.3185 1256.5505 L 365.8998 1256.6075" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_165">
+        <rect x="-414" y="1413.5385" width="229" height="54" fill="white"/>
+        <rect x="-414" y="1413.5385" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-409 1418.5385)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="13.7" y="17">获取当前vm实例对应的cbs</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="25.284" y="39">cbs=vm._events[event]</tspan>
+        </text>
+      </g>
+      <g id="Graphic_167">
+        <rect x="-414" y="1503.5385" width="229" height="54" fill="white"/>
+        <rect x="-414" y="1503.5385" width="229" height="54" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-409 1519.5385)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="64.396" y="17">循环调用cbs</tspan>
+        </text>
+      </g>
+      <g id="Graphic_169">
+        <path d="M -390 1593.5385 L -209 1593.5385 C -195.74517 1593.5385 -185 1604.2836 -185 1617.5385 L -185 1658 C -185 1671.2548 -195.74517 1682 -209 1682 L -390 1682 C -403.25483 1682 -414 1671.2548 -414 1658 L -414 1617.5385 C -414 1604.2836 -403.25483 1593.5385 -390 1593.5385 Z" fill="white"/>
+        <path d="M -390 1593.5385 L -209 1593.5385 C -195.74517 1593.5385 -185 1604.2836 -185 1617.5385 L -185 1658 C -185 1671.2548 -195.74517 1682 -209 1682 L -390 1682 C -403.25483 1682 -414 1671.2548 -414 1658 L -414 1617.5385 C -414 1604.2836 -403.25483 1593.5385 -390 1593.5385 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-409 1604.7692)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="4.876" y="17">当前vm调用cbs，之所以能起</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="7.996" y="39">到父子组件通信，是因为cbs</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="61.5" y="61">定义在父组件</tspan>
+        </text>
+      </g>
+      <g id="Line_170">
+        <line x1="-299.5" y1="1557.5385" x2="-299.5" y2="1582.6385" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_171">
+        <path d="M -390 644.3947 L -209 644.3947 C -195.74517 644.3947 -185 655.1399 -185 668.3947 L -185 748.1316 C -185 761.3864 -195.74517 772.1316 -209 772.1316 L -390 772.1316 C -403.25483 772.1316 -414 761.3864 -414 748.1316 L -414 668.3947 C -414 655.1399 -403.25483 644.3947 -390 644.3947 Z" fill="white"/>
+        <path d="M -390 644.3947 L -209 644.3947 C -195.74517 644.3947 -185 655.1399 -185 668.3947 L -185 748.1316 C -185 761.3864 -195.74517 772.1316 -209 772.1316 L -390 772.1316 C -403.25483 772.1316 -414 761.3864 -414 748.1316 L -414 668.3947 C -414 655.1399 -403.25483 644.3947 -390 644.3947 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-409 653.26316)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="5.5" y="17">组件的普通事件，即自定义事</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="29.5" y="39">件，会添加到子组件的</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="2.212" y="61">vm._events上，而.native事件</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="5.5" y="83">触发和上面的不同事件是一致</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="101.5" y="105">的</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

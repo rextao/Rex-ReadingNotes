@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*为了美观*/
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+        }
+
+        @keyframes animate {
+            to {
+            transform: rotate(1turn);
+            }
+        }
+        /*先搞一个黄色的圆*/
+        .wrapper {
+            /*为了实现多个重叠旋转*/
+            position: relative;
+            font-size: 10px;
+            width: 20em;
+            height: 20em;
+        }
+        .circle-line {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            color: gold;
+            border-radius: 50%;
+            border-width: 0.2em 0.2em 0 0;
+            border-color: currentColor transparent transparent transparent;
+            border-style: solid;
+            animation: animate 3s linear infinite;
+        }
+        /*再绝对定位一个点到圆上*/
+        .circle-dot {
+            width: 50%;
+            height: 0.1em;
+            border-radius: 50%;
+            /*background-color: gold;*/
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: rotate(-45deg);
+            transform-origin: left;
+        }
+        .circle-dot:before {
+            content: '';
+            width: 1em;
+            height: 1em;
+            border-radius: 50%;
+            background-color: currentColor;
+            position: absolute;
+            top: -0.5em;
+            right: -0.5em;
+            box-shadow: 0 0 2em currentColor, 0 0 2em currentColor, 0 0 2em currentColor, 0 0 2em currentColor;
+        }
+        /*再画一个圆*/
+        .green{
+            width: 50%;
+            height: 50%;
+            left: 50%;
+            top: 50%;
+            margin-left: -25%;
+            margin-top: -25%;
+            color: lime;
+        }
+
+
+
+        /*参考代码*/
+        .loader {
+            width: 20em;
+            height: 20em;
+            font-size: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .loader .face {
+            position: absolute;
+            border-radius: 50%;
+            border-style: solid;
+            animation: animate 3s linear infinite;
+        }
+        .loader .face:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            color: gold;
+            border-color: currentColor transparent transparent currentColor;
+            border-width: 0.2em 0.2em 0em 0em;
+            --deg: -45deg;
+            animation-direction: normal;
+        }
+        .loader .face:nth-child(2) {
+            width: 70%;
+            height: 70%;
+            color: lime;
+            border-color: currentColor currentColor transparent transparent;
+            border-width: 0.2em 0em 0em 0.2em;
+            --deg: -135deg;
+            animation-direction: reverse;
+        }
+        .loader .face .circle {
+            position: absolute;
+            width: 50%;
+            height: 0.1em;
+            top: 50%;
+            left: 50%;
+            background-color: transparent;
+            transform: rotate(var(--deg));
+            transform-origin: left;
+        }
+        .loader .face .circle::before {
+            position: absolute;
+            top: -0.5em;
+            right: -0.5em;
+            content: '';
+            width: 1em;
+            height: 1em;
+            background-color: currentColor;
+            border-radius: 50%;
+            box-shadow: 0 0 2em,
+            0 0 4em,
+            0 0 6em,
+            0 0 8em,
+            0 0 10em,
+            0 0 0 0.5em rgba(255, 255, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<h1>我的代码</h1>
+<div class="wrapper">
+    <div class="circle-line">
+        <div class="circle-dot"></div>
+    </div>
+    <div class="circle-line green">
+        <div class="circle-dot"></div>
+    </div>
+</div>
+<h1>参考代码</h1>
+<div class="loader">
+    <div class="face">
+        <div class="circle"></div>
+    </div>
+    <div class="face">
+        <div class="circle"></div>
+    </div>
+</div>
+<script>
+</script>
+</body>
+</html>

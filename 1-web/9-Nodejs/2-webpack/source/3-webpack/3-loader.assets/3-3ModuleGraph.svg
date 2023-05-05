@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="-297 337 902 1081" width="902" height="1081">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Avenir" font-size="11" panose-1="2 11 7 3 2 2 3 2 2 4" units-per-em="1000" underline-position="-75" underline-thickness="50" slope="0" x-height="480" cap-height="708" ascent="1e3" descent="-365.9973" font-weight="800">
+      <font-face-src>
+        <font-face-name name="Avenir-Heavy"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="11" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Avenir" font-size="16" panose-1="2 11 7 3 2 2 3 2 2 4" units-per-em="1000" underline-position="-75" underline-thickness="50" slope="0" x-height="480" cap-height="708" ascent="1e3" descent="-365.9973" font-weight="800">
+      <font-face-src>
+        <font-face-name name="Avenir-Heavy"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2020-12-12 11:47:28 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" stroke="none" stroke-opacity="1" fill="none" stroke-dasharray="none" fill-opacity="1">
+    <title>Canvas 1</title>
+    <rect fill="white" x="-297" y="337" width="902" height="1081"/>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Line_43">
+        <line x1="116.5" y1="662" x2="116.5" y2="688.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_41">
+        <line x1="116.5" y1="580" x2="116.5" y2="606.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_28">
+        <line x1="-184" y1="662" x2="-184" y2="688.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_26">
+        <line x1="-184" y1="580" x2="-184" y2="606.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_24">
+        <line x1="-184" y1="498" x2="-184" y2="524.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_22">
+        <line x1="-72" y1="475" x2="-45.9" y2="475" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_20">
+        <line x1="492.5" y1="661" x2="492.5" y2="687.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_18">
+        <line x1="492.5" y1="579" x2="492.5" y2="605.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_10">
+        <line x1="492.5" y1="498" x2="492.5" y2="523.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_2">
+        <rect x="-147" y="338" width="224" height="46" fill="white"/>
+        <rect x="-147" y="338" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-142 351.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="57.952" y="15">ModuleGraph</tspan>
+        </text>
+      </g>
+      <g id="Graphic_3">
+        <rect x="-36" y="534" width="305" height="46" fill="white"/>
+        <rect x="-36" y="534" width="305" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-31 547.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="13.9" y="15">mgm = this._moduleMap.get(module)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_5">
+        <rect x="380.5" y="452" width="224" height="46" fill="white"/>
+        <rect x="380.5" y="452" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(385.5 454.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="31.128" y="15">ModuleGraphModule</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="35" y="35.448">只有属性，没有方法</tspan>
+        </text>
+      </g>
+      <g id="Graphic_7">
+        <path d="M 302.25 439 L 347.25 439 C 354.15356 439 359.75 444.59644 359.75 451.5 L 359.75 451.5 C 359.75 458.40356 354.15356 464 347.25 464 L 302.25 464 C 295.34644 464 289.75 458.40356 289.75 451.5 L 289.75 451.5 C 289.75 444.59644 295.34644 439 302.25 439 Z" fill="white"/>
+        <path d="M 302.25 439 L 347.25 439 C 354.15356 439 359.75 444.59644 359.75 451.5 L 359.75 451.5 C 359.75 458.40356 354.15356 464 347.25 464 L 302.25 464 C 295.34644 464 289.75 458.40356 289.75 451.5 L 289.75 451.5 C 289.75 444.59644 295.34644 439 302.25 439 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(294.75 443.5)" fill="#525356">
+          <tspan font-family="Avenir" font-size="11" font-weight="800" fill="#525356" x="2.709" y="12">mgm: </tspan>
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" y="12">实例</tspan>
+        </text>
+      </g>
+      <g id="Graphic_9">
+        <rect x="380.5" y="533" width="224" height="46" fill="white"/>
+        <rect x="380.5" y="533" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(385.5 546.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="84.928" y="15">profile</tspan>
+        </text>
+      </g>
+      <g id="Graphic_13">
+        <rect x="-296" y="452" width="224" height="46" fill="white"/>
+        <rect x="-296" y="452" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-291 465.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="42.256" y="15">getProfile(module)</tspan>
+        </text>
+      </g>
+      <g id="Line_15">
+        <line x1="-65.0614" y1="384" x2="-146.07595" y2="445.9843" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_16">
+        <path d="M 439.25 770 L 545.75 770 C 559.00483 770 569.75 780.7452 569.75 794 L 569.75 828 C 569.75 841.2548 559.00483 852 545.75 852 L 439.25 852 C 425.99517 852 415.25 841.2548 415.25 828 L 415.25 794 C 415.25 780.7452 425.99517 770 439.25 770 Z" fill="white"/>
+        <path d="M 439.25 770 L 545.75 770 C 559.00483 770 569.75 780.7452 569.75 794 L 569.75 828 C 569.75 841.2548 559.00483 852 545.75 852 L 439.25 852 C 425.99517 852 415.25 841.2548 415.25 828 L 415.25 794 C 415.25 780.7452 425.99517 770 439.25 770 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(420.25 778)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="8.25" y="17">内部属性都是通过 </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="13.138" y="39">ModuleGraph的 </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="12.37" y="61">get/set方法操作</tspan>
+        </text>
+      </g>
+      <g id="Graphic_17">
+        <rect x="380.5" y="615" width="224" height="46" fill="white"/>
+        <rect x="380.5" y="615" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(385.5 627)" fill="#525356">
+          <tspan font-family="Avenir" font-size="16" font-weight="800" fill="#525356" x="26.704" y="16">incomingConnections</tspan>
+        </text>
+      </g>
+      <g id="Graphic_19">
+        <rect x="380.5" y="697" width="224" height="46" fill="white"/>
+        <rect x="380.5" y="697" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(385.5 709)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="44.216" y="17">issuer等等属性值</tspan>
+        </text>
+      </g>
+      <g id="Graphic_21">
+        <rect x="-36" y="452" width="305" height="46" fill="white"/>
+        <rect x="-36" y="452" width="305" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-31 465.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="10.428" y="15">this._getModuleGraphModule(module)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_23">
+        <rect x="-296" y="534" width="224" height="46" fill="white"/>
+        <rect x="-296" y="534" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-291 547.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="16.328" y="15">setProfile(module, profile)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_25">
+        <rect x="-296" y="616" width="224" height="46" fill="white"/>
+        <rect x="-296" y="616" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-291 629.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="17.352" y="15">getIncomingConnections</tspan>
+        </text>
+      </g>
+      <g id="Graphic_27">
+        <rect x="-296" y="698" width="224" height="46" fill="white"/>
+        <rect x="-296" y="698" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-291 710)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="75" y="17">等等方法</tspan>
+        </text>
+      </g>
+      <g id="Line_37">
+        <line x1="-4.4342105" y1="384" x2="78.02362" y2="446.0475" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_39">
+        <line x1="116.5" y1="498" x2="116.5" y2="524.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_40">
+        <rect x="-36" y="616" width="305" height="46" fill="white"/>
+        <rect x="-36" y="616" width="305" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-31 628)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="1.268" y="17">如不存在，则</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">new ModuleGraphModule</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_42">
+        <rect x="-36" y="698" width="305" height="46" fill="white"/>
+        <rect x="-36" y="698" width="305" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-31 710)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="13.708" y="17">this._moduleMap.set(module, mgm);</tspan>
+        </text>
+      </g>
+      <g id="Line_44">
+        <line x1="492.5" y1="743" x2="492.5" y2="759.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_46">
+        <path d="M -72 553.62533 L -51.246094 553 L -39.918238 484.76633" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_47">
+        <path d="M -72 640.4672 L -50.410156 640.75 L -40.219427 492.3713" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_48">
+        <path d="M -72 722.9034 L -50.6875 723.2656 L -40.431615 498.7721" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_49">
+        <path d="M 380.5 475.5509 L 313.01562 475.8828 L 315 721 L 278.9 721" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_89">
+        <line x1="125.5" y1="1218" x2="125.5" y2="1244.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_88">
+        <line x1="125.5" y1="1136" x2="125.5" y2="1162.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_84">
+        <line x1="-72" y1="1031" x2="-45.9" y2="1031" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_83">
+        <line x1="492.5" y1="1217" x2="492.5" y2="1243.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_82">
+        <line x1="492.5" y1="1135" x2="492.5" y2="1161.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_81">
+        <line x1="492.5" y1="1054" x2="492.5" y2="1079.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_80">
+        <rect x="-147" y="894" width="224" height="46" fill="white"/>
+        <rect x="-147" y="894" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-142 907.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="57.952" y="15">ModuleGraph</tspan>
+        </text>
+      </g>
+      <g id="Graphic_79">
+        <rect x="-36" y="1090" width="323" height="46" fill="white"/>
+        <rect x="-36" y="1090" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-31 1103.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="5.268" y="15">mgm = this._dependencyMap.get(module)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_78">
+        <rect x="380.5" y="1008" width="224" height="46" fill="white"/>
+        <rect x="380.5" y="1008" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(385.5 1010.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="12.752" y="15">ModuleGraphDependency</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="35" y="35.448">只有属性，没有方法</tspan>
+        </text>
+      </g>
+      <g id="Graphic_77">
+        <path d="M 302.25 995 L 347.25 995 C 354.15356 995 359.75 1000.5964 359.75 1007.5 L 359.75 1007.5 C 359.75 1014.4036 354.15356 1020 347.25 1020 L 302.25 1020 C 295.34644 1020 289.75 1014.4036 289.75 1007.5 L 289.75 1007.5 C 289.75 1000.5964 295.34644 995 302.25 995 Z" fill="white"/>
+        <path d="M 302.25 995 L 347.25 995 C 354.15356 995 359.75 1000.5964 359.75 1007.5 L 359.75 1007.5 C 359.75 1014.4036 354.15356 1020 347.25 1020 L 302.25 1020 C 295.34644 1020 289.75 1014.4036 289.75 1007.5 L 289.75 1007.5 C 289.75 1000.5964 295.34644 995 302.25 995 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(294.75 999.5)" fill="#525356">
+          <tspan font-family="Avenir" font-size="11" font-weight="800" fill="#525356" x="4.029" y="12">mgd: </tspan>
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" y="12">实例</tspan>
+        </text>
+      </g>
+      <g id="Graphic_76">
+        <rect x="380.5" y="1089" width="224" height="46" fill="white"/>
+        <rect x="380.5" y="1089" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(385.5 1102.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="67.288" y="15">connection</tspan>
+        </text>
+      </g>
+      <g id="Graphic_75">
+        <rect x="-296" y="1008" width="224" height="46" fill="white"/>
+        <rect x="-296" y="1008" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-291 1021.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="25.664" y="15">getXXXXXXXX(module)</tspan>
+        </text>
+      </g>
+      <g id="Line_74">
+        <line x1="-65.0614" y1="940" x2="-146.07595" y2="1001.9843" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_72">
+        <rect x="380.5" y="1171" width="224" height="46" fill="white"/>
+        <rect x="380.5" y="1171" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(385.5 1183)" fill="#525356">
+          <tspan font-family="Avenir" font-size="16" font-weight="800" fill="#525356" x="53.808" y="16">parentModule</tspan>
+        </text>
+      </g>
+      <g id="Graphic_71">
+        <rect x="380.5" y="1253" width="224" height="46" fill="white"/>
+        <rect x="380.5" y="1253" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(385.5 1265)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="61.272" y="17">parentBlock</tspan>
+        </text>
+      </g>
+      <g id="Graphic_70">
+        <rect x="-36" y="1008" width="323" height="46" fill="white"/>
+        <rect x="-36" y="1008" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-31 1021.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="1.052" y="15">this._getModuleGraphDependency(module)</tspan>
+        </text>
+      </g>
+      <g id="Line_66">
+        <line x1="-2.618421" y1="940" x2="85.0472" y2="1002.2672" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_65">
+        <line x1="125.5" y1="1054" x2="125.5" y2="1080.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_64">
+        <rect x="-36" y="1172" width="323" height="46" fill="white"/>
+        <rect x="-36" y="1172" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-31 1173)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="93.692" y="17">如不存在，则</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">new </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="56.924" y="39">ModuleGraphDependency</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="39">()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_63">
+        <rect x="-36" y="1254" width="323" height="46" fill="white"/>
+        <rect x="-36" y="1254" width="323" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-31 1266)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.204" y="17">this._dependencyMap.set(module, mgd);</tspan>
+        </text>
+      </g>
+      <g id="Line_58">
+        <path d="M 380.5 1031.5509 L 313.01562 1031.8828 L 315 1277 L 296.9 1277" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_90">
+        <path d="M 439.25 1335 L 545.75 1335 C 559.00483 1335 569.75 1345.7452 569.75 1359 L 569.75 1393 C 569.75 1406.2548 559.00483 1417 545.75 1417 L 439.25 1417 C 425.99517 1417 415.25 1406.2548 415.25 1393 L 415.25 1359 C 415.25 1345.7452 425.99517 1335 439.25 1335 Z" fill="white"/>
+        <path d="M 439.25 1335 L 545.75 1335 C 559.00483 1335 569.75 1345.7452 569.75 1359 L 569.75 1393 C 569.75 1406.2548 559.00483 1417 545.75 1417 L 439.25 1417 C 425.99517 1417 415.25 1406.2548 415.25 1393 L 415.25 1359 C 415.25 1345.7452 425.99517 1335 439.25 1335 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(420.25 1343)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="8.25" y="17">内部属性都是通过 </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="13.138" y="39">ModuleGraph的 </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="12.37" y="61">get/set方法操作</tspan>
+        </text>
+      </g>
+      <g id="Line_91">
+        <line x1="492.5" y1="1299" x2="492.5" y2="1324.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_94">
+        <rect x="-296" y="1090" width="224" height="46" fill="white"/>
+        <rect x="-296" y="1090" width="224" height="46" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(-291 1103.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="32.032" y="15">setResolvedModule()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_96">
+        <path d="M 134 338 L 273 338 C 285.70255 338 296 348.29745 296 361 L 296 361 C 296 373.70255 285.70255 384 273 384 L 134 384 C 121.29745 384 111 373.70255 111 361 L 111 361 C 111 348.29745 121.29745 338 134 338 Z" fill="white"/>
+        <path d="M 134 338 L 273 338 C 285.70255 338 296 348.29745 296 361 L 296 361 C 296 373.70255 285.70255 384 273 384 L 134 384 C 121.29745 384 111 373.70255 111 361 L 111 361 C 111 348.29745 121.29745 338 134 338 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(116 350)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="24.812" y="17">_moduleMap</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">属性</tspan>
+        </text>
+      </g>
+      <g id="Graphic_97">
+        <path d="M 134 894 L 273 894 C 285.70255 894 296 904.2975 296 917 L 296 917 C 296 929.7025 285.70255 940 273 940 L 134 940 C 121.29745 940 111 929.7025 111 917 L 111 917 C 111 904.2975 121.29745 894 134 894 Z" fill="white"/>
+        <path d="M 134 894 L 273 894 C 285.70255 894 296 904.2975 296 917 L 296 917 C 296 929.7025 285.70255 940 273 940 L 134 940 C 121.29745 940 111 929.7025 111 917 L 111 917 C 111 904.2975 121.29745 894 134 894 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(116 906)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="7.18" y="17">_dependencyMap</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">属性</tspan>
+        </text>
+      </g>
+      <g id="Line_100">
+        <line x1="77" y1="361" x2="100.1" y2="361" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_101">
+        <line x1="134.05263" y1="452" x2="179.17814" y2="392.87" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_102">
+        <line x1="77" y1="917" x2="100.1" y2="917" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_104">
+        <line x1="141.23684" y1="1008" x2="181.48858" y2="949.1705" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_105">
+        <path d="M 181 405.5 L 226 405.5 C 232.90356 405.5 238.5 411.09644 238.5 418 L 238.5 418 C 238.5 424.90356 232.90356 430.5 226 430.5 L 181 430.5 C 174.09644 430.5 168.5 424.90356 168.5 418 L 168.5 418 C 168.5 411.09644 174.09644 405.5 181 405.5 Z" fill="white"/>
+        <path d="M 181 405.5 L 226 405.5 C 232.90356 405.5 238.5 411.09644 238.5 418 L 238.5 418 C 238.5 424.90356 232.90356 430.5 226 430.5 L 181 430.5 C 174.09644 430.5 168.5 424.90356 168.5 418 L 168.5 418 C 168.5 411.09644 174.09644 405.5 181 405.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(173.5 410)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" x="19" y="12">读取</tspan>
+        </text>
+      </g>
+      <g id="Graphic_106">
+        <path d="M 181 961.5 L 226 961.5 C 232.90356 961.5 238.5 967.0964 238.5 974 L 238.5 974 C 238.5 980.9036 232.90356 986.5 226 986.5 L 181 986.5 C 174.09644 986.5 168.5 980.9036 168.5 974 L 168.5 974 C 168.5 967.0964 174.09644 961.5 181 961.5 Z" fill="white"/>
+        <path d="M 181 961.5 L 226 961.5 C 232.90356 961.5 238.5 967.0964 238.5 974 L 238.5 974 C 238.5 980.9036 232.90356 986.5 226 986.5 L 181 986.5 C 174.09644 986.5 168.5 980.9036 168.5 974 L 168.5 974 C 168.5 967.0964 174.09644 961.5 181 961.5 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(173.5 966)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="11" font-weight="600" fill="#525356" x="19" y="12">读取</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

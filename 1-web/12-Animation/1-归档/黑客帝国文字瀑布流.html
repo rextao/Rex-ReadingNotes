@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>黑客帝国文字瀑布流</title>
+</head>
+<body>
+<h1>注意</h1>
+<div>
+    <p>ctx.fillStyle='rgba(0,0,0,.05)';  </p>
+    <p>ctx.fillRect(0,0,width,height);   </p>
+    <p>循环绘制半透明色，会使颜色从浅到深   </p>
+</div>
+<canvas id="matrixBG" width="1024" height="768"></canvas>
+<script>
+
+    // 绘制canvas
+        //var s=window.screen;
+        var width = matrixBG.width = window.screen.width;
+        var height = matrixBG.height = window.screen.height;
+        var yPositions = Array(300).join(0).split('');//生成300个0的数组
+        var ctx=matrixBG.getContext('2d');
+        // 实现文字瀑布流，关键是背景色填充每次半透明
+        var draw = function () {
+            ctx.fillStyle='rgba(0,0,0,.05)';
+            ctx.fillRect(0,0,width,height);
+            ctx.fillStyle='#0F0';
+            ctx.font = '10pt Georgia';
+            yPositions.map(function(y, index){
+                text = String.fromCharCode(30+Math.floor( Math.random()*95 ));
+                x = (index * 10)+10;// 每个字母x位置，
+                matrixBG.getContext('2d').fillText(text, x, y);
+                if(y > 100 + Math.random()*1e4)
+                {
+                    yPositions[index]=0;
+                }
+                else
+                {
+                    yPositions[index] = y + 10;
+                }
+            });
+        };
+        RunMatrix();
+        function RunMatrix()
+        {
+            if(typeof Game_Interval != "undefined") clearInterval(Game_Interval);
+            Game_Interval = setInterval(draw, 33);
+        }
+</script>
+</body>
+</html>

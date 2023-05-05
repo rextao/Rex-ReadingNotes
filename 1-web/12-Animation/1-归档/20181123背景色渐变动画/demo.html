@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>背景色渐变动</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <style>
+        .div{
+            width: 200px;
+            height: 100px;
+            background: linear-gradient(90deg,  #ffc700 0%, #e91e1e 33%, #6f27b0 66%, #00ff88 100%);
+        }
+        #id1:hover{
+            animation: gradientChange 1s infinite;
+        }
+        @keyframes gradientChange  {
+            100% {
+                background: linear-gradient(90deg,  #e91e1e 0%, #6f27b0 100%);
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>基本思路：利用animation对background: linear-gradient进行动画效果</h1>
+<p>线性渐变是不支持动画 animation 的</p>
+<h1 style="color: red;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties">哪些css属性支持动画MDN</a></h1>
+<div id="id1" class="div"></div>
+
+<h1>background-position 模拟渐变动画</h1>
+<p>动画控制background-position </p>
+<style>
+    #id2{
+        background-size: 300% 100%;
+        background-position: 0 0;
+        animation: bgposition 2s infinite linear alternate;
+    }
+    @keyframes bgposition {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 100% 0;
+        }
+    }
+</style>
+<div class="div" id="id2"></div>
+
+<h1>background-size 模拟渐变动画</h1>
+<p>动画控制background-size </p>
+<p>如不自然可以设置background-position: 100% 0;原文（https://github.com/chokcoco/iCSS/issues/10）介绍</p>
+<style>
+    #id3{
+        animation: bgSize 5s infinite ease-in-out alternate;
+    }
+    @keyframes bgSize {
+        0% {
+            background-size: 300% 100%;
+        }
+        100% {
+            background-size: 100% 100%;
+        }
+    }
+</style>
+<div class="div" id="id3"></div>
+
+<h1>通过 transform 模拟渐变动画</h1>
+<p>上述方式会导致页面不断地进行大量的重绘（repaint），对页面性能消耗非常严重</p>
+<p>把#id4的overflow去掉，可以看到原理</p>
+<style>
+    #id4{
+        position: relative;
+        overflow: hidden;
+        width: 100px;
+        height: 100px;
+        margin: 100px auto;
+        border: 2px solid #000;
+    }
+    #id4::before {
+         content: "";
+         position: absolute;
+         top: -100%;
+         left: -100%;
+         bottom: -100%;
+         right: -100%;
+         background: linear-gradient(45deg,  #ffc700 0%, #e91e1e 50%, #6f27b0 100%);
+         background-size: 100% 100%;
+         animation: bgposition1 5s infinite linear alternate;
+         z-index: -1;
+     }
+    @keyframes bgposition1 {
+        0% {
+            transform: translate(30%, 30%);
+        }
+        25% {
+            transform: translate(30%, -30%);
+        }
+        50% {
+            transform: translate(-30%, -30%);
+        }
+        75% {
+            transform: translate(-30%, 30%);
+        }
+        100% {
+            transform: translate(30%, 30%);
+        }
+    }
+</style>
+<div id="id4"></div>
+<h1>应用:hover会渐变的button</h1>
+<style>
+    .btn{
+        width: 100px;
+        height: 30px;
+        color: #fff;
+        margin-bottom: 300px;
+        text-align: center;
+        background: linear-gradient(#024e8a 0%, #2d80c1 50%, #83c7fd 100%);
+        background-size:100% 150%;
+        transition: .3s;
+    }
+    .btn:hover{
+        background-position: 0 70%;
+    }
+</style>
+<div class="btn">巴扎黑</div>
+
+</body>
+</html>

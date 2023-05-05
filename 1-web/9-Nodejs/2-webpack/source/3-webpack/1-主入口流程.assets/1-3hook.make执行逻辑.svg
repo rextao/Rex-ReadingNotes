@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="-134 46 1570 943" width="1570" height="943">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2020-06-27 11:17:36 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" stroke="none" stroke-opacity="1" fill="none" stroke-dasharray="none" fill-opacity="1">
+    <title>Canvas 1</title>
+    <rect fill="white" x="-134" y="46" width="1570" height="943"/>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Line_81">
+        <line x1="1183.5" y1="455" x2="1183.5" y2="481.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_78">
+        <line x1="1183.5" y1="381" x2="1183.5" y2="407.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_75">
+        <line x1="1183.5" y1="307" x2="1183.5" y2="333.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_73">
+        <line x1="1183.5" y1="233" x2="1183.5" y2="259.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_70">
+        <line x1="1183.5" y1="159" x2="1183.5" y2="185.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_68">
+        <line x1="1183.5" y1="85" x2="1183.5" y2="111.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_57">
+        <line x1="276.5" y1="806" x2="276.5" y2="832.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_39">
+        <line x1="276.5" y1="658" x2="276.5" y2="684.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_27">
+        <line x1="276.5" y1="308" x2="276.5" y2="361.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_21">
+        <line x1="276.5" y1="234" x2="276.5" y2="260.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_19">
+        <line x1="276.5" y1="160" x2="276.5" y2="186.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_15">
+        <line x1="276.5" y1="85" x2="276.5" y2="112.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_14">
+        <rect x="25" y="47" width="503" height="38" fill="white"/>
+        <rect x="25" y="47" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 55)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="110.636" y="17">hook.make函数执行入口：</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">Compiler.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_13">
+        <rect x="25" y="122" width="503" height="38" fill="white"/>
+        <rect x="25" y="122" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 130)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="144.66" y="17">this.hooks.make.callAsync()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_9">
+        <path d="M -120 276 L -8.5 276 C -1.3202983 276 4.5 281.8203 4.5 289 L 4.5 289 C 4.5 296.1797 -1.3202983 302 -8.5 302 L -120 302 C -127.1797 302 -133 296.1797 -133 289 L -133 289 C -133 281.8203 -127.1797 276 -120 276 Z" fill="white"/>
+        <path d="M -120 276 L -8.5 276 C -1.3202983 276 4.5 281.8203 4.5 289 L 4.5 289 C 4.5 296.1797 -1.3202983 302 -8.5 302 L -120 302 C -127.1797 302 -133 296.1797 -133 289 L -133 289 C -133 281.8203 -127.1797 276 -120 276 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-128 278)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="9.246" y="17">Compilation.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_4">
+        <path d="M 572.5 252.75 L 793.5 252.75 C 806.7548 252.75 817.5 263.49517 817.5 276.75 L 817.5 301.25 C 817.5 314.50483 806.7548 325.25 793.5 325.25 L 572.5 325.25 C 559.24517 325.25 548.5 314.50483 548.5 301.25 L 548.5 276.75 C 548.5 263.49517 559.24517 252.75 572.5 252.75 Z" fill="white"/>
+        <path d="M 572.5 252.75 L 793.5 252.75 C 806.7548 252.75 817.5 263.49517 817.5 276.75 L 817.5 301.25 C 817.5 314.50483 806.7548 325.25 793.5 325.25 L 572.5 325.25 C 559.24517 325.25 548.5 314.50483 548.5 301.25 L 548.5 276.75 C 548.5 263.49517 559.24517 252.75 572.5 252.75 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(553.5 256)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">内部</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">1、构建entryData</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="61">2、执行this.addModuleChain</tspan>
+        </text>
+      </g>
+      <g id="Graphic_18">
+        <rect x="25" y="196" width="503" height="38" fill="white"/>
+        <rect x="25" y="196" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 204)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="22.428" y="17">实际会执行EntryPlugin.js中hooks.make.tapAsync()的回调函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_20">
+        <rect x="25" y="270" width="503" height="38" fill="white"/>
+        <rect x="25" y="270" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 278)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="162.876" y="17">compilation.addEntry()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_26">
+        <rect x="25" y="371" width="503" height="38" fill="white"/>
+        <rect x="25" y="371" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 379)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="163.34" y="17">this.addModuleChain()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_28">
+        <path d="M 572.5 344.875 L 804 344.875 C 817.2548 344.875 828 355.62017 828 368.875 L 828 411.125 C 828 424.37983 817.2548 435.125 804 435.125 L 572.5 435.125 C 559.24517 435.125 548.5 424.37983 548.5 411.125 L 548.5 368.875 C 548.5 355.62017 559.24517 344.875 572.5 344.875 Z" fill="white"/>
+        <path d="M 572.5 344.875 L 804 344.875 C 817.2548 344.875 828 355.62017 828 368.875 L 828 411.125 C 828 424.37983 817.2548 435.125 804 435.125 L 572.5 435.125 C 559.24517 435.125 548.5 424.37983 548.5 411.125 L 548.5 368.875 C 548.5 355.62017 559.24517 344.875 572.5 344.875 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(553.5 346)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">内部</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">1、判断dependency是否为webpack</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="61">支持的类型，如amd，commonjs等</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="83">2、执行handleModuleCreation</tspan>
+        </text>
+      </g>
+      <g id="Graphic_29">
+        <rect x="25" y="472" width="503" height="38" fill="white"/>
+        <rect x="25" y="472" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 480)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="142.348" y="17">this.handleModuleCreation()</tspan>
+        </text>
+      </g>
+      <g id="Graphic_31">
+        <path d="M 572.5 463.375 L 793.5 463.375 C 806.7548 463.375 817.5 474.12017 817.5 487.375 L 817.5 494.625 C 817.5 507.87983 806.7548 518.625 793.5 518.625 L 572.5 518.625 C 559.24517 518.625 548.5 507.87983 548.5 494.625 L 548.5 487.375 C 548.5 474.12017 559.24517 463.375 572.5 463.375 Z" fill="white"/>
+        <path d="M 572.5 463.375 L 793.5 463.375 C 806.7548 463.375 817.5 474.12017 817.5 487.375 L 817.5 494.625 C 817.5 507.87983 806.7548 518.625 793.5 518.625 L 572.5 518.625 C 559.24517 518.625 548.5 507.87983 548.5 494.625 L 548.5 487.375 C 548.5 474.12017 559.24517 463.375 572.5 463.375 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(553.5 469)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">内部</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">1、执行this.factorizeModule</tspan>
+        </text>
+      </g>
+      <g id="Graphic_32">
+        <rect x="25" y="546" width="503" height="38" fill="white"/>
+        <rect x="25" y="546" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 554)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="103.172" y="17">this.factorizeModule(options, callback)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_34">
+        <path d="M 572.5 537.375 L 869 537.375 C 882.2548 537.375 893 548.12017 893 561.375 L 893 568.625 C 893 581.8798 882.2548 592.625 869 592.625 L 572.5 592.625 C 559.24517 592.625 548.5 581.8798 548.5 568.625 L 548.5 561.375 C 548.5 548.12017 559.24517 537.375 572.5 537.375 Z" fill="white"/>
+        <path d="M 572.5 537.375 L 869 537.375 C 882.2548 537.375 893 548.12017 893 561.375 L 893 568.625 C 893 581.8798 882.2548 592.625 869 592.625 L 572.5 592.625 C 559.24517 592.625 548.5 581.8798 548.5 568.625 L 548.5 561.375 C 548.5 548.12017 559.24517 537.375 572.5 537.375 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(553.5 543)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">内部</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">this.factorizeQueue.add(options, callback);</tspan>
+        </text>
+      </g>
+      <g id="Graphic_35">
+        <rect x="25" y="620" width="503" height="38" fill="white"/>
+        <rect x="25" y="620" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 628)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="42.084" y="17">执行factorizeQueue，后执行</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">factorizeModule的callback</tspan>
+        </text>
+      </g>
+      <g id="Graphic_38">
+        <rect x="25" y="694" width="503" height="38" fill="white"/>
+        <rect x="25" y="694" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 702)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="103.556" y="17">callback内部主要是执行this.addModule</tspan>
+        </text>
+      </g>
+      <g id="Graphic_42">
+        <path d="M 572.5 685.375 L 886 685.375 C 899.2548 685.375 910 696.1202 910 709.375 L 910 716.625 C 910 729.8798 899.2548 740.625 886 740.625 L 572.5 740.625 C 559.24517 740.625 548.5 729.8798 548.5 716.625 L 548.5 709.375 C 548.5 696.1202 559.24517 685.375 572.5 685.375 Z" fill="white"/>
+        <path d="M 572.5 685.375 L 886 685.375 C 899.2548 685.375 910 696.1202 910 709.375 L 910 716.625 C 910 729.8798 899.2548 740.625 886 740.625 L 572.5 740.625 C 559.24517 740.625 548.5 729.8798 548.5 716.625 L 548.5 709.375 C 548.5 696.1202 559.24517 685.375 572.5 685.375 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(553.5 691)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">addModule内部</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">this.addModuleQueue.add(options, callback);</tspan>
+        </text>
+      </g>
+      <g id="Line_43">
+        <line x1="528" y1="390" x2="537.6" y2="390" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_44">
+        <line x1="550.8851" y1="423.69485" x2="363.5729" y2="469.6415" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_45">
+        <line x1="528" y1="491" x2="537.6" y2="491" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_47">
+        <line x1="556.69167" y1="513.9934" x2="390.61155" y2="544.2269" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_48">
+        <line x1="528" y1="565" x2="537.6" y2="565" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_51">
+        <rect x="25" y="768" width="503" height="38" fill="white"/>
+        <rect x="25" y="768" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 776)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="52.188" y="17">执行addModuleQueue，后执行</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">addModule的callback</tspan>
+        </text>
+      </g>
+      <g id="Line_53">
+        <line x1="562.19805" y1="591.41045" x2="400.32964" y2="618.37334" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_54">
+        <line x1="528" y1="713" x2="537.6" y2="713" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_55">
+        <line x1="563.74864" y1="740.0505" x2="402.517" y2="766.4031" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_56">
+        <rect x="25" y="842" width="503" height="38" fill="white"/>
+        <rect x="25" y="842" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 850)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="99.62" y="17">callback内部主要是执行this.buildModule</tspan>
+        </text>
+      </g>
+      <g id="Graphic_58">
+        <path d="M 572.5 833.375 L 886 833.375 C 899.2548 833.375 910 844.1202 910 857.375 L 910 864.625 C 910 877.8798 899.2548 888.625 886 888.625 L 572.5 888.625 C 559.24517 888.625 548.5 877.8798 548.5 864.625 L 548.5 857.375 C 548.5 844.1202 559.24517 833.375 572.5 833.375 Z" fill="white"/>
+        <path d="M 572.5 833.375 L 886 833.375 C 899.2548 833.375 910 844.1202 910 857.375 L 910 864.625 C 910 877.8798 899.2548 888.625 886 888.625 L 572.5 888.625 C 559.24517 888.625 548.5 877.8798 548.5 864.625 L 548.5 857.375 C 548.5 844.1202 559.24517 833.375 572.5 833.375 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(553.5 839)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">buildModule内部</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">this.buildQueue.add(options, callback);</tspan>
+        </text>
+      </g>
+      <g id="Line_59">
+        <line x1="528" y1="289" x2="537.6" y2="289" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_62">
+        <rect x="932" y="47" width="503" height="38" fill="white"/>
+        <rect x="932" y="47" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(937 55)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="164.26" y="17">lib/util/AsyncQueue.js</tspan>
+        </text>
+      </g>
+      <g id="Line_64">
+        <line x1="528" y1="861" x2="537.6" y2="861" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_65">
+        <rect x="25" y="916" width="503" height="72.5" fill="white"/>
+        <rect x="25" y="916" width="503" height="72.5" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(30 930.25)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="1.932" y="17">执行buildQueue，后执行</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">buildModule的callback，实际最终会return </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="216.124" y="39">callback</tspan>
+        </text>
+      </g>
+      <g id="Graphic_67">
+        <rect x="932" y="121" width="503" height="38" fill="white"/>
+        <rect x="932" y="121" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(937 129)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="160.004" y="17">add(item, callback)函数</tspan>
+        </text>
+      </g>
+      <g id="Graphic_69">
+        <rect x="932" y="195" width="503" height="38" fill="white"/>
+        <rect x="932" y="195" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(937 203)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="29.62" y="17">将item通过AsyncQueueEntry转为entry，缓存在this._entries</tspan>
+        </text>
+      </g>
+      <g id="Graphic_71">
+        <text transform="translate(1188.0625 171.0625)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">内部</tspan>
+        </text>
+      </g>
+      <g id="Graphic_72">
+        <rect x="932" y="269" width="503" height="38" fill="white"/>
+        <rect x="932" y="269" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(937 277)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="104.068" y="17">setImmediate(this._ensureProcessing);</tspan>
+        </text>
+      </g>
+      <g id="Graphic_74">
+        <rect x="932" y="343" width="503" height="38" fill="white"/>
+        <rect x="932" y="343" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(937 351)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="80.404" y="17">循环queue，调用this._startProcessing(entry);</tspan>
+        </text>
+      </g>
+      <g id="Graphic_76">
+        <text transform="translate(1198 317)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="4.82" y="17">_ensureProcessing内部</tspan>
+        </text>
+      </g>
+      <g id="Graphic_77">
+        <rect x="932" y="417" width="503" height="38" fill="white"/>
+        <rect x="932" y="417" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(937 425)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="80.404" y="17">循环queue，调用this._startProcessing(entry);</tspan>
+        </text>
+      </g>
+      <g id="Graphic_79">
+        <text transform="translate(1189.2673 388.7952)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="12.5" y="17">_startProcessing内部</tspan>
+        </text>
+      </g>
+      <g id="Graphic_80">
+        <rect x="932" y="491" width="503" height="38" fill="white"/>
+        <rect x="932" y="491" width="503" height="38" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(937 499)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="144.372" y="17">会调用_processor()进行处理</tspan>
+        </text>
+      </g>
+      <g id="Graphic_82">
+        <path d="M 1026.75 579 L 1340.25 579 C 1353.5048 579 1364.25 589.7452 1364.25 603 L 1364.25 610.25 C 1364.25 623.5048 1353.5048 634.25 1340.25 634.25 L 1026.75 634.25 C 1013.4952 634.25 1002.75 623.5048 1002.75 610.25 L 1002.75 603 C 1002.75 589.7452 1013.4952 579 1026.75 579 Z" fill="white"/>
+        <path d="M 1026.75 579 L 1340.25 579 C 1353.5048 579 1364.25 589.7452 1364.25 603 L 1364.25 610.25 C 1364.25 623.5048 1353.5048 634.25 1340.25 634.25 L 1026.75 634.25 C 1013.4952 634.25 1002.75 623.5048 1002.75 610.25 L 1002.75 603 C 1002.75 589.7452 1013.4952 579 1026.75 579 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1007.75 584.625)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="17">因此，this.xxxxxQueue.add，最终会调用 new </tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="0" y="39">AsyncQueue 传入的process，进行处理</tspan>
+        </text>
+      </g>
+      <g id="Line_83">
+        <line x1="891.0998" y1="580.3232" x2="995.1921" y2="589.68644" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_84">
+        <line x1="851.4865" y1="684.375" x2="1051.6243" y2="637.5073" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_85">
+        <line x1="780.3671" y1="832.375" x2="1123.7451" y2="640.0871" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_86">
+        <line x1="1183.5" y1="529" x2="1183.5" y2="568.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

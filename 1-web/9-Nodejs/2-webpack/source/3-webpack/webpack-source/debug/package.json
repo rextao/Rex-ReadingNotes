@@ -1,0 +1,24 @@
+{
+  "name": "debug",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "less": "^3.12.2",
+    "less-loader": "^6.2.0",
+    "moment": "^2.29.1",
+    "object-is": "^1.1.2",
+    "style-loader": "^1.2.1",
+    "vue": "^2.6.12",
+    "vue-loader": "^16.0.0-beta.4"
+  },
+  "devDependencies": {
+    "css-loader": "^4.2.0"
+  }
+}

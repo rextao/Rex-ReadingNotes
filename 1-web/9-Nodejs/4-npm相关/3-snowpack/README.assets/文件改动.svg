@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" viewBox="-168 -172 1295 496" width="1295" height="496">
+  <defs>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="Noteworthy" font-size="10" panose-1="2 0 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-166.25" underline-thickness="25" slope="0" x-height="537.5" cap-height="867.5" ascent="1279.9988" descent="-320.00732" font-weight="700">
+      <font-face-src>
+        <font-face-name name="Noteworthy-Bold"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2020-11-12 02:12:08 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" stroke="none" stroke-opacity="1" stroke-dasharray="none" fill-opacity="1" fill="none">
+    <title>Canvas 1</title>
+    <rect fill="white" x="-168" y="-172" width="1295" height="496"/>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Graphic_31">
+        <rect x="124" y="232" width="326" height="63" fill="white"/>
+        <rect x="124" y="232" width="326" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(129 241.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x=".656" y="17">如改动的文件是node_modules，或非某些不</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="40.624" y="39">支持热更新的（html,imgage）等</tspan>
+        </text>
+      </g>
+      <g id="Graphic_30">
+        <path d="M -112 -171 L 1061 -171 C 1073.7025 -171 1084 -160.70255 1084 -148 L 1084 -148 C 1084 -135.29745 1073.7025 -125 1061 -125 L -112 -125 C -124.70255 -125 -135 -135.29745 -135 -148 L -135 -148 C -135 -160.70255 -124.70255 -171 -112 -171 Z" fill="white"/>
+        <path d="M -112 -171 L 1061 -171 C 1073.7025 -171 1084 -160.70255 1084 -148 L 1084 -148 C 1084 -135.29745 1073.7025 -125 1061 -125 L -112 -125 C -124.70255 -125 -135 -135.29745 -135 -148 L -135 -148 C -135 -160.70255 -124.70255 -171 -112 -171 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-130 -159)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="519.332" y="17">浏览器  localhost:8080</tspan>
+        </text>
+      </g>
+      <g id="Graphic_29">
+        <path d="M 276.25 25 L 671.75 25 C 684.45255 25 694.75 35.29745 694.75 48 L 694.75 48 C 694.75 60.70255 684.45255 71 671.75 71 L 276.25 71 C 263.54745 71 253.25 60.70255 253.25 48 L 253.25 48 C 253.25 35.29745 263.54745 25 276.25 25 Z" fill="white"/>
+        <path d="M 276.25 25 L 671.75 25 C 684.45255 25 694.75 35.29745 694.75 48 L 694.75 48 C 694.75 60.70255 684.45255 71 671.75 71 L 276.25 71 C 263.54745 71 253.25 60.70255 253.25 48 L 253.25 48 C 253.25 35.29745 263.54745 25 276.25 25 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(258.25 37)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="192.446" y="17">server</tspan>
+        </text>
+      </g>
+      <g id="Graphic_19">
+        <rect x="253.25" y="120" width="441.5" height="63" fill="white"/>
+        <rect x="253.25" y="120" width="441.5" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(258.25 140.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="79.878" y="17">使用chokidar包，监听全部文件的改动</tspan>
+        </text>
+      </g>
+      <g id="Line_17">
+        <line x1="421.40625" y1="183" x2="348.08693" y2="226.91317" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_35">
+        <path d="M -111 232 L 40 232 C 53.254834 232 64 242.74517 64 256 L 64 271 C 64 284.25483 53.254834 295 40 295 L -111 295 C -124.25483 295 -135 284.25483 -135 271 L -135 256 C -135 242.74517 -124.25483 232 -111 232 Z" fill="white"/>
+        <path d="M -111 232 L 40 232 C 53.254834 232 64 242.74517 64 256 L 64 271 C 64 284.25483 53.254834 295 40 295 L -111 295 C -124.25483 295 -135 284.25483 -135 271 L -135 256 C -135 242.74517 -124.25483 232 -111 232 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(-130 252.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="17.076" y="17">send({ type: reload })</tspan>
+        </text>
+      </g>
+      <g id="Line_36">
+        <line x1="124" y1="263.5" x2="74.9" y2="263.5" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_37">
+        <path d="M 135 -93 L 339 -93 C 351.70255 -93 362 -82.70255 362 -70 L 362 -70 C 362 -57.29745 351.70255 -47 339 -47 L 135 -47 C 122.29745 -47 112 -57.29745 112 -70 L 112 -70 C 112 -82.70255 122.29745 -93 135 -93 Z" fill="white"/>
+        <path d="M 135 -93 L 339 -93 C 351.70255 -93 362 -82.70255 362 -70 L 362 -70 C 362 -57.29745 351.70255 -47 339 -47 L 135 -47 C 122.29745 -47 112 -57.29745 112 -70 L 112 -70 C 112 -82.70255 122.29745 -93 135 -93 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(117 -81)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="15.24" y="17">window.location.reload(true)</tspan>
+        </text>
+      </g>
+      <g id="Line_38">
+        <path d="M -35.709138 231 L -38 -125 L -24.23828 -125 L 118.28381 -94.994" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_39">
+        <line x1="285.2034" y1="-46" x2="416.9343" y2="19.58755" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_40">
+        <rect x="490" y="232" width="326" height="63" fill="white"/>
+        <rect x="490" y="232" width="326" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(495 252.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="78" y="17">如改动文件是当前页面</tspan>
+        </text>
+      </g>
+      <g id="Graphic_41">
+        <path d="M 880 232 L 1060 232 C 1073.2548 232 1084 242.74517 1084 256 L 1084 271 C 1084 284.25483 1073.2548 295 1060 295 L 880 295 C 866.7452 295 856 284.25483 856 271 L 856 256 C 856 242.74517 866.7452 232 880 232 Z" fill="white"/>
+        <path d="M 880 232 L 1060 232 C 1073.2548 232 1084 242.74517 1084 256 L 1084 271 C 1084 284.25483 1073.2548 295 1060 295 L 880 295 C 866.7452 295 856 284.25483 856 271 L 856 256 C 856 242.74517 866.7452 232 880 232 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(861 252.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="15" y="17">send({ type: update, url })</tspan>
+        </text>
+      </g>
+      <g id="Line_42">
+        <line x1="816" y1="263.5" x2="845.1" y2="263.5" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_43">
+        <path d="M 605 -93 L 865 -93 C 877.7025 -93 888 -82.70255 888 -70 L 888 -70 C 888 -57.29745 877.7025 -47 865 -47 L 605 -47 C 592.29745 -47 582 -57.29745 582 -70 L 582 -70 C 582 -82.70255 592.29745 -93 605 -93 Z" fill="white"/>
+        <path d="M 605 -93 L 865 -93 C 877.7025 -93 888 -82.70255 888 -70 L 888 -70 C 888 -57.29745 877.7025 -47 865 -47 L 605 -47 C 592.29745 -47 582 -57.29745 582 -70 L 582 -70 C 582 -82.70255 592.29745 -93 605 -93 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(587 -81)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="9.448" y="17">import(url + `?mtime=${Date.now()}`),</tspan>
+        </text>
+      </g>
+      <g id="Line_44">
+        <line x1="524.34375" y1="183" x2="594.2637" y2="226.7488" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_46">
+        <path d="M 970.184 231 L 972.1992 -125 L 848.1492 -96.23621" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_47">
+        <line x1="681.91525" y1="-46" x2="536.10564" y2="19.921588" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_49">
+        <path d="M -158 203.5 L 1117 203.5 C 1121.9706 203.5 1126 207.52944 1126 212.5 L 1126 314.5 C 1126 319.47056 1121.9706 323.5 1117 323.5 L -158 323.5 C -162.97056 323.5 -167 319.47056 -167 314.5 L -167 212.5 C -167 207.52944 -162.97056 203.5 -158 203.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8.0,5.0" stroke-width="1"/>
+      </g>
+      <g id="Graphic_50">
+        <title>Button</title>
+        <path d="M 1 203.5 L 93 203.5 C 95.20914 203.5 97 205.29086 97 207.5 L 97 215.65 C 97 217.85913 95.20914 219.65 93 219.65 L 1 219.65 C -1.209139 219.65 -3 217.85913 -3 215.65 L -3 207.5 C -3 205.29086 -1.209139 203.5 1 203.5 Z" fill="white"/>
+        <path d="M .7360162 203.49863 L 94.20088 203.98457 C 95.19351 203.48034 97.08994 205.42519 97 207.5 M 96.97953 206.69957 L 97.21486 215.90115 C 97.15527 217.91432 95.10473 219.85166 93 219.65 M 93.70954 219.65265 L .4381191 219.30414 C -1.4412643 219.74867 -3.1568993 217.73033 -3 215.65 M -2.9979105 216.22953 L -3.0332417 206.4301 C -2.9698854 205.46516 -1.3771486 203.61156 1 203.5 M 1.543742 203.5 L .27832466 203.5 M .8611114 203.35531 L 93.33632 203.7814 C 95.44351 203.23034 97.33994 205.17519 97.25 207.25 M 97.16169 206.57311 L 97.40609 215.3576 C 97.40527 217.66432 95.35473 219.60166 93.25 219.4 M 93.83429 219.5928 L 1.3924962 219.185 C -1.1912643 219.49867 -2.9068993 217.48033 -2.75 215.4 M -2.9165923 216.10469 L -2.9201055 206.94498 C -2.7198854 205.21516 -1.1271486 203.36156 1.25 203.25 M 1.668742 203.38518 L 1.125 203.48848" stroke="#33afe2" stroke-opacity=".501859" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(2 203.5)" fill="#268bd2">
+          <tspan font-family="Noteworthy" font-size="10" font-weight="700" fill="#268bd2" x="7.10625" y="13">handleHmrUpdate</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

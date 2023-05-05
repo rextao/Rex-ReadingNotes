@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>水波背景</title>
+	<meta charset="utf-8" />
+	<style>
+		html, body {width:100%; height:100%; padding:0; margin:0;}
+	</style>
+</head>
+<body>
+<p>主要是一个项目要弄，用canvas画了一个</p>
+<canvas id="canvas" width="800" height="150"></canvas>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function () {
+		drawCanvas('canvas','red');
+		function drawCanvas(id,upperColor,underColor) {
+			var $canvas = $("#"+id);
+			var ctx = $canvas[0].getContext('2d'),
+				width = $canvas.width(),
+				height = $canvas.height();
+			ctx.beginPath();
+			ctx.fillStyle = upperColor || '#FFF';
+			ctx.fillRect(0,0,width,height);
+			ctx.moveTo(0,  height/2);
+			// 绘制三次贝塞尔曲线
+			ctx.bezierCurveTo(width/4, 0, width/2, height+50, width, height*4/7);
+			// 绘制圆弧
+			ctx.lineTo(width, height/2);
+			ctx.lineTo(width, height);
+			ctx.lineTo(0,height);
+			ctx.closePath();
+			ctx.fillStyle = underColor || 'rgba(255,255,255,0.3)';
+			ctx.fill();
+			ctx.save();
+		}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" viewBox="441 162 1030 910" width="1030" height="910">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="PingFang SC" font-size="16" panose-1="2 11 8 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="80" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="600">
+      <font-face-src>
+        <font-face-name name="PingFangSC-Semibold"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.11.5 
+    <dc:date>2020-09-08 01:39:59 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" stroke-dasharray="none" stroke-opacity="1" fill="none" stroke="none" fill-opacity="1">
+    <title>Canvas 1</title>
+    <rect fill="white" x="441" y="162" width="1030" height="910"/>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Line_41">
+        <line x1="1294" y1="917.5" x2="1294" y2="943.6" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_29">
+        <line x1="721" y1="665" x2="721" y2="691.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_26">
+        <line x1="721" y1="566" x2="721" y2="592.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_2">
+        <rect x="500.25" y="503" width="441.5" height="63" fill="white"/>
+        <rect x="500.25" y="503" width="441.5" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(505.25 512.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="27.39" y="17">临时缓存：</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">inMemoryBuildCache</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">一个</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" y="17">set</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" y="17">集合，key：</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="98.446" y="39">fileLoc， value: build后文件内容</tspan>
+        </text>
+      </g>
+      <g id="Graphic_4">
+        <path d="M 523.25 163 L 918.75 163 C 931.4525 163 941.75 173.29745 941.75 186 L 941.75 186 C 941.75 198.70255 931.4525 209 918.75 209 L 523.25 209 C 510.54745 209 500.25 198.70255 500.25 186 L 500.25 186 C 500.25 173.29745 510.54745 163 523.25 163 Z" fill="white"/>
+        <path d="M 523.25 163 L 918.75 163 C 931.4525 163 941.75 173.29745 941.75 186 L 941.75 186 C 941.75 198.70255 931.4525 209 918.75 209 L 523.25 209 C 510.54745 209 500.25 198.70255 500.25 186 L 500.25 186 C 500.25 173.29745 510.54745 163 523.25 163 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(505.25 175)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="130.582" y="17">浏览器  localhost:8080</tspan>
+        </text>
+      </g>
+      <g id="Graphic_5">
+        <path d="M 523.25 296 L 918.75 296 C 931.4525 296 941.75 306.29745 941.75 319 L 941.75 319 C 941.75 331.70255 931.4525 342 918.75 342 L 523.25 342 C 510.54745 342 500.25 331.70255 500.25 319 L 500.25 319 C 500.25 306.29745 510.54745 296 523.25 296 Z" fill="white"/>
+        <path d="M 523.25 296 L 918.75 296 C 931.4525 296 941.75 306.29745 941.75 319 L 941.75 319 C 941.75 331.70255 931.4525 342 918.75 342 L 523.25 342 C 510.54745 342 500.25 331.70255 500.25 319 L 500.25 319 C 500.25 306.29745 510.54745 296 523.25 296 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(505.25 308)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="192.446" y="17">server</tspan>
+        </text>
+      </g>
+      <g id="Graphic_9">
+        <path d="M 1134 493 L 1314 493 C 1327.2548 493 1338 503.74517 1338 517 L 1338 552 C 1338 565.25483 1327.2548 576 1314 576 L 1134 576 C 1120.7452 576 1110 565.25483 1110 552 L 1110 517 C 1110 503.74517 1120.7452 493 1134 493 Z" fill="white"/>
+        <path d="M 1134 493 L 1314 493 C 1327.2548 493 1338 503.74517 1338 517 L 1338 552 C 1338 565.25483 1327.2548 576 1314 576 L 1134 576 C 1120.7452 576 1110 565.25483 1110 552 L 1110 517 C 1110 503.74517 1120.7452 493 1134 493 Z" stroke="#fcc04d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <text transform="translate(1115 512.5)" fill="#525356">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="77.376" y="17">sendFile</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="600" fill="#525356" x="45" y="39">将文件发到浏览器</tspan>
+        </text>
+      </g>
+      <g id="Line_10">
+        <line x1="941.75" y1="534.5" x2="1099.1" y2="534.5" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_11">
+        <line x1="1188.9347" y1="492" x2="948.1517" y2="200.1653" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_12">
+        <line x1="691.6315" y1="210" x2="594.0604" y2="289.73544" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_13">
+        <line x1="721" y1="210" x2="721" y2="285.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_14">
+        <line x1="749.8597" y1="210" x2="845.6616" y2="289.6699" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_15">
+        <text transform="translate(730.3985 254.8385)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="6692424e-19" y="15">/</tspan>
+        </text>
+      </g>
+      <g id="Graphic_17">
+        <text transform="translate(847 254.8385)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">/_dist_/index.html</tspan>
+        </text>
+      </g>
+      <g id="Graphic_18">
+        <text transform="translate(446 243.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">/web_modules/vue.js</tspan>
+        </text>
+      </g>
+      <g id="Graphic_21">
+        <rect x="500.25" y="391" width="441.5" height="63" fill="white"/>
+        <rect x="500.25" y="391" width="441.5" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(505.25 411.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="33.622" y="17">解析浏览器请求路径，映射到对应的文件路径fileloc</tspan>
+        </text>
+      </g>
+      <g id="Line_22">
+        <line x1="721" y1="343" x2="721" y2="381.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_23">
+        <line x1="721" y1="454" x2="721" y2="493.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_24">
+        <text transform="translate(985 498)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">命中</tspan>
+        </text>
+      </g>
+      <g id="Graphic_25">
+        <rect x="500.25" y="602" width="441.5" height="63" fill="white"/>
+        <rect x="500.25" y="602" width="441.5" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(505.25 622.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="97.11" y="17">通过：fs.readFile读取对应的文件</tspan>
+        </text>
+      </g>
+      <g id="Graphic_27">
+        <text transform="translate(727 575)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">未命中</tspan>
+        </text>
+      </g>
+      <g id="Graphic_28">
+        <rect x="500.25" y="701" width="441.5" height="63" fill="white"/>
+        <rect x="500.25" y="701" width="441.5" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(505.25 721.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="93.526" y="17">如果文件是/web_modules/目录下</tspan>
+        </text>
+      </g>
+      <g id="Line_30">
+        <path d="M 941.75 733.0222 L 986.8672 733.1289 L 1165.6721 583.35704" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_31">
+        <path d="M 721 826 L 941.75 886 L 721 946 L 500.25 886 Z" fill="white"/>
+        <path d="M 721 826 L 941.75 886 L 721 946 L 500.25 886 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(564.8525 862.8)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="49.8185" y="17">持续性缓存：cachedBuildData</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="105.6025" y="39">（cacache包）</tspan>
+        </text>
+      </g>
+      <g id="Line_32">
+        <line x1="721" y1="764" x2="721" y2="816.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_33">
+        <rect x="500.25" y="1008" width="441.5" height="63" fill="white"/>
+        <rect x="500.25" y="1008" width="441.5" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(505.25 1028.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="77.966" y="17">根据文件类型，利用不同插件build文件</tspan>
+        </text>
+      </g>
+      <g id="Line_34">
+        <line x1="721" y1="946" x2="721" y2="998.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_35">
+        <text transform="translate(738 966)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">不在缓存中</tspan>
+        </text>
+      </g>
+      <g id="Line_36">
+        <path d="M 941.75 1041.436 L 1006.0625 1042 L 1201.8427 586.0967" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_37">
+        <rect x="1118" y="854.5" width="352" height="63" fill="white"/>
+        <rect x="1118" y="854.5" width="352" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1123 864)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="26.04" y="17">并且当前文件etag与缓存中文件etag相等</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="66.592" y="39">先sendFile，然后build新文件</tspan>
+        </text>
+      </g>
+      <g id="Line_38">
+        <line x1="941.75" y1="886" x2="1108.1" y2="886" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_39">
+        <text transform="translate(975 859.5)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">在缓存中</tspan>
+        </text>
+      </g>
+      <g id="Graphic_40">
+        <rect x="1118" y="953.5" width="352" height="63" fill="white"/>
+        <rect x="1118" y="953.5" width="352" height="63" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1123 963)" fill="black">
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="3.104" y="17">如build文件与旧文件不匹配，则认为整个cache</tspan>
+          <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="7.504" y="39">有问题，会send(‘reload’)，让浏览器重新加载</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

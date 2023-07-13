@@ -4,8 +4,18 @@
 1. BOM核心对象是window，表示浏览器的一个实例
 1. 全局作用域声明的变量，函数都会变成window的属性和方法
 1. 全局变量与直接在window对象上定义属性是有差别的：
-	- 全局变量不能用delete删除，直接在window对象上定义的可以
+  - 全局变量不能用delete删除，直接在window对象上定义的可以
 1. 尝试访问未声明的变量会抛出错误，但通过查询window对象，如window.old，可以知道这个变量（old）是否存在
+
+### globalThis
+
+1. 提供一种标准化方式访问全局对象
+2. 为了解决
+   - 全局变量 window：在 Node.js 和 Web Workers 中并不能使用
+   - 全局变量 self：只在 Web Workers 和浏览器中生效。但不支持 Node.js
+   - 全局变量 global：只在 Node.js 中生效
+
+
 
 ### 窗口关系及框架
 1. 页面中有框架，则每个框架都拥有自己的window对象，并保存在frames集合中
@@ -189,6 +199,10 @@
       - 非ie可以使用navigator.plugins数组
 
       - 典型做法是针对每个插件创建检测函数，而不是通用检测
+
+10. navigator.clipboard：实现复制功能
+      -  只有https部署的可以使用，本地资源会认为是经过安全传递的
+      - 降级方案：document.execCommand('copy)
 
 
 ## screen

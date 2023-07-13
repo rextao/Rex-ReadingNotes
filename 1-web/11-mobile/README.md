@@ -26,30 +26,6 @@
 
 
 
-# Hybrid技术原理
-
-1. Hybrid App 就是混合式的 App，也就是在移动端原生应用的基础上，通过 JSBrdige 等方法，访问原生应用的 API 进行 JS 的交互，并通过 WebView 等技术实现 HTML 与 CSS 的渲染。
-
-1. WebView 可以理解为嵌套了一个浏览器内核（比如 webkit）的移动端组件。
-
-2. 最核心的点就是Native端与H5端之间的**双向通讯层**，其实这里也可以理解为我们需要一套跨语言通讯方案，来完成 Native(IOS/Android) 与 JS 的通讯。
-
-3. 这个方案就是我们所说的 JSBridge，而实现的关键便是作为容器的 WebView，一切的原理都是基于 WebView 的机制
-
-	![1560752875362](README.assets/1560752875362.png)
-
-
-
-
-## JSBridge
-
-### 起源
-
-1.  JavaScript 主要载体 Web 是当前世界上的 最易编写 、 最易维护 、最易部署 的 UI 构建方式
-2. 任何一个移动操作系统中都包含可运行 JavaScript 的容器，因此使用js作为bridge的语言，不像其他语言一样，需要额外的运行环境
-
-
-
 
 
 
@@ -66,7 +42,7 @@
    - `flexible` 方案：阿里早期的一个移动端适配解决方案
    - postcss-pxtorem 插件：通过插件实现px到rem的转换
 
-3. viewport 适配方案
+3. viewport 适配方案：建议使用
 
    - `viewport` 方案使用 vw/vh 作为样式单位。vw/vh 将 `viewport` 分成了一百等份，`1vw` 等于视口 `1%` 的宽度，当我们的设计稿宽度是 750px 时，`1vw` 就等于 `7.5px`。
 
@@ -78,5 +54,76 @@
 
    - 使用postcss-px-to-viewport：将px转为vw，可以通过配置标注不需要转换的属性
 
-   - 缺点：`px` 转换成 `vw` 不一定能完全整除，因此有一定的像素差。
+   - 缺点：`px` 转换成 `vw` 不一定能完全整除，因此有一定的像素差；宽度不可控，如pad横屏会很大
+
+
+
+
+
+
+
+
+
+跨端技术
+
+主流跨端方案
+
+1. web渲染：webview
+   - 本质上是依托原生应用的内嵌浏览器控件 `WebView` 去渲染 H5 页面
+   - 利用JSBridge能力，访问部分原生能力
+   - h5容器技术解决方案：提供丰富的内置 JSAPI，增强版的 WebView 控件以及插件机制等能力，对原始版本的web方案做了进一步功能高内聚和模块低耦合
+2. 原生渲染：React Native` 和 `Weex
+   - 基本思路是在 UI 层采用前端框架，然后通过 JavaScript 引擎解析 JS 代码，JS 代码通过 Bridge 层调用原生组件和能力
+   - 不同于一般 `react` 应用，它需要借助原生的能力来进行渲染，组件最终都会被渲染为原生组件
+3. 自渲染引擎渲染：flutter
+   - 利用了更底层的渲染能力，直接从底层渲染上实现 UI 的绘制，类似于浏览器，只是不需要遵循w3c标准
+4. 小程序另类跨端
+   - 一般也是采用webview作为渲染引擎，最大创新之处在于将渲染层和逻辑层进行了分离，提供一个干净纯粹的 JavaScript 运行时，多 WebView 的架构使得用户体验进一步逼近原生体验
+
+
+
+
+
+# webview
+
+1. 概述
+   - 可以理解为嵌套了一个浏览器内核（比如 webkit）的移动端组件。
+2. APP webview页面和手机浏览器打开的页面
+   - 不管是ios还是安卓，自带浏览器底层都是基于webkit的，然后各自系统中均带有webview控件，也是基于webkit引擎，因此两者打开的效果是一致的
+   - Android 的 Webview 在低版本和高版本采用了不同的 webkit 版本内核，4.4后直接使用了Chrome
+3. 如何与App native的交互？
+   - JSBridge
+   - schema
+4. 为什么webview会很慢？
+   - 需要花时间初始化webview后再加载html等
+5. webview如何性能优化？
+   - 全局WebView：在客户端刚启动时，就初始化一个全局的WebView待用，并隐藏
+   - 客户端代理数据请求：在客户端初始化WebView的同时，直接由native开始网络请求数据； 当页面初始化完成后，向native获取其代理请求的数据。
+   - DNS和链接慢：想办法复用客户端使用的域名和链接
+   - 离线包优化方案
+   - 对于 WebView 初始化所带来的性能开销，对webview内核进行定制
+
+
+
+
+
+
+## JSBridge
+
+### 概述
+
+1.  JSBridge：可以理解为我们需要一套跨语言通讯方案，来完成 Native(IOS/Android) 与 JS 的通讯。是Native端与H5端之间的**双向通讯层**
+2.  任何一个移动操作系统中都包含可运行 JavaScript 的容器，因此使用js作为bridge的语言，不像其他语言一样，需要额外的运行环境
+
+
+
+
+
+
+
+
+
+
+
+
 

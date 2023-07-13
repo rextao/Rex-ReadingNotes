@@ -106,3 +106,26 @@
    ```
 
 3. 对于已经编译好的第三方包，可以尝试在test时，重新编译第三方包
+
+
+
+[Scope hositing](https://webpack.js.org/plugins/module-concatenation-plugin/#root)
+
+1. 根据ES6的特性，将本要创建多个函数的闭包的方式，转换为在一个文件中创建
+   - 占据的内存会更小
+   - 天然支持Tree-shaking
+     - 未使用Scope hosting，需要分析模块之间的依赖关系，导出的变量哪些被使用了，哪些没被使用。还要保证这段代码没有副作用，才能把它删除掉；
+     - 使用了Scope hosting，甚至可以使用TerserWebpackPlugin就可以过滤掉未使用的代码
+2. production模式默认支持
+3. 大致的实现原理
+   - 底层通过ModuleConcatenationPlugin插件实现
+   - 在seal阶段（将module进行分组，形成chunk，构建chunkGroup）执行
+   - 大致的步骤：
+     - 遍历module，把不适合hosting的过滤掉
+     - 从每个入口模块开始，递归分析 import，把可以被 scope hositing 的模块都放到一个对象里（类型ConcatenatedModule，相当于创建一个新module替换之前的 module）
+     - 在代码生成阶段，针对ConcatenatedModule类型，使用不同的codeGen方法，即做一些同名变量的重命名，以及最终模块代码的拼接等；
+
+
+
+
+

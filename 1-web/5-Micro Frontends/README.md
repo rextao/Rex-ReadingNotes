@@ -252,13 +252,6 @@
 
 
 
-常见问题
-
-1. 发布流程
-2. 打包优化问题
-
-
-
 # 实践
 
 ## 美团微前端（08）
@@ -282,6 +275,7 @@
 
 1. 头条garfishjs：https://www.garfishjs.org/guide/sandbox
 2. 飞冰icestark：https://github.com/ice-lab/icestark
+3. micro-app：https://github.com/micro-zoe/micro-app
 
 ## iframe解决方案
 
@@ -292,3 +286,12 @@
    - 先加载首屏应用，然后用display：none方式加载其他子应用
    - 改写router.push方式，push后同步内容到主应用，然后改变路由
    - 数据共享通过syncRouter，共享到主应用
+
+
+
+# 方案对比
+
+![image.png](README.assets/06cc7bdf852145bbbce4a5fe09d85618~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+
+

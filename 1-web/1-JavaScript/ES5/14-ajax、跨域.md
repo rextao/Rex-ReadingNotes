@@ -322,55 +322,59 @@
 
 4. CORS 还允许服务器返回一个通配值 (Access-Control-Allow-Origin: *)，表示它允许来自任何源的请求。不过，在启用这个选项前，请大家务必三思！  
 
-### 预备请求（preflight  ）
+### 预备请求（preflight）
 
 1. CORS会采取一些安全措施
 
-	- 默认情况下，请求会省略 cookie 和 HTTP 认证等用户凭据
-	- 客户端被限制只能发送“简单的跨源请求”，包括只能使用特定的方法（ GET、 POST 和 HEAD）
-	- 客户端只能访问可以通过 XHR 发送并读取的 HTTP 首部，即XHR不可以setRequestHeader，CORS默认也不可以
-	- 如想不采取默认措施，需要先获得第三方服务器的许可
+    - 默认情况下，请求会省略 cookie 和 HTTP 认证等用户凭据
+    - 客户端被限制只能发送“简单的跨源请求”，包括只能使用特定的方法（ GET、 POST 和 HEAD）
+    - 客户端只能访问可以通过 XHR 发送并读取的 HTTP 首部，即XHR不可以setRequestHeader，CORS默认也不可以
+    - 如想不采取默认措施，需要先获得第三方服务器的许可
 
-2.  用 cookie 和 HTTP 认证
+2. 用 cookie 和 HTTP 认证
 
-	- 客户端必须在发送请求时通过 XHR 对象发送额外的属（withCredentials）
+    - 客户端必须在发送请求时通过 XHR 对象发送额外的属（withCredentials）
 
-	- ```javascript
-		const invocation = new XMLHttpRequest();
-		invocation.open('GET', 'http://bar.other/', true);
-		invocation.withCredentials = true;
-		invocation.send(); 
-		```
+    - ```javascript
+        const invocation = new XMLHttpRequest();
+        invocation.open('GET', 'http://bar.other/', true);
+        invocation.withCredentials = true;
+        invocation.send(); 
+        ```
 
-	- 服务器必须以适当的首部（ Access-Control-AllowCredentials：true）响应，表示它允许应用发送用户的隐私数据。  
+    - 服务器必须以适当的首部（ Access-Control-AllowCredentials：true）响应，表示它允许应用发送用户的隐私数据。  
 
 3. 允许使用非简单跨域请求，需要读自定义的HTTP首部
 
-	```http
-	=> 预备请求
-	OPTIONS /resource.js HTTP/1.1 ➊
-	Host: thirdparty.com
-	Origin: http://example.com
-	Access-Control-Request-Method: POST
-	Access-Control-Request-Headers: My-Custom-Header
-	...
-	<= 预备响应
-	HTTP/1.1 200 OK ➋
-	Access-Control-Allow-Origin: http://example.com
-	Access-Control-Allow-Methods: GET, POST, PUT
-	Access-Control-Allow-Headers: My-Custom-Header
-	...
-	（正式的 HTTP 请求） ➌
-	```
+    ```http
+    => 预备请求
+    OPTIONS /resource.js HTTP/1.1 ➊
+    Host: thirdparty.com
+    Origin: http://example.com
+    Access-Control-Request-Method: POST
+    Access-Control-Request-Headers: My-Custom-Header
+    ...
+    <= 预备响应
+    HTTP/1.1 200 OK ➋
+    Access-Control-Allow-Origin: http://example.com
+    Access-Control-Allow-Methods: GET, POST, PUT
+    Access-Control-Allow-Headers: My-Custom-Header
+    ...
+    （正式的 HTTP 请求） ➌
+    ```
 
 4. 请求头与响应头介绍
 
-	- Access-Control-Request-Method：预备请求中使用，告诉服务器实际请求使用HTTP的哪个请求方法
-	- Access-Control-Request-Headers：预备请求中使用，HTTP哪个请求头会在实际请求中被用到
-	- Access-Control-Allow-Methods：指定允许访问资源的方法
-	- Access-Control-Allow-Headers：服务器允许的请求头
+    - Access-Control-Request-Method：预备请求中使用，告诉服务器实际请求使用HTTP的哪个请求方法
+    - Access-Control-Request-Headers：预备请求中使用，HTTP哪个请求头会在实际请求中被用到
+    - Access-Control-Allow-Methods：指定允许访问资源的方法
+    - Access-Control-Allow-Headers：服务器允许的请求头
 
-5. 注意：预备请求会增加一次网络往返，但只要完成预备请求，客户端就会将结果缓存起来，后续请求就不必重复验证了。
+5. 什么情况下浏览器会发送preflight请求
+
+    - 用到如PUT，DELETE请求，查看服务端是否支持
+    - 一些非常规的响应头，查看服务器是否支持
+6. 注意：预备请求会增加一次网络往返，但只要完成预备请求，客户端就会将结果缓存起来，后续请求就不必重复验证了。
 
 # 服务器发送事件(SSE)
 

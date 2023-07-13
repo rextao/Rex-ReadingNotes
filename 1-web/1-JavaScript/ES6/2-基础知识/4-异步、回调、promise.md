@@ -589,7 +589,12 @@ new Promise((resolve,reject)  => {
    };
    ```
 
-   
+
+### Promise.allSettled
+
+1. 主要为了解决`Promise.all`，如有一个promise为reject的话，则整个Promise.all 调用会立即终止，返回reject
+   - 对于请求多个数据，如果一个接口有问题，返回reject，会很难受
+2. 此方法，与`Promise.all`不同在于, 它不会进行短路, 即当Promise全部处理完成后,拿到每个Promise的状态, 而不管是否处理成功。
 
 ### Promise.race()
 
@@ -617,8 +622,6 @@ new Promise((resolve,reject)  => {
 	```
 
 	- foo运行时间超过3s，则定时器会触发函数，可以返回reject，则Promise返回拒绝状态
-
-
 
 
 
@@ -861,40 +864,230 @@ var p = new Promise( function(X,Y){
 
 
 
-## Promise高级应用
+## 高级应用
 
-1. 中断场景：我们正在发送多个请求用于请求数据，等待完成后将数据插入到不同的 dom 元素中，而如果在中途 dom 元素被销毁了，需要取消请求
+### 中断场景
+
+我们正在发送多个请求用于请求数据，等待完成后将数据插入到不同的 dom 元素中，而如果在中途 dom 元素被销毁了，需要取消请求
+
+```javascript
+function getPromiseWithCancel(originPromise) {
+  let cancel = (v) => {};
+  let isCancel = false;
+  const cancelPromise = new Promise(function (resolve, reject) {
+    cancel = e => {
+      isCancel = true;
+      reject(e);
+    };
+  });
+  const groupPromise = Promise.race([originPromise, cancelPromise])
+  .catch(e => {
+    if (isCancel) {
+      // 主动取消时，不触发外层的 catch
+      return new Promise(() => {});
+    } else {
+      return Promise.reject(e);
+    }
+  });
+  return Object.assign(groupPromise, { cancel });
+}
+
+// 使用如下
+const originPromise = axios.get(url);
+const promiseWithCancel = getPromiseWithCancel(originPromise);
+promiseWithCancel.then((data) => {
+  console.log('渲染数据', data);
+});
+promiseWithCancel.cancel(); // 取消 Promise，将不会再进入 then() 渲染数据
+```
+
+
+
+### 竞态问题
+
+1. 问题描述：
 
    ```javascript
-   function getPromiseWithCancel(originPromise) {
-     let cancel = (v) => {};
-     let isCancel = false;
-     const cancelPromise = new Promise(function (resolve, reject) {
-       cancel = e => {
-         isCancel = true;
-         reject(e);
-       };
-     });
-     const groupPromise = Promise.race([originPromise, cancelPromise])
-     .catch(e => {
-       if (isCancel) {
-         // 主动取消时，不触发外层的 catch
-         return new Promise(() => {});
-       } else {
-         return Promise.reject(e);
-       }
-     });
-     return Object.assign(groupPromise, { cancel });
-   }
+   let finalData;
    
-   // 使用如下
-   const originPromise = axios.get(url);
-   const promiseWithCancel = getPromiseWithCancel(originPromise);
-   promiseWithCancel.then((data) => {
-     console.log('渲染数据', data);
+   watch(obj, async () => {
+       // 发送并等待网络请求
+       const res = await fetch('/path/to/request');
+       // 将请求结果赋值给 data
+       finalData = res;
    });
-   promiseWithCancel.cancel(); // 取消 Promise，将不会再进入 then() 渲染数据
+   obj.a = 1;
+   obj.b = 2;
    ```
 
-   
+   - 如果a对应的请求晚回来，会导致最终finalData的结果不正确
+   - 本质是：只希望最后一个
+
+2. 解决办法
+
+   - 强制组件重新挂载：将数据请求封装在子组件内，根据逻辑判断用v-if判断是否子组件显示
+
+   - 丢弃之前的结果：确保then的结果与当前active页面保持一致
+
+     ```javascript
+     const Page = ({ id }) => {
+       // 创建 ref
+       const ref = useRef(id);
+       useEffect(() => {
+         // 用最新的 url 更新 ref 值
+         ref.current = url;
+     
+         fetch(`/some-data-url/${id}`)
+           .then((result) => {
+             // 将最新的 url 与结果进行比较，仅当结果实际上属于该 url 时才更新状态
+             if (result.url === ref.current) {
+               result.json().then((r) => {
+                 setData(r);
+               });
+             }
+           });
+       }, [url]);
+     }
+     ```
+
+   - 取消之前的请求：AbortController
+
+### 并发缓存
+
+```javascript
+import axios, { AxiosRequestConfig } from 'axios'
+import qs from 'qs'
+
+// 存储缓存数据
+const cacheMap = new Map()
+
+// 存储缓存当前状态
+const statusMap = new Map<string, 'pending' | 'complete'>()
+
+// 定义一下回调的格式
+interface RequestCallback {
+  onSuccess: (data: any) => void
+  onError: (error: any) => void
+}
+
+// 存放等待状态的请求回调
+const callbackMap = new Map<string, RequestCallback[]>()
+
+interface MyRequestConfig extends AxiosRequestConfig {
+  needCache?: boolean
+}
+
+// 这里用params是因为params是 GET 方式穿的参数，我们的缓存一般都是 GET 接口用的
+function generateCacheKey(config: MyRequestConfig) {
+  return config.url + '?' + qs.stringify(config.params)
+}
+
+export function sendRequest(request: MyRequestConfig) {
+  const cacheKey = generateCacheKey(request)
+
+  // 判断是否需要缓存
+  if (request.needCache) {
+    if (statusMap.has(cacheKey)) {
+      const currentStatus = statusMap.get(cacheKey)
+
+      // 判断当前的接口缓存状态，如果是 complete ，则代表缓存完成
+      if (currentStatus === 'complete') {
+        return Promise.resolve(cacheMap.get(cacheKey))
+      }
+
+      // 如果是 pending ，则代表正在请求中，这里放入回调函数
+      if (currentStatus === 'pending') {
+        return new Promise((resolve, reject) => {
+          if (callbackMap.has(cacheKey)) {
+            callbackMap.get(cacheKey)!.push({
+              onSuccess: resolve,
+              onError: reject
+            })
+          } else {
+            callbackMap.set(cacheKey, [
+              {
+                onSuccess: resolve,
+                onError: reject
+              }
+            ])
+          }
+        })
+      }
+    }
+
+    statusMap.set(cacheKey, 'pending')
+  }
+
+  return axios(request).then(
+    (res) => {
+      // 这里简单判断一下，200就算成功了，不管里面的data的code啥的了
+      if (res.status === 200) {
+        statusMap.set(cacheKey, 'complete')
+        cacheMap.set(cacheKey, res)
+      } else {
+        // 不成功的情况下删掉 statusMap 中的状态，能让下次请求重新请求
+        statusMap.delete(cacheKey)
+      }
+      // 这里触发resolve的回调函数
+      if (callbackMap.has(cacheKey)) {
+        callbackMap.get(cacheKey)!.forEach((callback) => {
+          callback.onSuccess(res)
+        })
+        // 调用完成之后清掉，用不到了
+        callbackMap.delete(cacheKey)
+      }
+      return res
+    },
+    (error) => {
+      // 不成功的情况下删掉 statusMap 中的状态，能让下次请求重新请求
+      statusMap.delete(cacheKey)
+      // 这里触发reject的回调函数
+      if (callbackMap.has(cacheKey)) {
+        callbackMap.get(cacheKey)!.forEach((callback) => {
+          callback.onError(error)
+        })
+        // 调用完成之后也清掉
+        callbackMap.delete(cacheKey)
+      }
+      return Promise.reject(error)
+    }
+  )
+}
+
+const getArticleList = (params: any) =>
+  sendRequest({
+    needCache: true,
+    baseURL: 'http://localhost:8088',
+    url: '/article/blogList',
+    method: 'get',
+    params
+  })
+
+export function testApi() {
+  getArticleList({
+    page: 1,
+    pageSize: 10
+  }).then(
+    (res) => {
+      console.log(res)
+    },
+    (error) => {
+      console.error('error1:', error)
+    }
+  )
+  getArticleList({
+    page: 1,
+    pageSize: 10
+  }).then(
+    (res) => {
+      console.log(res)
+    },
+    (error) => {
+      console.error('error2:', error)
+    }
+  )
+}
+```
+
+
 

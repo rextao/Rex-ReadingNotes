@@ -494,6 +494,51 @@
 
    ```css
    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+   grid-auto-flow: column;
    ```
 
    - 最小宽度200px，最大宽度是1比1，每行放下最多个
+
+3. 多行竖向排列横向滚动
+
+   ```css
+     .list_content {
+         padding-top: 20lrpx;
+         display: grid;
+         grid-template-columns: 100lrpx;
+         grid-template-rows: 100lrpx 1fr;
+         grid-auto-flow: column;
+         gap: 8lrpx;
+         overflow-x: scroll;
+         .item{
+             display: flex;
+             flex-shrink: 0;
+             width: 100lrpx;
+         }
+     }
+   ```
+
+4. 两列布局，如果奇数个，则最后一个占满一行
+
+   ```css
+   .list_content {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 12lrpx;
+         .item{
+             display: flex;
+             flex-shrink: 0;
+             border-radius: 20lrpx;
+             position: relative;
+             box-sizing: border-box;
+             height: 100px;
+             align-items: center;
+             padding-left: 24lrpx;
+             &:nth-child(odd):last-child {
+                 grid-column: 1 / 3;
+             }
+         }
+     }
+   ```
+   
+   

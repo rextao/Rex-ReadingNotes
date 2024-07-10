@@ -544,3 +544,26 @@ li {
 1. flex子元素撑开父元素，flex-shrink无效
    - 浏览器默认为flex容器的子元素设置了 "min-width: auto;min-height: auto", 即flex子元素的最小宽度高度不能小于其内容的宽高，可以设置min-width: 0
 
+
+
+# 举例
+
+1. item无限占满一行
+
+   ```css
+   .preview_list__item {
+         flex: 1;
+         /*避免撑开父级*/
+         width: 0;
+         display: flex;
+         align-items: center;
+         flex-flow: row nowrap;
+         overflow-x: auto;
+         &::-webkit-scrollbar {
+             width: 0;
+             display: none;
+         }
+         .item {
+         }
+     }
+

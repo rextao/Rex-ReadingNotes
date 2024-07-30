@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue';
-import { IconGeneralTips } from '@kibt/pro-icons';
+import { IconGeneralTips } from '@element/pro-icons';
 import { getK18nValue } from '@components/proUtils';
 
 enum typeEnum {
